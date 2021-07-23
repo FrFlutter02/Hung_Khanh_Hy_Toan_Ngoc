@@ -8,7 +8,7 @@ class LoginScreenText {
   static const String emailLabel = "Email address";
   static const String passwordLabel = "Password";
   static const String forgotPassword = "Forgot password";
-  static const String loginButton = "Forgot password";
+  static const String loginButton = "Login";
   static const String newToScratch = "New to Scratch?";
   static const String createAccountHere = "Create account here";
 }
