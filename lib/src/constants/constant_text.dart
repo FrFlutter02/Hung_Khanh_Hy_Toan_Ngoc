@@ -15,7 +15,7 @@ class LoginScreenText {
 
 class SignupScreenText {
   static const String startFromSratch = "Start from Scratch";
-  static const String welcome = "Create account to continue";
+  static const String createAccountToContinue = "Create account to continue";
   static const String fullNameLabel = "Full Name";
   static const String emailNameLabel = "Email";
   static const String passwordLabel = "Password";

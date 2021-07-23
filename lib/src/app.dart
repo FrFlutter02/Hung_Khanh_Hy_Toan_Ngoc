@@ -14,9 +14,9 @@ class App extends StatelessWidget {
         //     child:
         MaterialApp(
       routes: {
-        "/": (context) => OnboardingScreen(),
+        "/": (context) => SignupScreen(),
         "/loginScreen": (context) => LoginScreen(),
-        "/signupScreen": (context) => SignupScreen(),
+        "/signupScreen": (context) => OnboardingScreen(),
       },
     );
     // );
