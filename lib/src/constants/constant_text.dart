@@ -1,5 +1,5 @@
 class AppText {
-  static const String buttonGreen = "scratch";
+  static const String iconText = "scratch";
 }
 
 class LoginScreenText {
