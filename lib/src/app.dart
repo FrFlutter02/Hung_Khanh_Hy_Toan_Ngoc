@@ -13,6 +13,7 @@ class App extends StatelessWidget {
         //     providers: [],
         //     child:
         MaterialApp(
+      theme: ThemeData(fontFamily: "Nunito-Regular"),
       routes: {
         "/": (context) => OnboardingScreen(),
         "/loginScreen": (context) => LoginScreen(),
