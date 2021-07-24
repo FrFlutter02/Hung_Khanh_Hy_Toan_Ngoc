@@ -37,7 +37,7 @@ class HeaderBackground extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline5!
-                    .copyWith(fontFamily: "Nunito"),
+                    .copyWith(fontFamily: "Nunito-SemiBold"),
               ),
             ],
           ),
