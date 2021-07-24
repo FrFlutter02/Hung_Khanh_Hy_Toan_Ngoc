@@ -68,23 +68,25 @@ class _TextFieldPasswordCustomState extends State<TextFieldPasswordCustom> {
               child: Text(
                 widget.label,
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    color: AppColor.secondaryGrey, fontFamily: "Nunito"),
+                      color: AppColor.secondaryGrey,
+                      // fontFamily: "Nunito",
+                    ),
               ),
             ),
             Text(
               LoginScreenText.forgotPassword,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1!
-                  .copyWith(color: AppColor.primaryGrey, fontFamily: "Nunito"),
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    color: AppColor.primaryGrey,
+                    // fontFamily: "Nunito",
+                  ),
             )
           ],
         ),
         TextFormField(
           controller: widget.controller,
           validator: (val) {
-            return val!.isEmpty || val.length < 6
-                ? "Mật khẩu cần có ít nhất 6 kí tự"
+            return val!.isEmpty || val.length < 8
+                ? "Mật khẩu cần có ít nhất 8 kí tự"
                 : null;
           },
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:mobile_app/src/constants/constant_colors.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/screens/signup_screen.dart';
 import 'package:mobile_app/src/widgets/header_background.dart';
 import 'package:mobile_app/src/widgets/text_form_field_custom.dart';
 
@@ -30,13 +29,13 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    Align(
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         LoginScreenText.pleaseLogin,
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(fontFamily: "Nunito"),
+                        style: Theme.of(context).textTheme.subtitle1!
+                        // .copyWith(fontFamily: "Nunito-ExtraBoldItalic"),
+                        ,
                         textAlign: TextAlign.left,
                       ),
                     ),
@@ -77,22 +76,18 @@ class LoginScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignupScreen()));
+                            Navigator.of(context).pushNamed("/signupScreen");
                           }
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(15),
                           child: Text(
                             LoginScreenText.loginButton,
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(
-                                    color: AppColor.white,
-                                    fontFamily: "Nunito"),
+                            style:
+                                Theme.of(context).textTheme.subtitle1!.copyWith(
+                                      color: AppColor.white,
+                                      // fontFamily: "Nunito",
+                                    ),
                           ),
                         ),
                       ),
@@ -107,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                               .subtitle2!
                               .copyWith(
                                   color: AppColor.primaryGrey,
-                                  fontFamily: "Nunito"),
+                                  fontFamily: "Nunito-Regular"),
                         ),
                         Text(
                           LoginScreenText.createAccountHere,
