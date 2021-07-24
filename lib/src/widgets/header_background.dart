@@ -14,7 +14,7 @@ class HeaderBackground extends StatelessWidget {
           height: height * 0.4,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(100),
+              bottomRight: Radius.circular(99),
             ),
             image: DecorationImage(
               image: AssetImage('assets/images/login-signup-background.jpeg'),
