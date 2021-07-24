@@ -14,8 +14,16 @@ class OnboardingScreen extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Image.asset(
-                      "assets/images/inboarding_background.png",
+                    FittedBox(
+                      fit: BoxFit.none,
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        child: Image.asset(
+                          "assets/images/inboarding_background.png",
+                          height: 475,
+                          width: 639.95,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -26,6 +34,9 @@ class OnboardingScreen extends StatelessWidget {
                       Color.fromRGBO(225, 225, 225, 0),
                       Colors.white,
                       Colors.white,
+                      Colors.white,
+                      Color.fromRGBO(225, 225, 225, 0),
+                      Color.fromRGBO(225, 225, 225, 0),
                       Color.fromRGBO(225, 225, 225, 0),
                     ],
                     begin: Alignment.topCenter,
