@@ -7,8 +7,8 @@ class LoginScreenText {
   static const String pleaseLogin = "Please login to continue.";
   static const String emailLabel = "Email address";
   static const String passwordLabel = "Password";
-  static const String forgotPassword = "Forgot password";
-  static const String loginButton = "Forgot password";
+  static const String forgotPassword = "Forgot password?";
+  static const String loginButton = "Login";
   static const String newToScratch = "New to Scratch?";
   static const String createAccountHere = "Create account here";
 }
@@ -22,4 +22,13 @@ class SignupScreenText {
   static const String createAccount = "Create Account";
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String loginHere = "Login Here";
+}
+
+class OnboardingTabletText {
+  static const String firstTitle =
+      "Join over 50 millions people sharing recipes everday";
+  static const String secondTitle =
+      "Never run out ideas again. Try new food, ingredients, cooking style, and more";
+  static const String joinButton = "Join Scratch";
+  static const String learnMoreButton = "Learn More";
 }
