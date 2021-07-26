@@ -14,38 +14,38 @@ abstract class ScratchFormState extends Equatable {
   List<Object> get props => [email, password, status];
 }
 
-class SignupIntial extends ScratchFormState {
-  const SignupIntial();
+class ScratchFormIntial extends ScratchFormState {
+  const ScratchFormIntial();
 }
 
-class SignupEmailChangeSuccess extends ScratchFormState {
-  const SignupEmailChangeSuccess({
+class ScratchFormEmailChangeSuccess extends ScratchFormState {
+  const ScratchFormEmailChangeSuccess({
     required Email email,
     required FormzStatus status,
   }) : super(email: email, status: status);
 }
 
-class SignupPasswordChangeSuccess extends ScratchFormState {
-  const SignupPasswordChangeSuccess({
+class ScratchFormPasswordChangeSuccess extends ScratchFormState {
+  const ScratchFormPasswordChangeSuccess({
     required Password password,
     required FormzStatus status,
   }) : super(password: password, status: status);
 }
 
-class SignupFormStatusChangeSuccess extends ScratchFormState {
-  const SignupFormStatusChangeSuccess({
+class ScratchFormFormStatusChangeSuccess extends ScratchFormState {
+  const ScratchFormFormStatusChangeSuccess({
     required FormzStatus status,
   }) : super(status: status);
 }
 
-class SignupLoadSuccess extends ScratchFormState {
-  const SignupLoadSuccess({
+class ScratchFormLoadSuccess extends ScratchFormState {
+  const ScratchFormLoadSuccess({
     required Email email,
     required Password password,
     required FormzStatus status,
   }) : super(email: email, password: password, status: status);
 }
 
-class SignupLoadFailure extends ScratchFormState {
-  const SignupLoadFailure();
+class ScratchFormLoadFailure extends ScratchFormState {
+  const ScratchFormLoadFailure();
 }

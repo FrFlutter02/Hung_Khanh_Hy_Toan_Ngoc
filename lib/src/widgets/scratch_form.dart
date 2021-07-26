@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:mobile_app/src/blocs/scratch_form_bloc/scratch_form_bloc.dart';
 
 import '../blocs/scratch_form_bloc/scratch_form_bloc.dart';
@@ -87,24 +88,24 @@ class ScratchForm extends StatelessWidget {
                 TextFormField(
                   onChanged: (value) => context
                       .read<ScratchFormBloc>()
-                      .add(SignupEmailChanged(email: value)),
+                      .add(ScratchFormEmailChanged(email: value)),
                   autocorrect: false,
                   enableSuggestions: false,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.only(bottom: getHeight(6, screenHeight)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: colors.LoginScreenColor.textFieldBottomBorder,
-                          width: 1,
-                        ),
+                    contentPadding:
+                        EdgeInsets.only(bottom: getHeight(6, screenHeight)),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: colors.LoginScreenColor.textFieldBottomBorder,
+                        width: 1,
                       ),
-                      errorText: state.email.invalid
-                          ? text.AppText.emailErrorText
-                          : null,
-                      isDense: true,
-                      errorMaxLines: 2),
+                    ),
+                    errorText: state.email.invalid
+                        ? text.AppText.emailErrorText
+                        : null,
+                    isDense: true,
+                  ),
                   style: TextStyle(color: colors.AppColor.primaryBlack),
                 ),
                 SizedBox(height: getHeight(30, screenHeight)),
@@ -121,9 +122,10 @@ class ScratchForm extends StatelessWidget {
                 TextFormField(
                   onChanged: (value) => context
                       .read<ScratchFormBloc>()
-                      .add(SignupPasswordChanged(password: value)),
+                      .add(ScratchFormPasswordChanged(password: value)),
                   autocorrect: false,
                   enableSuggestions: false,
+                  obscureText: true,
                   decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.only(bottom: getHeight(6, screenHeight)),
@@ -146,7 +148,11 @@ class ScratchForm extends StatelessWidget {
                   width: screenWidth,
                   height: getHeight(50, screenHeight),
                   handlePressed: () {
-                    print("ha!");
+                    if (state.status.isValidated) {
+                      context
+                          .read<ScratchFormBloc>()
+                          .add(ScratchFormSubmitted());
+                    }
                   },
                 ),
                 SizedBox(height: getHeight(30, screenHeight)),

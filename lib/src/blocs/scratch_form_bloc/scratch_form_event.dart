@@ -7,27 +7,27 @@ abstract class ScratchFormEvent extends Equatable {
   const ScratchFormEvent({this.email = '', this.password = ''});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [email, password];
 }
 
-class SignupEmailChanged extends ScratchFormEvent {
+class ScratchFormEmailChanged extends ScratchFormEvent {
   final String email;
 
-  const SignupEmailChanged({required this.email});
+  const ScratchFormEmailChanged({required this.email});
 
   @override
   List<Object> get props => [email];
 }
 
-class SignupPasswordChanged extends ScratchFormEvent {
+class ScratchFormPasswordChanged extends ScratchFormEvent {
   final String password;
 
-  const SignupPasswordChanged({required this.password});
+  const ScratchFormPasswordChanged({required this.password});
 
   @override
   List<Object> get props => [password];
 }
 
-class SignupRequested extends ScratchFormEvent {
-  const SignupRequested();
+class ScratchFormSubmitted extends ScratchFormEvent {
+  const ScratchFormSubmitted();
 }
