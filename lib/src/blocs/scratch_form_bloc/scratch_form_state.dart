@@ -1,14 +1,11 @@
-import 'package:equatable/equatable.dart';
-import 'package:formz/formz.dart';
+part of 'scratch_form_bloc.dart';
 
-import '../../models/user.dart';
-
-abstract class SignupState extends Equatable {
+abstract class ScratchFormState extends Equatable {
   final Email email;
   final Password password;
   final FormzStatus status;
 
-  const SignupState(
+  const ScratchFormState(
       {this.email = const Email.pure(),
       this.password = const Password.pure(),
       this.status = FormzStatus.pure});
@@ -17,38 +14,38 @@ abstract class SignupState extends Equatable {
   List<Object> get props => [email, password, status];
 }
 
-class SignupIntial extends SignupState {
+class SignupIntial extends ScratchFormState {
   const SignupIntial();
 }
 
-class SignupEmailChangeSuccess extends SignupState {
+class SignupEmailChangeSuccess extends ScratchFormState {
   const SignupEmailChangeSuccess({
     required Email email,
     required FormzStatus status,
   }) : super(email: email, status: status);
 }
 
-class SignupPasswordChangeSuccess extends SignupState {
+class SignupPasswordChangeSuccess extends ScratchFormState {
   const SignupPasswordChangeSuccess({
     required Password password,
     required FormzStatus status,
   }) : super(password: password, status: status);
 }
 
-class SignupFormStatusChangeSuccess extends SignupState {
+class SignupFormStatusChangeSuccess extends ScratchFormState {
   const SignupFormStatusChangeSuccess({
     required FormzStatus status,
   }) : super(status: status);
 }
 
-class SignupLoadSuccess extends SignupState {
+class SignupLoadSuccess extends ScratchFormState {
   const SignupLoadSuccess({
     required Email email,
     required Password password,
     required FormzStatus status,
-  });
+  }) : super(email: email, password: password, status: status);
 }
 
-class SignupLoadFailure extends SignupState {
+class SignupLoadFailure extends ScratchFormState {
   const SignupLoadFailure();
 }

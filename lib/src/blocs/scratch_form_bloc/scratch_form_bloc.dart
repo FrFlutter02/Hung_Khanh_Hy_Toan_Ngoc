@@ -1,15 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
 import '../../models/user.dart';
-import 'signup_event.dart';
-import 'signup_state.dart';
 
-class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc() : super(SignupIntial());
+part 'scratch_form_event.dart';
+part 'scratch_form_state.dart';
+
+class ScratchFormBloc extends Bloc<ScratchFormEvent, ScratchFormState> {
+  ScratchFormBloc() : super(SignupIntial());
 
   @override
-  Stream<SignupState> mapEventToState(SignupEvent event) async* {
+  Stream<ScratchFormState> mapEventToState(ScratchFormEvent event) async* {
     switch (event.runtimeType) {
       case SignupEmailChanged:
         final email = Email.dirty(event.email);
@@ -38,7 +40,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             status: FormzStatus.submissionInProgress,
           );
           await Future.delayed(Duration(seconds: 2));
-          SignupFormStatusChangeSuccess(
+          yield SignupFormStatusChangeSuccess(
             status: FormzStatus.submissionSuccess,
           );
         }

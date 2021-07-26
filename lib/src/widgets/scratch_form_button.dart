@@ -4,12 +4,14 @@ import '../constants/constant_colors.dart' as colors;
 import '../constants/constant_text.dart' as text;
 
 class ScratchFormButton extends StatelessWidget {
+  final bool enabled;
   final double width;
   final double height;
   final void Function() handlePressed;
 
   const ScratchFormButton(
-      {required this.width,
+      {required this.enabled,
+      required this.width,
       required this.height,
       required this.handlePressed,
       Key? key})
@@ -21,7 +23,7 @@ class ScratchFormButton extends StatelessWidget {
       width: width,
       height: height,
       child: ElevatedButton(
-        onPressed: handlePressed,
+        onPressed: enabled ? handlePressed : null,
         child: Text(
           text.SignupScreenText.createAccount,
           style: TextStyle(

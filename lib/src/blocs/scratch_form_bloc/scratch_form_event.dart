@@ -1,16 +1,16 @@
-import 'package:equatable/equatable.dart';
+part of 'scratch_form_bloc.dart';
 
-abstract class SignupEvent extends Equatable {
+abstract class ScratchFormEvent extends Equatable {
   final String email;
   final String password;
 
-  const SignupEvent({this.email = '', this.password = ''});
+  const ScratchFormEvent({this.email = '', this.password = ''});
 
   @override
   List<Object> get props => [];
 }
 
-class SignupEmailChanged extends SignupEvent {
+class SignupEmailChanged extends ScratchFormEvent {
   final String email;
 
   const SignupEmailChanged({required this.email});
@@ -19,7 +19,7 @@ class SignupEmailChanged extends SignupEvent {
   List<Object> get props => [email];
 }
 
-class SignupPasswordChanged extends SignupEvent {
+class SignupPasswordChanged extends ScratchFormEvent {
   final String password;
 
   const SignupPasswordChanged({required this.password});
@@ -28,6 +28,6 @@ class SignupPasswordChanged extends SignupEvent {
   List<Object> get props => [password];
 }
 
-class SignupRequested extends SignupEvent {
+class SignupRequested extends ScratchFormEvent {
   const SignupRequested();
 }

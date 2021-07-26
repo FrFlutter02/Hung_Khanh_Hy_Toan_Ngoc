@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
 
-import '../src/screens/login_screen.dart';
-import '../src/screens/onboarding_screen.dart';
-import '../src/screens/signup_screen.dart';
+import 'blocs/scratch_form_bloc/scratch_form_bloc.dart';
+import 'screens/login_screen.dart';
+import 'screens/onboarding_screen.dart';
+import 'screens/signup_screen.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => SignupBloc()),
+          BlocProvider(create: (context) => ScratchFormBloc()),
         ],
         child: MaterialApp(
           routes: {
