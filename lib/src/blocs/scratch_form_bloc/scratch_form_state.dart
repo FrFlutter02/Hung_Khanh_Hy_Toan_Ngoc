@@ -1,51 +1,49 @@
 part of 'scratch_form_bloc.dart';
 
-abstract class ScratchFormState extends Equatable {
-  final Email email;
-  final Password password;
-  final FormzStatus status;
+class InputField {
+  final String value;
+  final bool isValid;
 
-  const ScratchFormState(
-      {this.email = const Email.pure(),
-      this.password = const Password.pure(),
-      this.status = FormzStatus.pure});
+  const InputField({required this.value, required this.isValid});
+}
+
+abstract class ScratchFormState extends Equatable {
+  final InputField email;
+  final InputField password;
+
+  const ScratchFormState({
+    this.email = const InputField(value: '', isValid: false),
+    this.password = const InputField(value: '', isValid: false),
+  });
+
+  bool get isValidForm => email.isValid && password.isValid;
 
   @override
-  List<Object> get props => [email, password, status];
+  List<Object> get props => [email, password, isValidForm];
 }
 
 class ScratchFormIntial extends ScratchFormState {
   const ScratchFormIntial();
 }
 
-class ScratchFormEmailChangeSuccess extends ScratchFormState {
-  const ScratchFormEmailChangeSuccess({
-    required Email email,
-    required FormzStatus status,
-  }) : super(email: email, status: status);
+class ScratchFormTextFieldChangeSuccess extends ScratchFormState {
+  const ScratchFormTextFieldChangeSuccess({
+    required InputField email,
+    required InputField password,
+  }) : super(email: email, password: password);
 }
 
-class ScratchFormPasswordChangeSuccess extends ScratchFormState {
-  const ScratchFormPasswordChangeSuccess({
-    required Password password,
-    required FormzStatus status,
-  }) : super(password: password, status: status);
+class ScratchFormInProgress extends ScratchFormState {
+  const ScratchFormInProgress();
 }
 
-class ScratchFormFormStatusChangeSuccess extends ScratchFormState {
-  const ScratchFormFormStatusChangeSuccess({
-    required FormzStatus status,
-  }) : super(status: status);
+class ScratchFormSubmitSuccess extends ScratchFormState {
+  const ScratchFormSubmitSuccess({
+    required InputField email,
+    required InputField password,
+  }) : super(email: email, password: password);
 }
 
-class ScratchFormLoadSuccess extends ScratchFormState {
-  const ScratchFormLoadSuccess({
-    required Email email,
-    required Password password,
-    required FormzStatus status,
-  }) : super(email: email, password: password, status: status);
-}
-
-class ScratchFormLoadFailure extends ScratchFormState {
-  const ScratchFormLoadFailure();
+class ScratchFormSubmitFailure extends ScratchFormState {
+  const ScratchFormSubmitFailure();
 }

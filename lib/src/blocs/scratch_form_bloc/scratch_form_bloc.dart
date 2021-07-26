@@ -1,51 +1,51 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:formz/formz.dart';
-
-import '../../models/user.dart';
+import 'package:mobile_app/src/validator.dart';
 
 part 'scratch_form_event.dart';
 part 'scratch_form_state.dart';
 
 class ScratchFormBloc extends Bloc<ScratchFormEvent, ScratchFormState> {
+  final validator = new Validator();
+
   ScratchFormBloc() : super(ScratchFormIntial());
 
   @override
   Stream<ScratchFormState> mapEventToState(ScratchFormEvent event) async* {
     switch (event.runtimeType) {
       case ScratchFormEmailChanged:
-        final email = Email.dirty(event.email);
-        yield ScratchFormEmailChangeSuccess(
-          email: email,
-          status: Formz.validate([email, state.password]),
+        yield ScratchFormTextFieldChangeSuccess(
+          email: InputField(
+              value: event.email, isValid: validator.isValidEmail(event.email)),
+          password: state.password,
         );
         break;
       case ScratchFormPasswordChanged:
-        final password = Password.dirty(event.password);
-        yield ScratchFormPasswordChangeSuccess(
-          password: password,
-          status: Formz.validate([state.email, password]),
-        );
+        yield ScratchFormTextFieldChangeSuccess(
+            email: state.email,
+            password: InputField(
+                value: event.password,
+                isValid: validator.isValidPassword(event.password)));
         break;
       case ScratchFormSubmitted:
-        final email = Email.dirty(state.email.value);
-        final password = Password.dirty(state.password.value);
-        yield ScratchFormLoadSuccess(
-          email: email,
-          password: password,
-          status: Formz.validate([email, password]),
-        );
-        if (state.status.isValidated) {
-          yield ScratchFormFormStatusChangeSuccess(
-            status: FormzStatus.submissionInProgress,
+        yield ScratchFormInProgress();
+        Future.delayed(Duration(seconds: 2));
+        if (state.isValidForm) {
+          print('youre good, dont worry');
+          yield ScratchFormSubmitSuccess(
+            email: state.email,
+            password: state.password,
           );
-          await Future.delayed(Duration(seconds: 2));
-          yield ScratchFormFormStatusChangeSuccess(
-            status: FormzStatus.submissionSuccess,
-          );
-          print("success");
+          Future.delayed(Duration(seconds: 0));
+          yield ScratchFormIntial();
         }
         break;
     }
+  }
+
+  @override
+  void onChange(Change<ScratchFormState> change) {
+    print(change);
+    super.onChange(change);
   }
 }

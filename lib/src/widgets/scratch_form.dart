@@ -1,24 +1,38 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
-import 'package:mobile_app/src/blocs/scratch_form_bloc/scratch_form_bloc.dart';
 
 import '../blocs/scratch_form_bloc/scratch_form_bloc.dart';
 import '../constants/constant_colors.dart' as colors;
 import '../constants/constant_text.dart' as text;
 import 'scratch_form_button.dart';
 
-class ScratchForm extends StatelessWidget {
+class ScratchForm extends StatefulWidget {
   final bool isTabletScreen;
 
   const ScratchForm({required this.isTabletScreen, Key? key}) : super(key: key);
 
+  @override
+  _ScratchFormState createState() => _ScratchFormState();
+}
+
+class _ScratchFormState extends State<ScratchForm> {
+  bool hasSubmitted = false;
+  StreamSubscription? _scratchFormSubscription;
+
   double getHeight(double designedPixel, double screenHeight) {
-    return designedPixel / (isTabletScreen ? 1024 : 812) * screenHeight;
+    return designedPixel / (widget.isTabletScreen ? 1024 : 812) * screenHeight;
   }
 
   double getWidth(double designedPixel, double screenWidth) {
-    return designedPixel / (isTabletScreen ? 768 : 375) * screenWidth;
+    return designedPixel / (widget.isTabletScreen ? 768 : 375) * screenWidth;
+  }
+
+  @override
+  void dispose() {
+    _scratchFormSubscription?.cancel();
+    super.dispose();
   }
 
   @override
@@ -27,14 +41,14 @@ class ScratchForm extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Card(
-      elevation: isTabletScreen ? 10 : 0,
+      elevation: widget.isTabletScreen ? 10 : 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: isTabletScreen ? getWidth(50, screenWidth) : 0,
-          vertical: isTabletScreen ? getHeight(50, screenWidth) : 0,
+          horizontal: widget.isTabletScreen ? getWidth(50, screenWidth) : 0,
+          vertical: widget.isTabletScreen ? getHeight(50, screenWidth) : 0,
         ),
         child: BlocBuilder<ScratchFormBloc, ScratchFormState>(
           builder: (context, state) {
@@ -86,9 +100,12 @@ class ScratchForm extends StatelessWidget {
                   height: getHeight(15, screenHeight),
                 ),
                 TextFormField(
-                  onChanged: (value) => context
-                      .read<ScratchFormBloc>()
-                      .add(ScratchFormEmailChanged(email: value)),
+                  onChanged: (value) {
+                    hasSubmitted = false;
+                    context
+                        .read<ScratchFormBloc>()
+                        .add(ScratchFormEmailChanged(email: value));
+                  },
                   autocorrect: false,
                   enableSuggestions: false,
                   keyboardType: TextInputType.emailAddress,
@@ -101,7 +118,7 @@ class ScratchForm extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    errorText: state.email.invalid
+                    errorText: !state.email.isValid && hasSubmitted
                         ? text.AppText.emailErrorText
                         : null,
                     isDense: true,
@@ -120,9 +137,12 @@ class ScratchForm extends StatelessWidget {
                   height: getHeight(15, screenHeight),
                 ),
                 TextFormField(
-                  onChanged: (value) => context
-                      .read<ScratchFormBloc>()
-                      .add(ScratchFormPasswordChanged(password: value)),
+                  onChanged: (value) {
+                    hasSubmitted = false;
+                    context
+                        .read<ScratchFormBloc>()
+                        .add(ScratchFormPasswordChanged(password: value));
+                  },
                   autocorrect: false,
                   enableSuggestions: false,
                   obscureText: true,
@@ -135,7 +155,7 @@ class ScratchForm extends StatelessWidget {
                           width: 1,
                         ),
                       ),
-                      errorText: state.password.invalid
+                      errorText: !state.password.isValid && hasSubmitted
                           ? text.AppText.passwordErrorText
                           : null,
                       isDense: true,
@@ -148,11 +168,10 @@ class ScratchForm extends StatelessWidget {
                   width: screenWidth,
                   height: getHeight(50, screenHeight),
                   handlePressed: () {
-                    if (state.status.isValidated) {
-                      context
-                          .read<ScratchFormBloc>()
-                          .add(ScratchFormSubmitted());
-                    }
+                    setState(() {
+                      hasSubmitted = true;
+                    });
+                    context.read<ScratchFormBloc>().add(ScratchFormSubmitted());
                   },
                 ),
                 SizedBox(height: getHeight(30, screenHeight)),

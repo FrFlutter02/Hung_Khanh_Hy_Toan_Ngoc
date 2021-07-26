@@ -29,7 +29,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
     return Scaffold(
       backgroundColor: colors.AppColor.white,
-      resizeToAvoidBottomInset: false,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth >= 768) {
