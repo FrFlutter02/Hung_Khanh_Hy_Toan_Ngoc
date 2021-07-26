@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/widgets/header_background.dart';
-import 'package:mobile_app/src/widgets/reponsive.dart';
-import 'package:mobile_app/src/widgets/text_form_field_custom.dart';
+import '../constants/constant_colors.dart';
+import '../constants/constant_text.dart';
+import '../widgets/header_background.dart';
+import '../widgets/reponsive.dart';
+import '../widgets/text_form_field_custom.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -111,22 +111,25 @@ class _LoginScreenMobile extends StatelessWidget {
                       children: [
                         Text(
                           LoginScreenText.newToScratch,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(
-                                  color: AppColor.primaryGrey,
-                                  fontFamily: "Nunito-Regular"),
+                          style:
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    color: AppColor.primaryGrey,
+                                  ),
                         ),
-                        Text(
-                          LoginScreenText.createAccountHere,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  color: AppColor.buttonGreen,
-                                  fontSize: 17,
-                                  fontFamily: "Nunito-SemiBold"),
+                        InkWell(
+                          child: Text(
+                            LoginScreenText.createAccountHere,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    color: AppColor.buttonGreen,
+                                    fontSize: 17,
+                                    fontFamily: "Nunito-SemiBold"),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pushNamed("/signupScreen");
+                          },
                         ),
                       ],
                     ),
@@ -232,7 +235,7 @@ class LoginBox extends StatelessWidget {
       height: height * 0.43,
       constraints: BoxConstraints(maxWidth: width * 0.55),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColor.white,
         borderRadius: BorderRadius.all(
           Radius.circular(8),
         ),
@@ -316,13 +319,17 @@ class LoginBox extends StatelessWidget {
                       color: AppColor.primaryGrey,
                       fontFamily: "Nunito-Regular"),
                 ),
-                Text(
-                  LoginScreenText.createAccountHere,
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: AppColor.buttonGreen,
-                      fontSize: 17,
-                      fontFamily: "Nunito-SemiBold"),
-                ),
+                InkWell(
+                    child: Text(
+                      LoginScreenText.createAccountHere,
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                          color: AppColor.buttonGreen,
+                          fontSize: 17,
+                          fontFamily: "Nunito-SemiBold"),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamed("/signupScreen");
+                    }),
               ],
             ),
           ],

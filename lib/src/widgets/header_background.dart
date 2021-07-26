@@ -11,7 +11,7 @@ class HeaderBackground extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: height * 0.4,
+          height: height * 0.39,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(99),

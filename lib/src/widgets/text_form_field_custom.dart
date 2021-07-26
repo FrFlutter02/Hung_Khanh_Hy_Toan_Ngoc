@@ -69,7 +69,6 @@ class _TextFieldPasswordCustomState extends State<TextFieldPasswordCustom> {
                 widget.label,
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: AppColor.secondaryGrey,
-                      // fontFamily: "Nunito",
                     ),
               ),
             ),
@@ -77,7 +76,6 @@ class _TextFieldPasswordCustomState extends State<TextFieldPasswordCustom> {
               LoginScreenText.forgotPassword,
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     color: AppColor.primaryGrey,
-                    // fontFamily: "Nunito",
                   ),
             )
           ],
