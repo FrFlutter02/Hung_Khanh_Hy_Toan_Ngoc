@@ -32,3 +32,10 @@ class OnboardingTabletText {
   static const String joinButton = "Join Scratch";
   static const String learnMoreButton = "Learn More";
 }
+
+class ForgotPasswordText {
+  static const String title = "Reset password";
+  static const String label =
+      "Enter the email associated with your account and we'll send an email with a link to reset your password.";
+  static const String sendButton = "Send";
+}

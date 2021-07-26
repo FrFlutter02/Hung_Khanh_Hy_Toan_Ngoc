@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../src/screens/login_screen.dart';
 import '../src/screens/onboarding_screen.dart';
 import '../src/screens/signup_screen.dart';
+import '../src/screens/forgotPassword_screen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -13,8 +14,9 @@ class App extends StatelessWidget {
         //     providers: [],
         //     child:
         MaterialApp(
+      initialRoute: '/',
       routes: {
-        "/": (context) => OnboardingScreen(),
+        "/": (context) => ForgotPassword(),
         "/loginScreen": (context) => LoginScreen(),
         "/signupScreen": (context) => SignupScreen(),
       },
