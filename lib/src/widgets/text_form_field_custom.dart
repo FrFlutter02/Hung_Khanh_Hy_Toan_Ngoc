@@ -29,12 +29,13 @@ class _TextFieldEmailCustomState extends State<TextFieldEmailCustom> {
           ),
         ),
         TextFormField(
+          keyboardType: TextInputType.emailAddress,
           validator: (val) {
             return RegExp(
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                     .hasMatch(val!)
                 ? null
-                : "Nhập vào Email";
+                : "Not a valid email";
           },
         ),
       ],
@@ -81,10 +82,11 @@ class _TextFieldPasswordCustomState extends State<TextFieldPasswordCustom> {
           ],
         ),
         TextFormField(
+          obscureText: true,
           controller: widget.controller,
           validator: (val) {
             return val!.isEmpty || val.length < 8
-                ? "Mật khẩu cần có ít nhất 8 kí tự"
+                ? "Password should be minimum 8 character"
                 : null;
           },
         ),
