@@ -8,6 +8,7 @@ class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -30,7 +31,7 @@ class ForgotPasswordMoblie extends StatelessWidget {
     TextEditingController emailTextEditingController =
         new TextEditingController();
     return Container(
-      padding: EdgeInsets.only(left: 13),
+      padding: EdgeInsets.only(left: 25),
       child: Column(
         children: [
           Container(
@@ -56,7 +57,7 @@ class ForgotPasswordMoblie extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           letterSpacing: 0.4,
                           color: AppColor.iconText,
-                          fontFamily: 'Nunito-Regular',
+                          fontFamily: 'Nunito-Bold',
                           height: 1,
                         ),
                       ),
@@ -82,7 +83,7 @@ class ForgotPasswordMoblie extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(right: 117),
+                  padding: EdgeInsets.only(right: 72),
                   child: Text(ForgotPasswordText.label,
                       textAlign: TextAlign.start,
                       style: TextStyle(
@@ -95,17 +96,31 @@ class ForgotPasswordMoblie extends StatelessWidget {
                   height: 106,
                 ),
                 Container(
-                  padding: EdgeInsets.only(right: 115),
+                  padding: EdgeInsets.only(right: 40),
                   child: Form(
                     key: formKey,
-                    child: Column(
-                      children: [
-                        TextFieldEmailCustom(
-                            emailController: emailTextEditingController,
-                            label: LoginScreenText.emailLabel),
-                      ],
-                    ),
+                    child: TextFieldEmailCustom(
+                        emailController: emailTextEditingController,
+                        label: LoginScreenText.emailLabel),
                   ),
+
+                  // child: TextFormField(
+                  //   decoration: new InputDecoration(
+                  //       labelText: LoginScreenText.emailLabel,
+                  //       labelStyle: TextStyle(
+                  //           color: AppColor.secondaryGrey, fontSize: 14),
+                  //       enabledBorder: UnderlineInputBorder(
+                  //         borderSide: BorderSide(color: Colors.grey),
+
+                  //         //  when the TextFormField in unfocused
+                  //       ),
+                  //       focusedBorder: UnderlineInputBorder(
+                  //         borderSide: BorderSide(color: Colors.grey),
+                  //         //  when the TextFormField in focused
+                  //       ),
+                  //       border: UnderlineInputBorder(),
+                  //       hintText: "user@email.com"),
+                  // ),
                 ),
                 SizedBox(
                   height: 60,
@@ -113,7 +128,7 @@ class ForgotPasswordMoblie extends StatelessWidget {
                 Container(
                   width: double.maxFinite,
                   height: 50,
-                  padding: EdgeInsets.only(right: 115),
+                  padding: EdgeInsets.only(right: 40),
                   child: ElevatedButton(
                     onPressed: () {},
                     child: Text(

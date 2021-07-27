@@ -1,285 +1,278 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 
 class OnboardingScreen extends StatelessWidget {
+  bool isDeviceTablet() {
+    if (Device.get().isTablet) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("Device isPhone: ${Device.get().isPhone}");
+    print("Device isAndroid: ${Device.get().isAndroid}");
+    print("Device isIos: ${Device.get().isIos}");
+    print(Device.size);
+//Quick methods to access the physical device width and height
+    print("Device Width: ${Device.width}, Device Height: ${Device.height}");
+
+//To get the actual screen size (Which is same as what MediaQuery gives)
+    print("ctual screen size");
+    print(Device.screenSize);
+//Quick methods to access the screen width and height
+    print(
+        "Device Width: ${Device.screenWidth}, Device Height: ${Device.screenHeight}");
     return Scaffold(
       body: SafeArea(
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth >= 768) {
-              return OnboardingTablet();
-            } else {
-              return OnboardingMoblie();
-            }
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class OnboardingMoblie extends StatelessWidget {
-  const OnboardingMoblie({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FittedBox(
-                fit: BoxFit.none,
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  child: Image.asset(
-                    "assets/images/inboarding_background.png",
-                    height: 475,
-                    width: 639.95,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-              decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.white,
-                Colors.white,
-                Colors.white,
-                Colors.white,
-                Colors.white60,
-                Colors.white60,
-                Colors.white60,
-                Colors.white60,
-                Colors.white,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          )),
-          Center(
-              child: Container(
-            height: 39,
-            width: 143,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset("assets/images/logo_icon.png",
-                    height: 36.21, width: 25.24),
-                Container(
-                    height: 31,
-                    width: 111,
-                    child: Center(
-                      child: Text(
-                        AppText.iconText,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 0.4,
-                          color: AppColor.iconText,
-                          fontFamily: 'Nunito-Regular',
-                          height: 1,
-                        ),
-                      ),
-                    ))
-              ],
-            ),
-          ))
-        ],
-      ),
-    );
-  }
-}
-
-class OnboardingTablet extends StatelessWidget {
-  const OnboardingTablet({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Stack(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FittedBox(
-                    fit: BoxFit.none,
-                    child: Container(
-                      margin: EdgeInsets.only(),
-                      child: Image.asset(
-                        "assets/images/inboarding_background.png",
-                        scale: 0.4,
-                        height: 1100,
-                        width: 1300,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white,
-                  Colors.white,
-                  Colors.white,
-                  Colors.white,
-                  Colors.white60,
-                  Colors.white60,
-                  Colors.white60,
-                  Colors.white60,
-                  Colors.white,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            )),
-            Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 98,
-                    width: 276,
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+        child: Container(
+          child: !isDeviceTablet()
+              ? Stack(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Spacer(
-                          flex: 2,
-                        ),
-                        Expanded(
-                          child: Image.asset("assets/images/logo_icon.png",
-                              height: 92, width: 17.65),
-                        ),
-                        Container(
-                            child: Center(
-                          child: Text(
-                            AppText.iconText,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.4,
-                              color: AppColor.iconText,
-                              fontFamily: 'Nunito-Regular',
-                              height: 1,
+                        FittedBox(
+                          fit: BoxFit.none,
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            child: Image.asset(
+                              "assets/images/inboarding_background.png",
+                              scale: 0.3,
+                              height: 400,
+                              width: 780,
                             ),
                           ),
-                        )),
-                        Spacer(
-                          flex: 2,
-                        )
+                        ),
                       ],
                     ),
-                  ),
-                ),
-                Spacer(
-                  flex: 1,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 146),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Text(
-                          OnboardingTabletText.firstTitle,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontFamily: 'Nunito-Bold',
-                            color: AppColor.primaryBlack,
-                            height: 1.2,
-                          ),
-                        ),
+                    Container(
+                        decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white,
+                          Colors.white,
+                          Colors.white,
+                          Colors.white,
+                          Colors.white,
+                          Colors.white,
+                          Colors.white60,
+                          Colors.white60,
+                          Colors.white60,
+                          Colors.white60,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
-                      SizedBox(
-                        height: 8,
+                    )),
+                    Center(
+                        child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 116),
+                      child: Row(
+                        children: [
+                          Image.asset("assets/images/logo_icon.png",
+                              height: 36.21, width: 25.24),
+                          Container(
+                              width: 111,
+                              child: Center(
+                                child: Text(
+                                  AppText.iconText,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: 0.4,
+                                    color: AppColor.iconText,
+                                    fontFamily: 'Nunito-Regular',
+                                    height: 1,
+                                  ),
+                                ),
+                              ))
+                        ],
                       ),
-                      Container(
-                        width: 314,
-                        child: Text(
-                          OnboardingTabletText.secondTitle,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Nunito-Bold',
-                            color: AppColor.secondaryGrey,
-                            height: 1.4,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 34,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 239,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text(OnboardingTabletText.joinButton),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                    ))
+                  ],
+                )
+              : Stack(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FittedBox(
+                            fit: BoxFit.none,
+                            child: Container(
+                              margin: EdgeInsets.only(),
+                              child: Image.asset(
+                                "assets/images/inboarding_background.png",
+                                scale: 0.4,
+                                height: 1100,
+                                width: 1300,
+                              ),
                             ),
-                            elevation: 0,
-                            primary: AppColor.buttonGreen,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                        decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white,
+                          Colors.white,
+                          Colors.white,
+                          Colors.white,
+                          Colors.white60,
+                          Colors.white60,
+                          Colors.white60,
+                          Colors.white60,
+                          Colors.white,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    )),
+                    Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 98,
+                            width: 276,
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Spacer(
+                                  flex: 2,
+                                ),
+                                Expanded(
+                                  child: Image.asset(
+                                      "assets/images/logo_icon.png",
+                                      height: 25.07,
+                                      width: 17.29),
+                                ),
+                                Container(
+                                    child: Center(
+                                  child: Text(
+                                    AppText.iconText,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: 0.4,
+                                      color: AppColor.iconText,
+                                      fontFamily: 'Nunito-Bold',
+                                      height: 1,
+                                    ),
+                                  ),
+                                )),
+                                Spacer(
+                                  flex: 2,
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        // margin: EdgeInsets.only(left: 8.0),\
-
-                        height: 50,
-                        width: 239,
-                        child: ElevatedButton(
-                          onPressed: () {},
+                        Spacer(
+                          flex: 1,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 134),
                           child: Text(
-                            OnboardingTabletText.learnMoreButton,
-                            style: TextStyle(color: AppColor.buttonGreen),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            elevation: 0,
-                            side: BorderSide(
-                                width: 2, color: (AppColor.buttonGreen)),
-                            primary: AppColor.white,
+                            OnboardingTabletText.firstTitle,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 40,
+                                fontFamily: 'Nunito-SemiBold',
+                                color: AppColor.primaryBlack,
+                                height: 1.2,
+                                letterSpacing: -0.5),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 227),
+                          height: 44,
+                          alignment: Alignment.center,
+                          child: Text(
+                            OnboardingTabletText.secondTitle,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Nunito-Regular',
+                              color: AppColor.secondaryGrey,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 34,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 135),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 300,
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text(OnboardingTabletText.joinButton,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Nunito-Regular')),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    elevation: 0,
+                                    primary: AppColor.buttonGreen,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Container(
+                                // margin: EdgeInsets.only(left: 8.0),\
+                                width: 300,
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    OnboardingTabletText.learnMoreButton,
+                                    style: TextStyle(
+                                        color: AppColor.buttonGreen,
+                                        fontSize: 16,
+                                        fontFamily: 'Nunito-Regular'),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    elevation: 0,
+                                    side: BorderSide(
+                                        width: 2,
+                                        color: (AppColor.buttonGreen)),
+                                    primary: AppColor.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Spacer(
+                          flex: 5,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Spacer(
-                  flex: 5,
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );
