@@ -18,7 +18,6 @@ class ScratchForm extends StatefulWidget {
 }
 
 class _ScratchFormState extends State<ScratchForm> {
-  bool hasSubmitted = false;
   StreamSubscription? _scratchFormSubscription;
 
   double getHeight(double designedPixel, double screenHeight) {
@@ -34,6 +33,12 @@ class _ScratchFormState extends State<ScratchForm> {
     _scratchFormSubscription?.cancel();
     super.dispose();
   }
+
+  // @override
+  // void initState() {
+  //   _scratchFormSubscription =
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +106,6 @@ class _ScratchFormState extends State<ScratchForm> {
                 ),
                 TextFormField(
                   onChanged: (value) {
-                    hasSubmitted = false;
                     context
                         .read<ScratchFormBloc>()
                         .add(ScratchFormEmailChanged(email: value));
@@ -118,7 +122,8 @@ class _ScratchFormState extends State<ScratchForm> {
                         width: 1,
                       ),
                     ),
-                    errorText: !state.email.isValid && hasSubmitted
+                    errorText: !state.email.isValid &&
+                            state is ScratchFormValidateFailure
                         ? text.AppText.emailErrorText
                         : null,
                     isDense: true,
@@ -138,7 +143,6 @@ class _ScratchFormState extends State<ScratchForm> {
                 ),
                 TextFormField(
                   onChanged: (value) {
-                    hasSubmitted = false;
                     context
                         .read<ScratchFormBloc>()
                         .add(ScratchFormPasswordChanged(password: value));
@@ -155,7 +159,8 @@ class _ScratchFormState extends State<ScratchForm> {
                           width: 1,
                         ),
                       ),
-                      errorText: !state.password.isValid && hasSubmitted
+                      errorText: !state.password.isValid &&
+                              state is ScratchFormValidateFailure
                           ? text.AppText.passwordErrorText
                           : null,
                       isDense: true,
@@ -168,9 +173,7 @@ class _ScratchFormState extends State<ScratchForm> {
                   width: screenWidth,
                   height: getHeight(50, screenHeight),
                   handlePressed: () {
-                    setState(() {
-                      hasSubmitted = true;
-                    });
+                    // print(state.runtimeType);
                     context.read<ScratchFormBloc>().add(ScratchFormSubmitted());
                   },
                 ),

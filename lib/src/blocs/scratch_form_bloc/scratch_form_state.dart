@@ -44,6 +44,9 @@ class ScratchFormSubmitSuccess extends ScratchFormState {
   }) : super(email: email, password: password);
 }
 
-class ScratchFormSubmitFailure extends ScratchFormState {
-  const ScratchFormSubmitFailure();
+class ScratchFormValidateFailure extends ScratchFormState {
+  const ScratchFormValidateFailure({
+    required InputField email,
+    required InputField password,
+  }) : super(email: email, password: password);
 }
