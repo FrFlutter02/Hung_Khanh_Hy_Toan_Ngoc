@@ -6,7 +6,9 @@ class Validator {
   }
 
   bool isValidPassword(String password) {
-    return RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$').hasMatch(password);
+    return RegExp(
+            r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$')
+        .hasMatch(password);
   }
 
   bool isValidForm({required String email, required String password}) {

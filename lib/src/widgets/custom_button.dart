@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../constants/constant_colors.dart' as colors;
 import '../constants/constant_text.dart' as text;
 
-class ScratchFormButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final bool enabled;
   final double width;
   final double height;
   final void Function() handlePressed;
 
-  const ScratchFormButton(
+  const CustomButton(
       {required this.enabled,
       required this.width,
       required this.height,

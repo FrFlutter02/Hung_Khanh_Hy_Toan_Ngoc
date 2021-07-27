@@ -14,31 +14,26 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 18,
-                height: 26,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/logo_icon.png'))),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                text.AppText.iconText,
-                style: TextStyle(
-                  color: colors.AppColor.iconText,
-                  fontFamily: 'Nunito-Bold',
-                  fontSize: 20,
-                ),
-              ),
-            ],
+          Container(
+            width: 18,
+            height: 26,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/logo_icon.png'))),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            text.AppText.iconText,
+            style: TextStyle(
+              color: colors.AppColor.iconText,
+              fontFamily: 'Nunito-Bold',
+              fontSize: 20,
+            ),
           ),
         ],
       ),

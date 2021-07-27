@@ -1,7 +1,8 @@
 class AppText {
   static const String iconText = 'scratch';
   static const String fullNameErrorText = 'Fullname cannot be empty';
-  static const String emailErrorText = 'Email is invalid';
+  static const String emailErrorText =
+      'Please enter a valid email, e.g: john@gmail.com';
   static const String passwordErrorText =
       'Password must have as least 8 characters, including numbers, uppercase, lowercase characters';
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/widgets/scratch_form.dart';
+import 'package:mobile_app/src/validator.dart';
+import 'package:mobile_app/src/widgets/form/form_body.dart';
+import 'package:mobile_app/src/widgets/form/form_text_field.dart';
 
-import '../constants/constant_colors.dart' as colors;
-import '../constants/constant_text.dart' as text;
-import '../widgets/logo.dart';
+import '../constants/constant_colors.dart';
+import '../constants/constant_text.dart';
+import '../widgets/form/form_header.dart';
+import '../widgets/form/form_body.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -13,6 +16,10 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool isTabletScreen = false;
+  final TextEditingController fullNameController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
+  final Validator validator = new Validator();
 
   double getHeight(double designedPixel, double screenHeight) {
     return designedPixel / (isTabletScreen ? 1024 : 812) * screenHeight;
@@ -25,10 +32,9 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: colors.AppColor.white,
+      backgroundColor: AppColor.white,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth >= 768) {
@@ -45,12 +51,18 @@ class _SignupScreenState extends State<SignupScreen> {
                               'assets/images/login-signup-background.jpeg'),
                         )
                       : null,
+                ),
+              ),
+              Container(
+                height: screenHeight,
+                decoration: BoxDecoration(
+                  color: Colors.white,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      colors.AppColor.white.withOpacity(0.2),
-                      colors.AppColor.white,
+                      AppColor.white.withOpacity(0.2),
+                      AppColor.white,
                     ],
                     stops: [0.0, 0.9],
                   ),
@@ -59,67 +71,52 @@ class _SignupScreenState extends State<SignupScreen> {
               ListView(
                 shrinkWrap: true,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                        left: getWidth(25, screenWidth),
-                        right: getWidth(25, screenWidth),
-                        top: getHeight(isTabletScreen ? 80 : 60, screenHeight),
-                        bottom: getHeight(36, screenHeight)),
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.only(bottomRight: Radius.circular(100)),
-                      image: isTabletScreen
-                          ? null
-                          : DecorationImage(
-                              alignment: Alignment.topCenter,
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                  'assets/images/login-signup-background.jpeg'),
-                            ),
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    height: getHeight(isTabletScreen ? 305 : 285, screenHeight),
-                    child: Column(
-                      mainAxisAlignment: isTabletScreen
-                          ? MainAxisAlignment.spaceBetween
-                          : MainAxisAlignment.start,
-                      crossAxisAlignment: isTabletScreen
-                          ? CrossAxisAlignment.center
-                          : CrossAxisAlignment.start,
-                      children: [
-                        Logo(
-                          width: getWidth(102, screenWidth),
-                          height: getHeight(28, screenHeight),
-                        ),
-                        SizedBox(height: getHeight(45, screenHeight)),
-                        Text(
-                          isTabletScreen
-                              ? text.SignupScreenText.startFromSratch
-                              : text.SignupScreenText.startFromSratch
-                                  .replaceFirst(' ', '\n'),
-                          style: TextStyle(
-                            color: colors.AppColor.primaryBlack,
-                            fontFamily: 'Nunito-Bold',
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
+                  FormHeader(
+                    isTabletScreen: isTabletScreen,
+                    formHeaderTitle: SignupScreenText.startFromSratch,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(
-                      left: getWidth(isTabletScreen ? 171 : 25, screenWidth),
-                      right: getWidth(isTabletScreen ? 171 : 25, screenWidth),
-                      top: getHeight(20, screenHeight),
-                      bottom: isTabletScreen ? getHeight(45, screenHeight) : 0,
-                    ),
-                    child: ScratchForm(
-                      isTabletScreen: isTabletScreen,
-                    ),
+                  FormBody(
+                    isTabletScreen: isTabletScreen,
+                    textFormFieldList: [
+                      FormTextField(
+                        textFieldLabel: SignupScreenText.fullNameLabel,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppText.fullNameErrorText;
+                          }
+                          return null;
+                        },
+                        controller: fullNameController,
+                        isEmail: true,
+                      ),
+                      FormTextField(
+                          textFieldLabel: SignupScreenText.emailNameLabel,
+                          validator: (value) {
+                            if (!validator.isValidEmail(emailController.text)) {
+                              return AppText.emailErrorText;
+                            }
+                            return null;
+                          },
+                          controller: emailController),
+                      FormTextField(
+                        textFieldLabel: SignupScreenText.passwordLabel,
+                        validator: (value) {
+                          if (!validator
+                              .isValidPassword(passwordController.text)) {
+                            return AppText.passwordErrorText;
+                          }
+                          return null;
+                        },
+                        controller: passwordController,
+                        isPassword: true,
+                        forgotPasswordVisible: true,
+                      ),
+                    ],
+                    titleText: SignupScreenText.alreadyHaveAnAccount,
+                    linkText: SignupScreenText.loginHere,
                   ),
                 ],
-              )
+              ),
             ],
           );
         },
