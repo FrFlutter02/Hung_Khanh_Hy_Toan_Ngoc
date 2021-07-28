@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/src/validator.dart';
-import 'package:mobile_app/src/widgets/form/form_body.dart';
-import 'package:mobile_app/src/widgets/form/form_text_field.dart';
 
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
+
+import '../widgets/email_text_form_field.dart';
+import '../widgets/password_text_form_field.dart';
 import '../widgets/form/form_header.dart';
 import '../widgets/form/form_body.dart';
 
@@ -19,15 +20,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController fullNameController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-  final Validator validator = new Validator();
-
-  double getHeight(double designedPixel, double screenHeight) {
-    return designedPixel / (isTabletScreen ? 1024 : 812) * screenHeight;
-  }
-
-  double getWidth(double designedPixel, double screenWidth) {
-    return designedPixel / (isTabletScreen ? 768 : 375) * screenWidth;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,25 +70,16 @@ class _SignupScreenState extends State<SignupScreen> {
                   FormBody(
                     isTabletScreen: isTabletScreen,
                     textFormFieldList: [
-                      FormTextField(
-                        textFieldLabel: SignupScreenText.fullNameLabel,
-                        validator: (fullName) =>
-                            validator.fullNameValidator(fullName!),
-                        controller: fullNameController,
-                        isEmail: true,
+                      _FullNameTextFormField(
+                        label: SignupScreenText.fullNameLabel,
+                        fullNameController: fullNameController,
                       ),
-                      FormTextField(
-                          textFieldLabel: SignupScreenText.emailNameLabel,
-                          validator: (email) =>
-                              validator.emailValidator(email!),
-                          controller: emailController),
-                      FormTextField(
-                        textFieldLabel: SignupScreenText.passwordLabel,
-                        validator: (password) =>
-                            validator.passwordValidator(password!),
-                        controller: passwordController,
-                        isPassword: true,
-                      ),
+                      EmailTextFormField(
+                          label: SignupScreenText.emailNameLabel,
+                          emailController: emailController),
+                      PasswordTextFormField(
+                          label: SignupScreenText.passwordLabel,
+                          passwordController: passwordController),
                     ],
                     titleText: SignupScreenText.alreadyHaveAnAccount,
                     linkText: SignupScreenText.loginHere,
@@ -107,6 +90,64 @@ class _SignupScreenState extends State<SignupScreen> {
           );
         },
       ),
+    );
+  }
+}
+
+class _FullNameTextFormField extends StatefulWidget {
+  final TextEditingController fullNameController;
+  final String label;
+
+  const _FullNameTextFormField(
+      {Key? key, required this.label, required this.fullNameController})
+      : super(key: key);
+
+  @override
+  _FullNameTextFormFieldState createState() => _FullNameTextFormFieldState();
+}
+
+class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          child: Text(
+            widget.label,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(color: AppColor.secondaryGrey),
+          ),
+        ),
+        SizedBox(height: 15),
+        TextFormField(
+          validator: (value) => Validator.fullNameValidator(value!),
+          controller: widget.fullNameController,
+          cursorColor: AppColor.green,
+          enableSuggestions: false,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: 6),
+            errorMaxLines: 2,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: LoginScreenColor.textFieldBottomBorder,
+                width: 1,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: AppColor.green,
+                width: 1,
+              ),
+            ),
+            isDense: true,
+          ),
+          style: TextStyle(color: AppColor.primaryBlack),
+        ),
+        SizedBox(height: 30),
+      ],
     );
   }
 }

@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../custom_button.dart';
-import '../../widgets/form/form_text_field.dart';
 
 class FormBody extends StatefulWidget {
-  final List<FormTextField> textFormFieldList;
+  final List<Widget> textFormFieldList;
   final String titleText;
   final String linkText;
   final bool isTabletScreen;
@@ -33,8 +32,6 @@ class _ScratchFormState extends State<FormBody> {
   double getWidth(double designedPixel, double screenWidth) {
     return designedPixel / (widget.isTabletScreen ? 768 : 375) * screenWidth;
   }
-
-  dynamic formTextFieldListWidgets() {}
 
   @override
   Widget build(BuildContext context) {
