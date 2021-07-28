@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/validator.dart';
 
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
@@ -87,6 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: SignupScreenText.passwordLabel,
                         passwordController: passwordController),
                   ],
+                  buttonText: SignupScreenText.createAccount,
                   footerTitleText: SignupScreenText.alreadyHaveAnAccount,
                   footerLinkText: SignupScreenText.loginHere,
                 ),
@@ -114,45 +114,6 @@ class _FullNameTextFormField extends StatefulWidget {
 class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          child: Text(
-            widget.label,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle1!
-                .copyWith(color: AppColor.secondaryGrey),
-          ),
-        ),
-        SizedBox(height: 15),
-        TextFormField(
-          validator: (value) => Validator.fullNameValidator(value!),
-          controller: widget.fullNameController,
-          cursorColor: AppColor.green,
-          enableSuggestions: false,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 6),
-            errorMaxLines: 2,
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: LoginScreenColor.textFieldBottomBorder,
-                width: 1,
-              ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: AppColor.green,
-                width: 1,
-              ),
-            ),
-            isDense: true,
-          ),
-          style: TextStyle(color: AppColor.primaryBlack),
-        ),
-        SizedBox(height: 30),
-      ],
-    );
+    return Scaffold();
   }
 }

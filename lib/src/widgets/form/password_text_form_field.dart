@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
+import '../../helper.dart';
 import '../../validator.dart';
 
 class PasswordTextFormField extends StatefulWidget {
@@ -21,6 +22,8 @@ class PasswordTextFormField extends StatefulWidget {
 }
 
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
+  final Helper _helper = Helper();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,20 +35,22 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
             Container(
               child: Text(
                 widget.label,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       color: AppColor.secondaryGrey,
                     ),
               ),
             ),
             widget.forgotPasswordVisible
-                ? Text(LoginScreenText.forgotPassword,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                ? Text(
+                    LoginScreenText.forgotPassword,
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           color: AppColor.primaryGrey,
-                        ))
+                        ),
+                  )
                 : SizedBox.shrink()
           ],
         ),
-        SizedBox(height: 15),
+        SizedBox(height: _helper.height(15)),
         TextFormField(
           validator: (value) => Validator.passwordValidator(value!),
           controller: widget.passwordController,
@@ -53,25 +58,25 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           enableSuggestions: false,
           obscureText: true,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 6),
+            contentPadding: EdgeInsets.only(bottom: _helper.height(6)),
             errorMaxLines: 2,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: LoginScreenColor.textFieldBottomBorder,
-                width: 1,
+                width: _helper.width(1),
               ),
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: AppColor.green,
-                width: 1,
+                width: _helper.width(1),
               ),
             ),
             isDense: true,
           ),
-          style: TextStyle(color: AppColor.primaryBlack),
+          style: Theme.of(context).textTheme.bodyText2!,
         ),
-        SizedBox(height: 30),
+        SizedBox(height: _helper.height(30)),
       ],
     );
   }

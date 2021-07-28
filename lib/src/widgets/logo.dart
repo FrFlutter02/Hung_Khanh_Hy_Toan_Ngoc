@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constant_colors.dart' as colors;
-import '../constants/constant_text.dart' as text;
+import '../constants/constant_text.dart';
+import '../helper.dart';
 
 class Logo extends StatelessWidget {
   final double width;
@@ -12,29 +12,26 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Helper _helper = Helper();
+
     return Container(
       width: width,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 18,
-            height: 26,
+            width: _helper.width(18),
+            height: _helper.height(26),
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/logo_icon.png'))),
           ),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            text.AppText.iconText,
-            style: TextStyle(
-              color: colors.AppColor.iconText,
-              fontFamily: 'Nunito-Bold',
-              fontSize: 20,
-            ),
-          ),
+          SizedBox(width: _helper.width(10)),
+          Text(AppText.iconText,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontFamily: "Nunito-Bold")),
         ],
       ),
     );

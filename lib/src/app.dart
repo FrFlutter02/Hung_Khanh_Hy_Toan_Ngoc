@@ -19,12 +19,14 @@ class App extends StatelessWidget {
         //     ],
         //     child:
         MaterialApp(
-      theme: ThemeData(fontFamily: 'Nunito-Regular'),
+      theme: ThemeData(fontFamily: "Nunito-Regular"),
+      debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => SignupScreen(),
         "/loginScreen": (context) => LoginScreen(),
         "/signupScreen": (context) => OnboardingScreen(),
       },
+      initialRoute: '/loginScreen',
     );
     // );
   }
