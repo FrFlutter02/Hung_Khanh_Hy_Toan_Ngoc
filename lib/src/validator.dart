@@ -1,4 +1,4 @@
-import 'package:mobile_app/src/constants/constant_text.dart';
+import 'constants/constant_text.dart';
 
 class Validator {
   String? fullNameValidator(String fullName) {

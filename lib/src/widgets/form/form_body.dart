@@ -70,7 +70,6 @@ class _ScratchFormState extends State<FormBody> {
                     SignupScreenText.createAccountToContinue,
                     style: TextStyle(
                       color: AppColor.primaryGrey,
-                      fontFamily: 'Nunito-Regular',
                       fontSize: 14,
                     ),
                   ),
@@ -95,7 +94,6 @@ class _ScratchFormState extends State<FormBody> {
                           child: Text(widget.titleText,
                               style: TextStyle(
                                 color: AppColor.secondaryGrey,
-                                fontFamily: 'Nunito-Regular',
                                 fontSize: 14,
                               )),
                         ),
