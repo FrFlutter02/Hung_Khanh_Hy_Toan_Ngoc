@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/widgets/logo.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
+
+import '../../constants/constant_colors.dart';
+import '../../widgets/logo.dart';
 
 class FormHeader extends StatelessWidget {
   final bool isTabletScreen;
@@ -24,7 +26,7 @@ class FormHeader extends StatelessWidget {
                 image: AssetImage('assets/images/login-signup-background.jpeg'),
               ),
       ),
-      width: MediaQuery.of(context).size.width,
+      width: Device.screenWidth,
       height: isTabletScreen ? 305 : 285,
       child: Column(
         mainAxisAlignment: isTabletScreen

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
+
+import '../../constants/constant_colors.dart';
 
 class FormFooter extends StatelessWidget {
   final String titleText;

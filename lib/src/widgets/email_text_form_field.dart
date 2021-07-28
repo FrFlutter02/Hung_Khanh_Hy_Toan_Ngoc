@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/validator.dart';
+
+import '../constants/constant_colors.dart';
+import '../validator.dart';
 
 class EmailTextFormField extends StatefulWidget {
   final String label;

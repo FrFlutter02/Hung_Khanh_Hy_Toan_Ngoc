@@ -31,7 +31,7 @@ class _ScratchFormState extends State<FormBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width,
+        width: Device.screenWidth,
         padding: EdgeInsets.only(
           left: _helper.width(widget.isTabletScreen ? 171 : 25),
           right: _helper.width(widget.isTabletScreen ? 171 : 25),

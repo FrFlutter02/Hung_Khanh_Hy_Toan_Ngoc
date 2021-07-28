@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:mobile_app/src/validator.dart';
 
 import '../constants/constant_colors.dart';
@@ -22,73 +23,72 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController passwordController = new TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+  void initState() {
+    if (Device.get().isTablet) {
+      isTabletScreen = true;
+    }
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth >= 768) {
-            isTabletScreen = true;
-          }
-          return Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: isTabletScreen
-                      ? DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                              'assets/images/login-signup-background.jpeg'),
-                        )
-                      : null,
-                ),
-              ),
-              Container(
-                height: screenHeight,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColor.white.withOpacity(0.2),
-                      AppColor.white,
-                    ],
-                    stops: [0.0, 0.9],
-                  ),
-                ),
-              ),
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  FormHeader(
-                    isTabletScreen: isTabletScreen,
-                    formHeaderTitle: SignupScreenText.startFromSratch,
-                  ),
-                  FormBody(
-                    isTabletScreen: isTabletScreen,
-                    textFormFieldList: [
-                      _FullNameTextFormField(
-                        label: SignupScreenText.fullNameLabel,
-                        fullNameController: fullNameController,
-                      ),
-                      EmailTextFormField(
-                          label: SignupScreenText.emailNameLabel,
-                          emailController: emailController),
-                      PasswordTextFormField(
-                          label: SignupScreenText.passwordLabel,
-                          passwordController: passwordController),
-                    ],
-                    titleText: SignupScreenText.alreadyHaveAnAccount,
-                    linkText: SignupScreenText.loginHere,
-                  ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: isTabletScreen
+                  ? DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                          'assets/images/login-signup-background.jpeg'),
+                    )
+                  : null,
+            ),
+          ),
+          Container(
+            height: Device.screenHeight,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColor.white.withOpacity(0.2),
+                  AppColor.white,
                 ],
+                stops: [0.0, 0.9],
+              ),
+            ),
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: [
+              FormHeader(
+                isTabletScreen: isTabletScreen,
+                formHeaderTitle: SignupScreenText.startFromSratch,
+              ),
+              FormBody(
+                isTabletScreen: isTabletScreen,
+                textFormFieldList: [
+                  _FullNameTextFormField(
+                    label: SignupScreenText.fullNameLabel,
+                    fullNameController: fullNameController,
+                  ),
+                  EmailTextFormField(
+                      label: SignupScreenText.emailNameLabel,
+                      emailController: emailController),
+                  PasswordTextFormField(
+                      label: SignupScreenText.passwordLabel,
+                      passwordController: passwordController),
+                ],
+                titleText: SignupScreenText.alreadyHaveAnAccount,
+                linkText: SignupScreenText.loginHere,
               ),
             ],
-          );
-        },
+          ),
+        ],
       ),
     );
   }
