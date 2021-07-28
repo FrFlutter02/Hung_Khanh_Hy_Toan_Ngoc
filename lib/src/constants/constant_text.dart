@@ -1,5 +1,15 @@
 class AppText {
-  static const String iconText = "scratch";
+  static const String iconText = 'scratch';
+  static const String fullNameErrorText = 'Fullname cannot be empty';
+  static const String emailErrorText =
+      'Please enter a valid email, e.g: john@gmail.com';
+  static const String passwordErrorText =
+      'Password must have as least 8 characters, including numbers, uppercase, lowercase characters';
+
+  static RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+  static RegExp passwordRegex =
+      RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$');
 }
 
 class LoginScreenText {
@@ -21,14 +31,13 @@ class SignupScreenText {
   static const String passwordLabel = "Password";
   static const String createAccount = "Create Account";
   static const String alreadyHaveAnAccount = "Already have an account?";
-  static const String loginHere = "Login Here";
 }
 
 class OnboardingTabletText {
   static const String firstTitle =
-      "Join over 50 millions people sharing recipes everday";
+      'Join over 50 millions people sharing recipes everday';
   static const String secondTitle =
-      "Never run out ideas again. Try new food, ingredients, cooking style, and more";
-  static const String buttonJoin = "Join Scratch";
-  static const String buttonLearn = "Learn More";
+      'Never run out ideas again. Try new food, ingredients, cooking style, and more';
+  static const String joinButton = 'Join Scratch';
+  static const String learnMoreButton = 'Learn More';
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../src/screens/login_screen.dart';
-import '../src/screens/onboarding_screen.dart';
-import '../src/screens/signup_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/onboarding_screen.dart';
+import 'screens/signup_screen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -16,15 +15,16 @@ class App extends StatelessWidget {
     ));
     return
         // MultiBlocProvider(
-        //     providers: [],
+        //     providers: [
+        //     ],
         //     child:
         MaterialApp(
       theme: ThemeData(fontFamily: "Nunito-Regular"),
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => OnboardingScreen(),
+        "/": (context) => SignupScreen(),
         "/loginScreen": (context) => LoginScreen(),
-        "/signupScreen": (context) => SignupScreen(),
+        "/signupScreen": (context) => OnboardingScreen(),
       },
       initialRoute: '/loginScreen',
     );
