@@ -19,9 +19,8 @@ class App extends StatelessWidget {
         //     providers: [],
         //     child:
         MaterialApp(
-      theme: ThemeData(
-        fontFamily: "Nunito-Regular",
-      ),
+      theme: ThemeData(fontFamily: "Nunito-Regular"),
+      debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => OnboardingScreen(),
         "/loginScreen": (context) => LoginScreen(),

@@ -120,7 +120,8 @@ class _LoginScreenTablet extends StatelessWidget {
                           BoxShadow(
                             color: AppColor.secondaryGrey.withOpacity(0.1),
                             blurRadius: 10,
-                            offset: Offset(10, 10),
+                            spreadRadius: 20,
+                            offset: Offset(0, 5),
                           ),
                         ],
                       ),
@@ -149,7 +150,7 @@ class LoginBox extends StatelessWidget {
         new TextEditingController();
     TextEditingController passTextEditingController =
         new TextEditingController();
-
+    double heightSpacing = 30;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -160,7 +161,7 @@ class LoginBox extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle1!,
           ),
         ),
-        const SizedBox(height: 40),
+        SizedBox(height: 40),
         Form(
           key: formKey,
           child: Column(
@@ -168,7 +169,7 @@ class LoginBox extends StatelessWidget {
               TextFieldEmailCustom(
                   emailController: emailTextEditingController,
                   label: LoginScreenText.emailLabel),
-              const SizedBox(height: 30),
+              SizedBox(height: heightSpacing),
               TextFieldPasswordCustom(
                 controller: passTextEditingController,
                 label: LoginScreenText.passwordLabel,
@@ -176,7 +177,7 @@ class LoginBox extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 30),
+        SizedBox(height: heightSpacing),
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -209,7 +210,7 @@ class LoginBox extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 30),
+        SizedBox(height: heightSpacing),
         Column(
           children: [
             Text(
