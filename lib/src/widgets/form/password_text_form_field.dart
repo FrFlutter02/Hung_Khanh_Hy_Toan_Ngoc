@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constant_colors.dart';
-import '../constants/constant_text.dart';
-import '../validator.dart';
+import '../../constants/constant_colors.dart';
+import '../../constants/constant_text.dart';
+import '../../validator.dart';
 
 class PasswordTextFormField extends StatefulWidget {
   final bool forgotPasswordVisible;

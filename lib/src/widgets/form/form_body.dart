@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 
 import '../../constants/constant_colors.dart';
-import '../../constants/constant_text.dart';
 import '../custom_button.dart';
 import '../../helper.dart';
 
 class FormBody extends StatefulWidget {
   final List<Widget> textFormFieldList;
   final String titleText;
-  final String linkText;
+  final String footerTitleText;
+  final String footerLinkText;
   final bool isTabletScreen;
 
   const FormBody(
       {required this.isTabletScreen,
-      required this.textFormFieldList,
       required this.titleText,
-      required this.linkText,
+      required this.textFormFieldList,
+      required this.footerTitleText,
+      required this.footerLinkText,
       Key? key})
       : super(key: key);
 
@@ -46,14 +47,16 @@ class _ScratchFormState extends State<FormBody> {
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.secondaryGrey.withOpacity(0.2),
-                  blurRadius: 15,
-                  spreadRadius: 12,
-                  offset: Offset(0, 8),
-                ),
-              ],
+              boxShadow: widget.isTabletScreen
+                  ? [
+                      BoxShadow(
+                        color: AppColor.secondaryGrey.withOpacity(0.2),
+                        blurRadius: 15,
+                        spreadRadius: 12,
+                        offset: Offset(0, 8),
+                      ),
+                    ]
+                  : null,
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -64,10 +67,9 @@ class _ScratchFormState extends State<FormBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    SignupScreenText.createAccountToContinue,
+                    widget.titleText,
                     style: TextStyle(
                       color: AppColor.primaryGrey,
-                      fontSize: 14,
                     ),
                   ),
                   SizedBox(height: _helper.height(30)),
@@ -88,10 +90,9 @@ class _ScratchFormState extends State<FormBody> {
                       children: [
                         SizedBox(height: 30),
                         Center(
-                          child: Text(widget.titleText,
+                          child: Text(widget.footerTitleText,
                               style: TextStyle(
                                 color: AppColor.secondaryGrey,
-                                fontSize: 14,
                               )),
                         ),
                         SizedBox(height: 5),
@@ -100,7 +101,7 @@ class _ScratchFormState extends State<FormBody> {
                             onTap: () {
                               Navigator.pushNamed(context, '/loginScreen');
                             },
-                            child: Text(widget.linkText,
+                            child: Text(widget.footerLinkText,
                                 style: TextStyle(
                                   color: AppColor.green,
                                   fontFamily: 'Nunito-Bold',

@@ -42,9 +42,7 @@ class FormHeader extends StatelessWidget {
           ),
           SizedBox(height: 45),
           Text(
-            isTabletScreen
-                ? formHeaderTitle
-                : formHeaderTitle.replaceFirst(' ', '\n'),
+            formHeaderTitle,
             style: TextStyle(
               color: AppColor.primaryBlack,
               fontFamily: 'Nunito-Bold',

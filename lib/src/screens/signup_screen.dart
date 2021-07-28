@@ -5,8 +5,8 @@ import 'package:mobile_app/src/validator.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
 
-import '../widgets/email_text_form_field.dart';
-import '../widgets/password_text_form_field.dart';
+import '../widgets/form/email_text_form_field.dart';
+import '../widgets/form/password_text_form_field.dart';
 import '../widgets/form/form_header.dart';
 import '../widgets/form/form_body.dart';
 
@@ -62,31 +62,36 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
           ),
-          ListView(
-            shrinkWrap: true,
-            children: [
-              FormHeader(
-                isTabletScreen: isTabletScreen,
-                formHeaderTitle: SignupScreenText.startFromSratch,
-              ),
-              FormBody(
-                isTabletScreen: isTabletScreen,
-                textFormFieldList: [
-                  _FullNameTextFormField(
-                    label: SignupScreenText.fullNameLabel,
-                    fullNameController: fullNameController,
-                  ),
-                  EmailTextFormField(
-                      label: SignupScreenText.emailNameLabel,
-                      emailController: emailController),
-                  PasswordTextFormField(
-                      label: SignupScreenText.passwordLabel,
-                      passwordController: passwordController),
-                ],
-                titleText: SignupScreenText.alreadyHaveAnAccount,
-                linkText: SignupScreenText.loginHere,
-              ),
-            ],
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                FormHeader(
+                  isTabletScreen: isTabletScreen,
+                  formHeaderTitle: isTabletScreen
+                      ? SignupScreenText.startFromSratch
+                      : SignupScreenText.startFromSratch
+                          .replaceFirst(' ', '\n'),
+                ),
+                FormBody(
+                  titleText: SignupScreenText.createAccountToContinue,
+                  isTabletScreen: isTabletScreen,
+                  textFormFieldList: [
+                    _FullNameTextFormField(
+                      label: SignupScreenText.fullNameLabel,
+                      fullNameController: fullNameController,
+                    ),
+                    EmailTextFormField(
+                        label: SignupScreenText.emailNameLabel,
+                        emailController: emailController),
+                    PasswordTextFormField(
+                        label: SignupScreenText.passwordLabel,
+                        passwordController: passwordController),
+                  ],
+                  footerTitleText: SignupScreenText.alreadyHaveAnAccount,
+                  footerLinkText: SignupScreenText.loginHere,
+                ),
+              ],
+            ),
           ),
         ],
       ),
