@@ -80,36 +80,22 @@ class _SignupScreenState extends State<SignupScreen> {
                     textFormFieldList: [
                       FormTextField(
                         textFieldLabel: SignupScreenText.fullNameLabel,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppText.fullNameErrorText;
-                          }
-                          return null;
-                        },
+                        validator: (fullName) =>
+                            validator.fullNameValidator(fullName!),
                         controller: fullNameController,
                         isEmail: true,
                       ),
                       FormTextField(
                           textFieldLabel: SignupScreenText.emailNameLabel,
-                          validator: (value) {
-                            if (!validator.isValidEmail(emailController.text)) {
-                              return AppText.emailErrorText;
-                            }
-                            return null;
-                          },
+                          validator: (email) =>
+                              validator.emailValidator(email!),
                           controller: emailController),
                       FormTextField(
                         textFieldLabel: SignupScreenText.passwordLabel,
-                        validator: (value) {
-                          if (!validator
-                              .isValidPassword(passwordController.text)) {
-                            return AppText.passwordErrorText;
-                          }
-                          return null;
-                        },
+                        validator: (password) =>
+                            validator.passwordValidator(password!),
                         controller: passwordController,
                         isPassword: true,
-                        forgotPasswordVisible: true,
                       ),
                     ],
                     titleText: SignupScreenText.alreadyHaveAnAccount,

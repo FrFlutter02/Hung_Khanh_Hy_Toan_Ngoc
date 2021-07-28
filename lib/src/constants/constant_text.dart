@@ -5,6 +5,11 @@ class AppText {
       'Please enter a valid email, e.g: john@gmail.com';
   static const String passwordErrorText =
       'Password must have as least 8 characters, including numbers, uppercase, lowercase characters';
+
+  static RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+  static RegExp passwordRegex =
+      RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$');
 }
 
 class LoginScreenText {

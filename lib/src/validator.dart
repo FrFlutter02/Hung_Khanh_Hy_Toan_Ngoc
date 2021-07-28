@@ -1,17 +1,24 @@
+import 'package:mobile_app/src/constants/constant_text.dart';
+
 class Validator {
-  bool isValidEmail(String email) {
-    return RegExp(
-            r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')
-        .hasMatch(email);
+  String? fullNameValidator(String fullName) {
+    if (fullName.isEmpty) {
+      return AppText.fullNameErrorText;
+    }
+    return null;
   }
 
-  bool isValidPassword(String password) {
-    return RegExp(
-            r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$')
-        .hasMatch(password);
+  String? emailValidator(String email) {
+    if (!AppText.emailRegex.hasMatch(email)) {
+      return AppText.emailErrorText;
+    }
+    return null;
   }
 
-  bool isValidForm({required String email, required String password}) {
-    return isValidEmail(email) && isValidPassword(password);
+  String? passwordValidator(String password) {
+    if (!AppText.passwordRegex.hasMatch(password)) {
+      return AppText.passwordErrorText;
+    }
+    return null;
   }
 }
