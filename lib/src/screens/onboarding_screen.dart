@@ -31,7 +31,10 @@ class OnboardingScreen extends StatelessWidget {
         "Device Width: ${Device.screenWidth}, Device Height: ${Device.screenHeight}");
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed('/loginScreen');
+          },
           child: !isDeviceTablet()
               ? Stack(
                   children: [
