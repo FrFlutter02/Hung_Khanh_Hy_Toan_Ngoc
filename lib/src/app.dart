@@ -1,27 +1,46 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
+import 'package:mobile_app/src/screens/forgot_password_screen.dart';
+import 'package:mobile_app/src/services/user_services.dart';
 
-import '../src/screens/login_screen.dart';
-import '../src/screens/onboarding_screen.dart';
-import '../src/screens/signup_screen.dart';
-import '../src/screens/forgotPassword_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/onboarding_screen.dart';
+import '../src/blocs/auth_bloc/auth_bloc.dart';
+import '../src/blocs/login_bloc/login_bloc.dart';
+import '../src/blocs/signup_bloc/signup_bloc.dart';
+import '../src/screens/home_screen.dart';
 
 class App extends StatelessWidget {
+  final UserServices userServices = UserServices();
+
   @override
   Widget build(BuildContext context) {
-    return
-        // MultiBlocProvider(
-        //     providers: [],
-        //     child:
-        MaterialApp(
-      initialRoute: '/',
-      routes: {
-        "/": (context) => ForgotPassword(),
-        // "/": (context) => OnboardingScreen(),
-        "/loginScreen": (context) => LoginScreen(),
-        "/signupScreen": (context) => SignupScreen(),
-      },
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+    ));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthBloc(userServices: userServices)),
+        BlocProvider(
+            create: (context) => LoginBloc(userServices: userServices)),
+        BlocProvider(
+            create: (context) => SignupBloc(userServices: userServices)),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(fontFamily: "Nunito-Regular"),
+        debugShowCheckedModeBanner: false,
+        routes: {
+          "/": (context) => OnboardingScreen(),
+          "/forgotPassword": (context) => ForgotPassword(),
+          "/homeScreen": (context) => HomeScreen(),
+          "/loginScreen": (context) => LoginScreen(),
+          "/onboardingScreen": (context) => OnboardingScreen(),
+        },
+      ),
     );
-    // );
   }
 }

@@ -4,7 +4,7 @@ class AppText {
   static const String emailErrorText =
       'Please enter a valid email, e.g: john@gmail.com';
   static const String passwordErrorText =
-      'Password must have as least 8 characters, including numbers, uppercase, lowercase characters';
+      'Password must have as least 8 characters, including numbers, uppercase, lowercase characters and uncharacters';
 
   static RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
@@ -29,18 +29,18 @@ class SignupScreenText {
   static const String fullNameLabel = "Full Name";
   static const String emailNameLabel = "Email";
   static const String passwordLabel = "Password";
-  static const String createAccount = "Create Account";
+  static const String signupButton = "Create Account";
   static const String alreadyHaveAnAccount = "Already have an account?";
-  static const String loginHere = "Login Here";
+  static const String loginHere = 'Login Here';
 }
 
 class OnboardingTabletText {
   static const String firstTitle =
-      "Join over 50 millions people sharing recipes everday";
+      'Join over 50 millions people sharing recipes everday';
   static const String secondTitle =
-      "Never run out ideas again. Try new food, ingredients, cooking style, and more";
-  static const String joinButton = "Join Scratch";
-  static const String learnMoreButton = "Learn More";
+      'Never run out ideas again. Try new food, ingredients, cooking style, and more';
+  static const String joinButton = 'Join Scratch';
+  static const String learnMoreButton = 'Learn More';
 }
 
 class ForgotPasswordText {
@@ -48,4 +48,5 @@ class ForgotPasswordText {
   static const String label =
       "Enter the email associated with your account and we'll send an email with a link to reset your password.";
   static const String sendButton = "Send";
+  static const String tabletLabel = "Start from Scratch";
 }
