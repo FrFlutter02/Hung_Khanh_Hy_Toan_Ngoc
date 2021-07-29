@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
 
 import '../constants/constant_colors.dart';
-import '../constants/constant_text.dart';
 
 class CustomButton extends StatelessWidget {
   final bool enabled;
   final double width;
   final double height;
   final String value;
-  final void Function() handlePressed;
+  final void Function() buttonOnPress;
 
   const CustomButton(
       {required this.enabled,
       required this.width,
       required this.height,
       required this.value,
-      required this.handlePressed,
+      required this.buttonOnPress,
       Key? key})
       : super(key: key);
 
@@ -26,7 +25,7 @@ class CustomButton extends StatelessWidget {
       width: width,
       height: height,
       child: ElevatedButton(
-        onPressed: enabled ? handlePressed : null,
+        onPressed: enabled ? buttonOnPress : null,
         child: Text(
           value,
           style: Theme.of(context)

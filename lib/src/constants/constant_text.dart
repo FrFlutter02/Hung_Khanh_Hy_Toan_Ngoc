@@ -29,7 +29,7 @@ class SignupScreenText {
   static const String fullNameLabel = "Full Name";
   static const String emailNameLabel = "Email";
   static const String passwordLabel = "Password";
-  static const String createAccount = "Create Account";
+  static const String signupButton = "Create Account";
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String loginHere = 'Login Here';
 }
