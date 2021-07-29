@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/helper.dart';
+import 'package:mobile_app/src/ScreenUtil.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../widgets/logo.dart';
@@ -14,7 +14,7 @@ class FormHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Helper _helper = Helper();
+    final ScreenUtil _helper = ScreenUtil();
 
     return Container(
       padding: EdgeInsets.only(

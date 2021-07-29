@@ -6,7 +6,7 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../../blocs/signup_bloc/signup_bloc.dart';
 import '../../constants/constant_colors.dart';
 import '../custom_button.dart';
-import '../../helper.dart';
+import '../../ScreenUtil.dart';
 
 class FormBody extends StatefulWidget {
   final SignupBloc? signupBloc;
@@ -38,7 +38,7 @@ class FormBody extends StatefulWidget {
 
 class _ScratchFormState extends State<FormBody> {
   final _formKey = GlobalKey<FormState>();
-  final Helper _helper = Helper();
+  final ScreenUtil _helper = ScreenUtil();
   bool isLoading = false;
   StreamSubscription? signupStreamSubscription;
 

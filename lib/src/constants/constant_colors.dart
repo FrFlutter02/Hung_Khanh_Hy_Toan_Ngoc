@@ -13,3 +13,53 @@ class LoginScreenColor {
   static const resetPassword = Color(0xff9A9EF7);
   static const textFieldBottomBorder = Color(0xffCCCCCC);
 }
+
+class ColorOfBackgroundForgotPassword {
+  static const gradientColor = LinearGradient(
+    colors: [
+      Colors.white54,
+      Colors.white54,
+      Colors.white54,
+      Colors.white70,
+      Colors.white70,
+      Colors.white,
+      Colors.white,
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+}
+
+class GardientColorBackgroundOfOnboarding {
+  static const gradientColorTablet = LinearGradient(
+    colors: [
+      Colors.white,
+      Colors.white,
+      Colors.white,
+      Colors.white,
+      Colors.white60,
+      Colors.white60,
+      Colors.white60,
+      Colors.white60,
+      Colors.white,
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+  static const gradientColorMobile = LinearGradient(
+    colors: [
+      Colors.white,
+      Colors.white,
+      Colors.white,
+      Colors.white,
+      Colors.white,
+      Colors.white,
+      Colors.white60,
+      Colors.white60,
+      Colors.white60,
+      Colors.white60,
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+}

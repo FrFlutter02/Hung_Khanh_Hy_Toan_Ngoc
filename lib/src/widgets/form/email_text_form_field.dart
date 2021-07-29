@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/constant_colors.dart';
-import '../../helper.dart';
+import '../../ScreenUtil.dart';
 import '../../validator.dart';
 
 class EmailTextFormField extends StatefulWidget {
@@ -17,7 +17,7 @@ class EmailTextFormField extends StatefulWidget {
 }
 
 class _EmailTextFormFieldState extends State<EmailTextFormField> {
-  final Helper _helper = Helper();
+  final ScreenUtil _screenUtil = ScreenUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
                 .copyWith(color: AppColor.secondaryGrey),
           ),
         ),
-        SizedBox(height: _helper.height(15)),
+        SizedBox(height: _screenUtil.height(15)),
         TextFormField(
           validator: (value) => Validator.emailValidator(value!),
           controller: widget.emailController,
@@ -41,18 +41,18 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
           enableSuggestions: false,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: _helper.height(6)),
+            contentPadding: EdgeInsets.only(bottom: _screenUtil.height(6)),
             errorMaxLines: 2,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: LoginScreenColor.textFieldBottomBorder,
-                width: _helper.width(1),
+                width: _screenUtil.width(1),
               ),
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: AppColor.green,
-                width: _helper.width(1),
+                width: _screenUtil.width(1),
               ),
             ),
             isDense: true,
@@ -62,7 +62,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
               .bodyText2!
               .copyWith(color: AppColor.primaryBlack),
         ),
-        SizedBox(height: _helper.height(30)),
+        SizedBox(height: _screenUtil.height(30)),
       ],
     );
   }

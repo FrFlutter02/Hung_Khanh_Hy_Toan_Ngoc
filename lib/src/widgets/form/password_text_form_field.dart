@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
-import '../../helper.dart';
+import '../../ScreenUtil.dart';
 import '../../validator.dart';
 
 class PasswordTextFormField extends StatefulWidget {
@@ -22,7 +22,7 @@ class PasswordTextFormField extends StatefulWidget {
 }
 
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
-  final Helper _helper = Helper();
+  final ScreenUtil _helper = ScreenUtil();
 
   @override
   Widget build(BuildContext context) {
