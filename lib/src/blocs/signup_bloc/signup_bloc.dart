@@ -21,17 +21,17 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     switch (event.runtimeType) {
       case SignupButtonPressed:
         yield SignupInProgress();
-      // try {
-      //   await userServices?.signUp(
-      //       event.fullName, event.email, event.password);
-      //   yield SignupSuccess(
-      //       user: UserModel(
-      //           fullName: event.fullName,
-      //           email: event.email,
-      //           password: event.password));
-      // } catch (e) {
-      //   yield SignupFailure(message: e.toString());
-      // }
+        try {
+          await userServices?.signUp(
+              event.fullName, event.email, event.password);
+          yield SignupSuccess(
+              user: UserModel(
+                  fullName: event.fullName,
+                  email: event.email,
+                  password: event.password));
+        } catch (e) {
+          yield SignupFailure(message: e.toString());
+        }
     }
   }
 }

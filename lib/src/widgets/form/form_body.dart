@@ -114,10 +114,10 @@ class _FormBodyState extends State<FormBody> {
                     height: _screenUtil.height(50),
                     isLoading: isLoading,
                     buttonOnPress: () {
-                      // if (_formKey.currentState!.validate()) {
-                      widget.buttonOnPress();
-                      print('hahaha');
-                      // }
+                      if (_formKey.currentState!.validate()) {
+                        widget.buttonOnPress();
+                        print('hahaha');
+                      }
                     }),
                 Container(
                   child: Column(
