@@ -1,6 +1,6 @@
 import 'package:flutter_device_type/flutter_device_type.dart';
 
-class Helper {
+class ScreenUtil {
   double height(double designedPixel) {
     return designedPixel /
         (Device.get().isTablet ? 1024 : 812) *

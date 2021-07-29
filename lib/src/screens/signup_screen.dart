@@ -6,7 +6,8 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../blocs/signup_bloc/signup_bloc.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
-import '../validator.dart';
+import '../models/user_model.dart';
+import '../utils/validator.dart';
 import '../widgets/form/email_text_form_field.dart';
 import '../widgets/form/password_text_form_field.dart';
 import '../widgets/form/form_header.dart';
@@ -23,7 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController fullNameController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-  final CollectionReference user =
+  final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
   @override
@@ -41,18 +42,15 @@ class _SignupScreenState extends State<SignupScreen> {
       body: BlocConsumer<SignupBloc, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccess) {
-            user.add({
-              'fullName': state.user.fullName,
-              'email': state.user.email,
-              'password': state.user.password,
-            });
+            UserModel userModel = UserModel(
+                fullName: state.user.fullName,
+                email: state.user.email,
+                password: state.user.password);
+            userCollection.add(userModel.toMap());
             Navigator.of(context).pushNamed('/homeScreen');
           }
         },
         builder: (context, state) {
-          if (state is SignupFailure) {
-            return buildError(state.message);
-          }
           return Stack(
             children: [
               Container(

@@ -6,7 +6,7 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../../blocs/signup_bloc/signup_bloc.dart';
 import '../../constants/constant_colors.dart';
 import '../custom_button.dart';
-import '../../helper.dart';
+import '../../utils/screen_util.dart';
 
 class FormBody extends StatefulWidget {
   final SignupBloc? signupBloc;
@@ -33,12 +33,12 @@ class FormBody extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ScratchFormState createState() => _ScratchFormState();
+  _FormBodyState createState() => _FormBodyState();
 }
 
-class _ScratchFormState extends State<FormBody> {
+class _FormBodyState extends State<FormBody> {
   final _formKey = GlobalKey<FormState>();
-  final Helper _helper = Helper();
+  final ScreenUtil _screenUtil = ScreenUtil();
   bool isLoading = false;
   StreamSubscription? signupStreamSubscription;
 
@@ -69,10 +69,10 @@ class _ScratchFormState extends State<FormBody> {
     return Container(
       width: Device.screenWidth,
       padding: EdgeInsets.only(
-        left: _helper.width(widget.isTabletScreen ? 171 : 25),
-        right: _helper.width(widget.isTabletScreen ? 171 : 25),
-        top: widget.isTabletScreen ? 0 : _helper.height(20),
-        bottom: widget.isTabletScreen ? _helper.height(45) : 0,
+        left: _screenUtil.width(widget.isTabletScreen ? 171 : 25),
+        right: _screenUtil.width(widget.isTabletScreen ? 171 : 25),
+        top: widget.isTabletScreen ? 0 : _screenUtil.height(20),
+        bottom: widget.isTabletScreen ? _screenUtil.height(45) : 0,
       ),
       child: Form(
         key: _formKey,
@@ -95,73 +95,69 @@ class _ScratchFormState extends State<FormBody> {
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: widget.isTabletScreen ? _helper.width(50) : 0,
-              vertical: widget.isTabletScreen ? _helper.height(50) : 0,
+              horizontal: widget.isTabletScreen ? _screenUtil.width(50) : 0,
+              vertical: widget.isTabletScreen ? _screenUtil.height(50) : 0,
             ),
-            child: isLoading
-                ? CircularProgressIndicator()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.titleText,
+                  style: Theme.of(context).textTheme.bodyText2!,
+                ),
+                SizedBox(height: _screenUtil.height(30)),
+                ...widget.textFormFieldList,
+                CustomButton(
+                    enabled: !isLoading,
+                    value: widget.buttonText,
+                    width: Device.screenWidth,
+                    height: _screenUtil.height(50),
+                    isLoading: isLoading,
+                    buttonOnPress: () {
+                      // if (_formKey.currentState!.validate()) {
+                      widget.buttonOnPress();
+                      print('hahaha');
+                      // }
+                    }),
+                Container(
+                  child: Column(
                     children: [
-                      Text(
-                        widget.titleText,
-                        style: Theme.of(context).textTheme.bodyText2!,
-                      ),
-                      SizedBox(height: _helper.height(30)),
-                      ...widget.textFormFieldList,
-                      CustomButton(
-                          enabled: true,
-                          value: widget.buttonText,
-                          width: Device.screenWidth,
-                          height: _helper.height(50),
-                          buttonOnPress: () {
-                            if (_formKey.currentState!.validate()) {
-                              widget.buttonOnPress();
-                            }
-                          }),
-                      Container(
-                        child: Column(
-                          children: [
-                            SizedBox(height: 30),
-                            Center(
-                              child: Text(
-                                widget.footerTitleText,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(color: AppColor.secondaryGrey),
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Center(
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, widget.destinationRoute);
-                                },
-                                child: Text(
-                                  widget.footerLinkText,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          color: AppColor.green,
-                                          fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ],
+                      SizedBox(height: 30),
+                      Center(
+                        child: Text(
+                          widget.footerTitleText,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: AppColor.secondaryGrey),
                         ),
-                      )
+                      ),
+                      SizedBox(height: 5),
+                      Center(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, widget.destinationRoute);
+                          },
+                          child: Text(
+                            widget.footerLinkText,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    color: AppColor.green,
+                                    fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
-
-Widget buildError(String message) {
-  return Text(message);
 }

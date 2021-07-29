@@ -16,4 +16,12 @@ class UserModel {
       password: json['answers'] as String,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'fullName': fullName,
+      'email': email,
+      'password': password,
+    };
+  }
 }

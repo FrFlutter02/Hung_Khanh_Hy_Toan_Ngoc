@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserServices {
-  FirebaseAuth? firebaseAuth;
+  final FirebaseAuth? firebaseAuth;
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('user');
 
   UserServices() : firebaseAuth = FirebaseAuth.instance;
 
@@ -30,8 +33,18 @@ class UserServices {
 
   Future<void> signUp(String fullName, String email, String password) async {
     try {
-      await firebaseAuth?.createUserWithEmailAndPassword(
-          email: email, password: password);
+      bool userDidNotExist = await userCollection
+          .where('email', isEqualTo: email)
+          .get()
+          .then((value) {
+        return value.docs.length == 0;
+      });
+      if (userDidNotExist) {
+        await firebaseAuth?.createUserWithEmailAndPassword(
+            email: email, password: password);
+      } else {
+        print('already exist!');
+      }
     } catch (e) {
       print(e.toString());
     }
