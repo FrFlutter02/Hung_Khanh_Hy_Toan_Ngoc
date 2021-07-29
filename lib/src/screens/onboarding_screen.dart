@@ -3,6 +3,8 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 
+import '../helper.dart';
+
 class OnboardingScreen extends StatelessWidget {
   bool isDeviceTablet() {
     if (Device.get().isTablet) {
@@ -43,8 +45,8 @@ class OnboardingScreen extends StatelessWidget {
                             child: Image.asset(
                               "assets/images/inboarding_background.png",
                               scale: 0.3,
-                              height: 400,
-                              width: 780,
+                              height: Helper.height(400),
+                              width: Helper.width(780),
                             ),
                           ),
                         ),
@@ -71,23 +73,24 @@ class OnboardingScreen extends StatelessWidget {
                     )),
                     Center(
                         child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 116),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Helper.width(116)),
                       child: Row(
                         children: [
                           Image.asset("assets/images/logo_icon.png",
-                              height: 36.21, width: 25.24),
+                              height: Helper.height(36.21),
+                              width: Helper.width(25.24)),
                           Container(
-                              width: 111,
+                              width: Helper.width(111),
                               child: Center(
                                 child: Text(
                                   AppText.iconText,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400,
-                                    letterSpacing: 0.4,
+                                    letterSpacing: Helper.width(0.4),
                                     color: AppColor.iconText,
                                     fontFamily: 'Nunito-Regular',
-                                    height: 1,
                                   ),
                                 ),
                               ))
@@ -110,8 +113,8 @@ class OnboardingScreen extends StatelessWidget {
                               child: Image.asset(
                                 "assets/images/inboarding_background.png",
                                 scale: 0.4,
-                                height: 1100,
-                                width: 1300,
+                                height: Helper.height(1100),
+                                width: Helper.width(1300),
                               ),
                             ),
                           ),
@@ -140,8 +143,8 @@ class OnboardingScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Container(
-                            height: 98,
-                            width: 276,
+                            height: Helper.height(98),
+                            width: Helper.width(276),
                             alignment: Alignment.center,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -152,8 +155,8 @@ class OnboardingScreen extends StatelessWidget {
                                 Expanded(
                                   child: Image.asset(
                                       "assets/images/logo_icon.png",
-                                      height: 25.07,
-                                      width: 17.29),
+                                      height: Helper.height(25.07),
+                                      width: Helper.width(17.29)),
                                 ),
                                 Container(
                                     child: Center(
@@ -180,7 +183,8 @@ class OnboardingScreen extends StatelessWidget {
                           flex: 1,
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 134),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Helper.width(134)),
                           child: Text(
                             OnboardingTabletText.firstTitle,
                             textAlign: TextAlign.center,
@@ -188,16 +192,17 @@ class OnboardingScreen extends StatelessWidget {
                                 fontSize: 40,
                                 fontFamily: 'Nunito-SemiBold',
                                 color: AppColor.primaryBlack,
-                                height: 1.2,
+                                height: Helper.height(1.2),
                                 letterSpacing: -0.5),
                           ),
                         ),
                         SizedBox(
-                          height: 8,
+                          height: Helper.height(8),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 227),
-                          height: 44,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Helper.width(227)),
+                          height: Helper.height(44),
                           alignment: Alignment.center,
                           child: Text(
                             OnboardingTabletText.secondTitle,
@@ -210,56 +215,63 @@ class OnboardingScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 34,
+                          height: Helper.height(34),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 135),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Helper.width(135)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                width: 300,
-                                height: 50,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(OnboardingTabletText.joinButton,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'Nunito-Regular')),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
+                              Expanded(
+                                child: Container(
+                                  width: Helper.width(300),
+                                  height: Helper.height(50),
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(OnboardingTabletText.joinButton,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'Nunito-Regular')),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      elevation: 0,
+                                      primary: AppColor.green,
                                     ),
-                                    elevation: 0,
-                                    primary: AppColor.buttonGreen,
                                   ),
                                 ),
                               ),
                               SizedBox(
-                                width: 20,
+                                width: Helper.width(20),
                               ),
-                              Container(
-                                // margin: EdgeInsets.only(left: 8.0),\
-                                width: 300,
-                                height: 50,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    OnboardingTabletText.learnMoreButton,
-                                    style: TextStyle(
-                                        color: AppColor.buttonGreen,
-                                        fontSize: 16,
-                                        fontFamily: 'Nunito-Regular'),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
+                              Expanded(
+                                child: Container(
+                                  // margin: EdgeInsets.only(left: 8.0),\
+                                  width: Helper.width(300),
+                                  height: Helper.height(50),
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      OnboardingTabletText.learnMoreButton,
+                                      style: TextStyle(
+                                          color: AppColor.green,
+                                          fontSize: 16,
+                                          fontFamily: 'Nunito-Regular'),
                                     ),
-                                    elevation: 0,
-                                    side: BorderSide(
-                                        width: 2,
-                                        color: (AppColor.buttonGreen)),
-                                    primary: AppColor.white,
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      elevation: 0,
+                                      side: BorderSide(
+                                          width: Helper.width(2),
+                                          color: (AppColor.green)),
+                                      primary: AppColor.white,
+                                    ),
                                   ),
                                 ),
                               ),
