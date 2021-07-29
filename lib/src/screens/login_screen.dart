@@ -80,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: LoginScreenText.passwordLabel,
                         passwordController: passwordController),
                   ],
+                  buttonText: LoginScreenText.loginButton,
                   footerTitleText: LoginScreenText.newToScratch,
                   footerLinkText: LoginScreenText.createAccountHere,
                 ),

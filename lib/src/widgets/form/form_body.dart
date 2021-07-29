@@ -11,6 +11,7 @@ class FormBody extends StatefulWidget {
   final String titleText;
   final String footerTitleText;
   final String footerLinkText;
+  final String buttonText;
   final bool isTabletScreen;
 
   const FormBody(
@@ -18,6 +19,7 @@ class FormBody extends StatefulWidget {
       required this.titleText,
       required this.footerTitleText,
       required this.footerLinkText,
+      required this.buttonText,
       required this.isTabletScreen,
       Key? key})
       : super(key: key);
@@ -75,7 +77,7 @@ class _ScratchFormState extends State<FormBody> {
                 ...widget.textFormFieldList,
                 CustomButton(
                   enabled: true,
-                  value: LoginScreenText.loginButton,
+                  value: widget.buttonText,
                   width: Device.screenWidth,
                   height: _helper.height(50),
                   handlePressed: () {
