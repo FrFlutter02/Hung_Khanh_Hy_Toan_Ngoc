@@ -85,48 +85,17 @@ class OnboardingScreen extends StatelessWidget {
                               .gradientColorTablet)),
                   Column(
                     children: [
-                      Expanded(
-                        child: Container(
-                          height: _screenUtil.height(98),
-                          width: _screenUtil.width(276),
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Spacer(
-                                flex: 2,
-                              ),
-                              Expanded(
-                                child: Image.asset(
-                                    "assets/images/logo_icon.png",
-                                    height: _screenUtil.height(25.07),
-                                    width: _screenUtil.width(17.29)),
-                              ),
-                              Container(
-                                  child: Center(
-                                child: Text(
-                                  AppText.iconText,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                    letterSpacing: 0.4,
-                                    color: AppColor.iconText,
-                                    fontFamily: 'Nunito-Bold',
-                                    height: 1,
-                                  ),
-                                ),
-                              )),
-                              Spacer(
-                                flex: 2,
-                              )
-                            ],
-                          ),
-                        ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: _screenUtil.width(335),
+                            right: _screenUtil.width(335),
+                            top: 80),
+                        child: Logo(width: 100, height: 22),
                       ),
-                      Spacer(
-                        flex: 1,
+                      SizedBox(
+                        height: _screenUtil.height(131),
                       ),
-                      Container(
+                      Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: _screenUtil.width(134)),
                         child: Text(
@@ -161,7 +130,7 @@ class OnboardingScreen extends StatelessWidget {
                       SizedBox(
                         height: _screenUtil.height(34),
                       ),
-                      Container(
+                      Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: _screenUtil.width(135)),
                         child: Row(
@@ -219,9 +188,6 @@ class OnboardingScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                      Spacer(
-                        flex: 5,
                       ),
                     ],
                   ),

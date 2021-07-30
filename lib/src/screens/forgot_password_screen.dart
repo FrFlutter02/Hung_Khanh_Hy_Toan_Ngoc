@@ -16,14 +16,14 @@ class ForgotPassword extends StatelessWidget {
     }
   }
 
-  UserServices userServices = UserServices();
+  final bool isTabletScreen = false;
+  final UserServices userServices = UserServices();
   final ScreenUtil _screenUtil = ScreenUtil();
   TextEditingController emailTextEditingController =
       new TextEditingController();
 
-  @override
   Widget build(BuildContext context) {
-    double maxHeight = MediaQuery.of(context).size.height;
+    final double maxHeight = MediaQuery.of(context).size.height;
     final formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -86,13 +86,14 @@ class ForgotPassword extends StatelessWidget {
                       height: _screenUtil.height(39),
                     )
                   : SizedBox.shrink(),
-              Container(
+              Padding(
                 padding: isDeviceTablet()
                     ? EdgeInsets.symmetric(horizontal: _screenUtil.width(172))
                     : EdgeInsets.symmetric(horizontal: _screenUtil.width(27.5)),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColor.white,
+                    color:
+                        isDeviceTablet() ? AppColor.white : Colors.transparent,
                     borderRadius: isDeviceTablet()
                         ? BorderRadius.all(
                             Radius.circular(8),
@@ -104,7 +105,7 @@ class ForgotPassword extends StatelessWidget {
                       BoxShadow(
                         color: isDeviceTablet()
                             ? AppColor.primaryGrey.withOpacity(0.1)
-                            : AppColor.white,
+                            : Colors.transparent,
                         blurRadius: 10,
                         offset: Offset(
                           10,
@@ -116,7 +117,7 @@ class ForgotPassword extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
+                      Padding(
                         padding: isDeviceTablet()
                             ? EdgeInsets.symmetric(
                                 horizontal: _screenUtil.width(50))
@@ -124,121 +125,109 @@ class ForgotPassword extends StatelessWidget {
                                 horizontal: _screenUtil.width(0)),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: isDeviceTablet()
+                                  ? _screenUtil.height(37)
+                                  : _screenUtil.height(60),
+                            ),
+                            isDeviceTablet()
+                                ? SizedBox.shrink()
+                                : Row(
+                                    children: [
+                                      Logo(
+                                          width: _screenUtil.width(99),
+                                          height: _screenUtil.width(22))
+                                    ],
+                                  ),
+                            SizedBox(
+                              height: _screenUtil.height(37),
+                            ),
                             Container(
                               alignment: Alignment.centerLeft,
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: isDeviceTablet()
-                                        ? _screenUtil.height(37)
-                                        : _screenUtil.height(60),
-                                  ),
-                                  isDeviceTablet()
-                                      ? SizedBox.shrink()
-                                      : Row(
-                                          children: [
-                                            Logo(
-                                                width: _screenUtil.width(99),
-                                                height: _screenUtil.width(22))
-                                          ],
-                                        ),
-                                  SizedBox(
-                                    height: _screenUtil.height(37),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      isDeviceTablet()
-                                          ? ForgotPasswordText.title
-                                              .replaceFirst(" ", "\n")
-                                          : ForgotPasswordText.title,
-                                      style: TextStyle(
-                                          fontSize: isDeviceTablet() ? 40 : 32,
-                                          fontFamily: isDeviceTablet()
-                                              ? "Nunito-Bold"
-                                              : "Nunito-SemiBold",
-                                          fontWeight: FontWeight.w800),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: _screenUtil.height(23),
-                                  ),
-                                  Text(ForgotPasswordText.label,
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          fontSize: isDeviceTablet() ? 16 : 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: isDeviceTablet()
-                                              ? AppColor.primaryGrey
-                                              : AppColor.primaryBlack,
-                                          wordSpacing: _screenUtil.width(1))),
-                                  SizedBox(
-                                    height: isDeviceTablet()
-                                        ? _screenUtil.height(57)
-                                        : _screenUtil.height(106),
-                                  ),
-                                  Container(
-                                    child: Form(
-                                      key: formKey,
-                                      child: EmailTextFormField(
-                                          emailController:
-                                              emailTextEditingController,
-                                          label: LoginScreenText.emailLabel),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: isDeviceTablet()
-                                        ? _screenUtil.height(18.58)
-                                        : _screenUtil.height(60),
-                                  ),
-                                  Container(
-                                    width: double.maxFinite,
-                                    height: _screenUtil.height(50),
-                                    child: ElevatedButton(
-                                      onPressed: () async {
-                                        if (formKey.currentState!.validate()) {
-                                          if (await userServices.userDidExist(
-                                              emailTextEditingController
-                                                  .text)) {
-                                            Navigator.of(context)
-                                                .pushNamed('/loginScreen');
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: const Text(
-                                                  'Email has been sent!!'),
-                                            ));
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: const Text(
-                                                  'Email doesn\'t exist!!'),
-                                            ));
-                                          }
-                                        }
-                                      },
-                                      child: Text(
-                                        ForgotPasswordText.sendButton,
-                                        style: TextStyle(fontSize: 24),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        elevation: 0,
-                                        primary: AppColor.green,
-                                      ),
-                                    ),
-                                  ),
-                                  isDeviceTablet()
-                                      ? SizedBox(
-                                          height: 105,
-                                        )
-                                      : SizedBox.shrink()
-                                ],
+                              child: Text(
+                                isDeviceTablet()
+                                    ? ForgotPasswordText.title
+                                        .replaceFirst(" ", "\n")
+                                    : ForgotPasswordText.title,
+                                style: TextStyle(
+                                    fontSize: isDeviceTablet() ? 40 : 32,
+                                    fontFamily: isDeviceTablet()
+                                        ? "Nunito-Bold"
+                                        : "Nunito-SemiBold",
+                                    fontWeight: FontWeight.w800),
+                                textAlign: TextAlign.start,
                               ),
                             ),
+                            SizedBox(
+                              height: _screenUtil.height(23),
+                            ),
+                            Text(ForgotPasswordText.label,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: isDeviceTablet() ? 16 : 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: isDeviceTablet()
+                                        ? AppColor.primaryGrey
+                                        : AppColor.primaryBlack,
+                                    wordSpacing: _screenUtil.width(1))),
+                            SizedBox(
+                              height: isDeviceTablet()
+                                  ? _screenUtil.height(57)
+                                  : _screenUtil.height(106),
+                            ),
+                            Form(
+                              key: formKey,
+                              child: EmailTextFormField(
+                                  emailController: emailTextEditingController,
+                                  label: LoginScreenText.emailLabel),
+                            ),
+                            SizedBox(
+                              height: isDeviceTablet()
+                                  ? _screenUtil.height(18.58)
+                                  : _screenUtil.height(60),
+                            ),
+                            Container(
+                              width: double.maxFinite,
+                              height: _screenUtil.height(50),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  if (formKey.currentState!.validate()) {
+                                    if (await userServices.userDidExist(
+                                        emailTextEditingController.text)) {
+                                      Navigator.of(context)
+                                          .pushNamed('/loginScreen');
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: const Text(ForgotPasswordText
+                                            .snackbarContentScuess),
+                                      ));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: const Text(ForgotPasswordText
+                                            .snackbarContentEmailExist),
+                                      ));
+                                    }
+                                  }
+                                },
+                                child: Text(
+                                  ForgotPasswordText.sendButton,
+                                  style: TextStyle(fontSize: 24),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  elevation: 0,
+                                  primary: AppColor.green,
+                                ),
+                              ),
+                            ),
+                            isDeviceTablet()
+                                ? SizedBox(
+                                    height: 105,
+                                  )
+                                : SizedBox.shrink()
                           ],
                         ),
                       ),
