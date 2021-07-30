@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/widgets/logo.dart';
+import '../../src/widgets/logo.dart';
 import '../services/user_services.dart';
 import '../../src/widgets/email_text_form_field.dart';
 import '../constants/constant_text.dart';
