@@ -56,9 +56,6 @@ class UserServices {
           .where('email', isEqualTo: email)
           .get()
           .then((value) {
-        value.docs.forEach((element) {
-          print(element);
-        });
         return value.docs.length > 0;
       });
     } catch (e) {
