@@ -32,13 +32,6 @@ class UserServices {
 
   Future<void> signUp(String fullName, String email, String password) async {
     try {
-      bool userDidNotExist = await userCollection
-          .where('email', isEqualTo: 'khanh000huynh@gmail.coms')
-          .get()
-          .then((value) {
-        return value.docs.length == 0;
-      });
-
       await firebaseAuth?.createUserWithEmailAndPassword(
           email: email, password: password);
     } catch (e) {
