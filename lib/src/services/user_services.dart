@@ -36,7 +36,6 @@ class UserServices {
       String fullName, String email, String password) async {
     try {
       bool userExisted = await userDidExist(email);
-      print(userExisted);
       if (!userExisted) {
         await firebaseAuth?.createUserWithEmailAndPassword(
             email: email, password: password);
