@@ -20,7 +20,6 @@ class ForgotPassword extends StatelessWidget {
   final ScreenUtil _screenUtil = ScreenUtil();
   final TextEditingController emailTextEditingController =
       new TextEditingController();
-
   Widget build(BuildContext context) {
     final double maxHeight = MediaQuery.of(context).size.height;
     final formKey = GlobalKey<FormState>();
