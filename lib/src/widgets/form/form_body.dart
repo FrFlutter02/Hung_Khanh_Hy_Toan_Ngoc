@@ -5,8 +5,8 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 
 import '../../blocs/signup_bloc/signup_bloc.dart';
 import '../../constants/constant_colors.dart';
-import '../custom_button.dart';
 import '../../utils/screen_util.dart';
+import '../custom_button.dart';
 
 class FormBody extends StatefulWidget {
   final SignupBloc? signupBloc;
@@ -41,28 +41,6 @@ class _FormBodyState extends State<FormBody> {
   final ScreenUtil _screenUtil = ScreenUtil();
   bool isLoading = false;
   StreamSubscription? signupStreamSubscription;
-
-  @override
-  void dispose() {
-    signupStreamSubscription?.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    signupStreamSubscription = widget.signupBloc?.stream.listen((signupState) {
-      if (signupState is SignupInProgress) {
-        setState(() {
-          isLoading = true;
-        });
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,5 +136,27 @@ class _FormBodyState extends State<FormBody> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    signupStreamSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    signupStreamSubscription = widget.signupBloc?.stream.listen((signupState) {
+      if (signupState is SignupInProgress) {
+        setState(() {
+          isLoading = true;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+    super.initState();
   }
 }

@@ -5,9 +5,8 @@ import 'package:mobile_app/src/widgets/form/password_text_form_field.dart';
 
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
-
-import '../widgets/form/form_header.dart';
 import '../widgets/form/form_body.dart';
+import '../widgets/form/form_header.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,14 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isTabletScreen = false;
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-
-  @override
-  void initState() {
-    if (Device.get().isTablet) {
-      isTabletScreen = true;
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,5 +83,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    if (Device.get().isTablet) {
+      isTabletScreen = true;
+    }
+    super.initState();
   }
 }
