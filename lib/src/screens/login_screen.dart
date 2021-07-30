@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
-import 'package:mobile_app/src/widgets/form/email_text_form_field.dart';
-import 'package:mobile_app/src/widgets/form/password_text_form_field.dart';
+import '../blocs/login_bloc/login_bloc.dart';
+import '../widgets/form/email_text_form_field.dart';
+import '../widgets/form/password_text_form_field.dart';
 
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       footerTitleText: LoginScreenText.newToScratch,
                       footerLinkText: LoginScreenText.createAccountHere,
-                      destinationRoute: '/',
+                      destinationRoute: '/homeScreen',
                     ),
                   ],
                 ),

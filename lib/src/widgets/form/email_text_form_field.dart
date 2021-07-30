@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/ultis/validator.dart';
+
+import '../../ultis/validator.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../ultis/helper.dart';

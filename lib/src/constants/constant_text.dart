@@ -1,10 +1,15 @@
 class AppText {
   static const String iconText = 'scratch';
   static const String fullNameErrorText = 'Fullname cannot be empty';
+
   static const String emailErrorText =
       'Please enter a valid email, e.g: john@gmail.com';
   static const String passwordErrorText =
       'Password must have as least 8 characters, including numbers, uppercase, lowercase characters and uncharacters';
+  static const String userAlreadyExist = 'User is already exist!';
+
+  static const String emailErrorLoginText = "Email incorrect";
+  static const String passwordErrorLoginText = "Password incorrect";
 
   static RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
@@ -20,7 +25,7 @@ class LoginScreenText {
   static const String forgotPassword = "Forgot password?";
   static const String loginButton = "Login";
   static const String newToScratch = "New to Scratch?";
-  static const String createAccountHere = "Create account here";
+  static const String createAccountHere = "Create Account Here";
 }
 
 class SignupScreenText {
@@ -38,7 +43,17 @@ class OnboardingTabletText {
   static const String firstTitle =
       'Join over 50 millions people sharing recipes everday';
   static const String secondTitle =
-      'Never run out ideas again. Try new food, ingredients, cooking style, and more';
+      'Never run out ideas again. Try new foods, ingredients, cooking style, and more';
   static const String joinButton = 'Join Scratch';
   static const String learnMoreButton = 'Learn More';
+}
+
+class ForgotPasswordText {
+  static const String title = "Reset password";
+  static const String label =
+      "Enter the email associated with your account and we'll send an email with a link to reset your password.";
+  static const String sendButton = "Send";
+  static const String tabletLabel = "Start from Scratch";
+  static const String snackbarContentScuess = "Email has been sent!!";
+  static const String snackbarContentEmailExist = 'Email doesn\'t exist!!';
 }

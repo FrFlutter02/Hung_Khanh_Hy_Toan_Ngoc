@@ -114,7 +114,7 @@ class _FormBodyState extends State<FormBody> {
                       Center(
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/loginScreen');
+                            Navigator.pushNamed(context, '/homeScreen');
                           },
                           child: Text(
                             widget.footerLinkText,
