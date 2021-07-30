@@ -6,17 +6,74 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../blocs/signup_bloc/signup_bloc.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
-import '../models/user_model.dart';
 import '../utils/validator.dart';
 import '../widgets/form/email_text_form_field.dart';
-import '../widgets/form/password_text_form_field.dart';
-import '../widgets/form/form_header.dart';
 import '../widgets/form/form_body.dart';
+import '../widgets/form/form_header.dart';
+import '../widgets/form/password_text_form_field.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
   _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _FullNameTextFormField extends StatefulWidget {
+  final TextEditingController fullNameController;
+  final String label;
+
+  const _FullNameTextFormField(
+      {Key? key, required this.label, required this.fullNameController})
+      : super(key: key);
+
+  @override
+  _FullNameTextFormFieldState createState() => _FullNameTextFormFieldState();
+}
+
+class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          child: Text(
+            widget.label,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(color: AppColor.secondaryGrey),
+          ),
+        ),
+        SizedBox(height: 15),
+        TextFormField(
+          validator: (value) => Validator.fullNameValidator(value!),
+          controller: widget.fullNameController,
+          cursorColor: AppColor.green,
+          enableSuggestions: false,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: 6),
+            errorMaxLines: 2,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: LoginScreenColor.textFieldBottomBorder,
+                width: 1,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: AppColor.green,
+                width: 1,
+              ),
+            ),
+            isDense: true,
+          ),
+          style: TextStyle(color: AppColor.primaryBlack),
+        ),
+        SizedBox(height: 30),
+      ],
+    );
+  }
 }
 
 class _SignupScreenState extends State<SignupScreen> {
@@ -28,25 +85,12 @@ class _SignupScreenState extends State<SignupScreen> {
       FirebaseFirestore.instance.collection('user');
 
   @override
-  void initState() {
-    if (Device.get().isTablet) {
-      isTabletScreen = true;
-    }
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       body: BlocConsumer<SignupBloc, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccess) {
-            UserModel userModel = UserModel(
-                fullName: state.user.fullName,
-                email: state.user.email,
-                password: state.user.password);
-            userCollection.add(userModel.toMap());
             Navigator.of(context).pushNamed('/homeScreen');
           }
         },
@@ -125,62 +169,12 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
-}
-
-class _FullNameTextFormField extends StatefulWidget {
-  final TextEditingController fullNameController;
-  final String label;
-
-  const _FullNameTextFormField(
-      {Key? key, required this.label, required this.fullNameController})
-      : super(key: key);
 
   @override
-  _FullNameTextFormFieldState createState() => _FullNameTextFormFieldState();
-}
-
-class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          child: Text(
-            widget.label,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle1!
-                .copyWith(color: AppColor.secondaryGrey),
-          ),
-        ),
-        SizedBox(height: 15),
-        TextFormField(
-          validator: (value) => Validator.fullNameValidator(value!),
-          controller: widget.fullNameController,
-          cursorColor: AppColor.green,
-          enableSuggestions: false,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 6),
-            errorMaxLines: 2,
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: LoginScreenColor.textFieldBottomBorder,
-                width: 1,
-              ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: AppColor.green,
-                width: 1,
-              ),
-            ),
-            isDense: true,
-          ),
-          style: TextStyle(color: AppColor.primaryBlack),
-        ),
-        SizedBox(height: 30),
-      ],
-    );
+  void initState() {
+    if (Device.get().isTablet) {
+      isTabletScreen = true;
+    }
+    super.initState();
   }
 }
