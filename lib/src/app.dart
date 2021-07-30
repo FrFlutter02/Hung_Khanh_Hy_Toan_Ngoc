@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:mobile_app/src/screens/forgot_password_screen.dart';
-import 'package:mobile_app/src/services/user_services.dart';
+import '../src/screens/forgot_password_screen.dart';
+import '../../src/services/user_services.dart';
 
-import 'screens/login_screen.dart';
-import 'screens/onboarding_screen.dart';
+import '../src/screens/login_screen.dart';
+import '../src/screens/onboarding_screen.dart';
 import '../src/blocs/auth_bloc/auth_bloc.dart';
 import '../src/blocs/login_bloc/login_bloc.dart';
 import '../src/blocs/signup_bloc/signup_bloc.dart';
@@ -34,8 +34,8 @@ class App extends StatelessWidget {
         theme: ThemeData(fontFamily: "Nunito-Regular"),
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => ForgotPassword(),
-          "/forgotPassword": (context) => ForgotPassword(),
+          "/": (context) => OnboardingScreen(),
+          "/forgotPasswordScreen": (context) => ForgotPassword(),
           "/homeScreen": (context) => HomeScreen(),
           "/loginScreen": (context) => LoginScreen(),
           "/onboardingScreen": (context) => OnboardingScreen(),
