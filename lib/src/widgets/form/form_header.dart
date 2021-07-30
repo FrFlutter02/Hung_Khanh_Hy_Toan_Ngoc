@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/helper.dart';
+import '../../ultis/helper.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../widgets/logo.dart';
@@ -14,14 +14,14 @@ class FormHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Helper _helper = Helper();
+    final ScreenUtil _screenUtil = ScreenUtil();
 
     return Container(
       padding: EdgeInsets.only(
-        left: _helper.width(25),
-        right: _helper.width(25),
-        top: isTabletScreen ? _helper.height(80) : _helper.height(60),
-        // bottom: _helper.height(36),
+        left: _screenUtil.width(25),
+        right: _screenUtil.width(25),
+        top: isTabletScreen ? _screenUtil.height(80) : _screenUtil.height(60),
+        // bottom: _screenUtil.height(36),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -36,7 +36,8 @@ class FormHeader extends StatelessWidget {
               ),
       ),
       width: Device.screenWidth,
-      height: isTabletScreen ? _helper.height(305) : _helper.height(285),
+      height:
+          isTabletScreen ? _screenUtil.height(305) : _screenUtil.height(285),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: isTabletScreen
@@ -44,11 +45,13 @@ class FormHeader extends StatelessWidget {
             : CrossAxisAlignment.start,
         children: [
           Logo(
-            width: _helper.width(102),
-            height: _helper.height(28),
+            width: _screenUtil.width(102),
+            height: _screenUtil.height(28),
           ),
           SizedBox(
-            height: isTabletScreen ? _helper.height(130) : _helper.height(45),
+            height: isTabletScreen
+                ? _screenUtil.height(130)
+                : _screenUtil.height(45),
           ),
           Text(
             formHeaderTitle,

@@ -4,7 +4,7 @@ class AppText {
   static const String emailErrorText =
       'Please enter a valid email, e.g: john@gmail.com';
   static const String passwordErrorText =
-      'Password must have as least 8 characters, including numbers, uppercase, lowercase characters';
+      'Password must have as least 8 characters, including numbers, uppercase, lowercase characters and uncharacters';
 
   static RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
@@ -29,8 +29,9 @@ class SignupScreenText {
   static const String fullNameLabel = "Full Name";
   static const String emailNameLabel = "Email";
   static const String passwordLabel = "Password";
-  static const String createAccount = "Create Account";
+  static const String signupButton = "Create Account";
   static const String alreadyHaveAnAccount = "Already have an account?";
+  static const String loginHere = 'Login Here';
 }
 
 class OnboardingTabletText {

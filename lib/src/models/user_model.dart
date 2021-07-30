@@ -1,5 +1,5 @@
-class User {
-  const User({
+class UserModel {
+  const UserModel({
     required this.fullName,
     required this.email,
     required this.password,
@@ -9,8 +9,8 @@ class User {
   final String email;
   final String password;
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       fullName: json['fullName'] as String,
       email: json['email'] as String,
       password: json['answers'] as String,

@@ -1,4 +1,4 @@
-import 'constants/constant_text.dart';
+import '../constants/constant_text.dart';
 
 class Validator {
   static String? fullNameValidator(String fullName) {

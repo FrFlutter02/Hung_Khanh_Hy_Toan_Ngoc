@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
 
 import '../constants/constant_colors.dart';
-import '../constants/constant_text.dart';
 
 class CustomButton extends StatelessWidget {
   final bool enabled;
