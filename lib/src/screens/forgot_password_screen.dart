@@ -5,7 +5,7 @@ import '../services/user_services.dart';
 import '../../src/widgets/email_text_form_field.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
-import '../ScreenUtil.dart';
+import '../screen_util.dart';
 
 class ForgotPassword extends StatelessWidget {
   bool isDeviceTablet() {
@@ -16,10 +16,9 @@ class ForgotPassword extends StatelessWidget {
     }
   }
 
-  final bool isTabletScreen = false;
   final UserServices userServices = UserServices();
   final ScreenUtil _screenUtil = ScreenUtil();
-  TextEditingController emailTextEditingController =
+  final TextEditingController emailTextEditingController =
       new TextEditingController();
 
   Widget build(BuildContext context) {

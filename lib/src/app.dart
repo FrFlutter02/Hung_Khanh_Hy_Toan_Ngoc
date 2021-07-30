@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app/src/constants/constant_text.dart';
+
 import 'package:mobile_app/src/screens/forgot_password_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/ScreenUtil.dart';
+import 'package:mobile_app/src/screen_util.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../widgets/logo.dart';

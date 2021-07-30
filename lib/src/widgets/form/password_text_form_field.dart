@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
-import '../../ScreenUtil.dart';
+import '../../screen_util.dart';
 import '../../validator.dart';
 
 class PasswordTextFormField extends StatefulWidget {

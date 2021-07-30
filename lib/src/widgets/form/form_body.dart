@@ -6,7 +6,7 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../../blocs/signup_bloc/signup_bloc.dart';
 import '../../constants/constant_colors.dart';
 import '../custom_button.dart';
-import '../../ScreenUtil.dart';
+import '../../screen_util.dart';
 
 class FormBody extends StatefulWidget {
   final SignupBloc? signupBloc;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/constant_colors.dart';
-import '../../ScreenUtil.dart';
+import '../../screen_util.dart';
 import '../../validator.dart';
 
 class EmailTextFormField extends StatefulWidget {
