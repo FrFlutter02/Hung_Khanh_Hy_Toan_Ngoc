@@ -1,13 +1,16 @@
 class AppText {
   static const String iconText = 'scratch';
 
-  static const String fullNameErrorText = 'Fullname must not be empty';
-  static const String emailErrorText =
+  static const String fullNameMustNotEmptyErrorText =
+      'Fullname must not be empty';
+  static const String emailInvalidErrorText =
       'Please enter a valid email, e.g: john@gmail.com';
   static const String passwordErrorText =
       'Password must have as least 8 characters, including numbers, uppercase, lowercase characters and uncharacters';
-  static const String emailAlreadyExists = 'Email already exists';
-  static const String emailDidNotExist = 'Email did not exist';
+  static const String passwordMustNotBeEmptyErrorText =
+      'Password must not be empty';
+  static const String emailAlreadyExistsErrorText = 'Email already exists';
+  static const String emailDidNotExistErrorText = 'Email did not exist';
 
   static RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
