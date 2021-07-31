@@ -36,8 +36,8 @@ class UserServices {
   Future<UserModel?> signUp(
       String fullName, String email, String password) async {
     try {
-      bool userExisted = await userDidExist(email);
-      if (!userExisted) {
+      bool emailExists = await existsInDatabase('email', email);
+      if (!emailExists) {
         await firebaseAuth?.createUserWithEmailAndPassword(
             email: email, password: password);
         UserModel userModel =
@@ -50,10 +50,10 @@ class UserServices {
     }
   }
 
-  Future<bool> userDidExist(String email) async {
+  Future<bool> existsInDatabase(String fieldName, String fieldValue) async {
     try {
       return await userCollection
-          .where('email', isEqualTo: email)
+          .where(fieldName, isEqualTo: fieldValue == '' ? '' : fieldValue)
           .get()
           .then((value) {
         return value.docs.length > 0;

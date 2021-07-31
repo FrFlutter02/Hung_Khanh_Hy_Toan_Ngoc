@@ -5,10 +5,10 @@ import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 import '../../widgets/logo.dart';
 
-class FormHeader extends StatelessWidget {
+class LoginAndSignupHeader extends StatelessWidget {
   final bool isTabletScreen;
   final String formHeaderTitle;
-  const FormHeader(
+  const LoginAndSignupHeader(
       {required this.isTabletScreen, required this.formHeaderTitle, Key? key})
       : super(key: key);
 
@@ -21,18 +21,6 @@ class FormHeader extends StatelessWidget {
         left: _screenUtil.width(25),
         right: _screenUtil.width(25),
         top: isTabletScreen ? _screenUtil.height(80) : _screenUtil.height(60),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(100),
-        ),
-        image: isTabletScreen
-            ? null
-            : DecorationImage(
-                alignment: Alignment.topCenter,
-                fit: BoxFit.cover,
-                image: AssetImage('assets/images/login-signup-background.jpeg'),
-              ),
       ),
       width: Device.screenWidth,
       height:

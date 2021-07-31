@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
-import '../../utils/validator.dart';
 
 class EmailTextFormField extends StatefulWidget {
   final String label;
   final TextEditingController emailController;
+  final String errorText;
 
-  const EmailTextFormField(
-      {Key? key, required this.label, required this.emailController})
-      : super(key: key);
+  const EmailTextFormField({
+    Key? key,
+    required this.label,
+    required this.emailController,
+    required this.errorText,
+  }) : super(key: key);
 
   @override
   _EmailTextFormFieldState createState() => _EmailTextFormFieldState();
@@ -35,7 +38,6 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
         ),
         SizedBox(height: _screenUtil.height(15)),
         TextFormField(
-          validator: (value) => Validator.emailValidator(value!),
           controller: widget.emailController,
           cursorColor: AppColor.green,
           enableSuggestions: false,
@@ -43,6 +45,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: _screenUtil.height(6)),
             errorMaxLines: 2,
+            errorText: widget.errorText.isEmpty ? null : widget.errorText,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: LoginScreenColor.textFieldBottomBorder,

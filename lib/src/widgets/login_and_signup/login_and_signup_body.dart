@@ -8,35 +8,29 @@ import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 import '../custom_button.dart';
 
-class FormBody extends StatefulWidget {
+class LoginAndSignupBody extends StatefulWidget {
   final SignupBloc? signupBloc;
   final List<Widget> textFormFieldList;
   final String titleText;
   final String buttonText;
   final void Function() buttonOnPress;
-  final String footerTitleText;
-  final String footerLinkText;
-  final String destinationRoute;
   final bool isTabletScreen;
 
-  const FormBody(
+  const LoginAndSignupBody(
       {this.signupBloc,
       required this.textFormFieldList,
       required this.titleText,
       required this.buttonText,
       required this.buttonOnPress,
-      required this.footerTitleText,
-      required this.footerLinkText,
-      required this.destinationRoute,
       required this.isTabletScreen,
       Key? key})
       : super(key: key);
 
   @override
-  _FormBodyState createState() => _FormBodyState();
+  _LoginAndSignupBodyState createState() => _LoginAndSignupBodyState();
 }
 
-class _FormBodyState extends State<FormBody> {
+class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
   final _formKey = GlobalKey<FormState>();
   final ScreenUtil _screenUtil = ScreenUtil();
   bool isLoading = false;
@@ -91,45 +85,7 @@ class _FormBodyState extends State<FormBody> {
                     width: Device.screenWidth,
                     height: _screenUtil.height(50),
                     isLoading: isLoading,
-                    buttonOnPress: () {
-                      if (_formKey.currentState!.validate()) {
-                        widget.buttonOnPress();
-                      }
-                    }),
-                Container(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 30),
-                      Center(
-                        child: Text(
-                          widget.footerTitleText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: AppColor.secondaryGrey),
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Center(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, widget.destinationRoute);
-                          },
-                          child: Text(
-                            widget.footerLinkText,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(
-                                    color: AppColor.green,
-                                    fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                    buttonOnPress: widget.buttonOnPress),
               ],
             ),
           ),
