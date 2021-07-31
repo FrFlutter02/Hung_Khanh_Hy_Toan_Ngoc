@@ -11,7 +11,6 @@ class Validator {
     if (fullNameIsEmpty) {
       return AppText.fullNameMustNotEmptyErrorText;
     }
-    return null;
   }
 
   static Future<String?> signupEmailValidator(SignupEvent signupEvent) async {
@@ -27,7 +26,6 @@ class Validator {
     if (!emailIsValid) {
       return AppText.emailInvalidErrorText;
     }
-    return null;
   }
 
   static Future<String?> signupPasswordValidator(
