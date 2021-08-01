@@ -6,6 +6,27 @@ class SignupScreen extends StatefulWidget {
   _SignupScreenState createState() => _SignupScreenState();
 }
 
+class _FullNameTextFormField extends StatefulWidget {
+  final TextEditingController fullNameController;
+  final String label;
+
+  const _FullNameTextFormField(
+      {Key? key, required this.label, required this.fullNameController})
+      : super(key: key);
+
+  @override
+  _FullNameTextFormFieldState createState() => _FullNameTextFormFieldState();
+}
+
+class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text("signup"),
+    );
+  }
+}
+
 class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {

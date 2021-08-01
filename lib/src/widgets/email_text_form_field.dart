@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import '../../src/constants/constant_colors.dart';
-import '../../src/validator.dart';
+
+import '../constants/constant_colors.dart';
+import '../utils/screen_util.dart';
 
 class EmailTextFormField extends StatefulWidget {
   final String label;
   final TextEditingController emailController;
-  final bool isExist;
-  const EmailTextFormField(
-      {Key? key,
-      required this.label,
-      required this.emailController,
-      this.isExist = false})
-      : super(key: key);
-// String checkEmailValidatorOrEmailExist(){
-// if (!isExist) {
+  final String errorText;
+
+  const EmailTextFormField({
+    Key? key,
+    required this.label,
+    required this.emailController,
+    required this.errorText,
+  }) : super(key: key);
 
 //   return
 // } else {
@@ -25,6 +25,8 @@ class EmailTextFormField extends StatefulWidget {
 }
 
 class _EmailTextFormFieldState extends State<EmailTextFormField> {
+  final ScreenUtil _screenUtil = ScreenUtil();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,33 +41,33 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
                 .copyWith(color: AppColor.secondaryGrey),
           ),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: _screenUtil.height(15)),
         TextFormField(
-          validator: (value) => Validator.emailValidator(value!),
           controller: widget.emailController,
           cursorColor: AppColor.green,
           enableSuggestions: false,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 6),
+            contentPadding: EdgeInsets.only(bottom: _screenUtil.height(6)),
             errorMaxLines: 2,
+            errorText: widget.errorText.isEmpty ? null : widget.errorText,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: LoginScreenColor.textFieldBottomBorder,
-                width: 1,
+                width: _screenUtil.width(1),
               ),
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: AppColor.green,
-                width: 1,
+                width: _screenUtil.width(1),
               ),
             ),
             isDense: true,
           ),
           style: TextStyle(color: AppColor.primaryBlack),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: _screenUtil.height(30)),
       ],
     );
   }

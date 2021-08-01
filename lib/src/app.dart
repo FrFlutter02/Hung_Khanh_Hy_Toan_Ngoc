@@ -11,6 +11,9 @@ import '../src/screens/onboarding_screen.dart';
 import '../src/blocs/login_bloc/login_bloc.dart';
 import '../src/blocs/signup_bloc/signup_bloc.dart';
 import '../src/screens/home_screen.dart';
+import '../src/services/user_services.dart';
+import 'screens/login_screen.dart';
+import 'screens/onboarding_screen.dart';
 
 class App extends StatelessWidget {
   final UserServices userServices = UserServices();

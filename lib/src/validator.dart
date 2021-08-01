@@ -6,24 +6,28 @@ class Validator {
 
   static String? fullNameValidator(String fullName) {
     if (fullName.isEmpty) {
-      return AppText.fullNameErrorText;
+      return AppText.fullNameMustNotEmptyErrorText;
     }
     return null;
   }
 
   static String? emailValidator(String email) {
     if (!AppText.emailRegex.hasMatch(email)) {
-      return AppText.emailErrorText;
+      return AppText.emailInvalidErrorText;
     }
     return null;
   }
 
-  static String? userDidExist(String email) {
-    if (!AppText.emailRegex.hasMatch(email)) {
-      return AppText.emailErrorText;
+  static String userDidExist(String email) {
+    if (email.isNotEmpty) {
+      if (!AppText.emailRegex.hasMatch(email)) {
+        return AppText.emailAlreadyExistsErrorText;
+      } else {
+        return AppText.emailDidNotExistErrorText;
+      }
     }
 
-    return null;
+    return "";
   }
 
   static String? passwordValidator(String password) {
