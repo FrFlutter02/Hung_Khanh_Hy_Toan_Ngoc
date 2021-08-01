@@ -14,6 +14,9 @@ class LoginAndSignupBody extends StatefulWidget {
   final String titleText;
   final String buttonText;
   final void Function() buttonOnPress;
+  final String bottomTitleText;
+  final String bottomLinkText;
+  final String destinationRoute;
   final bool isTabletScreen;
 
   const LoginAndSignupBody(
@@ -23,6 +26,9 @@ class LoginAndSignupBody extends StatefulWidget {
       required this.buttonText,
       required this.buttonOnPress,
       required this.isTabletScreen,
+      required this.bottomTitleText,
+      required this.bottomLinkText,
+      required this.destinationRoute,
       Key? key})
       : super(key: key);
 
@@ -86,6 +92,40 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
                     height: _screenUtil.height(50),
                     isLoading: isLoading,
                     buttonOnPress: widget.buttonOnPress),
+                Container(
+                  child: Column(
+                    children: [
+                      SizedBox(height: _screenUtil.height(30)),
+                      Center(
+                        child: Text(
+                          widget.bottomTitleText,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: AppColor.secondaryGrey),
+                        ),
+                      ),
+                      SizedBox(height: _screenUtil.height(5)),
+                      Center(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, widget.destinationRoute);
+                          },
+                          child: Text(
+                            widget.bottomLinkText,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    color: AppColor.green,
+                                    fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

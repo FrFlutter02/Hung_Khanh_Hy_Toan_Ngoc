@@ -22,6 +22,18 @@ class LoginAndSignupHeader extends StatelessWidget {
         right: _screenUtil.width(25),
         top: isTabletScreen ? _screenUtil.height(80) : _screenUtil.height(60),
       ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(100),
+        ),
+        image: isTabletScreen
+            ? null
+            : DecorationImage(
+                alignment: Alignment.topCenter,
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/login-signup-background.jpeg'),
+              ),
+      ),
       width: Device.screenWidth,
       height:
           isTabletScreen ? _screenUtil.height(305) : _screenUtil.height(285),

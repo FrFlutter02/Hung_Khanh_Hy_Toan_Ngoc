@@ -2,13 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/models/user_model.dart';
-import 'package:mobile_app/src/utils/screen_util.dart';
-import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_footer.dart';
 
 import '../blocs/signup_bloc/signup_bloc.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
+import '../models/user_model.dart';
+import '../utils/screen_util.dart';
 import '../widgets/login_and_signup/email_text_form_field.dart';
 import '../widgets/login_and_signup/login_and_signup_body.dart';
 import '../widgets/login_and_signup/login_and_signup_header.dart';
@@ -33,6 +32,8 @@ class _FullNameTextFormField extends StatefulWidget {
 }
 
 class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
+  final ScreenUtil _screenUtil = ScreenUtil();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,11 +44,11 @@ class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
             widget.label,
             style: Theme.of(context)
                 .textTheme
-                .subtitle1!
+                .bodyText2!
                 .copyWith(color: AppColor.secondaryGrey),
           ),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: _screenUtil.height(15)),
         TextFormField(
           controller: widget.fullNameController,
           cursorColor: AppColor.green,
@@ -75,7 +76,7 @@ class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
           ),
           style: TextStyle(color: AppColor.primaryBlack),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: _screenUtil.height(30)),
       ],
     );
   }
@@ -104,24 +105,20 @@ class _SignupScreenState extends State<SignupScreen> {
           return Stack(
             children: [
               Container(
-                height: isTabletScreen
-                    ? _screenUtil.height(305)
-                    : _screenUtil.height(285),
                 decoration: BoxDecoration(
-                  borderRadius: isTabletScreen
-                      ? BorderRadius.zero
-                      : BorderRadius.only(
-                          bottomRight: Radius.circular(100),
-                        ),
-                  image: isTabletScreen
-                      ? null
-                      : DecorationImage(
-                          alignment: Alignment.topCenter,
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                              'assets/images/login-signup-background.jpeg'),
-                        ),
-                ),
+                    borderRadius: isTabletScreen
+                        ? BorderRadius.zero
+                        : BorderRadius.only(
+                            bottomRight: Radius.circular(100),
+                          ),
+                    image: isTabletScreen
+                        ? DecorationImage(
+                            alignment: Alignment.topCenter,
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                                'assets/images/login-signup-background.jpeg'),
+                          )
+                        : null),
               ),
               Container(
                 height: Device.screenHeight,
@@ -175,12 +172,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 email: emailController.text,
                                 password: passwordController.text)));
                       },
-                    ),
-                    LoginAndSignupFooter(
-                      footerTitleText: SignupScreenText.alreadyHaveAnAccount,
-                      footerLinkText: SignupScreenText.loginHere,
+                      bottomTitleText: SignupScreenText.alreadyHaveAnAccount,
+                      bottomLinkText: SignupScreenText.loginHere,
                       destinationRoute: '/loginScreen',
-                    )
+                    ),
                   ],
                 ),
               ),
