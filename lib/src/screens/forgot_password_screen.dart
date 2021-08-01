@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import '../../src/widgets/logo.dart';
@@ -23,6 +25,7 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final double maxHeight = MediaQuery.of(context).size.height;
     final formKey = GlobalKey<FormState>();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -194,6 +197,10 @@ class ForgotPassword extends StatelessWidget {
                                         emailTextEditingController.text)) {
                                       Navigator.of(context)
                                           .pushNamed('/loginScreen');
+                                      FirebaseAuth.instance
+                                          .sendPasswordResetEmail(
+                                              email: emailTextEditingController
+                                                  .text);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
                                         content: const Text(ForgotPasswordText
