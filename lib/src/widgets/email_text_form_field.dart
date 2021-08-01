@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/validator.dart';
+import '../../src/constants/constant_colors.dart';
+import '../../src/validator.dart';
 
 class EmailTextFormField extends StatefulWidget {
   final String label;
   final TextEditingController emailController;
-
+  final bool isExist;
   const EmailTextFormField(
-      {Key? key, required this.label, required this.emailController})
+      {Key? key,
+      required this.label,
+      required this.emailController,
+      this.isExist = false})
       : super(key: key);
+// String checkEmailValidatorOrEmailExist(){
+// if (!isExist) {
 
+//   return
+// } else {
+//   return
+// }
+// }
   @override
   _EmailTextFormFieldState createState() => _EmailTextFormFieldState();
 }

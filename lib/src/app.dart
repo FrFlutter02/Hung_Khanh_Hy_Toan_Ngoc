@@ -7,7 +7,7 @@ import '../../src/services/user_services.dart';
 
 import '../src/screens/login_screen.dart';
 import '../src/screens/onboarding_screen.dart';
-import '../src/blocs/auth_bloc/auth_bloc.dart';
+
 import '../src/blocs/login_bloc/login_bloc.dart';
 import '../src/blocs/signup_bloc/signup_bloc.dart';
 import '../src/screens/home_screen.dart';
@@ -24,7 +24,6 @@ class App extends StatelessWidget {
     ));
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AuthBloc(userServices: userServices)),
         BlocProvider(
             create: (context) => LoginBloc(userServices: userServices)),
         BlocProvider(
