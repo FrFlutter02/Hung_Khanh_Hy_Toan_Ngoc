@@ -179,10 +179,9 @@ class ForgotPassword extends StatelessWidget {
                             Form(
                               key: formKey,
                               child: EmailTextFormField(
-                                  emailController: emailTextEditingController,
-                                  label: LoginScreenText.emailLabel,
-                                  errorText: Validator.userDidExist(
-                                      emailTextEditingController.text)),
+                                emailController: emailTextEditingController,
+                                label: LoginScreenText.emailLabel,
+                              ),
                             ),
                             SizedBox(
                               height: isDeviceTablet()
