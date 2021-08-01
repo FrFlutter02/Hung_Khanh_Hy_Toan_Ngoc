@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:mobile_app/src/validator.dart';
 import '../../src/widgets/logo.dart';
 import '../services/user_services.dart';
 import '../../src/widgets/email_text_form_field.dart';
@@ -24,7 +25,7 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final double maxHeight = MediaQuery.of(context).size.height;
     final formKey = GlobalKey<FormState>();
-
+    bool isButtonClick = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -179,7 +180,9 @@ class ForgotPassword extends StatelessWidget {
                               key: formKey,
                               child: EmailTextFormField(
                                   emailController: emailTextEditingController,
-                                  label: LoginScreenText.emailLabel),
+                                  label: LoginScreenText.emailLabel,
+                                  errorText: Validator.userDidExist(
+                                      emailTextEditingController.text)),
                             ),
                             SizedBox(
                               height: isDeviceTablet()
@@ -191,7 +194,8 @@ class ForgotPassword extends StatelessWidget {
                               height: _screenUtil.height(50),
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  if (formKey.currentState!.validate()) {
+                                  if (formKey.currentState!.validate() ||
+                                      !isButtonClick) {
                                     if (await userServices.userDidExist(
                                         emailTextEditingController.text)) {
                                       Navigator.of(context)
