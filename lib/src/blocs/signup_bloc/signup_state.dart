@@ -1,4 +1,6 @@
-part of 'signup_bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../models/user_model.dart';
 
 abstract class SignupState extends Equatable {
   final UserModel userModel;

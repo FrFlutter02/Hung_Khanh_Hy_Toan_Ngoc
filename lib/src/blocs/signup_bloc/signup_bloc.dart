@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:mobile_app/src/utils/validator.dart';
 
+import '../../constants/constant_text.dart';
 import '../../models/user_model.dart';
 import '../../services/user_services.dart';
-
-part 'signup_event.dart';
-part 'signup_state.dart';
+import '../../utils/validator.dart';
+import 'signup_event.dart';
+import 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   UserServices? userServices;
@@ -45,6 +44,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
                 event.userModel.password);
             if (userModel != null) {
               yield SignupSuccess(userModel: userModel);
+            } else {
+              yield SignupFailure(
+                  unknownErrorMessage: SignupScreenText.signupFailed);
             }
           } catch (e) {
             yield SignupFailure(unknownErrorMessage: e.toString());
