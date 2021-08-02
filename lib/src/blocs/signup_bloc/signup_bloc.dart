@@ -55,10 +55,4 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         break;
     }
   }
-
-  @override
-  void onChange(Change<SignupState> change) {
-    print(change);
-    super.onChange(change);
-  }
 }
