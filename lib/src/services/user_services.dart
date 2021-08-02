@@ -67,8 +67,8 @@ class UserServices {
   Future<bool> passwordExistsInDatabase(String email, String password) async {
     try {
       return await userCollection
-          .where(email, isEqualTo: email == '' ? '' : email)
-          .where(password, isEqualTo: password == '' ? '' : password)
+          .where('email', isEqualTo: email == '' ? '' : email)
+          .where('password', isEqualTo: password == '' ? '' : password)
           .get()
           .then((value) {
         value.docs.forEach((element) {
