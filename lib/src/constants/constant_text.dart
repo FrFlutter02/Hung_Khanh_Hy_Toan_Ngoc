@@ -32,20 +32,22 @@ class LoginScreenText {
 
 class SignupScreenText {
   static const String startFromSratch = "Start from Scratch";
-  static const String createAccountToContinue = "Create account to continue";
+  static const String createAccountToContinue = "Create account to continue.";
   static const String fullNameLabel = "Full Name";
   static const String emailNameLabel = "Email";
   static const String passwordLabel = "Password";
   static const String signupButton = "Create Account";
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String loginHere = 'Login Here';
+
+  static const String signupFailedErrorText = 'Signup failed';
 }
 
 class OnboardingTabletText {
   static const String firstTitle =
       'Join over 50 millions people sharing recipes everday';
   static const String secondTitle =
-      'Never run out ideas again. Try new food, ingredients, cooking style, and more';
+      'Never run out ideas again. Try new foods, ingredients, cooking style, and more';
   static const String joinButton = 'Join Scratch';
   static const String learnMoreButton = 'Learn More';
 }
