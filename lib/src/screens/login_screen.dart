@@ -39,10 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is LoginSuccess) {
             Navigator.of(context).pushNamed('/homeScreen');
-          } else if (state is LoginFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.unknownErrorMessage),
-            ));
           }
         },
         builder: (context, state) {

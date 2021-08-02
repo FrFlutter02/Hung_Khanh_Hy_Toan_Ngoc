@@ -31,14 +31,6 @@ class LoginInProgress extends LoginState {}
 
 class LoginSuccess extends LoginState {}
 
-enum LoginFailureStatus {
-  emailInvalid,
-  emailNotExist,
-  passwordEmpty,
-  passwordInvalid,
-  unknown,
-}
-
 class LoginFailure extends LoginState {
   final String emailErrorMessage;
   final String passwordErrorMessage;
