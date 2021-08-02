@@ -71,9 +71,6 @@ class UserServices {
           .where('password', isEqualTo: password == '' ? '' : password)
           .get()
           .then((value) {
-        value.docs.forEach((element) {
-          print(element);
-        });
         return value.docs.length > 0;
       });
     } catch (e) {
