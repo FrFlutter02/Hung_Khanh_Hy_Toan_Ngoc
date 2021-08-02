@@ -9,6 +9,7 @@ class AppText {
       'Password must have as least 8 characters, including numbers, uppercase, lowercase characters and uncharacters';
   static const String passwordMustNotBeEmptyErrorText =
       'Password must not be empty';
+  static const String passwordIsIncorrect = 'Password is incorrect';
   static const String emailAlreadyExistsErrorText = 'Email already exists';
   static const String emailDidNotExistErrorText = 'Email did not exist';
 
@@ -26,7 +27,7 @@ class LoginScreenText {
   static const String forgotPassword = "Forgot password?";
   static const String loginButton = "Login";
   static const String newToScratch = "New to Scratch?";
-  static const String createAccountHere = "Create account here";
+  static const String createAccountHere = "Create Account Here";
 }
 
 class SignupScreenText {

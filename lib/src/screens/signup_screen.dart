@@ -89,7 +89,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController passwordController = new TextEditingController();
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
-  final ScreenUtil _screenUtil = ScreenUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +105,6 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: isTabletScreen
-                        ? BorderRadius.zero
-                        : BorderRadius.only(
-                            bottomRight: Radius.circular(100),
-                          ),
                     image: isTabletScreen
                         ? DecorationImage(
                             alignment: Alignment.topCenter,
