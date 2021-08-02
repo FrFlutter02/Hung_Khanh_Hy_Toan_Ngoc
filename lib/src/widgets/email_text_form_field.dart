@@ -14,12 +14,6 @@ class EmailTextFormField extends StatefulWidget {
     required this.emailController,
     required this.errorText,
   }) : super(key: key);
-
-//   return
-// } else {
-//   return
-// }
-// }
   @override
   _EmailTextFormFieldState createState() => _EmailTextFormFieldState();
 }

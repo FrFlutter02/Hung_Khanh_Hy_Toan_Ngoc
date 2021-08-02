@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
-
 import '../../src/widgets/logo.dart';
-
 import '../../src/widgets/email_text_form_field.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
