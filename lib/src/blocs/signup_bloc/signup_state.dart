@@ -31,17 +31,7 @@ class SignupInitial extends SignupState {}
 
 class SignupInProgress extends SignupState {}
 
-class SignupSuccess extends SignupState {
-  SignupSuccess({required UserModel userModel}) : super(userModel: userModel);
-}
-
-enum SignupFailureStatus {
-  fullNameEmpty,
-  emailInvalid,
-  emailExists,
-  passwordInvalid,
-  unknown
-}
+class SignupSuccess extends SignupState {}
 
 class SignupFailure extends SignupState {
   final String fullNameErrorMessage;
