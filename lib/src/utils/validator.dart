@@ -8,7 +8,7 @@ class Validator {
     bool emailAlreadyExists = await _userServices.existsInDatabase(
         'email', signupEvent.userModel.email);
     bool emailIsValid =
-        AppText.emailRegex.hasMatch(signupEvent.userModel.email);
+        SignupScreenText.emailRegex.hasMatch(signupEvent.userModel.email);
 
     if (emailAlreadyExists) {
       return AppText.emailAlreadyExistsErrorText;
@@ -29,7 +29,7 @@ class Validator {
   static Future<String?> signupPasswordValidator(
       SignupEvent signupEvent) async {
     bool passwordIsValid =
-        AppText.passwordRegex.hasMatch(signupEvent.userModel.password);
+        SignupScreenText.passwordRegex.hasMatch(signupEvent.userModel.password);
 
     if (!passwordIsValid) {
       return AppText.passwordErrorText;
