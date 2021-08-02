@@ -1,47 +1,52 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 
+import '../custom_button.dart';
+import '../../blocs/signup_bloc/signup_state.dart';
+import '../../blocs/login_bloc/login_state.dart';
 import '../../blocs/login_bloc/login_bloc.dart';
 import '../../blocs/signup_bloc/signup_bloc.dart';
-import '../../ultis/helper.dart';
-
 import '../../constants/constant_colors.dart';
-import '../custom_button.dart';
+import '../../utils/screen_util.dart';
 
-class FormBody extends StatefulWidget {
+class LoginAndSignupBody extends StatefulWidget {
   final SignupBloc? signupBloc;
   final LoginBloc? loginBloc;
   final List<Widget> textFormFieldList;
   final String titleText;
-  final String footerTitleText;
-  final String footerLinkText;
   final String buttonText;
-
   final void Function() buttonOnPress;
+  final String bottomTitleText;
+  final String bottomLinkText;
   final String destinationRoute;
   final bool isTabletScreen;
 
-  const FormBody(
+  const LoginAndSignupBody(
       {this.signupBloc,
       this.loginBloc,
       required this.textFormFieldList,
       required this.titleText,
-      required this.footerTitleText,
-      required this.footerLinkText,
       required this.buttonText,
       required this.buttonOnPress,
-      required this.destinationRoute,
       required this.isTabletScreen,
+      required this.bottomTitleText,
+      required this.bottomLinkText,
+      required this.destinationRoute,
       Key? key})
       : super(key: key);
 
   @override
-  _FormBodyState createState() => _FormBodyState();
+  _LoginAndSignupBodyState createState() => _LoginAndSignupBodyState();
 }
 
-class _FormBodyState extends State<FormBody> {
+class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
   final _formKey = GlobalKey<FormState>();
   final ScreenUtil _screenUtil = ScreenUtil();
+  bool isLoading = false;
+  StreamSubscription? signupStreamSubscription;
+  StreamSubscription? loginStreamSubscription;
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +69,10 @@ class _FormBodyState extends State<FormBody> {
             boxShadow: widget.isTabletScreen
                 ? [
                     BoxShadow(
-                      color: AppColor.secondaryGrey.withOpacity(0.2),
-                      blurRadius: 15,
-                      spreadRadius: 12,
-                      offset: Offset(0, 8),
-                    ),
+                        color: AppColor.secondaryGrey.withOpacity(0.2),
+                        blurRadius: 15,
+                        spreadRadius: 12,
+                        offset: Offset(0, 8))
                   ]
                 : null,
           ),
@@ -87,37 +91,35 @@ class _FormBodyState extends State<FormBody> {
                 SizedBox(height: _screenUtil.height(30)),
                 ...widget.textFormFieldList,
                 CustomButton(
-                  enabled: true,
+                  enabled: !isLoading,
                   value: widget.buttonText,
                   width: Device.screenWidth,
                   height: _screenUtil.height(50),
-                  handlePressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      widget.buttonOnPress();
-                    }
-                  },
+                  isLoading: isLoading,
+                  buttonOnPress: widget.buttonOnPress,
                 ),
                 Container(
                   child: Column(
                     children: [
-                      SizedBox(height: 30),
+                      SizedBox(height: _screenUtil.height(30)),
                       Center(
                         child: Text(
-                          widget.footerTitleText,
+                          widget.bottomTitleText,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
                               .copyWith(color: AppColor.secondaryGrey),
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: _screenUtil.height(5)),
                       Center(
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/homeScreen');
+                            Navigator.pushNamed(
+                                context, widget.destinationRoute);
                           },
                           child: Text(
-                            widget.footerLinkText,
+                            widget.bottomLinkText,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1!
@@ -136,5 +138,39 @@ class _FormBodyState extends State<FormBody> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    signupStreamSubscription?.cancel();
+    loginStreamSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    signupStreamSubscription = widget.signupBloc?.stream.listen((signupState) {
+      if (signupState is SignupInProgress) {
+        setState(() {
+          isLoading = true;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+    loginStreamSubscription = widget.loginBloc?.stream.listen((loginState) {
+      if (loginState is LoginInProgress) {
+        setState(() {
+          isLoading = true;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+    super.initState();
   }
 }

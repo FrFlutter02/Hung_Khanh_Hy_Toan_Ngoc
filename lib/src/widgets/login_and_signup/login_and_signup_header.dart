@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import '../../ultis/helper.dart';
 
 import '../../constants/constant_colors.dart';
+import '../../utils/screen_util.dart';
 import '../../widgets/logo.dart';
 
-class FormHeader extends StatelessWidget {
+class LoginAndSignupHeader extends StatelessWidget {
   final bool isTabletScreen;
   final String formHeaderTitle;
-  const FormHeader(
+  const LoginAndSignupHeader(
       {required this.isTabletScreen, required this.formHeaderTitle, Key? key})
       : super(key: key);
 
@@ -21,7 +21,6 @@ class FormHeader extends StatelessWidget {
         left: _screenUtil.width(25),
         right: _screenUtil.width(25),
         top: isTabletScreen ? _screenUtil.height(80) : _screenUtil.height(60),
-        // bottom: _screenUtil.height(36),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -30,8 +29,10 @@ class FormHeader extends StatelessWidget {
         image: isTabletScreen
             ? null
             : DecorationImage(
-                alignment: Alignment.topCenter,
+                alignment: Alignment(0, -0.7),
                 fit: BoxFit.cover,
+                colorFilter: new ColorFilter.mode(
+                    Colors.black.withOpacity(0.3), BlendMode.dstOut),
                 image: AssetImage('assets/images/login-signup-background.jpeg'),
               ),
       ),

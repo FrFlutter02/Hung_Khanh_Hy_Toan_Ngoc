@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mobile_app/src/services/user_services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'login_event.dart';
-part 'login_state.dart';
+import '../../constants/constant_text.dart';
+import '../../utils/validator.dart';
+import '../../services/user_services.dart';
+import 'login_event.dart';
+import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   UserServices? userServices;
@@ -18,15 +19,32 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginEvent event,
   ) async* {
     switch (event.runtimeType) {
-      case LoginButtonPressed:
-        yield LoginInProgress();
-        try {
-          print(event.email);
-          var user = await userServices?.logIn(event.email, event.password);
-          yield LoginSuccess(user: user!);
-        } catch (e) {
-          yield LoginFailure(message: e.toString());
+      case LoginRequested:
+        String? emailErrorMessage = await Validator.loginEmailValidator(event);
+        String? passwordErrorMessage =
+            await Validator.loginPasswordValidator(event);
+        yield LoginFailure(
+            emailErrorMessage: emailErrorMessage ?? '',
+            passwordErrorMessage: passwordErrorMessage ?? '');
+        if (state.emailErrorMessage.isEmpty &&
+            state.passwordErrorMessage.isEmpty) {
+          yield LoginInProgress();
         }
+
+        if (state.runtimeType != LoginFailure) {
+          try {
+            User? user = await userServices?.logIn(event.email, event.password);
+            if (user != null) {
+              yield LoginSuccess();
+            } else {
+              yield LoginFailure(
+                  unknownErrorMessage: LoginScreenText.loginFailedErrorText);
+            }
+          } catch (e) {
+            yield LoginFailure(unknownErrorMessage: e.toString());
+          }
+        }
+        break;
     }
   }
 }

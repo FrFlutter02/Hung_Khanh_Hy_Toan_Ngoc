@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app/src/services/user_services.dart';
 
-import 'screens/login_screen.dart';
-import 'screens/signup_screen.dart';
 import '../src/blocs/login_bloc/login_bloc.dart';
 import '../src/blocs/signup_bloc/signup_bloc.dart';
 import '../src/screens/home_screen.dart';
+import '../src/services/user_services.dart';
+import 'screens/login_screen.dart';
+import 'screens/signup_screen.dart';
 
 class App extends StatelessWidget {
   final UserServices userServices = UserServices();

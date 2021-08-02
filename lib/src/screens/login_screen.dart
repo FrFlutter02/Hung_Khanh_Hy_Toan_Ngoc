@@ -1,16 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import '../blocs/login_bloc/login_bloc.dart';
-import '../widgets/form/email_text_form_field.dart';
-import '../widgets/form/password_text_form_field.dart';
 
+import '../blocs/login_bloc/login_bloc.dart';
+import '../blocs/login_bloc/login_event.dart';
+import '../blocs/login_bloc/login_state.dart';
+import '../widgets/login_and_signup/email_text_form_field.dart';
+import '../widgets/login_and_signup/login_and_signup_body.dart';
+import '../widgets/login_and_signup/login_and_signup_header.dart';
+import '../widgets/login_and_signup/password_text_form_field.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
-
-import '../widgets/form/form_header.dart';
-import '../widgets/form/form_body.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,8 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isTabletScreen = false;
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-  final CollectionReference user =
-      FirebaseFirestore.instance.collection('user');
 
   @override
   void initState() {
@@ -41,8 +39,10 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is LoginSuccess) {
             Navigator.of(context).pushNamed('/homeScreen');
-          } else {
-            print('fail');
+          } else if (state is LoginFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.unknownErrorMessage),
+            ));
           }
         },
         builder: (context, state) {
@@ -78,32 +78,33 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FormHeader(
+                    LoginAndSignupHeader(
                       isTabletScreen: isTabletScreen,
                       formHeaderTitle: LoginScreenText.welcome,
                     ),
-                    FormBody(
+                    LoginAndSignupBody(
                       loginBloc: context.read<LoginBloc>(),
                       titleText: LoginScreenText.pleaseLogin,
                       isTabletScreen: isTabletScreen,
                       textFormFieldList: [
                         EmailTextFormField(
+                            errorText: state.emailErrorMessage,
                             label: LoginScreenText.emailLabel,
                             emailController: emailController),
                         PasswordTextFormField(
+                            errorText: state.passwordErrorMessage,
                             forgotPasswordVisible: true,
                             label: LoginScreenText.passwordLabel,
                             passwordController: passwordController),
                       ],
                       buttonText: LoginScreenText.loginButton,
                       buttonOnPress: () {
-                        context.read<LoginBloc>().add(LoginButtonPressed(
+                        context.read<LoginBloc>().add(LoginRequested(
                             email: emailController.text,
                             password: passwordController.text));
-                        print('Click');
                       },
-                      footerTitleText: LoginScreenText.newToScratch,
-                      footerLinkText: LoginScreenText.createAccountHere,
+                      bottomTitleText: LoginScreenText.newToScratch,
+                      bottomLinkText: LoginScreenText.createAccountHere,
                       destinationRoute: '/homeScreen',
                     ),
                   ],

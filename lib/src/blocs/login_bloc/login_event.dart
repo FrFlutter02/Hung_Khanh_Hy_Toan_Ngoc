@@ -1,4 +1,4 @@
-part of 'login_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class LoginEvent extends Equatable {
   final String email;
@@ -10,10 +10,10 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [email, password];
 }
 
-class LoginButtonPressed extends LoginEvent {
+class LoginRequested extends LoginEvent {
   final String email;
   final String password;
 
-  LoginButtonPressed({required this.email, required this.password})
+  LoginRequested({required this.email, required this.password})
       : super(email: email, password: password);
 }

@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
-import '../../ultis/helper.dart';
-import '../../ultis/validator.dart';
+import '../../utils/screen_util.dart';
 
 class PasswordTextFormField extends StatefulWidget {
   final bool forgotPasswordVisible;
   final String label;
   final TextEditingController passwordController;
+  final String errorText;
 
   const PasswordTextFormField(
       {this.forgotPasswordVisible = false,
       required this.label,
       required this.passwordController,
+      required this.errorText,
       Key? key})
       : super(key: key);
 
@@ -55,7 +56,6 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
         ),
         SizedBox(height: _screenUtil.height(15)),
         TextFormField(
-          validator: (value) => Validator.passwordValidator(value!),
           controller: widget.passwordController,
           cursorColor: AppColor.green,
           enableSuggestions: false,
@@ -63,6 +63,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: _screenUtil.height(6)),
             errorMaxLines: 2,
+            errorText: widget.errorText.isEmpty ? null : widget.errorText,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: LoginScreenColor.textFieldBottomBorder,
