@@ -1,3 +1,4 @@
+import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/services/user_services.dart';
@@ -35,6 +36,24 @@ class Validator {
 
     if (!passwordIsValid) {
       return AppText.passwordErrorText;
+    }
+  }
+
+  static Future<String?> forgotPasswordEmailValidator(
+      ForgotPasswordEvent forgotPasswordEvent) async {
+    final UserServices _userServices = UserServices();
+    bool emailIsEmpty = forgotPasswordEvent.email.isEmpty;
+    bool emailAlreadyExists = await _userServices.existsInDatabase(
+        'email', forgotPasswordEvent.email);
+    bool emailIsValid = AppText.emailRegex.hasMatch(forgotPasswordEvent.email);
+    if (emailIsEmpty) {
+      return AppText.emailMustNotEmptyErrorText;
+    }
+    if (!emailIsValid) {
+      return AppText.emailInvalidErrorText;
+    }
+    if (!emailAlreadyExists) {
+      return AppText.emailDidNotExistErrorText;
     }
   }
 }

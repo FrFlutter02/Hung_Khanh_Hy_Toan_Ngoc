@@ -25,19 +25,17 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         String? emailErrorMessage = await Validator.signupEmailValidator(event);
         String? passwordErrorMessage =
             await Validator.signupPasswordValidator(event);
+        bool noError = state.fullNameErrorMessage.isEmpty &&
+            state.emailErrorMessage.isEmpty &&
+            state.passwordErrorMessage.isEmpty;
 
         yield SignupFailure(
             fullNameErrorMessage: fullNameErrorMessage ?? '',
             emailErrorMessage: emailErrorMessage ?? '',
             passwordErrorMessage: passwordErrorMessage ?? '');
 
-        if (state.fullNameErrorMessage.isEmpty &&
-            state.emailErrorMessage.isEmpty &&
-            state.passwordErrorMessage.isEmpty) {
+        if (noError) {
           yield SignupInProgress();
-        }
-
-        if (state.runtimeType != SignupFailure) {
           try {
             UserModel? userModel = await userServices?.signUp(
                 event.userModel.fullName,

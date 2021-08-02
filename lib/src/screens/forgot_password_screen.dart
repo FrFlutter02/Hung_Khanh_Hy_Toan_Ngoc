@@ -1,16 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
+import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
 
 import '../../src/widgets/logo.dart';
-import '../services/user_services.dart';
+
 import '../../src/widgets/email_text_form_field.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 import '../screen_util.dart';
-import '../validator.dart';
 
 class ForgotPassword extends StatelessWidget {
   bool isDeviceTablet() {
@@ -21,14 +19,18 @@ class ForgotPassword extends StatelessWidget {
     }
   }
 
-  final UserServices userServices = UserServices();
+  void abd(a, b) {
+    a = b;
+  }
+
   final ScreenUtil _screenUtil = ScreenUtil();
   final TextEditingController emailTextEditingController =
       new TextEditingController();
+  @override
   Widget build(BuildContext context) {
     final double maxHeight = MediaQuery.of(context).size.height;
     final formKey = GlobalKey<FormState>();
-    bool isButtonClick = true;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BlocProvider(
@@ -195,10 +197,7 @@ class ForgotPassword extends StatelessWidget {
                                       emailController:
                                           emailTextEditingController,
                                       label: LoginScreenText.emailLabel,
-                                      errorText:
-                                          emailTextEditingController.text == ''
-                                              ? ''
-                                              : state.validationDidExist,
+                                      errorText: state.emailErrorMessage,
                                     ),
                                   ),
                                   SizedBox(
@@ -212,43 +211,12 @@ class ForgotPassword extends StatelessWidget {
                                     child: ElevatedButton(
                                       onPressed: () async {
                                         if (formKey.currentState!.validate()) {
-                                          isButtonClick = !isButtonClick;
                                           BlocProvider.of<ForgotPasswordBloc>(
                                                   context)
                                               .add(ForgotedPassword(
                                                   emailTextEditingController
                                                       .text,
                                                   context));
-                                          // if (await userServices.userDidExist(
-                                          //     emailTextEditingController
-                                          //         .text)) {
-                                          //   BlocProvider.of<ForgotPasswordBloc>(
-                                          //           context)
-                                          //       .add(ForgotedPassword(
-                                          //           emailTextEditingController
-                                          //               .text,
-                                          //           true));
-                                          //   Navigator.of(context)
-                                          //       .pushNamed('/loginScreen');
-                                          //   FirebaseAuth.instance
-                                          //       .sendPasswordResetEmail(
-                                          //           email:
-                                          //               emailTextEditingController
-                                          //                   .text);
-                                          //   ScaffoldMessenger.of(context)
-                                          //       .showSnackBar(SnackBar(
-                                          //     content: const Text(
-                                          //         ForgotPasswordText
-                                          //             .snackbarContentScuess),
-                                          //   ));
-                                          // } else {
-                                          //   ScaffoldMessenger.of(context)
-                                          //       .showSnackBar(SnackBar(
-                                          //     content: const Text(
-                                          //         ForgotPasswordText
-                                          //             .snackbarContentEmailExist),
-                                          //   ));
-                                          // }
                                         }
                                       },
                                       child: Text(
