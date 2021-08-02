@@ -81,15 +81,7 @@ class UserServices {
     return false;
   }
 
-  Future<void> updateUser(String id) {
-    return userCollection
-        .doc(id)
-        .update({'password': 'Stokes and Sons'})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
-  }
-
-  Future<String>? resetPassword(String email) {
+  Future<void>? resetPassword(String email) {
     firebaseAuth.sendPasswordResetEmail(email: email);
   }
 }

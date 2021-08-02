@@ -7,6 +7,8 @@ import '../../src/widgets/email_text_form_field.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 import '../screen_util.dart';
+import '../blocs/forgot_password_bloc/forgot_password_state.dart';
+import '../blocs/forgot_password_bloc/forgot_password_event.dart';
 
 class ForgotPassword extends StatelessWidget {
   bool isDeviceTablet() {
@@ -15,10 +17,6 @@ class ForgotPassword extends StatelessWidget {
     } else {
       return false;
     }
-  }
-
-  void abd(a, b) {
-    a = b;
   }
 
   final ScreenUtil _screenUtil = ScreenUtil();

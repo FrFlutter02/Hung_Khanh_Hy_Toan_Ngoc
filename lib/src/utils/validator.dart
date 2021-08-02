@@ -1,8 +1,6 @@
-import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
-
+import '../blocs/forgot_password_bloc/forgot_password_event.dart';
 import '../../src/constants/constant_text.dart';
 import '../../src/services/user_services.dart';
-
 import '../constants/constant_text.dart';
 
 class Validator {

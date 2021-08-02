@@ -13,7 +13,7 @@ part 'forgot_password_state.dart';
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
   ForgotPasswordBloc() : super(ForgotPasswordInitial());
-  bool isButtonClick = false;
+
   final UserServices userServices = UserServices();
   @override
   Stream<ForgotPasswordState> mapEventToState(
