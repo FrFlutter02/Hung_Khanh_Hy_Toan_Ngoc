@@ -46,7 +46,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
               yield SignupSuccess(userModel: userModel);
             } else {
               yield SignupFailure(
-                  unknownErrorMessage: SignupScreenText.signupFailed);
+                  unknownErrorMessage: SignupScreenText.signupFailedErrorText);
             }
           } catch (e) {
             yield SignupFailure(unknownErrorMessage: e.toString());

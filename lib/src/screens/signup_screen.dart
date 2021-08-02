@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 
 import '../blocs/signup_bloc/signup_bloc.dart';
+import '../blocs/signup_bloc/signup_event.dart';
+import '../blocs/signup_bloc/signup_state.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
 import '../models/user_model.dart';

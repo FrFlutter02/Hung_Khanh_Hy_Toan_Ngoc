@@ -1,4 +1,4 @@
-import '../blocs/signup_bloc/signup_bloc.dart';
+import '../blocs/signup_bloc/signup_event.dart';
 import '../constants/constant_text.dart';
 import '../services/user_services.dart';
 

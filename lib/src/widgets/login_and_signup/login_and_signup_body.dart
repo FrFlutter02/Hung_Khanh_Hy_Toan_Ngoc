@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 
 import '../../blocs/signup_bloc/signup_bloc.dart';
+import '../../blocs/signup_bloc/signup_state.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 import '../custom_button.dart';
