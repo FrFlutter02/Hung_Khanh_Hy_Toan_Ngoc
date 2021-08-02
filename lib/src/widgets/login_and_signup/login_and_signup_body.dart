@@ -52,79 +52,73 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
         top: widget.isTabletScreen ? 0 : _screenUtil.height(20),
         bottom: widget.isTabletScreen ? _screenUtil.height(45) : 0,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColor.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(8),
-          ),
-          boxShadow: widget.isTabletScreen
-              ? [
-                  BoxShadow(
-                    color: AppColor.secondaryGrey.withOpacity(0.2),
-                    blurRadius: 15,
-                    spreadRadius: 12,
-                    offset: Offset(0, 8),
-                  ),
-                ]
-              : null,
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: widget.isTabletScreen ? _screenUtil.width(50) : 0,
-            vertical: widget.isTabletScreen ? _screenUtil.height(50) : 0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.titleText,
-                style: Theme.of(context).textTheme.bodyText2!,
-              ),
-              SizedBox(height: _screenUtil.height(30)),
-              ...widget.textFormFieldList,
-              CustomButton(
-                  enabled: !isLoading,
-                  value: widget.buttonText,
-                  width: Device.screenWidth,
-                  height: _screenUtil.height(50),
-                  isLoading: isLoading,
-                  buttonOnPress: widget.buttonOnPress),
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(height: _screenUtil.height(30)),
-                    Center(
-                      child: Text(
-                        widget.bottomTitleText,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(color: AppColor.secondaryGrey),
-                      ),
-                    ),
-                    SizedBox(height: _screenUtil.height(5)),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, widget.destinationRoute);
-                        },
-                        child: Text(
-                          widget.bottomLinkText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  color: AppColor.green,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ],
+        boxShadow: widget.isTabletScreen
+            ? [
+                BoxShadow(
+                  color: AppColor.secondaryGrey.withOpacity(0.2),
+                  blurRadius: 15,
+                  spreadRadius: 12,
+                  offset: Offset(0, 8),
                 ),
-              )
-            ],
-          ),
+              ]
+            : null,
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: widget.isTabletScreen ? _screenUtil.width(50) : 0,
+          vertical: widget.isTabletScreen ? _screenUtil.height(50) : 0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.titleText,
+              style: Theme.of(context).textTheme.bodyText2!,
+            ),
+            SizedBox(height: _screenUtil.height(30)),
+            ...widget.textFormFieldList,
+            CustomButton(
+                enabled: !isLoading,
+                value: widget.buttonText,
+                width: Device.screenWidth,
+                height: _screenUtil.height(50),
+                isLoading: isLoading,
+                buttonOnPress: widget.buttonOnPress),
+            Container(
+              child: Column(
+                children: [
+                  SizedBox(height: _screenUtil.height(30)),
+                  Center(
+                    child: Text(
+                      widget.bottomTitleText,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: AppColor.secondaryGrey),
+                    ),
+                  ),
+                  SizedBox(height: _screenUtil.height(5)),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, widget.destinationRoute);
+                      },
+                      child: Text(
+                        widget.bottomLinkText,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: AppColor.green, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

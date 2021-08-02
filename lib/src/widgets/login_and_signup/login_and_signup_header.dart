@@ -29,8 +29,10 @@ class LoginAndSignupHeader extends StatelessWidget {
         image: isTabletScreen
             ? null
             : DecorationImage(
-                alignment: Alignment.topCenter,
+                alignment: Alignment(0, _screenUtil.height(-0.8)),
                 fit: BoxFit.cover,
+                colorFilter: new ColorFilter.mode(
+                    Colors.black.withOpacity(0.3), BlendMode.dstOut),
                 image: AssetImage('assets/images/login-signup-background.jpeg'),
               ),
       ),

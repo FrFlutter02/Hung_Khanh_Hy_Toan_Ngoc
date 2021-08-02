@@ -37,19 +37,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         }
 
         if (state.runtimeType != SignupFailure) {
-          try {
-            UserModel? userModel = await userServices?.signUp(
-                event.userModel.fullName,
-                event.userModel.email,
-                event.userModel.password);
-            if (userModel != null) {
-              yield SignupSuccess(userModel: userModel);
-            } else {
-              yield SignupFailure(
-                  unknownErrorMessage: SignupScreenText.signupFailedErrorText);
-            }
-          } catch (e) {
-            yield SignupFailure(unknownErrorMessage: e.toString());
+          UserModel? userModel = await userServices?.signUp(
+              event.userModel.fullName,
+              event.userModel.email,
+              event.userModel.password);
+          if (userModel != null) {
+            yield SignupSuccess();
+          } else {
+            yield SignupFailure(
+                unknownErrorMessage: SignupScreenText.signupFailedErrorText);
           }
         }
         break;

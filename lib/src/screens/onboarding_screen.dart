@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("testing..."),
-    );
+    return Scaffold();
   }
 }
