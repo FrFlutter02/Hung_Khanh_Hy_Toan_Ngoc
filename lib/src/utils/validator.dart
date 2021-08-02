@@ -1,18 +1,8 @@
-import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
-import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/services/user_services.dart';
-
+import '../blocs/signup_bloc/signup_bloc.dart';
 import '../constants/constant_text.dart';
+import '../services/user_services.dart';
 
 class Validator {
-  static String? signupFullNameValidator(SignupEvent signupEvent) {
-    bool fullNameIsEmpty = signupEvent.userModel.fullName.isEmpty;
-
-    if (fullNameIsEmpty) {
-      return AppText.fullNameMustNotEmptyErrorText;
-    }
-  }
-
   static Future<String?> signupEmailValidator(SignupEvent signupEvent) async {
     final UserServices _userServices = UserServices();
     bool emailAlreadyExists = await _userServices.existsInDatabase(
@@ -25,6 +15,14 @@ class Validator {
     }
     if (!emailIsValid) {
       return AppText.emailInvalidErrorText;
+    }
+  }
+
+  static String? signupFullNameValidator(SignupEvent signupEvent) {
+    bool fullNameIsEmpty = signupEvent.userModel.fullName.isEmpty;
+
+    if (fullNameIsEmpty) {
+      return AppText.fullNameMustNotEmptyErrorText;
     }
   }
 
