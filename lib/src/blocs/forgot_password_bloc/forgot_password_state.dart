@@ -1,4 +1,4 @@
-part of 'forgot_password_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class ForgotPasswordState extends Equatable {
   final String email;

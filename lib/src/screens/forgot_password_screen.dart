@@ -6,7 +6,7 @@ import '../../src/widgets/logo.dart';
 import '../../src/widgets/email_text_form_field.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
-import '../screen_util.dart';
+import '../utils/screen_util.dart';
 import '../blocs/forgot_password_bloc/forgot_password_state.dart';
 import '../blocs/forgot_password_bloc/forgot_password_event.dart';
 
