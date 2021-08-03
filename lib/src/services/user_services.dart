@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mobile_app/src/models/user_model.dart';
 
 class UserServices {
   late FirebaseAuth firebaseAuth;
@@ -13,9 +14,9 @@ class UserServices {
     try {
       UserCredential? userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      await userCollection
-          .doc(email)
-          .set({'fullName': fullName, 'email': email});
+      UserModel userModel =
+          UserModel(fullName: fullName, email: email, password: password);
+      await userCollection.doc(email).set(userModel.toMap());
       return userCredential;
     } catch (e) {
       print(e.toString());
