@@ -20,14 +20,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   ) async* {
     switch (event.runtimeType) {
       case SignupRequested:
+        yield SignupInProgress();
+
         String? fullNameErrorMessage = Validator.signupFullNameValidator(event);
         String? emailErrorMessage = await Validator.signupEmailValidator(event);
         String? passwordErrorMessage =
             await Validator.signupPasswordValidator(event);
-
-        if (state.runtimeType != SignupFailure) {
-          yield SignupInProgress();
-        }
 
         UserCredential? userCredential = await userServices?.signUp(
             event.userModel.fullName,
