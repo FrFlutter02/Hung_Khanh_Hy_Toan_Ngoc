@@ -14,7 +14,6 @@ abstract class SignupEvent extends Equatable {
 }
 
 class SignupRequested extends SignupEvent {
-  final UserModel userModel;
-  const SignupRequested({required this.userModel})
+  const SignupRequested({required UserModel userModel})
       : super(userModel: userModel);
 }
