@@ -29,22 +29,18 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           yield SignupInProgress();
         }
 
-        try {
-          UserCredential? userCredential = await userServices?.signUp(
-              event.userModel.fullName,
-              event.userModel.email,
-              event.userModel.password);
-          if (userCredential != null) {
-            yield SignupSuccess();
-          } else {
-            yield SignupFailure(
-                fullNameErrorMessage: fullNameErrorMessage ?? '',
-                emailErrorMessage: emailErrorMessage ?? '',
-                passwordErrorMessage: passwordErrorMessage ?? '',
-                unknownErrorMessage: SignupScreenText.signupFailedErrorText);
-          }
-        } catch (e) {
-          yield SignupFailure(unknownErrorMessage: e.toString());
+        UserCredential? userCredential = await userServices?.signUp(
+            event.userModel.fullName,
+            event.userModel.email,
+            event.userModel.password);
+        if (userCredential != null) {
+          yield SignupSuccess();
+        } else {
+          yield SignupFailure(
+              fullNameErrorMessage: fullNameErrorMessage ?? '',
+              emailErrorMessage: emailErrorMessage ?? '',
+              passwordErrorMessage: passwordErrorMessage ?? '',
+              unknownErrorMessage: SignupScreenText.signupFailedErrorText);
         }
         break;
     }
