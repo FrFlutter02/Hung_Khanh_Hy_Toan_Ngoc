@@ -7,9 +7,11 @@ import '../../widgets/logo.dart';
 
 class LoginAndSignupHeader extends StatelessWidget {
   final bool isTabletScreen;
-  final String formHeaderTitle;
+  final String loginAndSignupHeaderTitle;
   const LoginAndSignupHeader(
-      {required this.isTabletScreen, required this.formHeaderTitle, Key? key})
+      {required this.isTabletScreen,
+      required this.loginAndSignupHeaderTitle,
+      Key? key})
       : super(key: key);
 
   @override
@@ -52,7 +54,7 @@ class LoginAndSignupHeader extends StatelessWidget {
                 : _screenUtil.height(45),
           ),
           Text(
-            formHeaderTitle,
+            loginAndSignupHeaderTitle,
             style: Theme.of(context).textTheme.headline5!.copyWith(
                   color: AppColor.primaryBlack,
                   fontFamily: "Nunito-Bold",
