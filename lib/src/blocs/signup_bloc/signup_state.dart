@@ -34,16 +34,11 @@ class SignupInProgress extends SignupState {}
 class SignupSuccess extends SignupState {}
 
 class SignupFailure extends SignupState {
-  final String fullNameErrorMessage;
-  final String emailErrorMessage;
-  final String passwordErrorMessage;
-  final String unknownErrorMessage;
-
   SignupFailure({
-    this.fullNameErrorMessage = '',
-    this.emailErrorMessage = '',
-    this.passwordErrorMessage = '',
-    this.unknownErrorMessage = '',
+    String fullNameErrorMessage = '',
+    String emailErrorMessage = '',
+    String passwordErrorMessage = '',
+    String unknownErrorMessage = '',
   }) : super(
           fullNameErrorMessage: fullNameErrorMessage,
           emailErrorMessage: emailErrorMessage,
