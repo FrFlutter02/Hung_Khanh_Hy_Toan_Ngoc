@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../constants/constant_text.dart';
-import '../../models/user_model.dart';
 import '../../services/user_services.dart';
 import '../../utils/validator.dart';
 import 'signup_event.dart';
@@ -26,9 +25,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         String? passwordErrorMessage =
             await Validator.signupPasswordValidator(event);
 
-        if (state.fullNameErrorMessage.isEmpty &&
-            state.emailErrorMessage.isEmpty &&
-            state.passwordErrorMessage.isEmpty) {
+        if (state.runtimeType != SignupFailure) {
           yield SignupInProgress();
         }
 
