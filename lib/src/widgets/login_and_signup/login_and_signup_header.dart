@@ -45,10 +45,7 @@ class LoginAndSignupHeader extends StatelessWidget {
             ? CrossAxisAlignment.center
             : CrossAxisAlignment.start,
         children: [
-          Logo(
-            width: _screenUtil.width(102),
-            height: _screenUtil.height(28),
-          ),
+          Logo(),
           SizedBox(
             height: isTabletScreen
                 ? _screenUtil.height(130)
