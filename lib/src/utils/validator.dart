@@ -10,7 +10,8 @@ class Validator {
     bool emailIsEmpty = forgotPasswordEvent.email.isEmpty;
     bool emailAlreadyExists = await _userServices.existsInDatabase(
         'email', forgotPasswordEvent.email);
-    bool emailIsValid = AppText.emailRegex.hasMatch(forgotPasswordEvent.email);
+    bool emailIsValid =
+        SignupScreenText.emailRegex.hasMatch(forgotPasswordEvent.email);
     if (emailIsEmpty) {
       return AppText.emailMustNotEmptyErrorText;
     }

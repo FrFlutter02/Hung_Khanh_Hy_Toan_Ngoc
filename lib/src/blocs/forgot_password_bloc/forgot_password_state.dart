@@ -15,17 +15,14 @@ abstract class ForgotPasswordState extends Equatable {
 
 class ForgotPasswordInitial extends ForgotPasswordState {}
 
-class ForgotPasswordProgress extends ForgotPasswordState {}
+class ForgotPasswordInProgress extends ForgotPasswordState {}
 
 class ForgotPasswordSuccess extends ForgotPasswordState {}
 
 class ForgotPassworFailure extends ForgotPasswordState {
-  final String emailErrorMessage;
-  final String unknownErrorMessage;
-
   ForgotPassworFailure({
-    this.emailErrorMessage = '',
-    this.unknownErrorMessage = '',
+    String emailErrorMessage = '',
+    String unknownErrorMessage = '',
   }) : super(
           emailErrorMessage: emailErrorMessage,
           unknownErrorMessage: unknownErrorMessage,

@@ -1,4 +1,5 @@
-part of 'forgot_password_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 abstract class ForgotPasswordEvent extends Equatable {
   final String email;
@@ -9,8 +10,8 @@ abstract class ForgotPasswordEvent extends Equatable {
   List<Object> get props => [email, context];
 }
 
-class ForgotedPassword extends ForgotPasswordEvent {
+class ForgotPasswordRequested extends ForgotPasswordEvent {
   final String email;
   final BuildContext context;
-  ForgotedPassword(this.email, this.context) : super(email, context);
+  ForgotPasswordRequested(this.email, this.context) : super(email, context);
 }

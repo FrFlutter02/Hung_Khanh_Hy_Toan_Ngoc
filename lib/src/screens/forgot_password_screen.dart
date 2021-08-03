@@ -209,7 +209,7 @@ class ForgotPassword extends StatelessWidget {
                                         if (formKey.currentState!.validate()) {
                                           BlocProvider.of<ForgotPasswordBloc>(
                                                   context)
-                                              .add(ForgotedPassword(
+                                              .add(ForgotPasswordRequested(
                                                   emailTextEditingController
                                                       .text,
                                                   context));
@@ -217,7 +217,9 @@ class ForgotPassword extends StatelessWidget {
                                       },
                                       child: Text(
                                         ForgotPasswordText.sendButton,
-                                        style: TextStyle(fontSize: 24),
+                                        style: TextStyle(
+                                            fontSize:
+                                                isDeviceTablet() ? 16 : 24),
                                       ),
                                       style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(

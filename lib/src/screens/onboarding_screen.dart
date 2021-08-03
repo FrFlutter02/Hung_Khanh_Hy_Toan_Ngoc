@@ -3,7 +3,7 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../../src/widgets/logo.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
-import '../screen_util.dart';
+import '../utils/screen_util.dart';
 
 class OnboardingScreen extends StatelessWidget {
   bool isDeviceTablet() {
