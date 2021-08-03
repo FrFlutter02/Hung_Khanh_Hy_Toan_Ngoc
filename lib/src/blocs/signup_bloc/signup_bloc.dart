@@ -25,18 +25,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         String? passwordErrorMessage =
             await Validator.signupPasswordValidator(event);
 
-        yield SignupFailure(
-            fullNameErrorMessage: fullNameErrorMessage ?? '',
-            emailErrorMessage: emailErrorMessage ?? '',
-            passwordErrorMessage: passwordErrorMessage ?? '');
-
         if (state.fullNameErrorMessage.isEmpty &&
             state.emailErrorMessage.isEmpty &&
             state.passwordErrorMessage.isEmpty) {
           yield SignupInProgress();
         }
 
-        if (state.runtimeType != SignupFailure) {
+        try {
           UserModel? userModel = await userServices?.signUp(
               event.userModel.fullName,
               event.userModel.email,
@@ -45,8 +40,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             yield SignupSuccess();
           } else {
             yield SignupFailure(
+                fullNameErrorMessage: fullNameErrorMessage ?? '',
+                emailErrorMessage: emailErrorMessage ?? '',
+                passwordErrorMessage: passwordErrorMessage ?? '',
                 unknownErrorMessage: SignupScreenText.signupFailedErrorText);
           }
+        } catch (e) {
+          yield SignupFailure(unknownErrorMessage: e.toString());
         }
         break;
     }
