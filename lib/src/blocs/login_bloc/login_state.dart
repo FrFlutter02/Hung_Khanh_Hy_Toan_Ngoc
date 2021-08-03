@@ -32,14 +32,10 @@ class LoginInProgress extends LoginState {}
 class LoginSuccess extends LoginState {}
 
 class LoginFailure extends LoginState {
-  final String emailErrorMessage;
-  final String passwordErrorMessage;
-  final String unknownErrorMessage;
-
   LoginFailure({
-    this.emailErrorMessage = '',
-    this.passwordErrorMessage = '',
-    this.unknownErrorMessage = '',
+    String emailErrorMessage = '',
+    String passwordErrorMessage = '',
+    String unknownErrorMessage = '',
   }) : super(
           emailErrorMessage: emailErrorMessage,
           passwordErrorMessage: passwordErrorMessage,

@@ -40,13 +40,11 @@ class LoginAndSignupBody extends StatefulWidget {
 class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
   final ScreenUtil _screenUtil = ScreenUtil();
   bool isLoading = false;
-  StreamSubscription? signupStreamSubscription;
   StreamSubscription? loginStreamSubscription;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Device.screenWidth,
+    return Padding(
       padding: EdgeInsets.only(
         left: _screenUtil.width(widget.isTabletScreen ? 171 : 25),
         right: _screenUtil.width(widget.isTabletScreen ? 171 : 25),
@@ -133,7 +131,6 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
 
   @override
   void dispose() {
-    signupStreamSubscription?.cancel();
     loginStreamSubscription?.cancel();
     super.dispose();
   }
