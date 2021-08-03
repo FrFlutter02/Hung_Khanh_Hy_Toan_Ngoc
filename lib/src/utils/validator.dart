@@ -8,11 +8,21 @@ class Validator {
     bool emailAlreadyExists =
         await _userServices.existsInDatabase('email', loginEvent.email);
     bool emailIsEmpty = loginEvent.email.isEmpty;
+
     if (emailIsEmpty) {
       return AppText.emailMustNotBeEmptyErrorText;
     }
+
     if (!emailAlreadyExists) {
       return AppText.emailDoesNotExistErrorText;
+    }
+  }
+
+  static Future<String?> loginPasswordValidator(LoginEvent loginEvent) async {
+    bool passwordIsEmpty = loginEvent.password.isEmpty;
+
+    if (passwordIsEmpty) {
+      return AppText.passwordMustNotBeEmptyErrorText;
     }
   }
 }
