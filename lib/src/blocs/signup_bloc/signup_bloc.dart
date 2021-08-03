@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../constants/constant_text.dart';
 import '../../models/user_model.dart';
@@ -32,11 +33,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         }
 
         try {
-          UserModel? userModel = await userServices?.signUp(
+          UserCredential? userCredential = await userServices?.signUp(
               event.userModel.fullName,
               event.userModel.email,
               event.userModel.password);
-          if (userModel != null) {
+          if (userCredential != null) {
             yield SignupSuccess();
           } else {
             yield SignupFailure(
