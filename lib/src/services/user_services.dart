@@ -19,21 +19,16 @@ class UserServices {
       await userCollection.doc(email).set(userModel.toMap());
       return userCredential;
     } catch (e) {
-      print(e.toString());
+      return null;
     }
   }
 
   Future<bool> existsInDatabase(String fieldName, String fieldValue) async {
-    try {
-      return await userCollection
-          .where(fieldName, isEqualTo: fieldValue.isEmpty ? '' : fieldValue)
-          .get()
-          .then((value) {
-        return value.docs.length > 0;
-      });
-    } catch (e) {
-      print(e.toString());
-    }
-    return false;
+    return await userCollection
+        .where(fieldName, isEqualTo: fieldValue.isEmpty ? '' : fieldValue)
+        .get()
+        .then((value) {
+      return value.docs.length > 0;
+    });
   }
 }
