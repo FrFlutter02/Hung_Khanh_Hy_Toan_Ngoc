@@ -4,9 +4,9 @@ class UserModel {
   final String password;
 
   const UserModel({
-    required this.fullName,
-    required this.email,
-    required this.password,
+    this.fullName = '',
+    this.email = '',
+    this.password = '',
   });
 
   Map<String, dynamic> toMap() {

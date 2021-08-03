@@ -5,9 +5,7 @@ import '../../models/user_model.dart';
 abstract class SignupEvent extends Equatable {
   final UserModel userModel;
 
-  const SignupEvent(
-      {this.userModel =
-          const UserModel(fullName: '', email: '', password: '')});
+  const SignupEvent({this.userModel = const UserModel()});
 
   @override
   List<Object> get props => [userModel];

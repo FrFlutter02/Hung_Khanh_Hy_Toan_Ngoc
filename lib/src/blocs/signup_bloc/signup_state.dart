@@ -10,7 +10,7 @@ abstract class SignupState extends Equatable {
   final String unknownErrorMessage;
 
   const SignupState({
-    this.userModel = const UserModel(email: '', fullName: '', password: ''),
+    this.userModel = const UserModel(),
     this.fullNameErrorMessage = '',
     this.emailErrorMessage = '',
     this.passwordErrorMessage = '',
