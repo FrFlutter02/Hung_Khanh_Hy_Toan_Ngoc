@@ -58,10 +58,13 @@ class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: 6),
             errorMaxLines: 2,
-            errorText:
-                context.read<SignupBloc>().state.fullNameErrorMessage.isEmpty
-                    ? null
-                    : context.read<SignupBloc>().state.fullNameErrorMessage,
+            errorText: context.read<SignupBloc>().state is SignupFailure &&
+                    (context.read<SignupBloc>().state as SignupFailure)
+                        .fullNameErrorMessage
+                        .isNotEmpty
+                ? (context.read<SignupBloc>().state as SignupFailure)
+                    .fullNameErrorMessage
+                : null,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: LoginScreenColor.textFieldBottomBorder,
@@ -153,11 +156,15 @@ class _SignupScreenState extends State<SignupScreen> {
                         EmailTextFormField(
                             label: SignupScreenText.emailNameLabel,
                             emailController: emailController,
-                            errorText: state.emailErrorMessage),
+                            errorText: state is SignupFailure
+                                ? state.emailErrorMessage
+                                : ''),
                         PasswordTextFormField(
                           label: SignupScreenText.passwordLabel,
                           passwordController: passwordController,
-                          errorText: state.passwordErrorMessage,
+                          errorText: state is SignupFailure
+                              ? state.passwordErrorMessage
+                              : '',
                         ),
                       ],
                       buttonText: SignupScreenText.signupButton,

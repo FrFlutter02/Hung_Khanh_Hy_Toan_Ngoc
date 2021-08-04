@@ -18,8 +18,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   Stream<SignupState> mapEventToState(
     SignupEvent event,
   ) async* {
-    yield SignupInProgress();
     event as SignupRequested;
+    yield SignupInProgress();
     String? fullNameErrorMessage = Validator.signupFullNameValidator(event);
     String? emailErrorMessage = await Validator.signupEmailValidator(event);
     String? passwordErrorMessage =
