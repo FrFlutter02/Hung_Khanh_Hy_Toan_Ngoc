@@ -4,12 +4,12 @@ import '../services/user_services.dart';
 
 class Validator {
   static Future<String?> signupEmailValidator(
-      SignupRequested signupEvent) async {
+      SignupRequested signupRequested) async {
     final UserServices _userServices = UserServices();
     bool emailAlreadyExists = await _userServices.existsInDatabase(
-        'email', signupEvent.userModel.email);
+        'email', signupRequested.userModel.email);
     bool emailIsValid =
-        SignupScreenText.emailRegex.hasMatch(signupEvent.userModel.email);
+        SignupScreenText.emailRegex.hasMatch(signupRequested.userModel.email);
 
     if (emailAlreadyExists) {
       return AppText.emailAlreadyExistsErrorText;
@@ -19,8 +19,8 @@ class Validator {
     }
   }
 
-  static String? signupFullNameValidator(SignupRequested signupEvent) {
-    bool fullNameIsEmpty = signupEvent.userModel.fullName.isEmpty;
+  static String? signupFullNameValidator(SignupRequested signupRequested) {
+    bool fullNameIsEmpty = signupRequested.userModel.fullName.isEmpty;
 
     if (fullNameIsEmpty) {
       return AppText.fullNameMustNotEmptyErrorText;
@@ -28,9 +28,9 @@ class Validator {
   }
 
   static Future<String?> signupPasswordValidator(
-      SignupRequested signupEvent) async {
-    bool passwordIsValid =
-        SignupScreenText.passwordRegex.hasMatch(signupEvent.userModel.password);
+      SignupRequested signupRequested) async {
+    bool passwordIsValid = SignupScreenText.passwordRegex
+        .hasMatch(signupRequested.userModel.password);
 
     if (!passwordIsValid) {
       return AppText.passwordErrorText;
