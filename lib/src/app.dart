@@ -10,7 +10,7 @@ import 'screens/onboarding_screen.dart';
 import 'screens/signup_screen.dart';
 
 class App extends StatelessWidget {
-  final UserServices userServices = UserServices();
+  final userServices = UserServices();
 
   @override
   Widget build(BuildContext context) {
