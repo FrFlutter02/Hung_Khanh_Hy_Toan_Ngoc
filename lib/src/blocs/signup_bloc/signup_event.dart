@@ -3,15 +3,14 @@ import 'package:equatable/equatable.dart';
 import '../../models/user_model.dart';
 
 abstract class SignupEvent extends Equatable {
-  final UserModel userModel;
-
-  const SignupEvent({this.userModel = const UserModel()});
-
-  @override
-  List<Object> get props => [userModel];
+  const SignupEvent();
 }
 
 class SignupRequested extends SignupEvent {
-  const SignupRequested({required UserModel userModel})
-      : super(userModel: userModel);
+  final UserModel userModel;
+
+  const SignupRequested({this.userModel = const UserModel()});
+
+  @override
+  List<Object> get props => [userModel];
 }

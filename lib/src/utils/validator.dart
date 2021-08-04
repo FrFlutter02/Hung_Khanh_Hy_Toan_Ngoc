@@ -3,7 +3,8 @@ import '../constants/constant_text.dart';
 import '../services/user_services.dart';
 
 class Validator {
-  static Future<String?> signupEmailValidator(SignupEvent signupEvent) async {
+  static Future<String?> signupEmailValidator(
+      SignupRequested signupEvent) async {
     final UserServices _userServices = UserServices();
     bool emailAlreadyExists = await _userServices.existsInDatabase(
         'email', signupEvent.userModel.email);
@@ -18,7 +19,7 @@ class Validator {
     }
   }
 
-  static String? signupFullNameValidator(SignupEvent signupEvent) {
+  static String? signupFullNameValidator(SignupRequested signupEvent) {
     bool fullNameIsEmpty = signupEvent.userModel.fullName.isEmpty;
 
     if (fullNameIsEmpty) {
@@ -27,7 +28,7 @@ class Validator {
   }
 
   static Future<String?> signupPasswordValidator(
-      SignupEvent signupEvent) async {
+      SignupRequested signupEvent) async {
     bool passwordIsValid =
         SignupScreenText.passwordRegex.hasMatch(signupEvent.userModel.password);
 

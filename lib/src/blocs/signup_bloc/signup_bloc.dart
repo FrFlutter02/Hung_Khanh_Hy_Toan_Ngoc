@@ -18,29 +18,25 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   Stream<SignupState> mapEventToState(
     SignupEvent event,
   ) async* {
-    switch (event.runtimeType) {
-      case SignupRequested:
-        yield SignupInProgress();
+    yield SignupInProgress();
+    event as SignupRequested;
+    String? fullNameErrorMessage = Validator.signupFullNameValidator(event);
+    String? emailErrorMessage = await Validator.signupEmailValidator(event);
+    String? passwordErrorMessage =
+        await Validator.signupPasswordValidator(event);
 
-        String? fullNameErrorMessage = Validator.signupFullNameValidator(event);
-        String? emailErrorMessage = await Validator.signupEmailValidator(event);
-        String? passwordErrorMessage =
-            await Validator.signupPasswordValidator(event);
-
-        UserCredential? userCredential = await userServices?.signUp(
-            event.userModel.fullName,
-            event.userModel.email,
-            event.userModel.password);
-        if (userCredential != null) {
-          yield SignupSuccess();
-        } else {
-          yield SignupFailure(
-              fullNameErrorMessage: fullNameErrorMessage ?? '',
-              emailErrorMessage: emailErrorMessage ?? '',
-              passwordErrorMessage: passwordErrorMessage ?? '',
-              unknownErrorMessage: SignupScreenText.signupFailedErrorText);
-        }
-        break;
+    UserCredential? userCredential = await userServices?.signUp(
+        event.userModel.fullName,
+        event.userModel.email,
+        event.userModel.password);
+    if (userCredential != null) {
+      yield SignupSuccess();
+    } else {
+      yield SignupFailure(
+          fullNameErrorMessage: fullNameErrorMessage ?? '',
+          emailErrorMessage: emailErrorMessage ?? '',
+          passwordErrorMessage: passwordErrorMessage ?? '',
+          unknownErrorMessage: SignupScreenText.signupFailedErrorText);
     }
   }
 }
