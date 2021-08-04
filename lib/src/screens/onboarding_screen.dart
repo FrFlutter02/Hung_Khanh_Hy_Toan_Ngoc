@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import '../../src/widgets/logo.dart';
@@ -5,7 +6,12 @@ import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 import '../utils/screen_util.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
+  @override
+  _OnboardingScreenState createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
   bool isDeviceTablet() {
     if (Device.get().isTablet) {
       return true;
@@ -14,7 +20,17 @@ class OnboardingScreen extends StatelessWidget {
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      print("completed");
+      setState(() {});
+    });
+  }
+
   final ScreenUtil _screenUtil = ScreenUtil();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,15 +44,17 @@ class OnboardingScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      FittedBox(
-                        fit: BoxFit.none,
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          child: Image.asset(
-                            "assets/images/inboarding_background.png",
-                            scale: 0.5,
-                            height: _screenUtil.height(460),
-                            width: _screenUtil.width(700),
+                      Expanded(
+                        child: FittedBox(
+                          fit: BoxFit.none,
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            child: Image.asset(
+                              "assets/images/inboarding_background.png",
+                              scale: 0.5,
+                              height: _screenUtil.height(460),
+                              width: _screenUtil.width(700),
+                            ),
                           ),
                         ),
                       ),
@@ -51,9 +69,9 @@ class OnboardingScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: _screenUtil.width(116)),
                     child: Logo(
-                      width: _screenUtil.width(102),
-                      height: _screenUtil.height(28),
-                    ),
+                        // width: _screenUtil.width(102),
+                        // height: _screenUtil.height(28),
+                        ),
                   ))
                 ],
               )
@@ -64,15 +82,17 @@ class OnboardingScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        FittedBox(
-                          fit: BoxFit.none,
-                          child: Container(
-                            margin: EdgeInsets.only(),
-                            child: Image.asset(
-                              "assets/images/inboarding_background.png",
-                              scale: 0.4,
-                              height: _screenUtil.height(1100),
-                              width: _screenUtil.width(1300),
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.none,
+                            child: Container(
+                              margin: EdgeInsets.only(),
+                              child: Image.asset(
+                                "assets/images/inboarding_background.png",
+                                scale: 0.4,
+                                height: _screenUtil.height(1100),
+                                width: _screenUtil.width(1300),
+                              ),
                             ),
                           ),
                         ),
@@ -90,7 +110,7 @@ class OnboardingScreen extends StatelessWidget {
                             left: _screenUtil.width(335),
                             right: _screenUtil.width(335),
                             top: 80),
-                        child: Logo(width: 100, height: 22),
+                        child: Logo(),
                       ),
                       SizedBox(
                         height: _screenUtil.height(131),

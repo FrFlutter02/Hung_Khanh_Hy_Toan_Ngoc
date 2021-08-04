@@ -8,7 +8,6 @@ abstract class ForgotPasswordState extends Equatable {
       {this.email = '',
       this.emailErrorMessage = '',
       this.unknownErrorMessage = ''});
-
   @override
   List<Object> get props => [email, emailErrorMessage, unknownErrorMessage];
 }
@@ -27,4 +26,6 @@ class ForgotPassworFailure extends ForgotPasswordState {
           emailErrorMessage: emailErrorMessage,
           unknownErrorMessage: unknownErrorMessage,
         );
+  @override
+  List<Object> get props => [email, emailErrorMessage, unknownErrorMessage];
 }

@@ -14,8 +14,6 @@ import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
 
 class App extends StatelessWidget {
-  final UserServices userServices = UserServices();
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -31,8 +29,8 @@ class App extends StatelessWidget {
         theme: ThemeData(fontFamily: "Nunito-Regular"),
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => ForgotPassword(),
-          "/forgotPasswordScreen": (context) => ForgotPassword(),
+          // "/": (context) => ForgotPasswordScreen(),
+          "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
           "/homeScreen": (context) => HomeScreen(),
           "/loginScreen": (context) => LoginScreen(),
           "/onboardingScreen": (context) => OnboardingScreen(),

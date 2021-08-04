@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+
 import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import '../../src/widgets/logo.dart';
 import '../../src/widgets/email_text_form_field.dart';
@@ -10,7 +11,7 @@ import '../utils/screen_util.dart';
 import '../blocs/forgot_password_bloc/forgot_password_state.dart';
 import '../blocs/forgot_password_bloc/forgot_password_event.dart';
 
-class ForgotPassword extends StatelessWidget {
+class ForgotPasswordScreen extends StatelessWidget {
   bool isDeviceTablet() {
     if (Device.get().isTablet) {
       return true;
@@ -70,9 +71,9 @@ class ForgotPassword extends StatelessWidget {
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Logo(
-                                  width: _screenUtil.width(99),
-                                  height: _screenUtil.width(22))
+                              Logo()
+                              // width: _screenUtil.width(99),
+                              // height: _screenUtil.width(22))
                             ],
                           )
                         : SizedBox.shrink(),
@@ -147,8 +148,9 @@ class ForgotPassword extends StatelessWidget {
                                       : Row(
                                           children: [
                                             Logo(
-                                                width: _screenUtil.width(99),
-                                                height: _screenUtil.width(22))
+                                                // width: _screenUtil.width(99),
+                                                // height: _screenUtil.width(22)
+                                                )
                                           ],
                                         ),
                                   SizedBox(
