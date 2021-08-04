@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     LoginAndSignupHeader(
                       isTabletScreen: isTabletScreen,
-                      formHeaderTitle: LoginScreenText.welcome,
+                      loginAndSignupHeaderTitle: LoginScreenText.welcome,
                     ),
                     LoginAndSignupBody(
                       loginBloc: context.read<LoginBloc>(),
@@ -84,11 +84,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       isTabletScreen: isTabletScreen,
                       textFormFieldList: [
                         EmailTextFormField(
-                            errorText: state.emailErrorMessage,
+                            errorText: state is LoginFailure
+                                ? state.emailErrorMessage
+                                : '',
                             label: LoginScreenText.emailLabel,
                             emailController: emailController),
                         PasswordTextFormField(
-                            errorText: state.passwordErrorMessage,
+                            errorText: state is LoginFailure
+                                ? state.passwordErrorMessage
+                                : '',
                             forgotPasswordVisible: true,
                             label: LoginScreenText.passwordLabel,
                             passwordController: passwordController),

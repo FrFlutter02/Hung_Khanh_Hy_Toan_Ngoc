@@ -18,6 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
+    event as LoginRequested;
     switch (event.runtimeType) {
       case LoginRequested:
         String? emailErrorMessage = await Validator.loginEmailValidator(event);

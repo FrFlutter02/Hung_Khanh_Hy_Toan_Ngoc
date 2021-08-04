@@ -3,11 +3,12 @@ import '../constants/constant_text.dart';
 import '../services/user_services.dart';
 
 class Validator {
-  static Future<String?> loginEmailValidator(LoginEvent loginEvent) async {
+  static Future<String?> loginEmailValidator(
+      LoginRequested loginRequested) async {
     final UserServices _userServices = UserServices();
     bool emailAlreadyExists =
-        await _userServices.existsInDatabase('email', loginEvent.email);
-    bool emailIsEmpty = loginEvent.email.isEmpty;
+        await _userServices.existsInDatabase('email', loginRequested.email);
+    bool emailIsEmpty = loginRequested.email.isEmpty;
 
     if (emailIsEmpty) {
       return AppText.emailMustNotBeEmptyErrorText;
@@ -18,8 +19,9 @@ class Validator {
     }
   }
 
-  static Future<String?> loginPasswordValidator(LoginEvent loginEvent) async {
-    bool passwordIsEmpty = loginEvent.password.isEmpty;
+  static Future<String?> loginPasswordValidator(
+      LoginRequested loginRequested) async {
+    bool passwordIsEmpty = loginRequested.password.isEmpty;
 
     if (passwordIsEmpty) {
       return AppText.passwordMustNotBeEmptyErrorText;
