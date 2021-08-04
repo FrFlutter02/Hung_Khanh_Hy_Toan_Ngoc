@@ -136,7 +136,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     LoginAndSignupHeader(
                       isTabletScreen: isTabletScreen,
-                      formHeaderTitle: isTabletScreen
+                      loginAndSignupHeaderTitle: isTabletScreen
                           ? SignupScreenText.startFromSratch
                           : SignupScreenText.startFromSratch
                               .replaceFirst(' ', '\n'),
