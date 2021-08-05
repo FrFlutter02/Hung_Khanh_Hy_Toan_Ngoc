@@ -192,11 +192,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                                   Form(
                                     key: formKey,
                                     child: EmailTextFormField(
-                                      emailController:
-                                          emailTextEditingController,
-                                      label: LoginScreenText.emailLabel,
-                                      errorText: state.emailErrorMessage,
-                                    ),
+                                        emailController:
+                                            emailTextEditingController,
+                                        label: LoginScreenText.emailLabel,
+                                        errorText: state is ForgotPassworFailure
+                                            ? state.emailErrorMessage
+                                            : ''),
                                   ),
                                   SizedBox(
                                     height: isDeviceTablet()

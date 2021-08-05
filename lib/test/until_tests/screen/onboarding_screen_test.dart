@@ -8,8 +8,6 @@ import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_state.
 import 'package:mobile_app/src/screens/onboarding_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
   final widget = MaterialApp(
     home: MultiBlocProvider(providers: [
       BlocProvider(
