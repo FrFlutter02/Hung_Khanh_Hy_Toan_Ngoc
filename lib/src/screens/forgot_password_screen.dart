@@ -195,9 +195,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                                         emailController:
                                             emailTextEditingController,
                                         label: LoginScreenText.emailLabel,
-                                        errorText: state is ForgotPassworFailure
-                                            ? state.emailErrorMessage
-                                            : ''),
+                                        errorText:
+                                            state is ForgotPasswordFailure
+                                                ? state.emailErrorMessage
+                                                : ''),
                                   ),
                                   SizedBox(
                                     height: isDeviceTablet()
@@ -214,8 +215,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                                                   context)
                                               .add(ForgotPasswordRequested(
                                                   emailTextEditingController
-                                                      .text,
-                                                  context));
+                                                      .text));
+                                        }
+                                        if (state is ForgotPasswordSuccess) {
+                                          Navigator.of(context)
+                                              .pushNamed('/loginScreen');
                                         }
                                       },
                                       child: Text(

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -20,14 +22,13 @@ class ForgotPasswordBloc
         String? emailErrorMessage =
             await Validator.forgotPasswordEmailValidator(event);
 
-        yield ForgotPassworFailure(emailErrorMessage: emailErrorMessage ?? '');
-
-        if ((state as ForgotPassworFailure).emailErrorMessage.isEmpty) {
+        yield ForgotPasswordFailure(emailErrorMessage: emailErrorMessage ?? '');
+        if ((state as ForgotPasswordFailure).emailErrorMessage.isEmpty) {
           yield ForgotPasswordInProgress();
         }
-        if (state.runtimeType != ForgotPassworFailure) {
+        if (state.runtimeType != ForgotPasswordFailure) {
           userServices.resetPassword(event.email);
-          Navigator.of(event.context).pushNamed('/loginScreen');
+
           yield ForgotPasswordSuccess();
         }
         break;

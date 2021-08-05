@@ -35,6 +35,7 @@ dependencies:
   firebase_core: ^1.4.0
   cloud_firestore: ^2.4.0
   responsive_builder: ^0.4.1
+  mockito: ^5.0.13
 
 dev_dependencies:
   flutter_test:

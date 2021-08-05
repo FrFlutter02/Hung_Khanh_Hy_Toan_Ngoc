@@ -68,10 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: _screenUtil.width(116)),
-                    child: Logo(
-                        // width: _screenUtil.width(102),
-                        // height: _screenUtil.height(28),
-                        ),
+                    child: Logo(),
                   ))
                 ],
               )
