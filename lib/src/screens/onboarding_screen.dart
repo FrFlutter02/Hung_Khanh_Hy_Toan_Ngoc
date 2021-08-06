@@ -1,6 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+
 import '../../src/widgets/logo.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
