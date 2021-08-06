@@ -11,12 +11,12 @@ import 'package:mobile_app/src/widgets/logo.dart';
 import '../../cloud_firestore_mock.dart';
 
 void main() async {
-  // setupCloudFirestoreMocks();
+  setupCloudFirestoreMocks();
 
-  // setUpAll(() async {
-  //   TestWidgetsFlutterBinding.ensureInitialized();
-  //   await Firebase.initializeApp();
-  // });
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+  });
   final widget = MaterialApp(
     home: MultiBlocProvider(providers: [
       BlocProvider(
@@ -28,11 +28,12 @@ void main() async {
     testWidgets('onboarrding show title', (tester) async {
       tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      tester.binding.window.devicePixelRatioTestValue = 1.0;
       await tester.pumpWidget(widget);
-      final secondTitleFinder = find.text(
-          'Never run out ideas again. Try new foods, ingredients, cooking style, and more');
       final firstTitleFinder =
           find.text('Join over 50 millions people sharing recipes everday');
+      final secondTitleFinder = find.text(
+          'Never run out ideas again. Try new foods, ingredients, cooking style, and more');
       ForgotPasswordBloc().emit(ForgotPasswordInitial());
       await tester.pump();
       expect(firstTitleFinder, findsOneWidget);
@@ -41,10 +42,10 @@ void main() async {
     testWidgets('onboarrding show text button', (tester) async {
       tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      tester.binding.window.devicePixelRatioTestValue = 1.0;
       await tester.pumpWidget(widget);
       final joinButton = find.text('Join Scratch');
       final learnMoreButton = find.text('Learn More');
-      ForgotPasswordBloc().emit(ForgotPasswordInitial());
       await tester.pump();
       expect(joinButton, findsOneWidget);
       expect(learnMoreButton, findsOneWidget);
@@ -52,21 +53,24 @@ void main() async {
     testWidgets('Should render logo with title', (tester) async {
       tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      tester.binding.window.devicePixelRatioTestValue = 1.0;
       await tester.pumpWidget(widget);
       final logoFinder = find.byType(Logo);
       final albumTitleFinder =
           find.descendant(of: logoFinder, matching: find.text('Join Scratch'));
-      ForgotPasswordBloc().emit(ForgotPasswordInitial());
+
       await tester.pump();
       expect(albumTitleFinder, findsOneWidget);
     });
     testWidgets('Should button click', (tester) async {
       tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      tester.binding.window.devicePixelRatioTestValue = 1.0;
       await tester.pumpWidget(widget);
       await tester.tap(find.byType(ElevatedButton));
       final navigateLoginPage = find.byType(LoginScreen);
       await tester.pump();
+
       // Expect to find the item on screen.
       expect(navigateLoginPage, findsOneWidget);
     });
@@ -75,6 +79,7 @@ void main() async {
     testWidgets('Should render logo with title', (tester) async {
       tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      tester.binding.window.devicePixelRatioTestValue = 1.0;
       await tester.pumpWidget(widget);
       final logoFinder = find.byType(Logo);
       final albumTitleFinder =

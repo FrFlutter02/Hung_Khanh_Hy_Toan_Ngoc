@@ -6,27 +6,13 @@ import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 import '../utils/screen_util.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
-}
-
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class OnboardingScreen extends StatelessWidget {
   bool isDeviceTablet() {
     if (Device.get().isTablet) {
       return true;
     } else {
       return false;
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("completed");
-      setState(() {});
-    });
   }
 
   final ScreenUtil _screenUtil = ScreenUtil();

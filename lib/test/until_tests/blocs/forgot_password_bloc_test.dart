@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_event.dart';
 import 'package:mobile_app/src/services/user_services.dart';
@@ -24,8 +24,8 @@ main() {
     await Firebase.initializeApp();
   });
   UserServices userServices;
-
   ForgotPasswordBloc? forgotPasswordBloc;
+
   setUp(() {
     userServices = MockUserService();
     forgotPasswordBloc = ForgotPasswordBloc();
@@ -33,12 +33,12 @@ main() {
   tearDown(() {
     forgotPasswordBloc?.close();
   });
+
   blocTest('emits [] when no event is added',
       build: () => ForgotPasswordBloc(), expect: () => []);
   blocTest(
     'emits [ForgotPassworFailure] is Email must not be empty  when [ForgotPasswordRequested] have null email',
     build: () {
-      userServices = MockUserService();
       return ForgotPasswordBloc();
     },
     act: (ForgotPasswordBloc bloc) => bloc.add(ForgotPasswordRequested('')),
@@ -47,23 +47,10 @@ main() {
           emailErrorMessage: "Email must not be empty", unknownErrorMessage: '')
     ],
   );
-  blocTest(
-    'emits [ForgotPassworFailure] have  emailErrorMessage is Email did not exist  when [ForgotPasswordRequested] have email is not exist',
-    build: () {
-      userServices = MockUserService();
-      return ForgotPasswordBloc();
-    },
-    act: (ForgotPasswordBloc bloc) =>
-        bloc.add(ForgotPasswordRequested('aaa@gmail.com')),
-    expect: () => [
-      ForgotPasswordFailure(
-          emailErrorMessage: "Email did not exist", unknownErrorMessage: '')
-    ],
-  );
+
   blocTest(
     'emits [ForgotPassworFailure] have emailErrorMessage is "Please enter a valid email, e.g: john@gmail.com"  when [ForgotPasswordRequested] have email is invalid',
     build: () {
-      userServices = MockUserService();
       return ForgotPasswordBloc();
     },
     act: (ForgotPasswordBloc bloc) => bloc.add(ForgotPasswordRequested('aaa@')),
@@ -74,9 +61,21 @@ main() {
     ],
   );
   blocTest(
+    'emits [ForgotPassworFailure] have  emailErrorMessage is Email did not exist  when [ForgotPasswordRequested] have email is not exist',
+    build: () {
+      return ForgotPasswordBloc();
+    },
+    act: (ForgotPasswordBloc bloc) =>
+        bloc.add(ForgotPasswordRequested('aaa@gmail.com')),
+    expect: () => [
+      ForgotPasswordFailure(
+          emailErrorMessage: "Email did not exist", unknownErrorMessage: '')
+    ],
+  );
+  blocTest(
     'emits [ForgotPassowordSuccess] when [ForgotPasswordRequested] have corrected email',
     build: () {
-      userServices = MockUserService();
+      userServices = UserServices();
       return ForgotPasswordBloc();
     },
     act: (ForgotPasswordBloc bloc) =>
