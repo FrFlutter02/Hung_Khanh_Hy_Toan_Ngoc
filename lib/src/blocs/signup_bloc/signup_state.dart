@@ -17,19 +17,19 @@ class SignupFailure extends SignupState {
   final String fullNameErrorMessage;
   final String emailErrorMessage;
   final String passwordErrorMessage;
-  final String unknownErrorMessage;
+  final String failErrorMessage;
 
   SignupFailure({
     this.fullNameErrorMessage = '',
     this.emailErrorMessage = '',
     this.passwordErrorMessage = '',
-    this.unknownErrorMessage = '',
+    this.failErrorMessage = '',
   });
 
   List<Object> get props => [
         emailErrorMessage,
         fullNameErrorMessage,
         passwordErrorMessage,
-        unknownErrorMessage
+        failErrorMessage
       ];
 }

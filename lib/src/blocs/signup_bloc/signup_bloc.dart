@@ -36,7 +36,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           fullNameErrorMessage: fullNameErrorMessage ?? '',
           emailErrorMessage: emailErrorMessage ?? '',
           passwordErrorMessage: passwordErrorMessage ?? '',
-          unknownErrorMessage: SignupScreenText.signupFailedErrorText);
+          failErrorMessage: SignupScreenText.signupFailedErrorText);
     }
   }
 }
