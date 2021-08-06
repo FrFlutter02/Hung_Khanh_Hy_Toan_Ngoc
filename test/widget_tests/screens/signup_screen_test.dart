@@ -14,7 +14,6 @@ import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../cloud_firestore_mock.dart';
-import '../../mock_data/mock_users_data.dart';
 
 class MockSignupBloc extends MockBloc<SignupEvent, SignupState>
     implements SignupBloc {}
@@ -30,7 +29,6 @@ void main() {
 
   final userServices = MockUserServices();
   final signupBloc = SignupBloc(userServices: userServices);
-  final mockResponse = jsonDecode(mockUsersData);
   final _widget = BlocProvider(
     create: (context) => SignupBloc(),
     child: MaterialApp(
