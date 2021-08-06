@@ -32,7 +32,12 @@ class ForgotPasswordScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: BlocProvider(
         create: (context) => ForgotPasswordBloc(),
-        child: BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
+        child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
+          listener: (context, state) {
+            if (state is ForgotPasswordSuccess) {
+              Navigator.of(context).pushNamed('/loginScreen');
+            }
+          },
           builder: (context, state) {
             return SingleChildScrollView(
                 child: Stack(
@@ -70,11 +75,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     isDeviceTablet()
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Logo()
-                              // width: _screenUtil.width(99),
-                              // height: _screenUtil.width(22))
-                            ],
+                            children: [Logo()],
                           )
                         : SizedBox.shrink(),
                     isDeviceTablet()
@@ -146,12 +147,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                   isDeviceTablet()
                                       ? SizedBox.shrink()
                                       : Row(
-                                          children: [
-                                            Logo(
-                                                // width: _screenUtil.width(99),
-                                                // height: _screenUtil.width(22)
-                                                )
-                                          ],
+                                          children: [Logo()],
                                         ),
                                   SizedBox(
                                     height: _screenUtil.height(37),
@@ -216,10 +212,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                                               .add(ForgotPasswordRequested(
                                                   emailTextEditingController
                                                       .text));
-                                        }
-                                        if (state is ForgotPasswordSuccess) {
-                                          Navigator.of(context)
-                                              .pushNamed('/loginScreen');
                                         }
                                       },
                                       child: Text(

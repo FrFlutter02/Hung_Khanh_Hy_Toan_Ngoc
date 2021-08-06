@@ -3,12 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../src/screens/forgot_password_screen.dart';
-import '../../src/services/user_services.dart';
-
 import '../src/screens/login_screen.dart';
 import '../src/screens/onboarding_screen.dart';
 import '../src/screens/home_screen.dart';
-import '../src/services/user_services.dart';
 import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
@@ -29,7 +26,7 @@ class App extends StatelessWidget {
         theme: ThemeData(fontFamily: "Nunito-Regular"),
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => ForgotPasswordScreen(),
+          "/": (context) => OnboardingScreen(),
           "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
           "/homeScreen": (context) => HomeScreen(),
           "/loginScreen": (context) => LoginScreen(),

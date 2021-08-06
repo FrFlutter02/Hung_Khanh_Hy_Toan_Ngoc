@@ -178,7 +178,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             Expanded(
                               child: Container(
-                                // margin: EdgeInsets.only(left: 8.0),\
+                                margin: EdgeInsets.only(left: 8.0),
                                 width: _screenUtil.width(300),
                                 height: _screenUtil.height(50),
                                 child: ElevatedButton(
