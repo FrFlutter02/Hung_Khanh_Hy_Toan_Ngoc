@@ -12,16 +12,12 @@ class UserServices {
 
   Future<UserCredential?> signUp(
       String fullName, String email, String password) async {
-    try {
-      UserCredential? userCredential = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      UserModel userModel =
-          UserModel(fullName: fullName, email: email, password: password);
-      await userCollection.doc(email).set(userModel.toMap());
-      return userCredential;
-    } catch (e) {
-      return null;
-    }
+    UserCredential? userCredential = await firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password);
+    UserModel userModel =
+        UserModel(fullName: fullName, email: email, password: password);
+    await userCollection.doc(email).set(userModel.toMap());
+    return userCredential;
   }
 
   Future<bool> existsInDatabase(String fieldName, String fieldValue) async {
