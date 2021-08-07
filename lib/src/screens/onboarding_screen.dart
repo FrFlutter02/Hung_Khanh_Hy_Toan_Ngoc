@@ -36,11 +36,11 @@ class OnboardingScreen extends StatelessWidget {
     if (Device.get().isTablet) {
       isColorBackgroundTable = true;
       displayOnTablet = true;
-      scaleBackground = 0.46;
+      scaleBackground = 0.45;
       radiusButton = 8;
       fontSizeSecondtTitleTablet = 14;
       fontSizeTextButton = 16;
-      sizeBoxHeightTopBackgroundImage = 580;
+      sizeBoxHeightTopBackgroundImage = 560;
       leterSpacingFirstTitle = -0.5;
       fontSizeFirstTitleTablet = 40;
       paddingHorizontalLogo = _screenUtil.width(335);
