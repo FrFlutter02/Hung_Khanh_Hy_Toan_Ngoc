@@ -7,196 +7,234 @@ import '../constants/constant_colors.dart';
 import '../utils/screen_util.dart';
 
 class OnboardingScreen extends StatelessWidget {
-  bool isDeviceTablet() {
+  final ScreenUtil _screenUtil = ScreenUtil();
+  late bool displayOnTablet;
+  late bool isColorBackgroundTable;
+  late String fontFamilyFirstTitleTablet;
+  late double leterSpacingFirstTitle;
+  late double sizeBoxHeightTopBackgroundImage;
+  late double sizedBoxWidthBetweenTwoButton;
+  late double sizedBoxTopHeightFirstTitleTablet;
+  late double sizedBoxBotHeightFirstTitleTablet;
+  late double sizedBoxBotSecondTitleTablet;
+  late double paddingHorizontalLogo;
+  late double paddingTopLogo;
+  late double paddingHorizontalFirstTitleTablet;
+  late double paddingHorizontalSecondTitleTablet;
+  late double heightSecondTitleTablet;
+  late double fontSizeFirstTitleTablet;
+  late double fontSizeSecondtTitleTablet;
+  late double fontSizeTextButton;
+  late double scaleBackground;
+  late double hightButton;
+  late double widthButton;
+  late double heightBackground;
+  late double widthBackground;
+  late double radiusButton;
+
+  late double paddingHorizontalButton;
+  void isDeviceTablet() {
     if (Device.get().isTablet) {
-      return true;
+      scaleBackground = 0.47;
+      heightBackground = _screenUtil.height(1000);
+      widthBackground = _screenUtil.width(1200);
+      paddingHorizontalLogo = _screenUtil.width(335);
+      paddingTopLogo = _screenUtil.height(80);
+      displayOnTablet = true;
+      sizeBoxHeightTopBackgroundImage = 590;
+      leterSpacingFirstTitle = -0.5;
+      isColorBackgroundTable = true;
+      fontSizeFirstTitleTablet = 40;
+      fontFamilyFirstTitleTablet = 'Nunito-SemiBold';
+      paddingHorizontalFirstTitleTablet = _screenUtil.width(134);
+      sizedBoxTopHeightFirstTitleTablet = _screenUtil.height(131);
+      sizedBoxBotHeightFirstTitleTablet = _screenUtil.height(8);
+
+      paddingHorizontalSecondTitleTablet = 227;
+      heightSecondTitleTablet = 44;
+      fontSizeSecondtTitleTablet = 14;
+      sizedBoxBotSecondTitleTablet = 34;
+      fontSizeTextButton = 16;
+      hightButton = 50;
+      widthButton = 300;
+      radiusButton = 8;
+      sizedBoxWidthBetweenTwoButton = 20;
+      paddingHorizontalButton = 135;
     } else {
-      return false;
+      scaleBackground = 1;
+      heightBackground = _screenUtil.height(490);
+      widthBackground = _screenUtil.width(700);
+      paddingHorizontalLogo = _screenUtil.width(116);
+      paddingTopLogo = _screenUtil.height(360);
+      displayOnTablet = false;
+      sizeBoxHeightTopBackgroundImage = 300;
+      isColorBackgroundTable = false;
     }
   }
 
-  final ScreenUtil _screenUtil = ScreenUtil();
-
   @override
   Widget build(BuildContext context) {
+    isDeviceTablet();
     return Scaffold(
       body: InkWell(
-        onTap: () {
-          Navigator.of(context).pushNamed('/loginScreen');
-        },
-        child: !isDeviceTablet()
-            ? Stack(
+          onTap: () {
+            Navigator.of(context).pushNamed('/loginScreen');
+          },
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: FittedBox(
-                          fit: BoxFit.none,
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            child: Image.asset(
-                              "assets/images/inboarding_background.png",
-                              scale: 0.5,
-                              height: _screenUtil.height(460),
-                              width: _screenUtil.width(700),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: sizeBoxHeightTopBackgroundImage,
                   ),
-                  Container(
-                      decoration: BoxDecoration(
-                          gradient: GardientColorBackgroundOfOnboarding
-                              .gradientColorMobile)),
-                  Center(
-                      child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: _screenUtil.width(116)),
-                    child: Logo(),
-                  ))
-                ],
-              )
-            : Stack(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: FittedBox(
-                            fit: BoxFit.none,
-                            child: Container(
-                              margin: EdgeInsets.only(),
-                              child: Image.asset(
-                                "assets/images/inboarding_background.png",
-                                scale: 0.4,
-                                height: _screenUtil.height(1100),
-                                width: _screenUtil.width(1300),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.none,
+                      child: Image.asset(
+                        "assets/images/inboarding_background.png",
+                        scale: scaleBackground,
+                      ),
                     ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                          gradient: GardientColorBackgroundOfOnboarding
-                              .gradientColorTablet)),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: _screenUtil.width(335),
-                            right: _screenUtil.width(335),
-                            top: 80),
-                        child: Logo(),
-                      ),
-                      SizedBox(
-                        height: _screenUtil.height(131),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: _screenUtil.width(134)),
-                        child: Text(
-                          OnboardingTabletText.firstTitle,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 40,
-                              fontFamily: 'Nunito-SemiBold',
-                              color: AppColor.primaryBlack,
-                              height: _screenUtil.height(1.2),
-                              letterSpacing: -0.5),
-                        ),
-                      ),
-                      SizedBox(
-                        height: _screenUtil.height(8),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: _screenUtil.width(227)),
-                        height: _screenUtil.height(44),
-                        alignment: Alignment.center,
-                        child: Text(
-                          OnboardingTabletText.secondTitle,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Nunito-Regular',
-                            color: AppColor.secondaryGrey,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        height: _screenUtil.height(34),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: _screenUtil.width(135)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                width: _screenUtil.width(300),
-                                height: _screenUtil.height(50),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(OnboardingTabletText.joinButton,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'Nunito-Regular')),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    elevation: 0,
-                                    primary: AppColor.green,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: _screenUtil.width(20),
-                            ),
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(left: 8.0),
-                                width: _screenUtil.width(300),
-                                height: _screenUtil.height(50),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    OnboardingTabletText.learnMoreButton,
-                                    style: TextStyle(
-                                        color: AppColor.green,
-                                        fontSize: 16,
-                                        fontFamily: 'Nunito-Regular'),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    elevation: 0,
-                                    side: BorderSide(
-                                        width: _screenUtil.width(2),
-                                        color: (AppColor.green)),
-                                    primary: AppColor.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
-      ),
+              Container(
+                  decoration: BoxDecoration(
+                      gradient: isColorBackgroundTable
+                          ? GardientColorBackgroundOfOnboarding
+                              .gradientColorTablet
+                          : GardientColorBackgroundOfOnboarding
+                              .gradientColorMobile)),
+              Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: paddingTopLogo),
+                      child: Logo(),
+                    ),
+                  ),
+                  displayOnTablet
+                      ? Container(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: _screenUtil
+                                    .height(sizedBoxTopHeightFirstTitleTablet),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: _screenUtil.width(
+                                        paddingHorizontalFirstTitleTablet)),
+                                child: Text(
+                                  OnboardingTabletText.firstTitle,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: fontSizeFirstTitleTablet,
+                                      fontFamily: fontFamilyFirstTitleTablet,
+                                      color: AppColor.primaryBlack,
+                                      letterSpacing: leterSpacingFirstTitle),
+                                ),
+                              ),
+                              SizedBox(
+                                height: _screenUtil
+                                    .height(sizedBoxBotHeightFirstTitleTablet),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: _screenUtil.width(
+                                        paddingHorizontalSecondTitleTablet)),
+                                height:
+                                    _screenUtil.height(heightSecondTitleTablet),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  OnboardingTabletText.secondTitle
+                                      .replaceFirst(",", "\n"),
+                                  style: TextStyle(
+                                    fontSize: fontSizeSecondtTitleTablet,
+                                    color: AppColor.secondaryGrey,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              SizedBox(
+                                height: _screenUtil
+                                    .height(sizedBoxBotSecondTitleTablet),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: _screenUtil
+                                        .width(paddingHorizontalButton)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        width: _screenUtil.width(widthButton),
+                                        height: _screenUtil.height(hightButton),
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          child: Text(
+                                              OnboardingTabletText.joinButton,
+                                              style: TextStyle(
+                                                fontSize: fontSizeTextButton,
+                                              )),
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      radiusButton),
+                                            ),
+                                            elevation: 0,
+                                            primary: AppColor.green,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: _screenUtil
+                                          .width(sizedBoxWidthBetweenTwoButton),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        width: _screenUtil.width(widthButton),
+                                        height: _screenUtil.height(hightButton),
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          child: Text(
+                                            OnboardingTabletText
+                                                .learnMoreButton,
+                                            style: TextStyle(
+                                              color: AppColor.green,
+                                              fontSize: fontSizeTextButton,
+                                            ),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      radiusButton),
+                                            ),
+                                            elevation: 0,
+                                            side: BorderSide(
+                                                width: _screenUtil.width(2),
+                                                color: (AppColor.green)),
+                                            primary: AppColor.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox.shrink()
+                ],
+              ),
+            ],
+          )),
     );
   }
 }

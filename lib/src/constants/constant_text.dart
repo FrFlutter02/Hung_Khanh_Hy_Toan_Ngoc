@@ -1,15 +1,12 @@
 class AppText {
   static const String iconText = 'scratch';
-
   static const String fullNameMustNotEmptyErrorText =
       'Fullname must not be empty';
-
   static const String emailInvalidErrorText =
       'Please enter a valid email, e.g: john@gmail.com';
   static const String emailAlreadyExistsErrorText = 'Email already exists';
   static const String emailDidNotExistErrorText = 'Email did not exist';
   static const String emailMustNotEmptyErrorText = 'Email must not be empty';
-
   static const String passwordErrorText =
       'Password must have as least 8 characters, including numbers, uppercase, lowercase characters and uncharacters';
   static const String passwordMustNotBeEmptyErrorText =
@@ -58,5 +55,4 @@ class ForgotPasswordText {
       "Enter the email associated with your account and we'll send an email with a link to reset your password.";
   static const String sendButton = "Send";
   static const String tabletLabel = "Start from Scratch";
-  static const String snackbarContentScuess = "Email has been sent!!";
 }
