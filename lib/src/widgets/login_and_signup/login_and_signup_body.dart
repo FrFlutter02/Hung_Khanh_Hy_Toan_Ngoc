@@ -17,20 +17,18 @@ class LoginAndSignupBody extends StatelessWidget {
   final String bottomLinkText;
   final String destinationRoute;
   final bool isTabletScreen;
-  final bool isHeightLoginMobile;
-  const LoginAndSignupBody(
-      {Key? key,
-      this.loginBloc,
-      required this.textFormFieldList,
-      required this.titleText,
-      required this.buttonText,
-      required this.buttonOnPress,
-      required this.bottomTitleText,
-      required this.bottomLinkText,
-      required this.destinationRoute,
-      required this.isTabletScreen,
-      this.isHeightLoginMobile = false})
-      : super(key: key);
+  const LoginAndSignupBody({
+    Key? key,
+    this.loginBloc,
+    required this.textFormFieldList,
+    required this.titleText,
+    required this.buttonText,
+    required this.buttonOnPress,
+    required this.bottomTitleText,
+    required this.bottomLinkText,
+    required this.destinationRoute,
+    required this.isTabletScreen,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +62,17 @@ class LoginAndSignupBody extends StatelessWidget {
             vertical: isTabletScreen ? _screenUtil.height(50) : 0,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                titleText,
-                style: Theme.of(context).textTheme.bodyText2!,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  titleText,
+                  style: Theme.of(context).textTheme.bodyText2!,
+                ),
               ),
               SizedBox(
-                  height: (isHeightLoginMobile &&
-                          buttonText == LoginScreenText.loginButton &&
+                  height: (buttonText == LoginScreenText.loginButton &&
                           isTabletScreen == false)
                       ? _screenUtil.height(47)
                       : _screenUtil.height(30)),
@@ -84,37 +84,23 @@ class LoginAndSignupBody extends StatelessWidget {
                 height: _screenUtil.height(50),
                 buttonOnPress: buttonOnPress,
               ),
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(height: _screenUtil.height(30)),
-                    Center(
-                      child: Text(
-                        bottomTitleText,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(color: AppColor.secondaryGrey),
-                      ),
-                    ),
-                    SizedBox(height: _screenUtil.height(5)),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, destinationRoute);
-                        },
-                        child: Text(
-                          bottomLinkText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  color: AppColor.green,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ],
+              SizedBox(height: _screenUtil.height(30)),
+              Text(
+                bottomTitleText,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .copyWith(color: AppColor.secondaryGrey),
+              ),
+              SizedBox(height: _screenUtil.height(5)),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, destinationRoute);
+                },
+                child: Text(
+                  bottomLinkText,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: AppColor.green, fontWeight: FontWeight.bold),
                 ),
               )
             ],
