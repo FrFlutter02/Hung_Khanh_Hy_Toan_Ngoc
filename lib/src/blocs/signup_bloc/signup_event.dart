@@ -14,3 +14,18 @@ class SignupRequested extends SignupEvent {
   @override
   List<Object> get props => [userModel];
 }
+
+class SignupErrorDetected extends SignupEvent {
+  final String fullNameErrorMessage;
+  final String emailErrorMessage;
+  final String passwordErrorMessage;
+
+  const SignupErrorDetected(
+      {required this.fullNameErrorMessage,
+      required this.emailErrorMessage,
+      required this.passwordErrorMessage});
+
+  @override
+  List<Object> get props =>
+      [fullNameErrorMessage, emailErrorMessage, passwordErrorMessage];
+}
