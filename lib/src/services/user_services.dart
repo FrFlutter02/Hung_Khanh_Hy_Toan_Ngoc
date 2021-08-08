@@ -10,13 +10,11 @@ class UserServices {
 
   UserServices() : firebaseAuth = FirebaseAuth.instance;
 
-  Future<UserCredential?> signUp(
-      String fullName, String email, String password) async {
-    UserCredential? userCredential = await firebaseAuth
-        .createUserWithEmailAndPassword(email: email, password: password);
-    UserModel userModel =
-        UserModel(fullName: fullName, email: email, password: password);
-    await userCollection.doc(email).set(userModel.toMap());
+  Future<UserCredential?> signUp(UserModel userModel) async {
+    UserCredential userCredential =
+        await firebaseAuth.createUserWithEmailAndPassword(
+            email: userModel.email, password: userModel.password);
+    await userCollection.doc(userModel.email).set(userModel.toMap());
     return userCredential;
   }
 
