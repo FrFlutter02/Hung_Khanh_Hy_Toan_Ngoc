@@ -3,15 +3,17 @@ import '../constants/constant_text.dart';
 import '../services/user_services.dart';
 
 class Validator {
-  static String? signupFullNameValidator(SignupRequested signupRequested) {
+  static String signupFullNameValidator(SignupRequested signupRequested) {
     bool fullNameIsEmpty = signupRequested.userModel.fullName.isEmpty;
 
     if (fullNameIsEmpty) {
       return AppText.fullNameMustNotEmptyErrorText;
     }
+
+    return '';
   }
 
-  static Future<String?> signupEmailValidator(
+  static Future<String> signupEmailValidator(
       SignupRequested signupRequested) async {
     final UserServices _userServices = UserServices();
     bool emailAlreadyExists = await _userServices.existsInDatabase(
@@ -25,14 +27,18 @@ class Validator {
     if (!emailIsValid) {
       return AppText.emailInvalidErrorText;
     }
+
+    return '';
   }
 
-  static String? signupPasswordValidator(SignupRequested signupRequested) {
+  static String signupPasswordValidator(SignupRequested signupRequested) {
     bool passwordIsValid = SignupScreenText.passwordRegex
         .hasMatch(signupRequested.userModel.password);
 
     if (!passwordIsValid) {
       return AppText.passwordErrorText;
     }
+
+    return '';
   }
 }
