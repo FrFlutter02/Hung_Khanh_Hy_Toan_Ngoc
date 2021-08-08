@@ -61,11 +61,14 @@ class LoginAndSignupBody extends StatelessWidget {
             vertical: isTabletScreen ? _screenUtil.height(50) : 0,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                titleText,
-                style: Theme.of(context).textTheme.bodyText2!,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  titleText,
+                  style: Theme.of(context).textTheme.bodyText2!,
+                ),
               ),
               SizedBox(height: _screenUtil.height(30)),
               ...textFormFieldList,
@@ -75,38 +78,28 @@ class LoginAndSignupBody extends StatelessWidget {
                   width: Device.screenWidth,
                   height: _screenUtil.height(50),
                   buttonOnPress: buttonOnPress),
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(height: _screenUtil.height(30)),
-                    Center(
-                      child: Text(
-                        bottomTitleText,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(color: AppColor.secondaryGrey),
-                      ),
-                    ),
-                    SizedBox(height: _screenUtil.height(5)),
-                    Center(
-                      child: InkWell(
-                        key: Key('bottomLink'),
-                        onTap: () {
-                          Navigator.pushNamed(context, destinationRoute);
-                        },
-                        child: Text(
-                          bottomLinkText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  color: AppColor.green,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ],
+              SizedBox(height: _screenUtil.height(30)),
+              Center(
+                child: Text(
+                  bottomTitleText,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: AppColor.secondaryGrey),
+                ),
+              ),
+              SizedBox(height: _screenUtil.height(5)),
+              Center(
+                child: InkWell(
+                  key: Key('bottomLink'),
+                  onTap: () {
+                    Navigator.pushNamed(context, destinationRoute);
+                  },
+                  child: Text(
+                    bottomLinkText,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        color: AppColor.green, fontWeight: FontWeight.bold),
+                  ),
                 ),
               )
             ],
