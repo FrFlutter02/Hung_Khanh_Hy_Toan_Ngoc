@@ -24,8 +24,8 @@ class SignupFailure extends SignupState {
     this.fullNameErrorMessage = '',
     this.emailErrorMessage = '',
     this.passwordErrorMessage = '',
-  }) : failErrorMessage = fullNameErrorMessage.isEmpty ||
-                emailErrorMessage.isEmpty ||
+  }) : failErrorMessage = fullNameErrorMessage.isEmpty &&
+                emailErrorMessage.isEmpty &&
                 passwordErrorMessage.isEmpty
             ? SignupScreenText.signupFailedErrorText
             : '';
