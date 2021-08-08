@@ -1,34 +1,43 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import '../blocs/login_bloc/login_bloc.dart';
+import '../blocs/login_bloc/login_state.dart';
 
 import '../constants/constant_colors.dart';
 import '../utils/screen_util.dart';
 
-class CustomButton extends StatelessWidget {
-  final bool enabled;
+class CustomButton extends StatefulWidget {
+  final LoginBloc? loginBloc;
   final double width;
   final double height;
   final String value;
-  final bool isLoading;
   final void Function() buttonOnPress;
 
   const CustomButton(
-      {required this.enabled,
+      {required this.loginBloc,
       required this.width,
       required this.height,
       required this.value,
-      required this.isLoading,
       required this.buttonOnPress,
       Key? key})
       : super(key: key);
 
   @override
+  _CustomButtonState createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  StreamSubscription? loginStreamSubscription;
+  bool isLoading = false;
+  @override
   Widget build(BuildContext context) {
     final ScreenUtil _screenUtil = ScreenUtil();
     return Container(
-      width: width,
-      height: height,
+      width: widget.width,
+      height: widget.height,
       child: ElevatedButton(
-        onPressed: enabled ? buttonOnPress : null,
+        onPressed: !isLoading ? widget.buttonOnPress : null,
         child: isLoading
             ? SizedBox(
                 child: CircularProgressIndicator(
@@ -37,7 +46,7 @@ class CustomButton extends StatelessWidget {
                 height: _screenUtil.height(25),
               )
             : Text(
-                value,
+                widget.value,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2!
@@ -55,5 +64,25 @@ class CustomButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    loginStreamSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    loginStreamSubscription = widget.loginBloc?.stream.listen((loginState) {
+      setState(() {
+        if (loginState is LoginInProgress) {
+          isLoading = true;
+        } else {
+          isLoading = false;
+        }
+      });
+    });
+    super.initState();
   }
 }

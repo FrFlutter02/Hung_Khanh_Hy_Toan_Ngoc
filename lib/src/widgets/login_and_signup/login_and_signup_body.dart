@@ -1,15 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 
 import '../custom_button.dart';
-import '../../blocs/login_bloc/login_state.dart';
 import '../../blocs/login_bloc/login_bloc.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
-class LoginAndSignupBody extends StatefulWidget {
+class LoginAndSignupBody extends StatelessWidget {
   final LoginBloc? loginBloc;
   final List<Widget> textFormFieldList;
   final String titleText;
@@ -19,37 +17,30 @@ class LoginAndSignupBody extends StatefulWidget {
   final String bottomLinkText;
   final String destinationRoute;
   final bool isTabletScreen;
-
+  final bool isHeightLoginMobile;
   const LoginAndSignupBody(
-      {this.loginBloc,
+      {Key? key,
+      this.loginBloc,
       required this.textFormFieldList,
       required this.titleText,
       required this.buttonText,
       required this.buttonOnPress,
-      required this.isTabletScreen,
       required this.bottomTitleText,
       required this.bottomLinkText,
       required this.destinationRoute,
-      Key? key})
+      required this.isTabletScreen,
+      this.isHeightLoginMobile = false})
       : super(key: key);
 
   @override
-  _LoginAndSignupBodyState createState() => _LoginAndSignupBodyState();
-}
-
-class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
-  final ScreenUtil _screenUtil = ScreenUtil();
-  bool isLoading = false;
-  StreamSubscription? loginStreamSubscription;
-
-  @override
   Widget build(BuildContext context) {
+    final ScreenUtil _screenUtil = ScreenUtil();
     return Padding(
       padding: EdgeInsets.only(
-        left: _screenUtil.width(widget.isTabletScreen ? 171 : 25),
-        right: _screenUtil.width(widget.isTabletScreen ? 171 : 25),
-        top: widget.isTabletScreen ? 0 : _screenUtil.height(20),
-        bottom: widget.isTabletScreen ? _screenUtil.height(45) : 0,
+        left: _screenUtil.width(isTabletScreen ? 171 : 25),
+        right: _screenUtil.width(isTabletScreen ? 171 : 25),
+        top: isTabletScreen ? 0 : _screenUtil.height(20),
+        bottom: isTabletScreen ? _screenUtil.height(45) : 0,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -57,7 +48,7 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
           borderRadius: BorderRadius.all(
             Radius.circular(8),
           ),
-          boxShadow: widget.isTabletScreen
+          boxShadow: isTabletScreen
               ? [
                   BoxShadow(
                       color: AppColor.secondaryGrey.withOpacity(0.2),
@@ -69,25 +60,29 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: widget.isTabletScreen ? _screenUtil.width(50) : 0,
-            vertical: widget.isTabletScreen ? _screenUtil.height(50) : 0,
+            horizontal: isTabletScreen ? _screenUtil.width(50) : 0,
+            vertical: isTabletScreen ? _screenUtil.height(50) : 0,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.titleText,
+                titleText,
                 style: Theme.of(context).textTheme.bodyText2!,
               ),
-              SizedBox(height: _screenUtil.height(30)),
-              ...widget.textFormFieldList,
+              SizedBox(
+                  height: (isHeightLoginMobile &&
+                          buttonText == LoginScreenText.loginButton &&
+                          isTabletScreen == false)
+                      ? _screenUtil.height(47)
+                      : _screenUtil.height(30)),
+              ...textFormFieldList,
               CustomButton(
-                enabled: !isLoading,
-                value: widget.buttonText,
+                loginBloc: loginBloc,
+                value: buttonText,
                 width: Device.screenWidth,
                 height: _screenUtil.height(50),
-                isLoading: isLoading,
-                buttonOnPress: widget.buttonOnPress,
+                buttonOnPress: buttonOnPress,
               ),
               Container(
                 child: Column(
@@ -95,7 +90,7 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
                     SizedBox(height: _screenUtil.height(30)),
                     Center(
                       child: Text(
-                        widget.bottomTitleText,
+                        bottomTitleText,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -106,10 +101,10 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
                     Center(
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, widget.destinationRoute);
+                          Navigator.pushNamed(context, destinationRoute);
                         },
                         child: Text(
-                          widget.bottomLinkText,
+                          bottomLinkText,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -127,27 +122,5 @@ class _LoginAndSignupBodyState extends State<LoginAndSignupBody> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    loginStreamSubscription?.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    loginStreamSubscription = widget.loginBloc?.stream.listen((loginState) {
-      if (loginState is LoginInProgress) {
-        setState(() {
-          isLoading = true;
-        });
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    });
-    super.initState();
   }
 }

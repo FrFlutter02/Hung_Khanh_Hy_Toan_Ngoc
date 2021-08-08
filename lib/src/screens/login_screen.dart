@@ -82,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       loginBloc: context.read<LoginBloc>(),
                       titleText: LoginScreenText.pleaseLogin,
                       isTabletScreen: isTabletScreen,
+                      isHeightLoginMobile: true,
                       textFormFieldList: [
                         EmailTextFormField(
                             errorText: state is LoginFailure
