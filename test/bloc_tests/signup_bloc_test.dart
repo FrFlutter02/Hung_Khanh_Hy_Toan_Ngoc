@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_event.dart';
@@ -21,17 +22,15 @@ class MockUserServices extends Mock implements UserServices {
   }
 }
 
-// class MockUserModel extends Mock implements UserModel {}
-
 class MockUserCredential extends Mock implements UserCredential {}
 
 void main() {
   MockUserServices mockUserServices;
-  // MockUserModel mockUserModel;
   SignupBloc? signupBloc;
 
   setUpAll(() async {
     setupCloudFirestoreMocks();
+    await Firebase.initializeApp();
   });
 
   setUp(() async {
