@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:mobile_app/src/utils/validator.dart';
 
 import '../blocs/signup_bloc/signup_bloc.dart';
 import '../blocs/signup_bloc/signup_event.dart';
@@ -168,12 +169,23 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ],
                       buttonText: SignupScreenText.signupButton,
-                      buttonOnPress: () {
-                        context.read<SignupBloc>().add(SignupRequested(
-                            userModel: UserModel(
-                                fullName: fullNameController.text,
-                                email: emailController.text,
-                                password: passwordController.text)));
+                      buttonOnPress: () async {
+                        final userModel = UserModel(
+                            fullName: fullNameController.text,
+                            email: emailController.text,
+                            password: passwordController.text);
+                        final signupRequested =
+                            SignupRequested(userModel: userModel);
+                        final errorList =
+                            await _getErrorList(signupRequested, context);
+                        if (errorList.isEmpty) {
+                          context.read<SignupBloc>().add(signupRequested);
+                        } else {
+                          context.read<SignupBloc>().add(SignupErrorDetected(
+                              fullNameErrorMessage: errorList[0],
+                              emailErrorMessage: errorList[1],
+                              passwordErrorMessage: errorList[2]));
+                        }
                       },
                       bottomTitleText: SignupScreenText.alreadyHaveAnAccount,
                       bottomLinkText: SignupScreenText.loginHere,
@@ -195,5 +207,26 @@ class _SignupScreenState extends State<SignupScreen> {
       isTabletScreen = true;
     }
     super.initState();
+  }
+
+  Future<List<String>> _getErrorList(
+      SignupRequested signupRequested, BuildContext context) async {
+    String? fullNameErrorMessage =
+        Validator.signupFullNameValidator(signupRequested);
+    String? emailErrorMessage =
+        await Validator.signupEmailValidator(signupRequested);
+    String? passwordErrorMessage =
+        Validator.signupPasswordValidator(signupRequested);
+
+    if (fullNameErrorMessage.isNotEmpty ||
+        emailErrorMessage.isNotEmpty ||
+        passwordErrorMessage.isNotEmpty) {
+      return [
+        fullNameErrorMessage,
+        emailErrorMessage,
+        passwordErrorMessage,
+      ];
+    }
+    return [];
   }
 }
