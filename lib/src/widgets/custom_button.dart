@@ -1,20 +1,25 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import '../../src/blocs/forgot_password_bloc/forgot_password_state.dart';
+import '../../src/blocs/signup_bloc/signup_bloc.dart';
+import '../../src/blocs/signup_bloc/signup_state.dart';
 import '../constants/constant_colors.dart';
 import '../utils/screen_util.dart';
 
 class CustomButton extends StatefulWidget {
   final ForgotPasswordBloc? forgotPasswordBloc;
+  final SignupBloc? signupBloc;
   final double width;
   final double height;
   final String value;
   final void Function() buttonOnPress;
 
   const CustomButton(
-      {required this.forgotPasswordBloc,
+      {this.forgotPasswordBloc,
+      this.signupBloc,
       required this.width,
       required this.height,
       required this.value,
@@ -28,6 +33,7 @@ class CustomButton extends StatefulWidget {
 
 class _CustomButtonState extends State<CustomButton> {
   StreamSubscription? forgotPasswordStreamSubscription;
+  StreamSubscription? signupStreamSubscription;
   bool isLoading = false;
 
   @override
@@ -69,6 +75,7 @@ class _CustomButtonState extends State<CustomButton> {
   @override
   void dispose() {
     forgotPasswordStreamSubscription?.cancel();
+    signupStreamSubscription?.cancel();
     super.dispose();
   }
 
@@ -78,6 +85,16 @@ class _CustomButtonState extends State<CustomButton> {
         widget.forgotPasswordBloc?.stream.listen((forgotPasswordState) {
       setState(() {
         if (forgotPasswordState is ForgotPasswordInProgress) {
+          isLoading = true;
+        } else {
+          isLoading = false;
+        }
+      });
+    });
+
+    signupStreamSubscription = widget.signupBloc?.stream.listen((signupState) {
+      setState(() {
+        if (signupState is SignupInProgress) {
           isLoading = true;
         } else {
           isLoading = false;
