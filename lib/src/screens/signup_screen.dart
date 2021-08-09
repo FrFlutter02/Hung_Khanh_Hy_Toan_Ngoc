@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/utils/validator.dart';
 
+import '../../src/utils/validator.dart';
 import '../blocs/signup_bloc/signup_bloc.dart';
 import '../blocs/signup_bloc/signup_event.dart';
 import '../blocs/signup_bloc/signup_state.dart';
