@@ -10,47 +10,44 @@ import 'package:mobile_app/src/screens/signup_screen.dart';
 import '../../../cloud_firestore_mock.dart';
 
 void main() {
-  setupCloudFirestoreMocks();
   setUpAll(() async {
-    TestWidgetsFlutterBinding.ensureInitialized();
+    setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
 
-  final Widget _widget = BlocProvider(
-    create: (_) => SignupBloc(),
-    child: MaterialApp(
-      routes: {
-        "/": (context) => SignupScreen(),
-        "/loginScreen": (context) => LoginScreen(),
-      },
-    ),
-  );
+  group('signup_screen_tests', () {
+    final Widget _widget = BlocProvider(
+      create: (_) => SignupBloc(),
+      child: MaterialApp(
+        routes: {
+          "/": (context) => SignupScreen(),
+          "/loginScreen": (context) => LoginScreen(),
+        },
+      ),
+    );
 
-  testWidgets('Should render the correct title text',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    expect(find.text(SignupScreenText.createAccountToContinue), findsOneWidget);
-  });
+    testWidgets('Should render the correct text', (WidgetTester tester) async {
+      final _titleFinder = find.text(SignupScreenText.createAccountToContinue);
+      final _bottomTitleFinder =
+          find.text(SignupScreenText.alreadyHaveAnAccount);
+      final _bottomLinkFinder = find.text(SignupScreenText.loginHere);
 
-  testWidgets('Should render the correct bottom title text',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    expect(find.text(SignupScreenText.alreadyHaveAnAccount), findsOneWidget);
-  });
+      await tester.pumpWidget(_widget);
 
-  testWidgets('Should render the correct bottom link text',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    expect(find.text(SignupScreenText.loginHere), findsOneWidget);
-  });
+      expect(_titleFinder, findsOneWidget);
+      expect(_bottomTitleFinder, findsOneWidget);
+      expect(_bottomLinkFinder, findsOneWidget);
+    });
 
-  testWidgets('Should navigate to the correct route',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    final _signupCustomButtonFinder = find.byKey(Key('bottomLink'));
-    expect(_signupCustomButtonFinder, findsOneWidget);
-    await tester.tap(_signupCustomButtonFinder);
-    await tester.pumpAndSettle();
-    expect(find.byType(LoginScreen), findsOneWidget);
+    testWidgets(
+        'Should navigate to the login screen when clicking on bottom link',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      final _signupCustomButtonFinder = find.byKey(Key('bottomLink'));
+      expect(_signupCustomButtonFinder, findsOneWidget);
+      await tester.tap(_signupCustomButtonFinder);
+      await tester.pumpAndSettle();
+      expect(find.byType(LoginScreen), findsOneWidget);
+    });
   });
 }
