@@ -45,7 +45,7 @@ class OnboardingTabletText {
   static const String firstTitle =
       'Join over 50 millions people sharing recipes everday';
   static const String secondTitle =
-      'Never run out ideas again. Try new foods, ingredients, cooking style, and more';
+      'Never run out of ideas again. Try new foods, ingredients, cooking style, and more';
   static const String joinButton = 'Join Scratch';
   static const String learnMoreButton = 'Learn More';
 }
