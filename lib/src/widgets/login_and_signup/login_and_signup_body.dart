@@ -90,7 +90,7 @@ class LoginAndSignupBody extends StatelessWidget {
               SizedBox(height: _screenUtil.height(5)),
               Center(
                 child: InkWell(
-                  key: Key('bottomLink'),
+                  // key: Key('bottomLink'),
                   onTap: () {
                     Navigator.pushNamed(context, destinationRoute);
                   },

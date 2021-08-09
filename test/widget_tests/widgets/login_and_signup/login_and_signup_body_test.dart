@@ -43,9 +43,9 @@ void main() {
         'Should navigate to the login screen when clicking on bottom link',
         (WidgetTester tester) async {
       await tester.pumpWidget(_widget);
-      final _signupCustomButtonFinder = find.byKey(Key('bottomLink'));
-      expect(_signupCustomButtonFinder, findsOneWidget);
-      await tester.tap(_signupCustomButtonFinder);
+      final _signupBottomLinkFinder = find.descendant(
+          of: find.byType(Center), matching: find.byType(InkWell));
+      await tester.tap(_signupBottomLinkFinder);
       await tester.pumpAndSettle();
       expect(find.byType(LoginScreen), findsOneWidget);
     });
