@@ -8,7 +8,7 @@ import 'signup_event.dart';
 import 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  UserServices? userServices;
+  final UserServices? userServices;
 
   SignupBloc({this.userServices}) : super(SignupInitial());
 
