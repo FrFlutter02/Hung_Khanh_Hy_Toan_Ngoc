@@ -73,7 +73,6 @@ class LoginAndSignupBody extends StatelessWidget {
               SizedBox(height: _screenUtil.height(30)),
               ...textFormFieldList,
               CustomButton(
-                  signupBloc: signupBloc,
                   value: buttonText,
                   width: Device.screenWidth,
                   height: _screenUtil.height(50),
