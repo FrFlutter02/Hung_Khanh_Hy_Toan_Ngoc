@@ -32,10 +32,11 @@ dependencies:
   bloc_test: ^8.0.2
   flutter_device_type: ^0.4.0
   firebase_auth: ^3.0.1
-  firebase_core: ^1.4.0
+
   cloud_firestore: ^2.4.0
   responsive_builder: ^0.4.1
   mockito: ^5.0.13
+  firebase_core: ^1.4.0
 
 dev_dependencies:
   flutter_test:
