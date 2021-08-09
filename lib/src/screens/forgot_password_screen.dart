@@ -5,7 +5,7 @@ import 'package:mobile_app/src/widgets/custom_button.dart';
 
 import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import '../../src/widgets/logo.dart';
-import '../../src/widgets/email_text_form_field.dart';
+import '../widgets/login_and_signup/email_text_form_field.dart';
 import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 import '../utils/screen_util.dart';
@@ -21,15 +21,12 @@ class ForgotPasswordScreen extends StatelessWidget {
   late bool displayBackgroundTablet;
   late bool displayColorBackgroundTablet;
   late bool displayTabletLabel;
-
   late Color colorBackGround;
   late Color colorShadow;
   late Color lableTextColor;
-
   late String forGotPasswordTitle;
   late String fontFamilyTitle;
   late String lableText;
-
   late double paddingHorizonalTwoSide;
   late double paddingHorizonalContent;
   late double borderRadius;
@@ -49,7 +46,6 @@ class ForgotPasswordScreen extends StatelessWidget {
       displayBackgroundTablet = true;
       displayColorBackgroundTablet = true;
       displayTabletLabel = true;
-
       paddingHorizonalTwoSide = _screenUtil.width(172); //172,27.5
       paddingHorizonalContent = _screenUtil.width(50);
       borderRadius = 8;
@@ -59,10 +55,8 @@ class ForgotPasswordScreen extends StatelessWidget {
       forGotPasswordTitle = ForgotPasswordText.title.replaceFirst(" ", "\n");
       fontsizeTitle = 40;
       fontFamilyTitle = "Nunito-SemiBold";
-
       lableText = ForgotPasswordText.label;
       fonsizeLabel = 16;
-
       sizedBoxHeightUnderLabel = _screenUtil.height(57);
       sizedBoxHeightUnderForm = _screenUtil.height(18.58);
       sizeBoxHeightUnerCustomButton = _screenUtil.height(105);
@@ -81,11 +75,9 @@ class ForgotPasswordScreen extends StatelessWidget {
       borderRadius = 0;
       colorBackGround = Colors.transparent;
       colorShadow = Colors.transparent;
-
       forGotPasswordTitle = ForgotPasswordText.title;
       fontsizeTitle = 32;
       fontFamilyTitle = "Nunito-SemiBold";
-
       lableText = ForgotPasswordText.label;
       fonsizeLabel = 15;
       lableTextColor = AppColor.primaryBlack;
