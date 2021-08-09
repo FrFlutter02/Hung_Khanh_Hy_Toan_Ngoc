@@ -37,8 +37,6 @@ class SignupScreenText {
   static const String signupButton = "Create Account";
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String loginHere = 'Login Here';
-
-  static const String signupFailedErrorText = 'Signup failed';
 }
 
 class OnboardingTabletText {

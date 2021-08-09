@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobile_app/src/constants/constant_text.dart';
 
 abstract class SignupState extends Equatable {
   const SignupState();
@@ -18,22 +17,16 @@ class SignupFailure extends SignupState {
   final String fullNameErrorMessage;
   final String emailErrorMessage;
   final String passwordErrorMessage;
-  final String failErrorMessage;
 
   SignupFailure({
     this.fullNameErrorMessage = '',
     this.emailErrorMessage = '',
     this.passwordErrorMessage = '',
-  }) : failErrorMessage = fullNameErrorMessage.isEmpty &&
-                emailErrorMessage.isEmpty &&
-                passwordErrorMessage.isEmpty
-            ? SignupScreenText.signupFailedErrorText
-            : '';
+  });
 
   List<Object> get props => [
         emailErrorMessage,
         fullNameErrorMessage,
         passwordErrorMessage,
-        failErrorMessage
       ];
 }
