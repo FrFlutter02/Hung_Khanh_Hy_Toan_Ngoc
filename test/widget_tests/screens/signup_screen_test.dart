@@ -9,6 +9,8 @@ import 'package:mobile_app/src/blocs/signup_bloc/signup_state.dart';
 import 'package:mobile_app/src/screens/home_screen.dart';
 import 'package:mobile_app/src/screens/signup_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
+import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_body.dart';
+import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_header.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../cloud_firestore_mock.dart';
@@ -19,26 +21,38 @@ class MockSignupBloc extends MockBloc<SignupEvent, SignupState>
 class MockUserServices extends Mock implements UserServices {}
 
 void main() {
-  setupCloudFirestoreMocks();
   setUpAll(() async {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+    setupCloudFirestoreMocks();
+    Firebase.initializeApp();
   });
 
-  final userServices = MockUserServices();
-  final signupBloc = SignupBloc(userServices: userServices);
+  final mockUserServices = MockUserServices();
+  final _signupBloc = SignupBloc(userServices: mockUserServices);
   final _widget = BlocProvider(
-    create: (context) => SignupBloc(),
+    create: (_) => _signupBloc,
     child: MaterialApp(
       home: SignupScreen(),
     ),
   );
 
+  testWidgets('Should render LoginAndSignupHeader, LoginAndsignupBody',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+
+    final loginAndSignupHeaderFinder = find.byType(LoginAndSignupHeader);
+    final loginAndSignupBodyFinder = find.byType(LoginAndSignupBody);
+
+    expect(loginAndSignupHeaderFinder, findsOneWidget);
+    expect(loginAndSignupBodyFinder, findsOneWidget);
+  });
+
   testWidgets('Should navigate to home screen when state is [SignupSuccess]',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    signupBloc.emit(SignupSuccess());
+
+    _signupBloc.emit(SignupSuccess());
     await tester.pump();
+
     expect(find.byType(HomeScreen), findsOneWidget);
   });
 }

@@ -9,7 +9,7 @@ import 'package:mobile_app/src/models/user_model.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mockito/mockito.dart';
 
-import '../cloud_firestore_mock.dart';
+import '../../cloud_firestore_mock.dart';
 
 class MockUserServices extends Mock implements UserServices {
   @override

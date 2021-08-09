@@ -16,46 +16,55 @@ import '../../cloud_firestore_mock.dart';
 class MockUserServices extends Mock implements UserServices {}
 
 void main() {
-  setupCloudFirestoreMocks();
   setUpAll(() async {
-    TestWidgetsFlutterBinding.ensureInitialized();
+    setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
 
-  final _signupBloc = SignupBloc(userServices: MockUserServices());
-  final Widget _widget = BlocProvider(
-    create: (_) => SignupBloc(),
-    child: MaterialApp(
-      routes: {
-        "/": (context) => SignupScreen(),
-        "/loginScreen": (context) => LoginScreen(),
-      },
-    ),
-  );
+  group('signup_screen_tests', () {
+    final _signupBloc = SignupBloc(userServices: MockUserServices());
+    final Widget _widget = BlocProvider(
+      create: (_) => _signupBloc,
+      child: MaterialApp(
+        routes: {
+          "/": (context) => SignupScreen(),
+          "/loginScreen": (context) => LoginScreen(),
+        },
+      ),
+    );
 
-  testWidgets('Should render the correct button text',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    expect(find.text(SignupScreenText.signupButton), findsOneWidget);
-  });
+    tearDown(() {
+      _signupBloc.close();
+    });
 
-  testWidgets('Should be clickable when this is not loading',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    final _customButtonFinder = find.byType(CustomButton);
-    final _customButtonWidgetEnabled =
-        tester.widget<CustomButton>(_customButtonFinder);
-    expect(_customButtonWidgetEnabled, isTrue);
-  });
+    testWidgets('Should render the correct button text',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      expect(find.text(SignupScreenText.signupButton), findsOneWidget);
+    });
 
-  testWidgets('Should not be clickable when this is loading',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    final _customButtonFinder = find.byType(CustomButton);
-    _signupBloc.emit(SignupInProgress());
-    await tester.pumpAndSettle();
-    final _customButtonWidgetEnabled =
-        tester.widget<CustomButton>(_customButtonFinder);
-    expect(_customButtonWidgetEnabled, isFalse);
+    testWidgets('Should be clickable when not loading',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      final _customButtonFinder = find.descendant(
+          of: find.byType(CustomButton), matching: find.byType(ElevatedButton));
+      final _customButtonWidgetEnabled =
+          tester.widget<ElevatedButton>(_customButtonFinder).enabled;
+      expect(_customButtonWidgetEnabled, isTrue);
+    });
+
+    testWidgets('Should not be clickable when loading',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      final _customButtonFinder = find.descendant(
+          of: find.byType(CustomButton), matching: find.byType(ElevatedButton));
+
+      _signupBloc.emit(SignupInProgress());
+      await tester.pump();
+
+      final _customButtonWidgetEnabled =
+          tester.widget<ElevatedButton>(_customButtonFinder).enabled;
+      expect(_customButtonWidgetEnabled, isFalse);
+    });
   });
 }

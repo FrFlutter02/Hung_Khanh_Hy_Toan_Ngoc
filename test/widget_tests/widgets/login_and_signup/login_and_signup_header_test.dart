@@ -21,9 +21,8 @@ void main() {
   });
 
   group('signup_screen_tests', () {
-    final _userServices = MockUserServices();
     final Widget _widget = BlocProvider(
-        create: (_) => SignupBloc(userServices: _userServices),
+        create: (_) => SignupBloc(),
         child: MaterialApp(
           home: SignupScreen(),
         ));
@@ -35,11 +34,7 @@ void main() {
       Device.devicePixelRatio = 2;
       await tester.pumpWidget(_widget);
 
-      final _titleFinder = find.descendant(
-          of: find.byType(LoginAndSignupHeader),
-          matching: find.text(SignupScreenText.startFromSratch));
-
-      expect(_titleFinder, findsOneWidget);
+      expect(find.text(SignupScreenText.startFromSratch), findsOneWidget);
     });
 
     testWidgets('Should render no background on tablet screen',
