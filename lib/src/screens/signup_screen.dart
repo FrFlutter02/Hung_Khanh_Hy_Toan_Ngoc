@@ -11,10 +11,10 @@ import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
 import '../models/user_model.dart';
 import '../utils/screen_util.dart';
-import '../widgets/login_and_signup/email_text_form_field.dart';
+import '../widgets/login_and_signup/email_text_field.dart';
 import '../widgets/login_and_signup/login_and_signup_body.dart';
 import '../widgets/login_and_signup/login_and_signup_header.dart';
-import '../widgets/login_and_signup/password_text_form_field.dart';
+import '../widgets/login_and_signup/password_text_field.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -22,19 +22,19 @@ class SignupScreen extends StatefulWidget {
   _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _FullNameTextFormField extends StatefulWidget {
+class _FullNameTextField extends StatefulWidget {
   final TextEditingController fullNameController;
   final String label;
 
-  const _FullNameTextFormField(
+  const _FullNameTextField(
       {Key? key, required this.label, required this.fullNameController})
       : super(key: key);
 
   @override
-  _FullNameTextFormFieldState createState() => _FullNameTextFormFieldState();
+  _FullNameTextFieldState createState() => _FullNameTextFieldState();
 }
 
-class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
+class _FullNameTextFieldState extends State<_FullNameTextField> {
   final ScreenUtil _screenUtil = ScreenUtil();
 
   @override
@@ -52,7 +52,7 @@ class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
           ),
         ),
         SizedBox(height: _screenUtil.height(15)),
-        TextFormField(
+        TextField(
           controller: widget.fullNameController,
           cursorColor: AppColor.green,
           enableSuggestions: false,
@@ -149,18 +149,18 @@ class _SignupScreenState extends State<SignupScreen> {
                       signupBloc: context.read<SignupBloc>(),
                       titleText: SignupScreenText.createAccountToContinue,
                       isTabletScreen: isTabletScreen,
-                      textFormFieldList: [
-                        _FullNameTextFormField(
+                      textFieldList: [
+                        _FullNameTextField(
                           label: SignupScreenText.fullNameLabel,
                           fullNameController: fullNameController,
                         ),
-                        EmailTextFormField(
+                        EmailTextField(
                             label: SignupScreenText.emailNameLabel,
                             emailController: emailController,
                             errorText: state is SignupFailure
                                 ? state.emailErrorMessage
                                 : ''),
-                        PasswordTextFormField(
+                        PasswordTextField(
                           label: SignupScreenText.passwordLabel,
                           passwordController: passwordController,
                           errorText: state is SignupFailure

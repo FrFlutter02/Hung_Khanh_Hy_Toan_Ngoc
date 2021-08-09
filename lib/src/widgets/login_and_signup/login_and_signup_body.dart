@@ -8,7 +8,7 @@ import '../custom_button.dart';
 
 class LoginAndSignupBody extends StatelessWidget {
   final SignupBloc? signupBloc;
-  final List<Widget> textFormFieldList;
+  final List<Widget> textFieldList;
   final String titleText;
   final String buttonText;
   final void Function() buttonOnPress;
@@ -19,7 +19,7 @@ class LoginAndSignupBody extends StatelessWidget {
 
   const LoginAndSignupBody(
       {this.signupBloc,
-      required this.textFormFieldList,
+      required this.textFieldList,
       required this.titleText,
       required this.buttonText,
       required this.buttonOnPress,
@@ -71,7 +71,7 @@ class LoginAndSignupBody extends StatelessWidget {
                 ),
               ),
               SizedBox(height: _screenUtil.height(30)),
-              ...textFormFieldList,
+              ...textFieldList,
               CustomButton(
                   value: buttonText,
                   width: Device.screenWidth,
@@ -90,7 +90,6 @@ class LoginAndSignupBody extends StatelessWidget {
               SizedBox(height: _screenUtil.height(5)),
               Center(
                 child: InkWell(
-                  // key: Key('bottomLink'),
                   onTap: () {
                     Navigator.pushNamed(context, destinationRoute);
                   },
