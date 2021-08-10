@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../models/user_model.dart';
+import '../../src/models/user_model.dart';
 
 class UserServices {
-  late FirebaseAuth firebaseAuth;
+  late FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
   UserServices() : firebaseAuth = FirebaseAuth.instance;
+
+  Future<void>? resetPassword(String email) {
+    firebaseAuth.sendPasswordResetEmail(email: email);
+  }
 
   Future<UserCredential?> signUp(UserModel userModel) async {
     UserCredential userCredential =
@@ -18,12 +22,31 @@ class UserServices {
     return userCredential;
   }
 
+  Future<User?> logIn(String email, String password) async {
+    try {
+      var auth = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return auth.user;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> logOut() async {
+    firebaseAuth.signOut();
+  }
+
   Future<bool> existsInDatabase(String fieldName, String fieldValue) async {
-    return await userCollection
-        .where(fieldName, isEqualTo: fieldValue.isEmpty ? '' : fieldValue)
-        .get()
-        .then((value) {
-      return value.docs.length > 0;
-    });
+    try {
+      return await userCollection
+          .where(fieldName, isEqualTo: fieldValue == '' ? '' : fieldValue)
+          .get()
+          .then((value) {
+        return value.docs.length > 0;
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+    return false;
   }
 }

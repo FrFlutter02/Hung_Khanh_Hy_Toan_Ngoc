@@ -31,10 +31,11 @@ class LoginAndSignupBody extends StatelessWidget {
     final ScreenUtil _screenUtil = ScreenUtil();
     return Padding(
       padding: EdgeInsets.only(
-          left: _screenUtil.width(isTabletScreen ? 171 : 25),
-          right: _screenUtil.width(isTabletScreen ? 171 : 25),
-          top: isTabletScreen ? 0 : _screenUtil.height(20),
-          bottom: isTabletScreen ? _screenUtil.height(45) : 0),
+        left: _screenUtil.width(isTabletScreen ? 171 : 25),
+        right: _screenUtil.width(isTabletScreen ? 171 : 25),
+        top: isTabletScreen ? 0 : _screenUtil.height(20),
+        bottom: isTabletScreen ? _screenUtil.height(45) : 0,
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: AppColor.white,

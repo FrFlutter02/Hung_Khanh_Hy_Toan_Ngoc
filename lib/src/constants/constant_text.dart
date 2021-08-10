@@ -7,7 +7,7 @@ class AppText {
   static const String emailInvalidErrorText =
       'Please enter a valid email, e.g: john@gmail.com';
   static const String emailAlreadyExistsErrorText = 'Email already exists';
-  static const String emailDidNotExistErrorText = 'Email did not exist';
+  static const String emailDoesNotExistErrorText = 'Email does not exist';
   static const String emailMustNotBeEmptyErrorText = 'Email must not be empty';
 
   static const String passwordErrorText =
@@ -46,4 +46,12 @@ class OnboardingTabletText {
       'Never run out of ideas again. Try new foods, ingredients, cooking style, and more';
   static const String joinButton = 'Join Scratch';
   static const String learnMoreButton = 'Learn More';
+}
+
+class ForgotPasswordText {
+  static const String title = "Reset password";
+  static const String label =
+      "Enter the email associated with your account and we'll send an email with a link to reset your password.";
+  static const String sendButton = "Send";
+  static const String tabletLabel = "Start from Scratch";
 }
