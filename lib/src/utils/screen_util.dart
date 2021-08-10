@@ -5,7 +5,6 @@ class ScreenUtil {
   double tabletDesignHeight = 1024;
   double phoneDesignWidth = 375;
   double phoneDesignHeight = 812;
-
   double height(double designedPixel) {
     return designedPixel /
         (Device.get().isTablet ? tabletDesignHeight : phoneDesignHeight) *

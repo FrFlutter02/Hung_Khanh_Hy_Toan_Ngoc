@@ -1,20 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../src/models/user_model.dart';
+
 class UserServices {
-  late FirebaseAuth firebaseAuth;
+  late FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
   UserServices() : firebaseAuth = FirebaseAuth.instance;
 
-  Future<User?> getCurrentUser() async {
-    return firebaseAuth.currentUser;
+  Future<void>? resetPassword(String email) {
+    firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  Future<bool> isLoggedIn() async {
-    var currentUser = firebaseAuth.currentUser;
-    return currentUser != null;
+  Future<UserCredential?> signUp(UserModel userModel) async {
+    UserCredential userCredential =
+        await firebaseAuth.createUserWithEmailAndPassword(
+            email: userModel.email, password: userModel.password);
+    await userCollection.doc(userModel.email).set(userModel.toMap());
+    return userCredential;
   }
 
   Future<User?> logIn(String email, String password) async {

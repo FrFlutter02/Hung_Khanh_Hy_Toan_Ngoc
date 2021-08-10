@@ -79,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       loginAndSignupHeaderTitle: LoginScreenText.welcome,
                     ),
                     LoginAndSignupBody(
-                      loginBloc: context.read<LoginBloc>(),
                       titleText: LoginScreenText.pleaseLogin,
                       isTabletScreen: isTabletScreen,
                       textFormFieldList: [

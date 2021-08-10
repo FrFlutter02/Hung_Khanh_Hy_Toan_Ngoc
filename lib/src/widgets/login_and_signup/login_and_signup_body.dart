@@ -8,7 +8,6 @@ import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
 class LoginAndSignupBody extends StatelessWidget {
-  final LoginBloc? loginBloc;
   final List<Widget> textFormFieldList;
   final String titleText;
   final String buttonText;
@@ -19,7 +18,6 @@ class LoginAndSignupBody extends StatelessWidget {
   final bool isTabletScreen;
   const LoginAndSignupBody({
     Key? key,
-    this.loginBloc,
     required this.textFormFieldList,
     required this.titleText,
     required this.buttonText,
@@ -57,11 +55,10 @@ class LoginAndSignupBody extends StatelessWidget {
               : null,
         ),
         child: Padding(
-          padding: EdgeInsets.all(isTabletScreen ? _screenUtil.width(50) : 0),
-          // padding: EdgeInsets.symmetric(
-          //   horizontal: isTabletScreen ? _screenUtil.width(50) : 0,
-          //   vertical: isTabletScreen ? _screenUtil.height(50) : 0,
-          // ),
+          padding: EdgeInsets.symmetric(
+            horizontal: isTabletScreen ? _screenUtil.width(50) : 0,
+            vertical: isTabletScreen ? _screenUtil.height(50) : 0,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

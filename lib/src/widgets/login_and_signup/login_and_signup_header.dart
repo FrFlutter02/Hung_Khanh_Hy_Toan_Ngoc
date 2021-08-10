@@ -8,11 +8,11 @@ import '../../widgets/logo.dart';
 class LoginAndSignupHeader extends StatelessWidget {
   final bool isTabletScreen;
   final String loginAndSignupHeaderTitle;
-  const LoginAndSignupHeader({
-    required this.isTabletScreen,
-    required this.loginAndSignupHeaderTitle,
-    Key? key,
-  }) : super(key: key);
+  const LoginAndSignupHeader(
+      {required this.isTabletScreen,
+      required this.loginAndSignupHeaderTitle,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class LoginAndSignupHeader extends StatelessWidget {
         image: isTabletScreen
             ? null
             : DecorationImage(
-                alignment: Alignment(0, -0.7),
+                alignment: Alignment(0, _screenUtil.height(-0.8)),
                 fit: BoxFit.cover,
                 colorFilter: new ColorFilter.mode(
                     Colors.black.withOpacity(0.3), BlendMode.dstOut),

@@ -18,14 +18,12 @@ class LoginFailure extends LoginState {
   final String password;
   final String emailErrorMessage;
   final String passwordErrorMessage;
-  final String unknownErrorMessage;
 
   const LoginFailure({
     this.email = '',
     this.password = '',
     this.emailErrorMessage = '',
     this.passwordErrorMessage = '',
-    this.unknownErrorMessage = '',
   });
 
   @override
@@ -34,6 +32,5 @@ class LoginFailure extends LoginState {
         password,
         emailErrorMessage,
         passwordErrorMessage,
-        unknownErrorMessage
       ];
 }

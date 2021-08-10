@@ -25,8 +25,6 @@ class LoginScreenText {
   static const String loginButton = "Login";
   static const String newToScratch = "New to Scratch?";
   static const String createAccountHere = "Create Account Here";
-
-  static const String loginFailedErrorText = "Login Failed";
 }
 
 class SignupScreenText {
@@ -60,6 +58,4 @@ class ForgotPasswordText {
       "Enter the email associated with your account and we'll send an email with a link to reset your password.";
   static const String sendButton = "Send";
   static const String tabletLabel = "Start from Scratch";
-  static const String snackbarContentScuess = "Email has been sent!!";
-  static const String snackbarContentEmailExist = 'Email doesn\'t exist!!';
 }
