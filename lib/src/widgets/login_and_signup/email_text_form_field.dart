@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
-class EmailTextFormField extends StatefulWidget {
+class EmailTextField extends StatefulWidget {
   final String label;
   final TextEditingController emailController;
   final String errorText;
 
-  const EmailTextFormField({
+  const EmailTextField({
     Key? key,
     required this.label,
     required this.emailController,
@@ -16,10 +16,10 @@ class EmailTextFormField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EmailTextFormFieldState createState() => _EmailTextFormFieldState();
+  _EmailTextFieldState createState() => _EmailTextFieldState();
 }
 
-class _EmailTextFormFieldState extends State<EmailTextFormField> {
+class _EmailTextFieldState extends State<EmailTextField> {
   final ScreenUtil _screenUtil = ScreenUtil();
 
   @override
@@ -37,7 +37,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
           ),
         ),
         SizedBox(height: _screenUtil.height(15)),
-        TextFormField(
+        TextField(
           controller: widget.emailController,
           cursorColor: AppColor.green,
           enableSuggestions: false,

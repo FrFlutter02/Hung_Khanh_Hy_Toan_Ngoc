@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       titleText: LoginScreenText.pleaseLogin,
                       isTabletScreen: isTabletScreen,
                       textFormFieldList: [
-                        EmailTextFormField(
+                        EmailTextField(
                             errorText: state is LoginFailure
                                 ? state.emailErrorMessage
                                 : '',

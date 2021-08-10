@@ -57,10 +57,11 @@ class LoginAndSignupBody extends StatelessWidget {
               : null,
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: isTabletScreen ? _screenUtil.width(50) : 0,
-            vertical: isTabletScreen ? _screenUtil.height(50) : 0,
-          ),
+          padding: EdgeInsets.all(isTabletScreen ? _screenUtil.width(50) : 0),
+          // padding: EdgeInsets.symmetric(
+          //   horizontal: isTabletScreen ? _screenUtil.width(50) : 0,
+          //   vertical: isTabletScreen ? _screenUtil.height(50) : 0,
+          // ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -78,7 +79,6 @@ class LoginAndSignupBody extends StatelessWidget {
                       : _screenUtil.height(30)),
               ...textFormFieldList,
               CustomButton(
-                loginBloc: loginBloc,
                 value: buttonText,
                 width: Device.screenWidth,
                 height: _screenUtil.height(50),

@@ -24,17 +24,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         String? emailErrorMessage = await Validator.loginEmailValidator(event);
         String? passwordErrorMessage =
             await Validator.loginPasswordValidator(event);
-
-        User? user = await userServices?.logIn(event.email, event.password);
-        if (user != null) {
-          yield LoginSuccess();
-        } else {
-          yield LoginFailure(
-              emailErrorMessage: emailErrorMessage ?? '',
-              passwordErrorMessage:
-                  passwordErrorMessage ?? AppText.passwordIsIncorrect,
-              unknownErrorMessage: LoginScreenText.loginFailedErrorText);
+        try {
+          yield LoginInProgress();
+          User? user = await userServices?.logIn(event.email, event.password);
+          if (user != null) {
+            yield LoginSuccess();
+          } else {
+            yield LoginFailure(
+                emailErrorMessage: emailErrorMessage ?? '',
+                passwordErrorMessage:
+                    passwordErrorMessage ?? AppText.passwordIsIncorrect,
+                unknownErrorMessage: LoginScreenText.loginFailedErrorText);
+          }
+        } catch (e) {
+          yield LoginFailure();
         }
+        break;
     }
   }
 }
