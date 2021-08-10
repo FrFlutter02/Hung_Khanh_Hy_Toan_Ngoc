@@ -72,177 +72,165 @@ class OnboardingScreen extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed('/loginScreen');
           },
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: sizeBoxHeightTopBackgroundImage,
-                  ),
-                  Expanded(
-                    child: FittedBox(
-                      fit: BoxFit.none,
-                      child: Image.asset(
-                        "assets/images/inboarding_background.png",
-                        scale: scaleBackground,
+          child: SizedBox(
+            height: _screenUtil.height(1024),
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      height: sizeBoxHeightTopBackgroundImage,
+                    ),
+                    Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.none,
+                        child: Image.asset(
+                          "assets/images/inboarding_background.png",
+                          scale: scaleBackground,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      gradient: isColorBackgroundTable
-                          ? GardientColorBackgroundOfOnboarding
-                              .gradientColorTablet
-                          : GardientColorBackgroundOfOnboarding
-                              .gradientColorMobile)),
-              Column(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: paddingTopLogo),
-                      child: Logo(),
+                  ],
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        gradient: isColorBackgroundTable
+                            ? GardientColorBackgroundOfOnboarding
+                                .gradientColorTablet
+                            : GardientColorBackgroundOfOnboarding
+                                .gradientColorMobile)),
+                Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: paddingTopLogo),
+                        child: Logo(),
+                      ),
                     ),
-                  ),
-                  displayOnTablet
-                      ? Expanded(
-                          child: Container(
+                    displayOnTablet
+                        ? Expanded(
                             child: Column(
                               children: [
                                 SizedBox(
                                   height: _screenUtil.height(
                                       sizedBoxTopHeightFirstTitleTablet),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: _screenUtil.width(
-                                            paddingHorizontalFirstTitleTablet)),
-                                    child: Text(
-                                      OnboardingTabletText.firstTitle,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: fontSizeFirstTitleTablet,
-                                          fontFamily:
-                                              fontFamilyFirstTitleTablet,
-                                          color: AppColor.primaryBlack,
-                                          letterSpacing:
-                                              leterSpacingFirstTitle),
-                                    ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: _screenUtil.width(
+                                          paddingHorizontalFirstTitleTablet)),
+                                  child: Text(
+                                    OnboardingTabletText.firstTitle,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: fontSizeFirstTitleTablet,
+                                        fontFamily: fontFamilyFirstTitleTablet,
+                                        color: AppColor.primaryBlack,
+                                        letterSpacing: leterSpacingFirstTitle),
                                   ),
                                 ),
                                 SizedBox(
                                   height: _screenUtil.height(
                                       sizedBoxBotHeightFirstTitleTablet),
                                 ),
-                                Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: _screenUtil.width(
-                                            paddingHorizontalSecondTitleTablet)),
-                                    height: _screenUtil
-                                        .height(heightSecondTitleTablet),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      OnboardingTabletText.secondTitle
-                                          .replaceFirst(",", "\n"),
-                                      style: TextStyle(
-                                        fontSize: fontSizeSecondtTitleTablet,
-                                        color: AppColor.secondaryGrey,
-                                      ),
-                                      textAlign: TextAlign.center,
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: _screenUtil.width(
+                                          paddingHorizontalSecondTitleTablet)),
+                                  height: _screenUtil
+                                      .height(heightSecondTitleTablet),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    OnboardingTabletText.secondTitle
+                                        .replaceFirst(",", "\n"),
+                                    style: TextStyle(
+                                      fontSize: fontSizeSecondtTitleTablet,
+                                      color: AppColor.secondaryGrey,
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                                 SizedBox(
                                   height: _screenUtil.height(
                                       sizedBoxHeightBotSecondTitleTablet),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: _screenUtil
-                                            .width(paddingHorizontalButton)),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            width:
-                                                _screenUtil.width(widthButton),
-                                            height: _screenUtil
-                                                .height(heightButton),
-                                            child: ElevatedButton(
-                                              onPressed: () {},
-                                              child: Text(
-                                                  OnboardingTabletText
-                                                      .joinButton,
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        fontSizeTextButton,
-                                                  )),
-                                              style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          radiusButton),
-                                                ),
-                                                elevation: 0,
-                                                primary: AppColor.green,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: _screenUtil.width(
-                                              sizedBoxWidthBetweenTwoButton),
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            width:
-                                                _screenUtil.width(widthButton),
-                                            height: _screenUtil
-                                                .height(heightButton),
-                                            child: ElevatedButton(
-                                              onPressed: () {},
-                                              child: Text(
-                                                OnboardingTabletText
-                                                    .learnMoreButton,
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: _screenUtil
+                                          .width(paddingHorizontalButton)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          width: _screenUtil.width(widthButton),
+                                          height:
+                                              _screenUtil.height(heightButton),
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            child: Text(
+                                                OnboardingTabletText.joinButton,
                                                 style: TextStyle(
-                                                  color: AppColor.green,
                                                   fontSize: fontSizeTextButton,
-                                                ),
+                                                )),
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        radiusButton),
                                               ),
-                                              style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          radiusButton),
-                                                ),
-                                                elevation: 0,
-                                                side: BorderSide(
-                                                    width: _screenUtil.width(2),
-                                                    color: (AppColor.green)),
-                                                primary: AppColor.white,
-                                              ),
+                                              elevation: 0,
+                                              primary: AppColor.green,
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        width: _screenUtil.width(
+                                            sizedBoxWidthBetweenTwoButton),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          width: _screenUtil.width(widthButton),
+                                          height:
+                                              _screenUtil.height(heightButton),
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            child: Text(
+                                              OnboardingTabletText
+                                                  .learnMoreButton,
+                                              style: TextStyle(
+                                                color: AppColor.green,
+                                                fontSize: fontSizeTextButton,
+                                              ),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        radiusButton),
+                                              ),
+                                              elevation: 0,
+                                              side: BorderSide(
+                                                  width: _screenUtil.width(2),
+                                                  color: (AppColor.green)),
+                                              primary: AppColor.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        )
-                      : SizedBox.shrink()
-                ],
-              ),
-            ],
+                          )
+                        : SizedBox.shrink()
+                  ],
+                ),
+              ],
+            ),
           )),
     );
   }
