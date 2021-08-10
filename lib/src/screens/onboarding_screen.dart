@@ -109,14 +109,14 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                   ),
                   displayOnTablet
-                      ? Container(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: _screenUtil
-                                    .height(sizedBoxTopHeightFirstTitleTablet),
-                              ),
-                              Padding(
+                      ? Column(
+                          children: [
+                            SizedBox(
+                              height: _screenUtil
+                                  .height(sizedBoxTopHeightFirstTitleTablet),
+                            ),
+                            Expanded(
+                              child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: _screenUtil.width(
                                         paddingHorizontalFirstTitleTablet)),
@@ -130,11 +130,13 @@ class OnboardingScreen extends StatelessWidget {
                                       letterSpacing: leterSpacingFirstTitle),
                                 ),
                               ),
-                              SizedBox(
-                                height: _screenUtil
-                                    .height(sizedBoxBotHeightFirstTitleTablet),
-                              ),
-                              Container(
+                            ),
+                            SizedBox(
+                              height: _screenUtil
+                                  .height(sizedBoxBotHeightFirstTitleTablet),
+                            ),
+                            Expanded(
+                              child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: _screenUtil.width(
                                         paddingHorizontalSecondTitleTablet)),
@@ -151,11 +153,13 @@ class OnboardingScreen extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                              SizedBox(
-                                height: _screenUtil
-                                    .height(sizedBoxHeightBotSecondTitleTablet),
-                              ),
-                              Padding(
+                            ),
+                            SizedBox(
+                              height: _screenUtil
+                                  .height(sizedBoxHeightBotSecondTitleTablet),
+                            ),
+                            Expanded(
+                              child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: _screenUtil
                                         .width(paddingHorizontalButton)),
@@ -223,8 +227,8 @@ class OnboardingScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         )
                       : SizedBox.shrink()
                 ],

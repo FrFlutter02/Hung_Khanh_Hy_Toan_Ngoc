@@ -13,18 +13,28 @@ void main() async {
       )
     ], child: ForgotPasswordScreen()),
   );
-  group('Forgot password tablet', () {
-    testWidgets('Forgot password show title', (tester) async {
-      tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
-      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
-      await tester.pumpWidget(widget);
-      final title = find.text("Reset password");
-      ForgotPasswordBloc().emit(ForgotPasswordInitial());
-      await tester.pump();
-      expect(title, findsOneWidget);
-    });
+  // group('Forgot password tablet', () {
+  //   testWidgets('Forgot password show title', (tester) async {
+  //     tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
+  //     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+  //     await tester.pumpWidget(widget);
+  //     final title = find.text("Reset password");
+  //     ForgotPasswordBloc().emit(ForgotPasswordInitial());
+  //     await tester.pump();
+  //     expect(title, findsOneWidget);
+  //   });
+  // });
+  testWidgets('Forgot password show title', (tester) async {
+    tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    await tester.pumpWidget(widget);
+    final title = find.text("Reset password");
+    ForgotPasswordBloc().emit(ForgotPasswordSuccess());
+
+    expect(title, findsOneWidget);
   });
 }
+
     
   //   testWidgets('Forgot password show label', (tester) async {
   //     tester.binding.window.physicalSizeTestValue = Size(1000, 1500);
