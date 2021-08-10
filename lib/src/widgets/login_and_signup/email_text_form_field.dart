@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
-class EmailTextFormField extends StatefulWidget {
+class EmailTextField extends StatefulWidget {
   final String label;
   final TextEditingController emailController;
   final String errorText;
 
-  const EmailTextFormField({
+  const EmailTextField({
     Key? key,
     required this.label,
     required this.emailController,
     required this.errorText,
   }) : super(key: key);
+
   @override
-  _EmailTextFormFieldState createState() => _EmailTextFormFieldState();
+  _EmailTextFieldState createState() => _EmailTextFieldState();
 }
 
-class _EmailTextFormFieldState extends State<EmailTextFormField> {
+class _EmailTextFieldState extends State<EmailTextField> {
   final ScreenUtil _screenUtil = ScreenUtil();
 
   @override
@@ -31,12 +32,12 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
             widget.label,
             style: Theme.of(context)
                 .textTheme
-                .subtitle1!
+                .bodyText2!
                 .copyWith(color: AppColor.secondaryGrey),
           ),
         ),
         SizedBox(height: _screenUtil.height(15)),
-        TextFormField(
+        TextField(
           controller: widget.emailController,
           cursorColor: AppColor.green,
           enableSuggestions: false,
@@ -59,7 +60,10 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
             ),
             isDense: true,
           ),
-          style: TextStyle(color: AppColor.primaryBlack),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText2!
+              .copyWith(color: AppColor.primaryBlack),
         ),
         SizedBox(height: _screenUtil.height(30)),
       ],

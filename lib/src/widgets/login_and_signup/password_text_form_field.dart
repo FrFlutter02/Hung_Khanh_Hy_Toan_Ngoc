@@ -4,13 +4,13 @@ import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../utils/screen_util.dart';
 
-class PasswordTextFormField extends StatefulWidget {
+class PasswordTextField extends StatefulWidget {
   final bool forgotPasswordVisible;
   final String label;
   final TextEditingController passwordController;
   final String errorText;
 
-  const PasswordTextFormField(
+  const PasswordTextField(
       {this.forgotPasswordVisible = false,
       required this.label,
       required this.passwordController,
@@ -19,10 +19,10 @@ class PasswordTextFormField extends StatefulWidget {
       : super(key: key);
 
   @override
-  _PasswordTextFormFieldState createState() => _PasswordTextFormFieldState();
+  _PasswordTextFieldState createState() => _PasswordTextFieldState();
 }
 
-class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
+class _PasswordTextFieldState extends State<PasswordTextField> {
   final ScreenUtil _screenUtil = ScreenUtil();
 
   @override
@@ -42,17 +42,20 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
               ),
             ),
             widget.forgotPasswordVisible
-                ? Text(
-                    LoginScreenText.forgotPassword,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: AppColor.primaryGrey,
-                        ),
+                ? InkWell(
+                    child: Text(
+                      LoginScreenText.forgotPassword,
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            color: AppColor.primaryGrey,
+                          ),
+                    ),
+                    onTap: () => Navigator.pushNamed(context, '/homeScreen'),
                   )
                 : SizedBox.shrink()
           ],
         ),
         SizedBox(height: _screenUtil.height(15)),
-        TextFormField(
+        TextField(
           controller: widget.passwordController,
           cursorColor: AppColor.green,
           enableSuggestions: false,

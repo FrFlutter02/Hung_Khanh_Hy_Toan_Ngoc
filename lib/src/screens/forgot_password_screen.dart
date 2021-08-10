@@ -215,7 +215,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 SizedBox(height: sizedBoxHeightUnderLabel),
                                 Form(
                                   key: formKey,
-                                  child: EmailTextFormField(
+                                  child: EmailTextField(
                                       emailController:
                                           emailTextEditingController,
                                       label: LoginScreenText.emailLabel,
@@ -228,8 +228,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                                     width: double.maxFinite,
                                     height: _screenUtil.height(50),
                                     child: CustomButton(
-                                      forgotPasswordBloc:
-                                          context.read<ForgotPasswordBloc>(),
                                       buttonOnPress: () => context
                                           .read<ForgotPasswordBloc>()
                                           .add(ForgotPasswordRequested(

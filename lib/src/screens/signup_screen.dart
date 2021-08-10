@@ -144,7 +144,6 @@ class _SignupScreenState extends State<SignupScreen> {
                               .replaceFirst(' ', '\n'),
                     ),
                     LoginAndSignupBody(
-                      signupBloc: context.read<SignupBloc>(),
                       titleText: SignupScreenText.createAccountToContinue,
                       isTabletScreen: isTabletScreen,
                       textFormFieldList: [
@@ -152,13 +151,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           label: SignupScreenText.fullNameLabel,
                           fullNameController: fullNameController,
                         ),
-                        EmailTextFormField(
+                        EmailTextField(
                             label: SignupScreenText.emailNameLabel,
                             emailController: emailController,
                             errorText: state is SignupFailure
                                 ? state.emailErrorMessage
                                 : ''),
-                        PasswordTextFormField(
+                        PasswordTextField(
                           label: SignupScreenText.passwordLabel,
                           passwordController: passwordController,
                           errorText: state is SignupFailure

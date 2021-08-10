@@ -99,6 +99,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
   cloud_firestore:
     dependency: "direct main"
     description:
@@ -127,6 +131,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
+<<<<<<< HEAD
+=======
+>>>>>>> master
+=======
+>>>>>>> origin/master
   collection:
     dependency: transitive
     description:
@@ -190,6 +199,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
   firebase_auth:
     dependency: "direct main"
     description:
@@ -239,6 +252,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+<<<<<<< HEAD
+=======
+>>>>>>> master
+=======
+>>>>>>> origin/master
   flutter:
     dependency: "direct main"
     description: flutter
@@ -250,6 +268,10 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
     version: "7.1.0"
   flutter_device_type:
     dependency: "direct main"
@@ -258,6 +280,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.0"
+<<<<<<< HEAD
+=======
+    version: "7.0.1"
+>>>>>>> master
+=======
+>>>>>>> origin/master
   flutter_test:
     dependency: "direct dev"
     description: flutter

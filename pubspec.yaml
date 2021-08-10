@@ -31,15 +31,15 @@ dependencies:
   equatable: ^2.0.3
   flutter_device_type: ^0.4.0
   firebase_auth: ^3.0.1
-  cloud_firestore: ^2.4.0
-  responsive_builder: ^0.4.1
   firebase_core: ^1.4.0
+  cloud_firestore: ^2.4.0
 
 dev_dependencies:
+  mockito: ^5.0.10
   flutter_test:
     sdk: flutter
-  bloc_test: ^8.1.0
-  mockito: ^5.0.13
+  bloc_test: ^8.0.2
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -50,9 +50,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-  # To add assets to your application, add an assets section, like this:
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
