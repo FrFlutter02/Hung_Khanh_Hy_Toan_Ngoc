@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 
 import '../../src/widgets/logo.dart';
-import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
+import '../constants/constant_text.dart';
 import '../utils/screen_util.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -30,45 +30,11 @@ class OnboardingScreen extends StatelessWidget {
   late double widthButton;
   late double radiusButton;
   late double paddingHorizontalButton;
-  void isDeviceTablet() {
-    if (Device.get().isTablet) {
-      isColorBackgroundTable = true;
-      displayOnTablet = true;
-      scaleBackground = 0.45;
-      radiusButton = 8;
-      fontSizeSecondtTitleTablet = 14;
-      fontSizeTextButton = 16;
-      sizeBoxHeightTopBackgroundImage = 560;
-      leterSpacingFirstTitle = -0.5;
-      fontSizeFirstTitleTablet = 40;
-      paddingHorizontalLogo = _screenUtil.width(335);
-      widthButton = _screenUtil.width(300);
-      sizedBoxWidthBetweenTwoButton = _screenUtil.width(20);
-      paddingHorizontalButton = _screenUtil.width(135);
-      paddingHorizontalSecondTitleTablet = _screenUtil.width(227);
-      paddingHorizontalFirstTitleTablet = _screenUtil.width(134);
-      paddingTopLogo = _screenUtil.height(80);
-      sizedBoxTopHeightFirstTitleTablet = _screenUtil.height(131);
-      sizedBoxBotHeightFirstTitleTablet = _screenUtil.height(8);
-      heightSecondTitleTablet = _screenUtil.height(44);
-      sizedBoxHeightBotSecondTitleTablet = _screenUtil.height(34);
-      heightButton = _screenUtil.height(50);
-      fontFamilyFirstTitleTablet = 'Nunito-SemiBold';
-    } else {
-      scaleBackground = 1;
-      paddingHorizontalLogo = _screenUtil.width(116);
-      paddingTopLogo = _screenUtil.height(360);
-      sizeBoxHeightTopBackgroundImage = _screenUtil.height(300);
-      displayOnTablet = false;
-      isColorBackgroundTable = false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     isDeviceTablet();
     return Scaffold(
-      body: InkWell(
+      body: GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed('/loginScreen');
           },
@@ -76,23 +42,16 @@ class OnboardingScreen extends StatelessWidget {
             height: _screenUtil.height(1024),
             child: Stack(
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      height: sizeBoxHeightTopBackgroundImage,
-                    ),
-                    Expanded(
-                      child: FittedBox(
-                        fit: BoxFit.none,
-                        child: Image.asset(
-                          "assets/images/inboarding_background.png",
-                          scale: scaleBackground,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      image:
+                          AssetImage("assets/images/inboarding_background.png"),
+                      alignment: Alignment(0, 1.1),
+                      fit: BoxFit.none,
+                      scale: scaleBackground,
+                    ))),
                 Container(
                     decoration: BoxDecoration(
                         gradient: isColorBackgroundTable
@@ -233,5 +192,39 @@ class OnboardingScreen extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  void isDeviceTablet() {
+    if (Device.get().isTablet) {
+      isColorBackgroundTable = true;
+      displayOnTablet = true;
+      scaleBackground = 0.45;
+      radiusButton = 8;
+      fontSizeSecondtTitleTablet = 14;
+      fontSizeTextButton = 16;
+      sizeBoxHeightTopBackgroundImage = 560;
+      leterSpacingFirstTitle = -0.5;
+      fontSizeFirstTitleTablet = 40;
+      paddingHorizontalLogo = _screenUtil.width(335);
+      widthButton = _screenUtil.width(300);
+      sizedBoxWidthBetweenTwoButton = _screenUtil.width(20);
+      paddingHorizontalButton = _screenUtil.width(135);
+      paddingHorizontalSecondTitleTablet = _screenUtil.width(227);
+      paddingHorizontalFirstTitleTablet = _screenUtil.width(134);
+      paddingTopLogo = _screenUtil.height(80);
+      sizedBoxTopHeightFirstTitleTablet = _screenUtil.height(131);
+      sizedBoxBotHeightFirstTitleTablet = _screenUtil.height(8);
+      heightSecondTitleTablet = _screenUtil.height(44);
+      sizedBoxHeightBotSecondTitleTablet = _screenUtil.height(34);
+      heightButton = _screenUtil.height(50);
+      fontFamilyFirstTitleTablet = 'Nunito-SemiBold';
+    } else {
+      scaleBackground = 1;
+      paddingHorizontalLogo = _screenUtil.width(116);
+      paddingTopLogo = _screenUtil.height(360);
+      sizeBoxHeightTopBackgroundImage = _screenUtil.height(300);
+      displayOnTablet = false;
+      isColorBackgroundTable = false;
+    }
   }
 }

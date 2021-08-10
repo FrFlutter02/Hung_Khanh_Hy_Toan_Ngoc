@@ -5,12 +5,13 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../blocs/login_bloc/login_bloc.dart';
 import '../blocs/login_bloc/login_event.dart';
 import '../blocs/login_bloc/login_state.dart';
+import '../constants/constant_colors.dart';
+import '../constants/constant_text.dart';
+import '../models/user_model.dart';
 import '../widgets/login_and_signup/email_text_field.dart';
 import '../widgets/login_and_signup/login_and_signup_body.dart';
 import '../widgets/login_and_signup/login_and_signup_header.dart';
 import '../widgets/login_and_signup/password_text_field.dart';
-import '../constants/constant_colors.dart';
-import '../constants/constant_text.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,14 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isTabletScreen = false;
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-
-  @override
-  void initState() {
-    if (Device.get().isTablet) {
-      isTabletScreen = true;
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +92,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonText: LoginScreenText.loginButton,
                       buttonOnPress: () {
                         context.read<LoginBloc>().add(LoginRequested(
-                            email: emailController.text,
-                            password: passwordController.text));
+                            userModel: UserModel(
+                                email: emailController.text,
+                                password: passwordController.text)));
                       },
                       bottomTitleText: LoginScreenText.newToScratch,
                       bottomLinkText: LoginScreenText.createAccountHere,
-                      destinationRoute: '/homeScreen',
+                      destinationRoute: '/signupScreen',
                     ),
                   ],
                 ),
@@ -114,5 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    if (Device.get().isTablet) {
+      isTabletScreen = true;
+    }
+    super.initState();
   }
 }

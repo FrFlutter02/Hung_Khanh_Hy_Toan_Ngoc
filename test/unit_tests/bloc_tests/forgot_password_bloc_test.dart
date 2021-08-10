@@ -46,7 +46,7 @@ void main() {
       expect: () => []);
 
   blocTest(
-      'emits [SignupInProgress] then [SignupSuccess] when [SignupRequested] is called',
+      'emits [ForgotPasswordFailure] with empty error when [ForgotPasswordRequested] has invalid email',
       build: () {
         mockUserServices = MockUserServices();
         return ForgotPasswordBloc();
@@ -56,12 +56,12 @@ void main() {
       },
       expect: () => [
             ForgotPasswordFailure(
-                emailErrorMessage: "Email must not be empty",
-                unknownErrorMessage: '')
+              emailErrorMessage: "Email must not be empty",
+            )
           ]);
 
   blocTest(
-      'emits [ForgotPasswordFailure] with emailErrorMessage: Please enter a valid email, e.g: john@gmail.com when [ForgotPasswordRequested] has invalid email ',
+      'emits [ForgotPasswordFailure] with invalid format error when [ForgotPasswordRequested] has invalid email',
       build: () {
         mockUserServices = MockUserServices();
         return ForgotPasswordBloc();
@@ -71,8 +71,8 @@ void main() {
       },
       expect: () => [
             ForgotPasswordFailure(
-                emailErrorMessage:
-                    "Please enter a valid email, e.g: john@gmail.com",
-                unknownErrorMessage: '')
+              emailErrorMessage:
+                  "Please enter a valid email, e.g: john@gmail.com",
+            )
           ]);
 }

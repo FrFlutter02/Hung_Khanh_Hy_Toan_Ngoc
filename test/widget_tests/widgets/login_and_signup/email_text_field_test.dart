@@ -7,16 +7,12 @@ import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/email_text_field.dart';
-import 'package:mockito/mockito.dart';
 
 import '../../../cloud_firestore_mock.dart';
 
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
-
-void main() {
+main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
-    TestWidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
   });
 
@@ -30,18 +26,17 @@ void main() {
     ),
   );
 
-  testWidgets("Should render error messages when email is invalid",
+  testWidgets("Should render email textformfield Test",
       (WidgetTester tester) async {
     await tester.pumpWidget(widget);
-
     var emailTextField = find.descendant(
         of: find.byType(EmailTextField), matching: find.byType(TextField));
-    var emailError =
-        (tester.widget<TextField>(emailTextField).decoration!.errorText);
-
     loginBloc.emit(
         LoginFailure(emailErrorMessage: AppText.emailMustNotBeEmptyErrorText));
     await tester.pump();
+    var emailError =
+        (tester.widget<TextField>(emailTextField).decoration!.errorText);
+
     expect(emailError, AppText.emailMustNotBeEmptyErrorText);
   });
 }

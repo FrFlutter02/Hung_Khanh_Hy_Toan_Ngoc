@@ -13,7 +13,7 @@ class RegularExpression {
 }
 
 class Validator {
-  static Future<String?> forgotPasswordEmailValidator(
+  static Future<String> forgotPasswordEmailValidator(
       ForgotPasswordEvent forgotPasswordEvent) async {
     final UserServices _userServices = UserServices();
     bool emailIsEmpty = forgotPasswordEvent.email.isEmpty;
@@ -36,9 +36,9 @@ class Validator {
   static Future<String> loginEmailValidator(
       LoginRequested loginRequested) async {
     final UserServices _userServices = UserServices();
-    bool emailAlreadyExists =
-        await _userServices.existsInDatabase('email', loginRequested.email);
-    bool emailIsEmpty = loginRequested.email.isEmpty;
+    bool emailIsEmpty = loginRequested.userModel.email.isEmpty;
+    bool emailAlreadyExists = await _userServices.existsInDatabase(
+        'email', loginRequested.userModel.email);
 
     if (emailIsEmpty) {
       return AppText.emailMustNotBeEmptyErrorText;
@@ -51,9 +51,9 @@ class Validator {
     return '';
   }
 
-  static Future<String?> loginPasswordValidator(
+  static Future<String> loginPasswordValidator(
       LoginRequested loginRequested) async {
-    bool passwordIsEmpty = loginRequested.password.isEmpty;
+    bool passwordIsEmpty = loginRequested.userModel.password.isEmpty;
 
     if (passwordIsEmpty) {
       return AppText.passwordMustNotBeEmptyErrorText;

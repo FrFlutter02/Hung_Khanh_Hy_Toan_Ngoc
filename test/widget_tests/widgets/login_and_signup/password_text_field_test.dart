@@ -10,10 +10,9 @@ import 'package:mobile_app/src/widgets/login_and_signup/password_text_field.dart
 
 import '../../../cloud_firestore_mock.dart';
 
-void main() {
+main() {
   setUpAll(() async {
-    setupCloudFirestoreMocks()();
-    TestWidgetsFlutterBinding.ensureInitialized();
+    setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
 
@@ -27,19 +26,16 @@ void main() {
     ),
   );
 
-  testWidgets(
-      "Should render error messages when state is [LoginFailure(passwordErrorMessage)]",
+  testWidgets("Should render password textformfield Test",
       (WidgetTester tester) async {
     await tester.pumpWidget(widget);
-
     var passwordTextField = find.descendant(
         of: find.byType(PasswordTextField), matching: find.byType(TextField));
-    var passwordError =
-        (tester.widget<TextField>(passwordTextField).decoration!.errorText);
-
     loginBloc.emit(LoginFailure(
         passwordErrorMessage: AppText.passwordMustNotBeEmptyErrorText));
     await tester.pump();
+    var passwordError =
+        (tester.widget<TextField>(passwordTextField).decoration!.errorText);
 
     expect(passwordError, AppText.passwordMustNotBeEmptyErrorText);
   });

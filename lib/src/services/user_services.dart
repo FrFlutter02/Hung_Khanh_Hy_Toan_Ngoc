@@ -10,6 +10,29 @@ class UserServices {
 
   UserServices() : firebaseAuth = FirebaseAuth.instance;
 
+  Future<bool> existsInDatabase(String fieldName, String fieldValue) async {
+    try {
+      return await userCollection
+          .where(fieldName, isEqualTo: fieldValue == '' ? '' : fieldValue)
+          .get()
+          .then((value) {
+        return value.docs.length > 0;
+      });
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<User?> logIn(UserModel userModel) async {
+    var auth = await firebaseAuth.signInWithEmailAndPassword(
+        email: userModel.email, password: userModel.password);
+    return auth.user;
+  }
+
+  Future<void> logOut() async {
+    firebaseAuth.signOut();
+  }
+
   Future<void>? resetPassword(String email) {
     firebaseAuth.sendPasswordResetEmail(email: email);
   }
@@ -20,33 +43,5 @@ class UserServices {
             email: userModel.email, password: userModel.password);
     await userCollection.doc(userModel.email).set(userModel.toMap());
     return userCredential;
-  }
-
-  Future<User?> logIn(String email, String password) async {
-    try {
-      var auth = await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return auth.user;
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> logOut() async {
-    firebaseAuth.signOut();
-  }
-
-  Future<bool> existsInDatabase(String fieldName, String fieldValue) async {
-    try {
-      return await userCollection
-          .where(fieldName, isEqualTo: fieldValue == '' ? '' : fieldValue)
-          .get()
-          .then((value) {
-        return value.docs.length > 0;
-      });
-    } catch (e) {
-      print(e.toString());
-    }
-    return false;
   }
 }

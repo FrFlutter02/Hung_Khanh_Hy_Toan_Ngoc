@@ -19,7 +19,7 @@ class ForgotPasswordBloc
       case ForgotPasswordRequested:
         String? emailErrorMessage =
             await Validator.forgotPasswordEmailValidator(event);
-        yield ForgotPasswordFailure(emailErrorMessage: emailErrorMessage ?? '');
+        yield ForgotPasswordFailure(emailErrorMessage: emailErrorMessage);
         if ((state as ForgotPasswordFailure).emailErrorMessage.isEmpty) {
           yield ForgotPasswordInProgress();
         }

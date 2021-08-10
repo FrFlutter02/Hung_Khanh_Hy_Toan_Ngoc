@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_app/src/models/user_model.dart';
 
 import '../../constants/constant_text.dart';
 import '../../utils/validator.dart';
@@ -21,22 +21,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     event as LoginRequested;
     switch (event.runtimeType) {
       case LoginRequested:
-        String? emailErrorMessage = await Validator.loginEmailValidator(event);
-        String? passwordErrorMessage =
+        String emailErrorMessage = await Validator.loginEmailValidator(event);
+        String passwordErrorMessage =
             await Validator.loginPasswordValidator(event);
+
         try {
           yield LoginInProgress();
-          User? user = await userServices?.logIn(event.email, event.password);
-          if (user != null) {
-            yield LoginSuccess();
-          } else {
-            yield LoginFailure(
-                emailErrorMessage: emailErrorMessage,
-                passwordErrorMessage:
-                    passwordErrorMessage ?? AppText.passwordIsIncorrect);
-          }
+          UserModel userModel = UserModel(
+              email: event.userModel.email, password: event.userModel.password);
+          await userServices?.logIn(userModel);
+          yield LoginSuccess();
         } catch (e) {
-          yield LoginFailure();
+          yield LoginFailure(
+              emailErrorMessage: emailErrorMessage,
+              passwordErrorMessage: passwordErrorMessage.isEmpty
+                  ? passwordErrorMessage
+                  : AppText.passwordIsIncorrect);
         }
         break;
     }
