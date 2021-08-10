@@ -25,7 +25,7 @@ void main() {
   testWidgets("Should render password textformfield Test",
       (WidgetTester tester) async {
     await tester.pumpWidget(widget);
-    var passwordTextFormField = find.byType(PasswordTextFormField);
+    var passwordTextFormField = find.byType(PasswordTextField);
     expect(passwordTextFormField, findsOneWidget);
     await tester.enterText(passwordTextFormField, 'password123');
     expect(find.text('password123'), findsOneWidget);

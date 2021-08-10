@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : '',
                             label: LoginScreenText.emailLabel,
                             emailController: emailController),
-                        PasswordTextFormField(
+                        PasswordTextField(
                             errorText: state is LoginFailure
                                 ? state.passwordErrorMessage
                                 : '',
