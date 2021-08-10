@@ -339,20 +339,12 @@ packages:
     source: hosted
     version: "1.0.0"
   mockito:
-<<<<<<< HEAD
-    dependency: "direct main"
-=======
     dependency: "direct dev"
->>>>>>> master
     description:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "5.0.14"
-=======
     version: "5.0.13"
->>>>>>> master
   mocktail:
     dependency: transitive
     description:

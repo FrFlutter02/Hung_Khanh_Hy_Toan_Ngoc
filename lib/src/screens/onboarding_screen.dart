@@ -8,7 +8,6 @@ import '../utils/screen_util.dart';
 
 class OnboardingScreen extends StatelessWidget {
   final ScreenUtil _screenUtil = ScreenUtil();
-
   late bool displayOnTablet;
   late bool isColorBackgroundTable;
   late String fontFamilyFirstTitleTablet;
