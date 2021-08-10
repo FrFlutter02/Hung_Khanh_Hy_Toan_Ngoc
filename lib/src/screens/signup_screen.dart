@@ -143,7 +143,6 @@ class _SignupScreenState extends State<SignupScreen> {
                               .replaceFirst(' ', '\n'),
                     ),
                     LoginAndSignupBody(
-                      signupBloc: context.read<SignupBloc>(),
                       titleText: SignupScreenText.createAccountToContinue,
                       isTabletScreen: isTabletScreen,
                       textFieldList: [

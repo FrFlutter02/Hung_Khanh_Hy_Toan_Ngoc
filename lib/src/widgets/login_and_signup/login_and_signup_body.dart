@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 
-import '../../blocs/signup_bloc/signup_bloc.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 import '../custom_button.dart';
 
 class LoginAndSignupBody extends StatelessWidget {
-  final SignupBloc? signupBloc;
   final List<Widget> textFieldList;
   final String titleText;
   final String buttonText;
@@ -18,8 +16,7 @@ class LoginAndSignupBody extends StatelessWidget {
   final bool isTabletScreen;
 
   const LoginAndSignupBody(
-      {this.signupBloc,
-      required this.textFieldList,
+      {required this.textFieldList,
       required this.titleText,
       required this.buttonText,
       required this.buttonOnPress,
