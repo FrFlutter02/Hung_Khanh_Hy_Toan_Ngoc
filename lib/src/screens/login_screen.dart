@@ -5,10 +5,10 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import '../blocs/login_bloc/login_bloc.dart';
 import '../blocs/login_bloc/login_event.dart';
 import '../blocs/login_bloc/login_state.dart';
-import '../widgets/login_and_signup/email_text_form_field.dart';
+import '../widgets/login_and_signup/email_text_field.dart';
 import '../widgets/login_and_signup/login_and_signup_body.dart';
 import '../widgets/login_and_signup/login_and_signup_header.dart';
-import '../widgets/login_and_signup/password_text_form_field.dart';
+import '../widgets/login_and_signup/password_text_field.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
 

@@ -33,7 +33,7 @@ class Validator {
     return '';
   }
 
-  static Future<String?> loginEmailValidator(
+  static Future<String> loginEmailValidator(
       LoginRequested loginRequested) async {
     final UserServices _userServices = UserServices();
     bool emailAlreadyExists =
@@ -47,6 +47,8 @@ class Validator {
     if (!emailAlreadyExists) {
       return AppText.emailDoesNotExistErrorText;
     }
+
+    return '';
   }
 
   static Future<String?> loginPasswordValidator(
@@ -56,6 +58,8 @@ class Validator {
     if (passwordIsEmpty) {
       return AppText.passwordMustNotBeEmptyErrorText;
     }
+
+    return '';
   }
 
   static Future<String> signupEmailValidator(

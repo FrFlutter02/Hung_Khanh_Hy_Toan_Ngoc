@@ -10,7 +10,7 @@ import 'login_event.dart';
 import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  UserServices? userServices;
+  final UserServices? userServices;
 
   LoginBloc({this.userServices}) : super(LoginInitial());
 
@@ -31,7 +31,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             yield LoginSuccess();
           } else {
             yield LoginFailure(
-                emailErrorMessage: emailErrorMessage ?? '',
+                emailErrorMessage: emailErrorMessage,
                 passwordErrorMessage:
                     passwordErrorMessage ?? AppText.passwordIsIncorrect);
           }

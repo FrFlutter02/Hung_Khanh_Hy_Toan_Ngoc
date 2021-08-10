@@ -17,11 +17,13 @@ class MockLoginEvent extends LoginEvent {
 }
 
 main() {
-  Firebase.initializeApp();
-  setupCloudFirestoreMocks();
-
   UserServices userServices;
   LoginBloc? loginBloc;
+
+  setUpAll(() async {
+    setupCloudFirestoreMocks();
+    Firebase.initializeApp();
+  });
 
   setUp(() async {
     userServices = MockLoginService();

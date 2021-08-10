@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:mobile_app/src/widgets/custom_button.dart';
 
-import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import '../../src/widgets/logo.dart';
-import '../widgets/login_and_signup/email_text_form_field.dart';
-import '../constants/constant_text.dart';
-import '../constants/constant_colors.dart';
-import '../utils/screen_util.dart';
-import '../blocs/forgot_password_bloc/forgot_password_state.dart';
+import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import '../blocs/forgot_password_bloc/forgot_password_event.dart';
+import '../blocs/forgot_password_bloc/forgot_password_state.dart';
+import '../constants/constant_colors.dart';
+import '../constants/constant_text.dart';
+import '../utils/screen_util.dart';
+import '../widgets/login_and_signup/email_text_field.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   final ScreenUtil _screenUtil = ScreenUtil();
@@ -39,58 +39,6 @@ class ForgotPasswordScreen extends StatelessWidget {
   late double sizeBoxHeightTopTabletLogo;
   late double sizeBoxHeightUnderTabletLogo;
   late double sizeBoxHeightUnderTabletLabel;
-  void isDeviceTablet() {
-    if (Device.get().isTablet) {
-      showLogoMobile = false;
-      displayLogoTablet = true;
-      displayBackgroundTablet = true;
-      displayColorBackgroundTablet = true;
-      displayTabletLabel = true;
-      paddingHorizonalTwoSide = _screenUtil.width(172); //172,27.5
-      paddingHorizonalContent = _screenUtil.width(50);
-      borderRadius = 8;
-      colorBackGround = AppColor.white;
-      colorShadow = AppColor.primaryGrey.withOpacity(0.1);
-      lableTextColor = AppColor.primaryGrey;
-      forGotPasswordTitle = ForgotPasswordText.title.replaceFirst(" ", "\n");
-      fontsizeTitle = 40;
-      fontFamilyTitle = "Nunito-SemiBold";
-      lableText = ForgotPasswordText.label;
-      fonsizeLabel = 16;
-      sizedBoxHeightUnderLabel = _screenUtil.height(57);
-      sizedBoxHeightUnderForm = _screenUtil.height(18.58);
-      sizeBoxHeightUnerCustomButton = _screenUtil.height(105);
-      sizeBoxHeightTopMobileLogo = _screenUtil.height(37);
-      sizeBoxHeightTopTabletLogo = _screenUtil.height(82.5);
-      sizeBoxHeightUnderTabletLogo = _screenUtil.height(135.5);
-      sizeBoxHeightUnderTabletLabel = _screenUtil.height(39);
-    } else {
-      showLogoMobile = true;
-      displayLogoTablet = false;
-      displayBackgroundTablet = false;
-      displayColorBackgroundTablet = false;
-      displayTabletLabel = false;
-      paddingHorizonalTwoSide = _screenUtil.width(27.5); //172,27.5
-      paddingHorizonalContent = _screenUtil.width(0);
-      borderRadius = 0;
-      colorBackGround = Colors.transparent;
-      colorShadow = Colors.transparent;
-      forGotPasswordTitle = ForgotPasswordText.title;
-      fontsizeTitle = 32;
-      fontFamilyTitle = "Nunito-SemiBold";
-      lableText = ForgotPasswordText.label;
-      fonsizeLabel = 15;
-      lableTextColor = AppColor.primaryBlack;
-      sizedBoxHeightUnderLabel = _screenUtil.height(106);
-      sizedBoxHeightUnderForm = _screenUtil.height(60);
-      sizeBoxHeightUnerCustomButton = _screenUtil.height(0);
-      sizeBoxHeightTopMobileLogo = _screenUtil.height(60);
-      sizeBoxHeightTopTabletLogo = _screenUtil.height(0);
-      sizeBoxHeightUnderTabletLogo = _screenUtil.height(0);
-      sizeBoxHeightUnderTabletLabel = _screenUtil.height(0);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final double maxHeight = MediaQuery.of(context).size.height;
@@ -253,5 +201,57 @@ class ForgotPasswordScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void isDeviceTablet() {
+    if (Device.get().isTablet) {
+      showLogoMobile = false;
+      displayLogoTablet = true;
+      displayBackgroundTablet = true;
+      displayColorBackgroundTablet = true;
+      displayTabletLabel = true;
+      paddingHorizonalTwoSide = _screenUtil.width(172); //172,27.5
+      paddingHorizonalContent = _screenUtil.width(50);
+      borderRadius = 8;
+      colorBackGround = AppColor.white;
+      colorShadow = AppColor.primaryGrey.withOpacity(0.1);
+      lableTextColor = AppColor.primaryGrey;
+      forGotPasswordTitle = ForgotPasswordText.title.replaceFirst(" ", "\n");
+      fontsizeTitle = 40;
+      fontFamilyTitle = "Nunito-SemiBold";
+      lableText = ForgotPasswordText.label;
+      fonsizeLabel = 16;
+      sizedBoxHeightUnderLabel = _screenUtil.height(57);
+      sizedBoxHeightUnderForm = _screenUtil.height(18.58);
+      sizeBoxHeightUnerCustomButton = _screenUtil.height(105);
+      sizeBoxHeightTopMobileLogo = _screenUtil.height(37);
+      sizeBoxHeightTopTabletLogo = _screenUtil.height(82.5);
+      sizeBoxHeightUnderTabletLogo = _screenUtil.height(135.5);
+      sizeBoxHeightUnderTabletLabel = _screenUtil.height(39);
+    } else {
+      showLogoMobile = true;
+      displayLogoTablet = false;
+      displayBackgroundTablet = false;
+      displayColorBackgroundTablet = false;
+      displayTabletLabel = false;
+      paddingHorizonalTwoSide = _screenUtil.width(27.5); //172,27.5
+      paddingHorizonalContent = _screenUtil.width(0);
+      borderRadius = 0;
+      colorBackGround = Colors.transparent;
+      colorShadow = Colors.transparent;
+      forGotPasswordTitle = ForgotPasswordText.title;
+      fontsizeTitle = 32;
+      fontFamilyTitle = "Nunito-SemiBold";
+      lableText = ForgotPasswordText.label;
+      fonsizeLabel = 15;
+      lableTextColor = AppColor.primaryBlack;
+      sizedBoxHeightUnderLabel = _screenUtil.height(106);
+      sizedBoxHeightUnderForm = _screenUtil.height(60);
+      sizeBoxHeightUnerCustomButton = _screenUtil.height(0);
+      sizeBoxHeightTopMobileLogo = _screenUtil.height(60);
+      sizeBoxHeightTopTabletLogo = _screenUtil.height(0);
+      sizeBoxHeightUnderTabletLogo = _screenUtil.height(0);
+      sizeBoxHeightUnderTabletLabel = _screenUtil.height(0);
+    }
   }
 }
