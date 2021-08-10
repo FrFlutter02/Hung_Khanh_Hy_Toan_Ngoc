@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
+import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_body.dart';
+import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_header.dart';
 
 import '../../cloud_firestore_mock.dart';
 
@@ -43,6 +45,14 @@ main() {
     await tester.pump();
     final indicatorFinder = find.byType(CircularProgressIndicator);
     await tester.pumpAndSettle();
-    expect(indicatorFinder, findsOneWidget);
+    expect(indicatorFinder, findsNothing);
+  });
+
+  testWidgets('Should show login and signup header, body', (tester) async {
+    await tester.pumpWidget(widget);
+    final headerFinder = find.byType(LoginAndSignupHeader);
+    final bodyFinder = find.byType(LoginAndSignupBody);
+    expect(headerFinder, findsOneWidget);
+    expect(bodyFinder, findsOneWidget);
   });
 }

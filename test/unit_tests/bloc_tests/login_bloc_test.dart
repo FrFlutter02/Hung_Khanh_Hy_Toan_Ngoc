@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../cloud_firestore_mock.dart';
+import '../../cloud_firestore_mock.dart';
 
 class MockLoginService extends Mock implements UserServices {}
 
@@ -18,6 +18,8 @@ class MockLoginEvent extends LoginEvent {
 
 main() {
   Firebase.initializeApp();
+  setupCloudFirestoreMocks();
+
   UserServices userServices;
   LoginBloc? loginBloc;
 
@@ -30,13 +32,6 @@ main() {
     loginBloc?.close();
   });
 
-  test('close does not emit new states', () {
-    expectLater(
-      loginBloc,
-      emitsInOrder([LoginInitial(), emitsDone]),
-    );
-    loginBloc?.close();
-  });
   blocTest('emits [] when no event is added',
       build: () {
         userServices = MockLoginService();
@@ -51,7 +46,12 @@ main() {
       return LoginBloc(userServices: userServices);
     },
     act: (LoginBloc bloc) => bloc.add(MockLoginEvent()),
-    expect: () => [LoginFailure()],
+    expect: () => [
+      LoginFailure(
+        emailErrorMessage: 'email@gmail.com',
+        password: '123456abcA',
+      )
+    ],
   );
 
   blocTest(
@@ -78,8 +78,17 @@ main() {
     expect: () => [
       LoginInProgress(),
       LoginFailure(
-          emailErrorMessage: Exception().toString(),
-          passwordErrorMessage: Exception().toString()),
+        emailErrorMessage: 'email@gmail.com',
+        password: '123456abcA',
+      ),
     ],
   );
+
+  test('close does not emit new states', () {
+    expectLater(
+      loginBloc,
+      emitsInOrder([LoginInitial(), emitsDone]),
+    );
+    loginBloc?.close();
+  });
 }
