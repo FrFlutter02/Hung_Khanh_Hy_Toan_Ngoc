@@ -72,14 +72,4 @@ main() {
           emailErrorMessage: "Email did not exist", unknownErrorMessage: '')
     ],
   );
-  blocTest(
-    'emits [ForgotPassowordSuccess] when [ForgotPasswordRequested] have corrected email',
-    build: () {
-      userServices = UserServices();
-      return ForgotPasswordBloc();
-    },
-    act: (ForgotPasswordBloc bloc) =>
-        bloc.add(ForgotPasswordRequested('ngiahyiu@gmail.com')),
-    expect: () => [ForgotPasswordSuccess()],
-  );
 }
