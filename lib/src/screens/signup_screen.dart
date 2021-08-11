@@ -207,11 +207,11 @@ class _SignupScreenState extends State<SignupScreen> {
   Future<List<String>> _getErrorList(
       SignupRequested signupRequested, BuildContext context) async {
     String? fullNameErrorMessage =
-        Validator.signupFullNameValidator(signupRequested);
+        Validator.validateSignupFullName(signupRequested);
     String? emailErrorMessage =
-        await Validator.signupEmailValidator(signupRequested);
+        await Validator.validateSignupEmail(signupRequested);
     String? passwordErrorMessage =
-        Validator.signupPasswordValidator(signupRequested);
+        Validator.validateSignupPassword(signupRequested);
 
     if (fullNameErrorMessage.isNotEmpty ||
         emailErrorMessage.isNotEmpty ||

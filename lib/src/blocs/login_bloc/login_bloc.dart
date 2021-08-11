@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app/src/models/user_model.dart';
 
 import '../../constants/constant_text.dart';
-import '../../utils/validator.dart';
+import '../../models/user_model.dart';
 import '../../services/user_services.dart';
+import '../../utils/validator.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
@@ -21,9 +21,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     event as LoginRequested;
     switch (event.runtimeType) {
       case LoginRequested:
-        String emailErrorMessage = await Validator.loginEmailValidator(event);
+        String emailErrorMessage = await Validator.validateLoginEmail(event);
         String passwordErrorMessage =
-            await Validator.loginPasswordValidator(event);
+            await Validator.validateLoginPassword(event);
 
         try {
           yield LoginInProgress();

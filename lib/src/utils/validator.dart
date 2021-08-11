@@ -13,7 +13,7 @@ class RegularExpression {
 }
 
 class Validator {
-  static Future<String> forgotPasswordEmailValidator(
+  static Future<String> validateForgotPasswordEmail(
       ForgotPasswordEvent forgotPasswordEvent) async {
     final UserServices _userServices = UserServices();
     bool emailIsEmpty = forgotPasswordEvent.email.isEmpty;
@@ -33,7 +33,7 @@ class Validator {
     return '';
   }
 
-  static Future<String> loginEmailValidator(
+  static Future<String> validateLoginEmail(
       LoginRequested loginRequested) async {
     final UserServices _userServices = UserServices();
     bool emailIsEmpty = loginRequested.userModel.email.isEmpty;
@@ -51,7 +51,7 @@ class Validator {
     return '';
   }
 
-  static Future<String> loginPasswordValidator(
+  static Future<String> validateLoginPassword(
       LoginRequested loginRequested) async {
     bool passwordIsEmpty = loginRequested.userModel.password.isEmpty;
 
@@ -62,7 +62,7 @@ class Validator {
     return '';
   }
 
-  static Future<String> signupEmailValidator(
+  static Future<String> validateSignupEmail(
       SignupRequested signupRequested) async {
     final UserServices _userServices = UserServices();
     bool emailAlreadyExists = await _userServices.existsInDatabase(
@@ -80,7 +80,7 @@ class Validator {
     return '';
   }
 
-  static String signupFullNameValidator(SignupRequested signupRequested) {
+  static String validateSignupFullName(SignupRequested signupRequested) {
     bool fullNameIsEmpty = signupRequested.userModel.fullName.isEmpty;
 
     if (fullNameIsEmpty) {
@@ -90,7 +90,7 @@ class Validator {
     return '';
   }
 
-  static String signupPasswordValidator(SignupRequested signupRequested) {
+  static String validateSignupPassword(SignupRequested signupRequested) {
     bool passwordIsValid = RegularExpression.passwordRegex
         .hasMatch(signupRequested.userModel.password);
 

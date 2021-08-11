@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/widgets/custom_button.dart';
 
 import '../../src/widgets/logo.dart';
 import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
@@ -10,6 +9,7 @@ import '../blocs/forgot_password_bloc/forgot_password_state.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
 import '../utils/screen_util.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/login_and_signup/email_text_field.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {

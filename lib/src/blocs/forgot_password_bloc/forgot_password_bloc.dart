@@ -18,7 +18,7 @@ class ForgotPasswordBloc
     switch (event.runtimeType) {
       case ForgotPasswordRequested:
         String? emailErrorMessage =
-            await Validator.forgotPasswordEmailValidator(event);
+            await Validator.validateForgotPasswordEmail(event);
         yield ForgotPasswordFailure(emailErrorMessage: emailErrorMessage);
         if ((state as ForgotPasswordFailure).emailErrorMessage.isEmpty) {
           yield ForgotPasswordInProgress();
