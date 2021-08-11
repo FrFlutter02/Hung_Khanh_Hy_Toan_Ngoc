@@ -15,11 +15,9 @@ class ForgotPasswordSuccess extends ForgotPasswordState {}
 
 class ForgotPasswordFailure extends ForgotPasswordState {
   final String emailErrorMessage;
-  final String unknownErrorMessage;
   ForgotPasswordFailure({
     this.emailErrorMessage = '',
-    this.unknownErrorMessage = '',
   });
   @override
-  List<Object> get props => [emailErrorMessage, unknownErrorMessage];
+  List<Object> get props => [emailErrorMessage];
 }

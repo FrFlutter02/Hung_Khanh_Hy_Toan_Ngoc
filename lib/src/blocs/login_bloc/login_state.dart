@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../models/user_model.dart';
+
 abstract class LoginState extends Equatable {
   const LoginState();
 
@@ -14,22 +16,18 @@ class LoginInProgress extends LoginState {}
 class LoginSuccess extends LoginState {}
 
 class LoginFailure extends LoginState {
-  final String email;
-  final String password;
+  final UserModel userModel;
   final String emailErrorMessage;
   final String passwordErrorMessage;
 
   const LoginFailure({
-    this.email = '',
-    this.password = '',
+    this.userModel = const UserModel(),
     this.emailErrorMessage = '',
     this.passwordErrorMessage = '',
   });
 
   @override
   List<Object> get props => [
-        email,
-        password,
         emailErrorMessage,
         passwordErrorMessage,
       ];

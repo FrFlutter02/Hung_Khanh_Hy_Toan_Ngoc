@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
@@ -11,30 +10,31 @@ import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
 import '../models/user_model.dart';
 import '../utils/screen_util.dart';
-import '../widgets/login_and_signup/email_text_form_field.dart';
+import '../widgets/login_and_signup/email_text_field.dart';
 import '../widgets/login_and_signup/login_and_signup_body.dart';
 import '../widgets/login_and_signup/login_and_signup_header.dart';
-import '../widgets/login_and_signup/password_text_form_field.dart';
+import '../widgets/login_and_signup/password_text_field.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
   _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _FullNameTextFormField extends StatefulWidget {
+class _FullNameTextField extends StatefulWidget {
   final TextEditingController fullNameController;
   final String label;
 
-  const _FullNameTextFormField(
+  const _FullNameTextField(
       {Key? key, required this.label, required this.fullNameController})
       : super(key: key);
 
   @override
-  _FullNameTextFormFieldState createState() => _FullNameTextFormFieldState();
+  _FullNameTextFieldState createState() => _FullNameTextFieldState();
 }
 
-class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
+class _FullNameTextFieldState extends State<_FullNameTextField> {
   final ScreenUtil _screenUtil = ScreenUtil();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,7 +50,7 @@ class _FullNameTextFormFieldState extends State<_FullNameTextFormField> {
           ),
         ),
         SizedBox(height: _screenUtil.height(15)),
-        TextFormField(
+        TextField(
           controller: widget.fullNameController,
           cursorColor: AppColor.green,
           enableSuggestions: false,
@@ -91,8 +91,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController fullNameController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-  final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('user');
 
   @override
   Widget build(BuildContext context) {
@@ -146,8 +144,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     LoginAndSignupBody(
                       titleText: SignupScreenText.createAccountToContinue,
                       isTabletScreen: isTabletScreen,
-                      textFormFieldList: [
-                        _FullNameTextFormField(
+                      textFieldList: [
+                        _FullNameTextField(
                           label: SignupScreenText.fullNameLabel,
                           fullNameController: fullNameController,
                         ),
@@ -209,11 +207,11 @@ class _SignupScreenState extends State<SignupScreen> {
   Future<List<String>> _getErrorList(
       SignupRequested signupRequested, BuildContext context) async {
     String? fullNameErrorMessage =
-        Validator.signupFullNameValidator(signupRequested);
+        Validator.validateSignupFullName(signupRequested);
     String? emailErrorMessage =
-        await Validator.signupEmailValidator(signupRequested);
+        await Validator.validateSignupEmail(signupRequested);
     String? passwordErrorMessage =
-        Validator.signupPasswordValidator(signupRequested);
+        Validator.validateSignupPassword(signupRequested);
 
     if (fullNameErrorMessage.isNotEmpty ||
         emailErrorMessage.isNotEmpty ||

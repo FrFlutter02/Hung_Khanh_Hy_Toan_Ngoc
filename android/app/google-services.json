@@ -1,5 +1,7 @@
 {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
     "project_info": {
       "project_number": "722767778503",
       "project_id": "tam-ke-flutter",
@@ -39,6 +41,7 @@
     "configuration_version": "1"
   }
 =======
+>>>>>>> origin/master
   "project_info": {
     "project_number": "722767778503",
     "project_id": "tam-ke-flutter",
@@ -76,5 +79,9 @@
     }
   ],
   "configuration_version": "1"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master
 >>>>>>> origin/master

@@ -3,11 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_event.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
+import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
+import 'package:mobile_app/src/blocs/signup_bloc/signup_event.dart';
+import 'package:mobile_app/src/blocs/signup_bloc/signup_state.dart';
 import 'package:mobile_app/src/screens/home_screen.dart';
-import 'package:mobile_app/src/screens/login_screen.dart';
+import 'package:mobile_app/src/screens/signup_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_body.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_header.dart';
@@ -15,8 +15,8 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../cloud_firestore_mock.dart';
 
-class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
-    implements LoginBloc {}
+class MockSignupBloc extends MockBloc<SignupEvent, SignupState>
+    implements SignupBloc {}
 
 class MockUserServices extends Mock implements UserServices {}
 
@@ -33,12 +33,12 @@ void main() {
 
   final mockObserver = MockNavigationObserver();
   final mockUserServices = MockUserServices();
-  final _loginBloc = LoginBloc(userServices: mockUserServices);
+  final _signupBloc = SignupBloc(userServices: mockUserServices);
   final _widget = BlocProvider(
-    create: (_) => _loginBloc,
+    create: (_) => _signupBloc,
     child: MaterialApp(
       routes: {
-        "/": (context) => LoginScreen(),
+        "/": (context) => SignupScreen(),
         "/homeScreen": (context) => HomeScreen(),
       },
       navigatorObservers: [mockObserver],
@@ -56,11 +56,11 @@ void main() {
     expect(loginAndSignupBodyFinder, findsOneWidget);
   });
 
-  testWidgets('Should navigate to home screen when state is [LoginSuccess]',
+  testWidgets('Should navigate to home screen when state is [SignupSuccess]',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
 
-    _loginBloc.emit(LoginSuccess());
+    _signupBloc.emit(SignupSuccess());
     await tester.pump();
 
     verify(() => mockObserver.didPush(any(), any()));

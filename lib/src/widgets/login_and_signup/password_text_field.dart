@@ -43,13 +43,15 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             ),
             widget.forgotPasswordVisible
                 ? InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/forgotPasswordScreen');
+                    },
                     child: Text(
                       LoginScreenText.forgotPassword,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: AppColor.primaryGrey,
                           ),
                     ),
-                    onTap: () => Navigator.pushNamed(context, '/homeScreen'),
                   )
                 : SizedBox.shrink()
           ],

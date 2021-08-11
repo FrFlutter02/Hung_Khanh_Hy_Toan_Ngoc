@@ -7,9 +7,10 @@ import 'forgot_password_state.dart';
 
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
-  ForgotPasswordBloc() : super(ForgotPasswordInitial());
+  UserServices? userServices;
 
-  final UserServices userServices = UserServices();
+  ForgotPasswordBloc({this.userServices}) : super(ForgotPasswordInitial());
+
   @override
   Stream<ForgotPasswordState> mapEventToState(
     ForgotPasswordEvent event,
@@ -17,25 +18,17 @@ class ForgotPasswordBloc
     switch (event.runtimeType) {
       case ForgotPasswordRequested:
         String? emailErrorMessage =
-            await Validator.forgotPasswordEmailValidator(event);
-        yield ForgotPasswordFailure(emailErrorMessage: emailErrorMessage ?? '');
+            await Validator.validateForgotPasswordEmail(event);
+        yield ForgotPasswordFailure(emailErrorMessage: emailErrorMessage);
         if ((state as ForgotPasswordFailure).emailErrorMessage.isEmpty) {
-          print('asdasdas');
-
           yield ForgotPasswordInProgress();
         }
         if (state.runtimeType != ForgotPasswordFailure) {
-          userServices.resetPassword(event.email);
+          userServices?.resetPassword(event.email);
           yield ForgotPasswordSuccess();
         }
         break;
       default:
     }
-  }
-
-  @override
-  void onChange(Change<ForgotPasswordState> change) {
-    print(change);
-    super.onChange(change);
   }
 }

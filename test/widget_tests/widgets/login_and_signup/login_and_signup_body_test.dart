@@ -1,60 +1,53 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
+import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
-import 'package:mobile_app/src/widgets/login_and_signup/email_text_form_field.dart';
-import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_body.dart';
-import 'package:mobile_app/src/widgets/login_and_signup/password_text_form_field.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mobile_app/src/screens/signup_screen.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
-
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
-
-class MyTypeFake extends Fake implements Route {}
+import '../../../cloud_firestore_mock.dart';
 
 void main() {
-  NavigatorObserver mockObserver;
-  mockObserver = MockNavigatorObserver();
+  setUpAll(() async {
+    setupCloudFirestoreMocks();
+    await Firebase.initializeApp();
+  });
 
-  group('widget login body', () {
-    final widget = MaterialApp(
-      home: BlocProvider(
-        create: (context) => LoginBloc(),
-        child: Scaffold(
-          body: LoginScreen(),
-        ),
+  group('signup_screen_tests', () {
+    final Widget _widget = BlocProvider(
+      create: (_) => SignupBloc(),
+      child: MaterialApp(
+        routes: {
+          "/": (context) => SignupScreen(),
+          "/loginScreen": (context) => LoginScreen(),
+        },
       ),
-      navigatorObservers: [mockObserver],
     );
 
-    testWidgets('login screen test', (WidgetTester tester) async {
-      await tester.pumpWidget(widget);
-      expect(find.text('Please login to continue.'), findsOneWidget);
-      expect(find.text('Email address'), findsOneWidget);
-      expect(find.text('Password'), findsOneWidget);
-      expect(find.text('Forgot password?'), findsOneWidget);
-      expect(find.text('Login'), findsOneWidget);
-      expect(find.text('New to Scratch?'), findsOneWidget);
-      expect(find.text('Create Account Here'), findsOneWidget);
+    testWidgets('Should render the correct text', (WidgetTester tester) async {
+      final _titleFinder = find.text(SignupScreenText.createAccountToContinue);
+      final _bottomTitleFinder =
+          find.text(SignupScreenText.alreadyHaveAnAccount);
+      final _bottomLinkFinder = find.text(SignupScreenText.loginHere);
+
+      await tester.pumpWidget(_widget);
+
+      expect(_titleFinder, findsOneWidget);
+      expect(_bottomTitleFinder, findsOneWidget);
+      expect(_bottomLinkFinder, findsOneWidget);
     });
 
-    testWidgets('Should render text a form Login', (tester) async {
-      await tester.pumpWidget(widget);
-      final formLogin = find.byType(LoginAndSignupBody);
-      expect(formLogin, findsOneWidget);
-    });
-
-    testWidgets('Should render image background tablet',
+    testWidgets(
+        'Should navigate to the login screen when clicking on bottom link',
         (WidgetTester tester) async {
-      final Image imageWidget = Image.asset(
-        'assets/images/login-signup-background.jpeg',
-      );
-      assert(imageWidget.image is AssetImage);
-      final AssetImage assetImage = imageWidget.image as AssetImage;
-      expect(assetImage.keyName, 'assets/images/login-signup-background.jpeg');
+      await tester.pumpWidget(_widget);
+      final _signupBottomLinkFinder = find.descendant(
+          of: find.byType(Center), matching: find.byType(InkWell));
+      await tester.tap(_signupBottomLinkFinder);
+      await tester.pumpAndSettle();
+      expect(find.byType(LoginScreen), findsOneWidget);
     });
   });
 }

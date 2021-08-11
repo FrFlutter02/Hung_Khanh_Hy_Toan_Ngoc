@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants/constant_text.dart';
-import '../../utils/validator.dart';
+import '../../models/user_model.dart';
 import '../../services/user_services.dart';
+import '../../utils/validator.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  UserServices? userServices;
+  final UserServices? userServices;
 
   LoginBloc({this.userServices}) : super(LoginInitial());
 
@@ -21,22 +21,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     event as LoginRequested;
     switch (event.runtimeType) {
       case LoginRequested:
-        String? emailErrorMessage = await Validator.loginEmailValidator(event);
-        String? passwordErrorMessage =
-            await Validator.loginPasswordValidator(event);
+        String emailErrorMessage = await Validator.validateLoginEmail(event);
+        String passwordErrorMessage =
+            await Validator.validateLoginPassword(event);
+
         try {
           yield LoginInProgress();
-          User? user = await userServices?.logIn(event.email, event.password);
-          if (user != null) {
-            yield LoginSuccess();
-          } else {
-            yield LoginFailure(
-                emailErrorMessage: emailErrorMessage ?? '',
-                passwordErrorMessage:
-                    passwordErrorMessage ?? AppText.passwordIsIncorrect);
-          }
+          UserModel userModel = UserModel(
+              email: event.userModel.email, password: event.userModel.password);
+          await userServices?.logIn(userModel);
+          yield LoginSuccess();
         } catch (e) {
-          yield LoginFailure();
+          yield LoginFailure(
+              emailErrorMessage: emailErrorMessage,
+              passwordErrorMessage: passwordErrorMessage.isEmpty
+                  ? passwordErrorMessage
+                  : AppText.passwordIsIncorrect);
         }
         break;
     }

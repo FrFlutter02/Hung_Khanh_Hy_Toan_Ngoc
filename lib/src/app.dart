@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import '../src/blocs/login_bloc/login_bloc.dart';
 import '../src/blocs/signup_bloc/signup_bloc.dart';
 import '../src/screens/forgot_password_screen.dart';
@@ -23,6 +24,9 @@ class App extends StatelessWidget {
     ));
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+            create: (context) =>
+                ForgotPasswordBloc(userServices: userServices)),
         BlocProvider(
             create: (context) => LoginBloc(userServices: userServices)),
         BlocProvider(

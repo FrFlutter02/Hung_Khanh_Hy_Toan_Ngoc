@@ -13,10 +13,10 @@ setupCloudFirestoreMocks([Callback? customHandlers]) {
         {
           'name': defaultFirebaseAppName,
           'options': {
-            'apiKey': 'AIzaSyBXj0d3bBtct6A323Q39WLRscod3t-z-o4',
-            'appId': '1:722767778503:android:5fe8cee91bae908ff424e2',
-            'messagingSenderId': '722767778503',
-            'projectId': 'tam-ke-flutter',
+            'apiKey': '123',
+            'appId': '123',
+            'messagingSenderId': '123',
+            'projectId': '123',
           },
           'pluginConstants': {},
         }

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_event.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
+import 'package:mobile_app/src/models/user_model.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mockito/mockito.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -17,11 +18,13 @@ class MockLoginEvent extends LoginEvent {
 }
 
 main() {
-  Firebase.initializeApp();
-  setupCloudFirestoreMocks();
-
   UserServices userServices;
   LoginBloc? loginBloc;
+
+  setUpAll(() async {
+    setupCloudFirestoreMocks();
+    Firebase.initializeApp();
+  });
 
   setUp(() async {
     userServices = MockLoginService();
@@ -49,7 +52,7 @@ main() {
     expect: () => [
       LoginFailure(
         emailErrorMessage: 'email@gmail.com',
-        password: '123456abcA',
+        passwordErrorMessage: '123456abcA',
       )
     ],
   );
@@ -71,7 +74,8 @@ main() {
     'emits [LoginFailure] when [LoginRequested] is called and service throws error.',
     build: () {
       userServices = MockLoginService();
-      when(userServices.logIn("email", "password")).thenThrow(Exception());
+      when(userServices.logIn(UserModel(email: 'email', password: 'password')))
+          .thenThrow(Exception());
       return LoginBloc(userServices: userServices);
     },
     act: (LoginBloc bloc) => bloc.add(LoginRequested()),
@@ -79,7 +83,7 @@ main() {
       LoginInProgress(),
       LoginFailure(
         emailErrorMessage: 'email@gmail.com',
-        password: '123456abcA',
+        passwordErrorMessage: '123456abcA',
       ),
     ],
   );
