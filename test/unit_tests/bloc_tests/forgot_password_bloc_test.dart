@@ -21,7 +21,6 @@ class MockUserServices extends Mock implements UserServices {
 }
 
 void main() {
-  MockUserServices mockUserServices;
   ForgotPasswordBloc? forgotBloc;
 
   setUpAll(() async {
@@ -30,7 +29,6 @@ void main() {
   });
 
   setUp(() async {
-    mockUserServices = MockUserServices();
     forgotBloc = ForgotPasswordBloc();
   });
 
@@ -40,7 +38,6 @@ void main() {
 
   blocTest('emits [] when no events is called',
       build: () {
-        mockUserServices = MockUserServices();
         return ForgotPasswordBloc();
       },
       expect: () => []);
@@ -48,7 +45,6 @@ void main() {
   blocTest(
       'emits [ForgotPasswordFailure] with empty error when [ForgotPasswordRequested] has invalid email',
       build: () {
-        mockUserServices = MockUserServices();
         return ForgotPasswordBloc();
       },
       act: (ForgotPasswordBloc bloc) {
@@ -63,7 +59,6 @@ void main() {
   blocTest(
       'emits [ForgotPasswordFailure] with invalid format error when [ForgotPasswordRequested] has invalid email',
       build: () {
-        mockUserServices = MockUserServices();
         return ForgotPasswordBloc();
       },
       act: (ForgotPasswordBloc bloc) {

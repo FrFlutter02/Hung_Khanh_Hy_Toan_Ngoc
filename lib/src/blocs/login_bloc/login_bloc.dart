@@ -34,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } catch (e) {
           yield LoginFailure(
               emailErrorMessage: emailErrorMessage,
-              passwordErrorMessage: passwordErrorMessage.isEmpty
+              passwordErrorMessage: passwordErrorMessage.isNotEmpty
                   ? passwordErrorMessage
                   : AppText.passwordIsIncorrect);
         }
