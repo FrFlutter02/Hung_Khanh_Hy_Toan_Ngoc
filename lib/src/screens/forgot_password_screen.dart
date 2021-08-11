@@ -210,7 +210,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       displayBackgroundTablet = true;
       displayColorBackgroundTablet = true;
       displayTabletLabel = true;
-      paddingHorizonalTwoSide = _screenUtil.width(172); //172,27.5
+      paddingHorizonalTwoSide = _screenUtil.width(172);
       paddingHorizonalContent = _screenUtil.width(50);
       borderRadius = 8;
       colorBackGround = AppColor.white;
@@ -234,7 +234,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       displayBackgroundTablet = false;
       displayColorBackgroundTablet = false;
       displayTabletLabel = false;
-      paddingHorizonalTwoSide = _screenUtil.width(27.5); //172,27.5
+      paddingHorizonalTwoSide = _screenUtil.width(27.5);
       paddingHorizonalContent = _screenUtil.width(0);
       borderRadius = 0;
       colorBackGround = Colors.transparent;
