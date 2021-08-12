@@ -59,3 +59,7 @@ class GardientColorBackgroundOfOnboarding {
     end: Alignment.bottomCenter,
   );
 }
+
+class SearchScreenColor {
+  static const primaryGrey = Color(0xffe6e6e6);
+}
