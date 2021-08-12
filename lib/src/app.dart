@@ -11,6 +11,7 @@ import '../src/screens/signup_screen.dart';
 import '../src/services/user_services.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
+import 'screens/recipe_feed.dart';
 
 class App extends StatelessWidget {
   final userServices = UserServices();
@@ -36,12 +37,14 @@ class App extends StatelessWidget {
         theme: ThemeData(fontFamily: "Nunito-Regular"),
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => OnboardingScreen(),
+          "/": (context) => RecipeFeed(),
+          // "/": (context) => OnboardingScreen(),
           "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
           "/homeScreen": (context) => HomeScreen(),
           "/loginScreen": (context) => LoginScreen(),
           "/onboardingScreen": (context) => OnboardingScreen(),
           "/signupScreen": (context) => SignupScreen(),
+          "/recipeFeed": (context) => RecipeFeed(),
         },
       ),
     );
