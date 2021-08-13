@@ -210,6 +210,24 @@ class UserProfileScreen extends StatelessWidget {
                           ),
                         )
                       ],
+                    ),
+                    Container(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: 4,
+                          itemBuilder: (context, int index) => Container(
+                                padding: EdgeInsets.all(15),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: _screenUtil.width(155),
+                                      height: _screenUtil.height(100),
+                                      color: Colors.amberAccent,
+                                    )
+                                  ],
+                                ),
+                              )),
                     )
                   ],
                 ),
@@ -221,5 +239,12 @@ class UserProfileScreen extends StatelessWidget {
     } else {
       return Scaffold();
     }
+  }
+}
+
+class RecipeCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
