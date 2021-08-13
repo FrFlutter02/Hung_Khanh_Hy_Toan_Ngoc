@@ -1,18 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/utils/screen_util.dart';
+import 'dart:async';
 
-class SearchBox extends StatelessWidget {
-  const SearchBox({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
+import 'package:mobile_app/src/blocs/search_bloc/search_event.dart';
+import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
+import 'package:mobile_app/src/constants/constant_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class SearchBox extends StatefulWidget {
+  final List<String> recipesByName;
+
+  SearchBox({required this.recipesByName, Key? key}) : super(key: key);
+
+  @override
+  _SearchBoxState createState() => _SearchBoxState();
+}
+
+class _SearchBoxState extends State<SearchBox> {
+  final double iconSize = 24.w;
+
+  Timer? _searchTimer;
 
   @override
   Widget build(BuildContext context) {
-    final ScreenUtil _screenUtil = ScreenUtil();
     return Container(
-      width: Device.screenWidth,
-      height: _screenUtil.height(46),
-      padding: EdgeInsets.symmetric(horizontal: _screenUtil.width(11)),
       decoration: BoxDecoration(
           color: AppColor.white,
           borderRadius: BorderRadius.circular(8),
@@ -24,45 +37,89 @@ class SearchBox extends StatelessWidget {
               offset: Offset(0, 0),
             ),
           ]),
-      child: Row(
+      child: Column(
         children: [
-          Image.asset(
-            'assets/images/icons/search_icon.png',
-            width: _screenUtil.width(24),
-            height: _screenUtil.height(24),
-            color: AppColor.primaryBlack,
-          ),
-          Expanded(
-            child: TextField(
-              style: TextStyle(color: AppColor.primaryBlack),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: _screenUtil.width(9),
-                    vertical: _screenUtil.height(12)),
-                hintText: 'Sweets',
-                hintStyle: TextStyle(
-                  color: AppColor.secondaryGrey,
+          Container(
+            width: Device.screenWidth,
+            height: 46.h,
+            padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/images/icons/search_icon.png',
+                  width: iconSize,
+                  height: iconSize,
+                  color: AppColor.primaryBlack,
                 ),
-                isDense: true,
-              ),
+                Expanded(
+                  child: BlocListener<SearchBloc, SearchState>(
+                    listener: (context, state) {},
+                    child: TextField(
+                      onChanged: (text) {
+                        const duration = Duration(milliseconds: 1000);
+                        final VoidCallback handleChange = () {
+                          context.read<SearchBloc>().add(
+                              SearchRecipeTextFieldChanged(
+                                  recipeTextFieldValue: text));
+                        };
+                        if (_searchTimer != null) {
+                          setState(() => _searchTimer!.cancel());
+                        }
+                        setState(
+                            () => _searchTimer = Timer(duration, handleChange));
+                      },
+                      style: TextStyle(color: AppColor.primaryBlack),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 9.w, vertical: 12.h),
+                        hintText: 'Sweets',
+                        hintStyle: TextStyle(
+                          color: AppColor.secondaryGrey,
+                        ),
+                        isDense: true,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  child: Image.asset(
+                    'assets/images/icons/filter_icon.png',
+                    width: iconSize,
+                    height: iconSize,
+                    color: AppColor.primaryBlack,
+                  ),
+                )
+              ],
             ),
           ),
-          InkWell(
-            child: Image.asset(
-              'assets/images/icons/filter_icon.png',
-              width: _screenUtil.width(24),
-              height: _screenUtil.height(24),
-              color: AppColor.primaryBlack,
-            ),
-          )
+          Divider(
+            height: 1.h,
+            color: AppColor.secondaryGrey,
+          ),
+          Container(
+              width: 1.sw,
+              padding: EdgeInsets.symmetric(horizontal: 44.w, vertical: 12.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...widget.recipesByName.map((recipeName) => Padding(
+                        padding: EdgeInsets.only(bottom: 10.h),
+                        child: InkWell(
+                          onTap: () => null,
+                          child: Text(
+                            recipeName,
+                            style:
+                                Theme.of(context).textTheme.bodyText2!.copyWith(
+                                      color: AppColor.primaryBlack,
+                                    ),
+                          ),
+                        ),
+                      )),
+                ],
+              )),
         ],
       ),
     );
   }
 }
-
-// Theme.of(context).textTheme.headline5!.copyWith(
-//                   color: AppColor.primaryBlack,
-//                   fontFamily: "Nunito-Bold",
-//                 )
