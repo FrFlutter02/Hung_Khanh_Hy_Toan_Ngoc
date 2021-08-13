@@ -11,6 +11,7 @@ import '../src/screens/signup_screen.dart';
 import '../src/services/user_services.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
+import 'screens/user_profile_screen.dart';
 
 class App extends StatelessWidget {
   final userServices = UserServices();
@@ -35,6 +36,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(fontFamily: "Nunito-Regular"),
         debugShowCheckedModeBanner: false,
+        initialRoute: "/userProfile",
         routes: {
           "/": (context) => OnboardingScreen(),
           "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
@@ -42,6 +44,7 @@ class App extends StatelessWidget {
           "/loginScreen": (context) => LoginScreen(),
           "/onboardingScreen": (context) => OnboardingScreen(),
           "/signupScreen": (context) => SignupScreen(),
+          "/userProfile": (context) => UserProfileScreen(),
         },
       ),
     );

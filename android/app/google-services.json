@@ -1,47 +1,4 @@
 {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    "project_info": {
-      "project_number": "722767778503",
-      "project_id": "tam-ke-flutter",
-      "storage_bucket": "tam-ke-flutter.appspot.com"
-    },
-    "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:722767778503:android:5fe8cee91bae908ff424e2",
-          "android_client_info": {
-            "package_name": "com.hcm21_fr_flutter_02.tam_ke_flutter"
-          }
-        },
-        "oauth_client": [
-          {
-            "client_id": "722767778503-eb1v6b5k1qodcn1ijcthgqq0qf3qn92m.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
-        "api_key": [
-          {
-            "current_key": "AIzaSyBXj0d3bBtct6A323Q39WLRscod3t-z-o4"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": [
-              {
-                "client_id": "722767778503-eb1v6b5k1qodcn1ijcthgqq0qf3qn92m.apps.googleusercontent.com",
-                "client_type": 3
-              }
-            ]
-          }
-        }
-      }
-    ],
-    "configuration_version": "1"
-  }
-=======
->>>>>>> origin/master
   "project_info": {
     "project_number": "722767778503",
     "project_id": "tam-ke-flutter",
@@ -79,9 +36,4 @@
     }
   ],
   "configuration_version": "1"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
->>>>>>> origin/master

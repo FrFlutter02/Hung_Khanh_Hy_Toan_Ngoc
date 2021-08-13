@@ -7,6 +7,7 @@ class AppColor {
   static const primaryGrey = Color(0xff606060);
   static const secondaryGrey = Color(0xffA8A8A8);
   static const white = Color(0xffffffff);
+  static const primaryWhite = Color(0xffE6E6E6);
 }
 
 class LoginScreenColor {

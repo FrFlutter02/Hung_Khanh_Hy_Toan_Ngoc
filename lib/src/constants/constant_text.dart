@@ -55,3 +55,11 @@ class ForgotPasswordText {
   static const String sendButton = "Send";
   static const String tabletLabel = "Start from Scratch";
 }
+
+class UserProfileText {
+  static const String title = "My Kitchen";
+  static const String icon = "assets/images/Settings.png";
+  static const String dot = "assets/images/dot.png";
+  static const String edit = "assets/images/Edit.png";
+  static const String iconText = "Settings";
+}
