@@ -59,3 +59,10 @@ class GardientColorBackgroundOfOnboarding {
     end: Alignment.bottomCenter,
   );
 }
+
+class NewRecipeScreenColor {
+  static const borderUnderlineTextFieldColor = Color(0xffCCCCCC);
+  static const borderButtonColor = Color(0xff979797);
+  static const leadingTextColor = Color(0xff767676);
+  static const buttonIngredientsColor = Color(0xffECF0EC);
+}

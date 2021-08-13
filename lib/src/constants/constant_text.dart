@@ -55,3 +55,21 @@ class ForgotPasswordText {
   static const String sendButton = "Send";
   static const String tabletLabel = "Start from Scratch";
 }
+
+class NewRecipeText {
+  static const String hintRecipeNameText = "Write Down Recipe Name";
+  static const String labelGalleryText = "Gallery";
+  static const String labelIngredientsText = "Ingredients";
+  static const String labelHowToCookText = "How to Cook";
+  static const String labelAdditionalInfoText = "Additional Info";
+  static const String hintGalleryText = "Upload Images or Open Camera";
+  static const String hintIngredientsText = "Add Ingredient";
+  static const String hintHowToCookText = "Add Directions";
+  static const String hintAdditionalInfoText = "Add Info";
+  static const String saveToText = "Save to";
+  static const String saveRecipeText = "Save Recipe";
+  static const String labelRecipeNameText = "Recipe Name";
+  static const String postToFeedText = "Post to Feed";
+  static const String leadingText = "Back to My Recipes";
+  static const String titleText = "Create New Recipe";
+}
