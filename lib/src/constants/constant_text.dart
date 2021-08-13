@@ -55,3 +55,9 @@ class ForgotPasswordText {
   static const String sendButton = "Send";
   static const String tabletLabel = "Start from Scratch";
 }
+
+class RecipeFeedText {
+  static const likes = 'likes';
+  static const comments = 'Comments';
+  static const save = 'Save';
+}
