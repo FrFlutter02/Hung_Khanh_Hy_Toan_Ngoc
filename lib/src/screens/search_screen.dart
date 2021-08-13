@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
+import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/utils/screen_util.dart';
 import 'package:mobile_app/src/widgets/search/search_box.dart';
-import 'package:mobile_app/src/widgets/search/search_recipes.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Searchscreen extends StatelessWidget {
+class Searchscreen extends StatefulWidget {
   const Searchscreen({Key? key}) : super(key: key);
 
   @override
+  _SearchscreenState createState() => _SearchscreenState();
+}
+
+class _SearchscreenState extends State<Searchscreen> {
+  @override
   Widget build(BuildContext context) {
-    final ScreenUtil _screenUtil = ScreenUtil();
     return Scaffold(
       backgroundColor: AppColor.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(_screenUtil.width(25),
-              _screenUtil.height(11), _screenUtil.width(25), 0),
-          child: ListView(
-            children: [
-              SearchBox(),
-              SizedBox(
-                height: _screenUtil.height(24),
-              ),
-              SearchRecipes(),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: _screenUtil.height(343),
-                  color: Colors.green),
-            ],
+          padding: EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 0),
+          child: BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              return ListView(
+                children: [
+                  SearchBox(
+                    recipesByName:
+                        state is SearchFindRecipeSuccess ? state.recipes : [],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
