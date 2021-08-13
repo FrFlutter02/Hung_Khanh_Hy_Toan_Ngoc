@@ -22,6 +22,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         yield SearchRecipeTextFieldChangeSuccess(
             recipeTextFieldValue: recipeTextFieldValue);
         if (recipeTextFieldValue.isNotEmpty) {
+          yield SearchFindRecipeInProgress();
           add(SearchRecipeSearchRequested(searchQuery: recipeTextFieldValue));
         }
         break;

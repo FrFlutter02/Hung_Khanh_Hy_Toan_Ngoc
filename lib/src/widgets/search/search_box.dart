@@ -56,7 +56,7 @@ class _SearchBoxState extends State<SearchBox> {
                     listener: (context, state) {},
                     child: TextField(
                       onChanged: (text) {
-                        const duration = Duration(milliseconds: 1000);
+                        const duration = Duration(milliseconds: 500);
                         final VoidCallback handleChange = () {
                           context.read<SearchBloc>().add(
                               SearchRecipeTextFieldChanged(
@@ -99,25 +99,42 @@ class _SearchBoxState extends State<SearchBox> {
           ),
           Container(
               width: 1.sw,
-              padding: EdgeInsets.symmetric(horizontal: 44.w, vertical: 12.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...widget.recipesByName.map((recipeName) => Padding(
-                        padding: EdgeInsets.only(bottom: 10.h),
-                        child: InkWell(
-                          onTap: () => null,
-                          child: Text(
-                            recipeName,
-                            style:
-                                Theme.of(context).textTheme.bodyText2!.copyWith(
-                                      color: AppColor.primaryBlack,
-                                    ),
+              padding: widget.recipesByName.isNotEmpty ||
+                      context.read<SearchBloc>().state
+                          is SearchFindRecipeInProgress
+                  ? EdgeInsets.symmetric(horizontal: 44.w, vertical: 12.h)
+                  : null,
+              child:
+                  context.read<SearchBloc>().state is SearchFindRecipeInProgress
+                      ? Center(
+                          child: SizedBox(
+                            width: 20.w,
+                            height: 20.w,
+                            child: CircularProgressIndicator(
+                              color: AppColor.green,
+                            ),
                           ),
-                        ),
-                      )),
-                ],
-              )),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ...widget.recipesByName.map((recipeName) => Padding(
+                                  padding: EdgeInsets.only(bottom: 12.h),
+                                  child: InkWell(
+                                    onTap: () => null,
+                                    child: Text(
+                                      recipeName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                            color: AppColor.primaryBlack,
+                                          ),
+                                    ),
+                                  ),
+                                ))
+                          ],
+                        )),
         ],
       ),
     );

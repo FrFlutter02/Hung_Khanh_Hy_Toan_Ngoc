@@ -30,3 +30,5 @@ class SearchFindRecipeFailure extends SearchState {
   @override
   List<Object> get props => [errorMessage];
 }
+
+class SearchFindRecipeInProgress extends SearchState {}
