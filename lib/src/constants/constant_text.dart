@@ -61,5 +61,8 @@ class UserProfileText {
   static const String icon = "assets/images/Settings.png";
   static const String dot = "assets/images/dot.png";
   static const String edit = "assets/images/Edit.png";
+  static const String nav1 = "assets/images/nav1.png";
+  static const String nav2 = "assets/images/nav2.png";
+  static const String nav3 = "assets/images/nav3.png";
   static const String iconText = "Settings";
 }
