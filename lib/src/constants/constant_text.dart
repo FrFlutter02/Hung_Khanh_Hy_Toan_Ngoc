@@ -55,3 +55,8 @@ class ForgotPasswordText {
   static const String sendButton = "Send";
   static const String tabletLabel = "Start from Scratch";
 }
+
+class SearchScreenText {
+  static const searchHintText = 'Sweets';
+  static const searchHintTextTablet = 'Search Recipe, Profile, or Ingredients';
+}

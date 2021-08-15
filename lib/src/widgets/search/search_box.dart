@@ -8,6 +8,7 @@ import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_event.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 
 class SearchBox extends StatefulWidget {
   final List<String> recipesByName;
@@ -21,6 +22,8 @@ class SearchBox extends StatefulWidget {
 class _SearchBoxState extends State<SearchBox> {
   final double circularProgressIndicatorSize = 20.w;
   final double iconSize = 24.w;
+
+  String searchHintText = SearchScreenText.searchHintText;
 
   bool isTablet = Device.get().isTablet;
 
@@ -95,7 +98,7 @@ class _SearchBoxState extends State<SearchBox> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: searchTextFieldContentPadding,
-                          hintText: 'Sweets',
+                          hintText: searchHintText,
                           hintStyle: TextStyle(
                             color: AppColor.secondaryGrey,
                           ),
@@ -175,6 +178,8 @@ class _SearchBoxState extends State<SearchBox> {
   @override
   void initState() {
     if (isTablet) {
+      searchHintText = SearchScreenText.searchHintTextTablet;
+
       searchContainerPadding = EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 0);
       searchContainerBoxShadowOpacity = 0;
       searchContainerWidth = 0.7109.sw;
