@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
@@ -14,25 +15,42 @@ class Searchscreen extends StatefulWidget {
 }
 
 class _SearchscreenState extends State<Searchscreen> {
+  EdgeInsets distanceFromSearchBorderTopToNextSection =
+      EdgeInsets.only(top: 36.h);
+
+  bool isTablet = Device.get().isTablet;
+
+  @override
+  void initState() {
+    if (isTablet) {
+      distanceFromSearchBorderTopToNextSection = EdgeInsets.only(top: 80.h);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 0),
-          child: BlocBuilder<SearchBloc, SearchState>(
-            builder: (context, state) {
-              return ListView(
+        child: BlocBuilder<SearchBloc, SearchState>(
+          builder: (context, state) {
+            return Stack(children: [
+              ListView(
+                padding: distanceFromSearchBorderTopToNextSection,
                 children: [
-                  SearchBox(
-                    recipesByName:
-                        state is SearchFindRecipeSuccess ? state.recipes : [],
+                  Divider(
+                    height: 0.6.h,
+                    color: AppColor.secondaryGrey,
                   ),
                 ],
-              );
-            },
-          ),
+              ),
+              SearchBox(
+                recipesByName:
+                    state is SearchFindRecipeSuccess ? state.recipes : [],
+              ),
+            ]);
+          },
         ),
       ),
     );
