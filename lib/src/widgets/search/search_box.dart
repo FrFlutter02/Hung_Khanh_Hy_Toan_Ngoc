@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_event.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/constants/constant_text.dart';
+
+import '../../blocs/search_bloc/search_bloc.dart';
+import '../../blocs/search_bloc/search_event.dart';
+import '../../blocs/search_bloc/search_state.dart';
+import '../../constants/constant_colors.dart';
+import '../../constants/constant_text.dart';
 
 class SearchBox extends StatefulWidget {
   final List<String> recipesByName;

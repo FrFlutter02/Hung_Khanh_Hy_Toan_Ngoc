@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/widgets/search/search_box.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../blocs/search_bloc/search_bloc.dart';
+import '../blocs/search_bloc/search_state.dart';
+import '../constants/constant_colors.dart';
+import '../widgets/search/search_box.dart';
 
 class Searchscreen extends StatefulWidget {
   const Searchscreen({Key? key}) : super(key: key);
@@ -19,14 +20,6 @@ class _SearchscreenState extends State<Searchscreen> {
       EdgeInsets.only(top: 36.h);
 
   bool isTablet = Device.get().isTablet;
-
-  @override
-  void initState() {
-    if (isTablet) {
-      distanceFromSearchBorderTopToNextSection = EdgeInsets.only(top: 80.h);
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,5 +47,13 @@ class _SearchscreenState extends State<Searchscreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    if (isTablet) {
+      distanceFromSearchBorderTopToNextSection = EdgeInsets.only(top: 80.h);
+    }
+    super.initState();
   }
 }
