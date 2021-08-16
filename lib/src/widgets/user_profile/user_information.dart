@@ -1,19 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import '../../constants/constant_text.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
 class UserInformation extends StatelessWidget {
+  bool isMyProfile;
+  UserInformation({required this.isMyProfile});
   @override
   Widget build(BuildContext context) {
     ScreenUtil _screenUtil = ScreenUtil();
+    late double UserInformationWidth;
+    late double UserInformationHeight;
+    if (Device.get().isPhone) {
+      UserInformationWidth = _screenUtil.width(325);
+      UserInformationHeight = _screenUtil.height(90);
+      if (isMyProfile) {
+        UserInformationHeight = _screenUtil.height(108);
+      } else {
+        UserInformationHeight = _screenUtil.height(90);
+      }
+    } else {
+      UserInformationWidth = _screenUtil.width(718);
+      UserInformationHeight = _screenUtil.height(113);
+    }
     return Container(
-      margin: EdgeInsets.only(left: _screenUtil.width(25)),
-      width: _screenUtil.width(325),
-      height: _screenUtil.height(108),
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColor.primaryWhite))),
+      width: UserInformationWidth,
+      height: UserInformationHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

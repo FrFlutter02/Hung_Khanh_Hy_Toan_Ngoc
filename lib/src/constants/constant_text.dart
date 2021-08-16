@@ -58,11 +58,16 @@ class ForgotPasswordText {
 
 class UserProfileText {
   static const String title = "My Kitchen";
-  static const String icon = "assets/images/Settings.png";
-  static const String dot = "assets/images/dot.png";
-  static const String edit = "assets/images/Edit.png";
-  static const String nav1 = "assets/images/nav1.png";
-  static const String nav2 = "assets/images/nav2.png";
-  static const String nav3 = "assets/images/nav3.png";
+  static const String icon = "assets/images/user_profile_icon/Settings.png";
+  static const String dot = "assets/images/user_profile_icon/dot.png";
+  static const String edit = "assets/images/user_profile_icon/Edit.png";
+  static const String nav1 = "assets/images/user_profile_icon/nav1.png";
+  static const String nav2 = "assets/images/user_profile_icon/nav2.png";
+  static const String nav3 = "assets/images/user_profile_icon/nav3.png";
+  static const String backIcon = "assets/images/user_profile_icon/back.png";
+  static const String editIcon = "assets/images/user_profile_icon/Edit.png";
+  static const String moreOption =
+      "assets/images/user_profile_icon/MoreOptions.png";
   static const String iconText = "Settings";
+  static const String back = "Back";
 }

@@ -1,88 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:mobile_app/src/widgets/user_profile/list_options.dart';
 
-import 'recipe_list.dart';
+import 'recipe_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
 class MainCard extends StatelessWidget {
   @override
+  bool isMyProfile;
+  MainCard({required this.isMyProfile});
   Widget build(BuildContext context) {
     ScreenUtil _screenUtil = ScreenUtil();
+    late double MainCardWidth;
+    late double MainCardHeight;
+    late double buttonWidth;
+    if (Device.get().isPhone) {
+      MainCardWidth = _screenUtil.width(325);
+      MainCardHeight = _screenUtil.height(460);
+      buttonWidth = _screenUtil.width(84);
+    } else {
+      MainCardWidth = _screenUtil.width(718);
+      MainCardHeight = _screenUtil.height(610);
+      buttonWidth = _screenUtil.width(171);
+    }
+
     return Container(
-      height: _screenUtil.height(475),
-      width: _screenUtil.width(325),
+      height: MainCardHeight,
+      width: MainCardWidth,
       margin: EdgeInsets.only(left: _screenUtil.width(25)),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                child: TextButton(
-                  onPressed: () {},
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                      color: AppColor.green,
-                    ))),
-                    child: Column(
-                      children: [
-                        Text("20",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColor.primaryBlack,
-                            )),
-                        Text("Recipes",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColor.primaryBlack,
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                child: TextButton(
-                  onPressed: () {},
-                  child: Column(
-                    children: [
-                      Text("75",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: AppColor.primaryBlack,
-                          )),
-                      Text("Saved",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: AppColor.primaryBlack,
-                          )),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                child: TextButton(
-                  onPressed: () {},
-                  child: Column(
-                    children: [
-                      Text("248",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: AppColor.primaryBlack,
-                          )),
-                      Text("Following",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: AppColor.primaryBlack,
-                          )),
-                    ],
-                  ),
-                ),
-              )
-            ],
+          ListOption(
+            isMyProfile: isMyProfile,
           ),
           Expanded(
               child: GridView.builder(
