@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mobile_app/src/utils/image_picker.dart';
 
 import '../widgets/new_recipe/item_new_ingredients.dart';
 import '../constants/constant_colors.dart';
@@ -16,6 +19,7 @@ class NewRecipeScreen extends StatefulWidget {
 
 String dropdownValue = 'Western';
 bool isTablet = false;
+var files;
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
   @override
@@ -23,6 +27,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
     if (Device.get().isTablet) {
       isTablet = true;
     }
+
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
@@ -60,49 +65,63 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 SizedBox(height: isTablet ? 25.h : 33.h),
                 Row(
                   children: [
-                    SizedBox(
+                    Container(
                       height: 62.w,
                       width: 62.w,
-                      child: OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                              side: BorderSide(
-                                  color: NewRecipeScreenColor.borderButtonColor,
-                                  width: 1),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          child:
-                              Image.asset("assets/images/icons/plus_icon.png")),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: NewRecipeScreenColor.borderButtonColor),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: ((builder) => bottomSheet()),
+                            );
+                          },
+                          child: files == null
+                              ? Image.asset("assets/images/icons/plus_icon.png")
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    File(files.path),
+                                    fit: BoxFit.fill,
+                                  ),
+                                )),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            NewRecipeText.labelRecipeNameText,
-                            style:
-                                Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    height: 1.57,
-                                    // fontFamily: "Nunito-Regular",
-                                    color: AppColor.secondaryGrey),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15.h),
-                            child: SizedBox(
-                              height: isTablet ? 22.h : 20.h,
-                              width: isTablet ? 453.w : 247.w,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    hintText: NewRecipeText.hintRecipeNameText,
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: NewRecipeScreenColor
-                                                .borderUnderlineTextFieldColor))),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 15.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              NewRecipeText.labelRecipeNameText,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      height: 1.57,
+                                      color: AppColor.secondaryGrey),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 15.h),
+                              child: SizedBox(
+                                height: isTablet ? 22.h : 20.h,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                      hintText:
+                                          NewRecipeText.hintRecipeNameText,
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: NewRecipeScreenColor
+                                                  .borderUnderlineTextFieldColor))),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -221,6 +240,83 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
           ),
         ],
       )),
+    );
+  }
+
+  Future takePhoto(ImageSource source) async {
+    final file = await ImagePickerUtils.pickMedia(
+      source: source,
+    );
+    if (file == null) return;
+    setState(() => {files = file});
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 100.h,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
+      margin: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Choose option",
+            style: TextStyle(
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            InkWell(
+                onTap: () {
+                  takePhoto(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.camera,
+                        color: AppColor.green,
+                      ),
+                    ),
+                    Text(
+                      "Camera",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    )
+                  ],
+                )),
+            InkWell(
+                onTap: () {
+                  takePhoto(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.photo,
+                        color: AppColor.green,
+                      ),
+                    ),
+                    Text(
+                      "Gallery",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    )
+                  ],
+                )),
+          ])
+        ],
+      ),
     );
   }
 }
