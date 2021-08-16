@@ -8,7 +8,14 @@ import '../../utils/screen_util.dart';
 
 class ListOption extends StatelessWidget {
   bool isMyProfile;
-  ListOption({required this.isMyProfile});
+  String recipes;
+  String following;
+  String saved;
+  ListOption(
+      {required this.isMyProfile,
+      required this.following,
+      required this.recipes,
+      required this.saved});
   @override
   Widget build(BuildContext context) {
     ScreenUtil _screenUtil = ScreenUtil();
@@ -29,6 +36,8 @@ class ListOption extends StatelessWidget {
       MainCardHeight = _screenUtil.height(70);
       if (isMyProfile == true) {
         buttonWidth = _screenUtil.width(186);
+      } else {
+        buttonWidth = _screenUtil.width(350);
       }
     }
     if (isMyProfile == true) {
@@ -52,7 +61,7 @@ class ListOption extends StatelessWidget {
                       ))),
                       child: Column(
                         children: [
-                          Text("20",
+                          Text(recipes,
                               style: TextStyle(
                                 fontSize: 20,
                                 color: AppColor.primaryBlack,
@@ -73,7 +82,7 @@ class ListOption extends StatelessWidget {
                     onPressed: () {},
                     child: Column(
                       children: [
-                        Text("75",
+                        Text(saved,
                             style: TextStyle(
                               fontSize: 20,
                               color: AppColor.primaryBlack,
@@ -93,7 +102,7 @@ class ListOption extends StatelessWidget {
                     onPressed: () {},
                     child: Column(
                       children: [
-                        Text("248",
+                        Text(following,
                             style: TextStyle(
                               fontSize: 20,
                               color: AppColor.primaryBlack,
@@ -133,7 +142,7 @@ class ListOption extends StatelessWidget {
                       ))),
                       child: Column(
                         children: [
-                          Text("20",
+                          Text(recipes,
                               style: TextStyle(
                                 fontSize: 20,
                                 color: AppColor.primaryBlack,
@@ -154,7 +163,7 @@ class ListOption extends StatelessWidget {
                     onPressed: () {},
                     child: Column(
                       children: [
-                        Text("248",
+                        Text(following,
                             style: TextStyle(
                               fontSize: 20,
                               color: AppColor.primaryBlack,

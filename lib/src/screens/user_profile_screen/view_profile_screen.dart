@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:mobile_app/src/models/user_model.dart';
+import 'package:mobile_app/src/repository/user_data.dart';
 import 'package:mobile_app/src/widgets/custom_button.dart';
 import 'package:mobile_app/src/widgets/user_profile/bottom_navigation.dart';
 
@@ -12,6 +14,17 @@ import '../../constants/constant_text.dart';
 import '../../utils/screen_util.dart';
 
 ScreenUtil _screenUtil = ScreenUtil();
+List<MyProfileModel> userData = user_data
+    .map((user) => MyProfileModel(
+        name: user["name"],
+        role: user["role"],
+        socialMedia: user["social-media"],
+        recipes: user["recipes"],
+        recipeImages: user["recipes-images"],
+        following: user["following"],
+        avatar: user["avatar"],
+        saved: user["saved"]))
+    .toList();
 
 class ViewProfileScreen extends StatelessWidget {
   const ViewProfileScreen({Key? key}) : super(key: key);
@@ -42,7 +55,7 @@ class ViewProfileScreen extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        left: _screenUtil.width(25)),
+                                        left: _screenUtil.width(15)),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -84,8 +97,14 @@ class ViewProfileScreen extends StatelessWidget {
                       height: _screenUtil.height(163),
                       child: Column(
                         children: [
-                          UserInformation(
-                            isMyProfile: false,
+                          Container(
+                            child: UserInformation(
+                                isMyProfile: false,
+                                avatar: userData[0].avatar,
+                                name: userData[0].name,
+                                follower: userData[0].socialMedia[0],
+                                likes: userData[0].socialMedia[1],
+                                role: userData[0].role),
                           ),
                           SizedBox(
                             height: _screenUtil.height(10),
@@ -107,8 +126,11 @@ class ViewProfileScreen extends StatelessWidget {
                     height: _screenUtil.height(13),
                   ),
                   MainCard(
-                    isMyProfile: false,
-                  )
+                      isMyProfile: false,
+                      recipesNumber: userData[0].recipes,
+                      savedNumber: userData[0].saved,
+                      followingNumber: userData[0].following,
+                      image: userData[0].recipeImages)
                 ],
               ),
               Container(
@@ -193,9 +215,20 @@ class ViewProfileScreen extends StatelessWidget {
                   Container(
                     child: Stack(
                       children: [
-                        UserInformation(
-                          isMyProfile: false,
-                        ),
+                        Container(
+                            margin:
+                                EdgeInsets.only(left: _screenUtil.width(25)),
+                            child: UserInformation(
+                                isMyProfile: false,
+                                avatar: userData[0].avatar,
+                                name: userData[0].name,
+                                follower: userData[0].socialMedia[0],
+                                likes: userData[0].socialMedia[1],
+                                role: userData[0].role),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: AppColor.primaryWhite)))),
                         Positioned(
                           top: 0,
                           right: 0,
@@ -212,8 +245,11 @@ class ViewProfileScreen extends StatelessWidget {
                     height: _screenUtil.height(25),
                   ),
                   MainCard(
-                    isMyProfile: false,
-                  )
+                      isMyProfile: false,
+                      recipesNumber: userData[0].recipes,
+                      savedNumber: userData[0].saved,
+                      followingNumber: userData[0].following,
+                      image: userData[0].recipeImages)
                 ],
               ),
               Container(

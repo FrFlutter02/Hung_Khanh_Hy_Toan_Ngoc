@@ -33,6 +33,7 @@ dependencies:
   firebase_auth: ^3.0.1
   firebase_core: ^1.4.0
   cloud_firestore: ^2.4.0
+  flutter_screenutil: ^5.0.0+2
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,9 @@ flutter:
   assets:
     - assets/images/
     - assets/images/user_profile_icon/
+    - assets/images/recipe_book/
+    - assets/images/potato_recipes/
+    - assets/images/icons/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

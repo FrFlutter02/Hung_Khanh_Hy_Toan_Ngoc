@@ -10,7 +10,16 @@ import '../../utils/screen_util.dart';
 class MainCard extends StatelessWidget {
   @override
   bool isMyProfile;
-  MainCard({required this.isMyProfile});
+  String recipesNumber;
+  String followingNumber;
+  String savedNumber;
+  List<String> image;
+  MainCard(
+      {required this.isMyProfile,
+      required this.recipesNumber,
+      required this.followingNumber,
+      required this.savedNumber,
+      required this.image});
   Widget build(BuildContext context) {
     ScreenUtil _screenUtil = ScreenUtil();
     late double MainCardWidth;
@@ -34,13 +43,18 @@ class MainCard extends StatelessWidget {
         children: [
           ListOption(
             isMyProfile: isMyProfile,
+            recipes: recipesNumber,
+            saved: savedNumber,
+            following: followingNumber,
           ),
           Expanded(
               child: GridView.builder(
                   itemCount: 6,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, childAspectRatio: 1.4),
-                  itemBuilder: (context, index) => RecipeCard()))
+                  itemBuilder: (context, index) => RecipeCard(
+                        image: image[index],
+                      )))
         ],
       ),
     );

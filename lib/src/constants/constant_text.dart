@@ -66,6 +66,8 @@ class UserProfileText {
   static const String nav3 = "assets/images/user_profile_icon/nav3.png";
   static const String backIcon = "assets/images/user_profile_icon/back.png";
   static const String editIcon = "assets/images/user_profile_icon/Edit.png";
+  static const String searchIcon = "assets/images/icons/search.png";
+  static const String logo = "assets/images/logo.png";
   static const String moreOption =
       "assets/images/user_profile_icon/MoreOptions.png";
   static const String iconText = "Settings";

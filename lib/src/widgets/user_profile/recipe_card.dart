@@ -6,6 +6,8 @@ import '../../utils/screen_util.dart';
 
 class RecipeCard extends StatelessWidget {
   @override
+  String image;
+  RecipeCard({required this.image});
   Widget build(BuildContext context) {
     ScreenUtil _screenUtil = ScreenUtil();
     late double recipeCardWidth;
@@ -14,17 +16,22 @@ class RecipeCard extends StatelessWidget {
     late double imageHeight;
     late double textWidth;
     late double textHeight;
-
+    late double foodTitleSize;
+    late double verticalPaddingTitle;
     if (Device.get().isPhone) {
       recipeCardWidth = _screenUtil.width(155);
       recipeCardHeight = _screenUtil.width(132);
       imageWidth = _screenUtil.width(155);
       imageHeight = _screenUtil.height(100);
+      foodTitleSize = 16;
+      verticalPaddingTitle = 0;
     } else if (Device.get().isTablet) {
       recipeCardWidth = _screenUtil.width(382);
-      recipeCardHeight = _screenUtil.width(183);
+      recipeCardHeight = _screenUtil.height(183);
       imageWidth = _screenUtil.width(382);
-      imageHeight = _screenUtil.height(139);
+      imageHeight = _screenUtil.height(150);
+      foodTitleSize = 22;
+      verticalPaddingTitle = _screenUtil.height(15);
     }
 
     return Card(
@@ -38,15 +45,19 @@ class RecipeCard extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(8),
                       topLeft: Radius.circular(8)),
-                  color: Colors.amber),
+                  image: DecorationImage(
+                      image: AssetImage(image), fit: BoxFit.fill)),
               width: imageWidth,
               height: imageHeight,
             ),
             Container(
-              alignment: Alignment.center,
-              child: Text(
-                "Foods",
-                style: TextStyle(fontSize: 16, color: AppColor.primaryBlack),
+              padding: EdgeInsets.symmetric(vertical: verticalPaddingTitle),
+              child: Center(
+                child: Text(
+                  "Foods",
+                  style: TextStyle(
+                      fontSize: foodTitleSize, color: AppColor.primaryBlack),
+                ),
               ),
             )
           ],
