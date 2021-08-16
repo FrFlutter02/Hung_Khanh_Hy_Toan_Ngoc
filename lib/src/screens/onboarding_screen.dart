@@ -154,7 +154,7 @@ class OnboardingScreen extends StatelessWidget {
                                           height:
                                               _screenUtil.height(heightButton),
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: null,
                                             child: Text(
                                                 OnboardingTabletText.joinButton,
                                                 style: TextStyle(
@@ -182,7 +182,7 @@ class OnboardingScreen extends StatelessWidget {
                                           height:
                                               _screenUtil.height(heightButton),
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: null,
                                             child: Text(
                                               OnboardingTabletText
                                                   .learnMoreButton,
