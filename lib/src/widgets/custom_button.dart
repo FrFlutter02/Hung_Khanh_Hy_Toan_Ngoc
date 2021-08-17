@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
           value,
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
+              .subtitle1!
               .copyWith(color: AppColor.white),
         ),
         style: ButtonStyle(

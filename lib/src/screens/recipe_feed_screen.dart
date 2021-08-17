@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_app/src/repository.dart';
 
 import '../widgets/outline_icon_button.dart';
 import '../widgets/custom_button.dart';
@@ -11,26 +10,26 @@ import '../constants/constant_text.dart';
 import '../constants/constant_colors.dart';
 import '../widgets/logo.dart';
 
-class RecipeFeed extends StatefulWidget {
-  const RecipeFeed({Key? key}) : super(key: key);
+class RecipeFeedScreen extends StatefulWidget {
+  const RecipeFeedScreen({Key? key}) : super(key: key);
 
   @override
-  _RecipeFeedState createState() => _RecipeFeedState();
+  _RecipeFeedScreenState createState() => _RecipeFeedScreenState();
 }
 
-class _RecipeFeedState extends State<RecipeFeed> {
+class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
   PageController controller = PageController();
   int currentpage = 0;
   bool isTablet = false;
-  double viewPortFraction = 0.85;
+  double viewPortFraction = 0.84;
 
   final boxDecorationStyle = BoxDecoration(
     color: AppColor.white,
     borderRadius: BorderRadius.circular(8.r),
     boxShadow: [
       BoxShadow(
-        color: AppColor.secondaryGrey.withOpacity(0.15),
-        blurRadius: 8,
+        color: AppColor.secondaryGrey.withOpacity(0.1),
+        blurRadius: 15,
         spreadRadius: 10,
         offset: Offset(0, 0),
       ),
@@ -146,12 +145,6 @@ class _RecipeFeedState extends State<RecipeFeed> {
                       },
                     ),
                   ),
-                  Container(
-                    color: Colors.amber,
-                    height: 90.h,
-                    width: double.infinity,
-                    child: Text('BottomNavigationBar'),
-                  )
                 ],
               ),
       ),
@@ -253,8 +246,9 @@ class _RecipeFeedState extends State<RecipeFeed> {
                   child: CardContent(
                     isTablet: false,
                     title: 'Tofu Salad Ginger Garlic',
-                    subtitle:
-                        'I thought this salad was exceptionally delicious and healthy. I recommend pressing the entire tofu block for at least 20 minutes before to remove excess water in the ...',
+                    subtitle: 'I thought this salad was exceptionally delicious ' +
+                        'and healthy. I recommend pressing the entire tofu block ' +
+                        'for at least 20 minutes before to remove excess water in the ...',
                   ),
                 )
               ],
@@ -308,7 +302,7 @@ class CardContent extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.subtitle,
-      this.isTablet = true})
+      this.isTablet = false})
       : super(key: key);
 
   @override
@@ -321,10 +315,9 @@ class CardContent extends StatelessWidget {
             Text(
               title,
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    fontSize: 18.sp,
-                    fontFamily: 'Nunito-SemiBold',
-                    // height: (32 / 18).h
-                  ),
+                  fontSize: 18.sp,
+                  fontFamily: 'Nunito-SemiBold',
+                  height: (1.6).h),
             ),
             IconButtonCustom(
               icons: 'assets/images/icons/like.png',
