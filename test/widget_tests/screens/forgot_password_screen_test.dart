@@ -9,6 +9,7 @@ import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/forgot_password_screen.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
+import 'package:mobile_app/src/widgets/custom_button.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/email_text_field.dart';
 import 'package:mobile_app/src/widgets/logo.dart';
 import 'package:mocktail/mocktail.dart';
@@ -49,24 +50,28 @@ void main() {
         emailErrorMessage: AppText.emailMustNotBeEmptyErrorText));
     await tester.pump();
     var emailTextField = find.byType(EmailTextField);
-    var emailError = (tester.widget<EmailTextField>(emailTextField).errorText);
-    print(emailError);
-    expect(emailError, AppText.emailMustNotBeEmptyErrorText);
+    var emailMustNotEmptyErrorMust =
+        (tester.widget<EmailTextField>(emailTextField).errorText);
+    print(emailMustNotEmptyErrorMust);
+    expect(emailMustNotEmptyErrorMust, AppText.emailMustNotBeEmptyErrorText);
 
     _forgotBloc.emit(ForgotPasswordFailure(
         emailErrorMessage: AppText.emailInvalidErrorText));
     await tester.pump();
-    var emailError1 = (tester.widget<EmailTextField>(emailTextField).errorText);
-    print(emailError1);
-    expect(emailError1, AppText.emailInvalidErrorText);
+    var emaiInvalidlError =
+        (tester.widget<EmailTextField>(emailTextField).errorText);
+    print(emaiInvalidlError);
+    expect(emaiInvalidlError, AppText.emailInvalidErrorText);
 
     _forgotBloc.emit(ForgotPasswordFailure(
         emailErrorMessage: AppText.emailDoesNotExistErrorText));
     await tester.pump();
-    var emailError2 = (tester.widget<EmailTextField>(emailTextField).errorText);
-    print(emailError2);
-    expect(emailError2, AppText.emailDoesNotExistErrorText);
+    var emailNotEmptyError =
+        (tester.widget<EmailTextField>(emailTextField).errorText);
+    print(emailNotEmptyError);
+    expect(emailNotEmptyError, AppText.emailDoesNotExistErrorText);
   });
+
   group('Forgot password mobile', () {
     testWidgets('Should render Logo', (tester) async {
       await tester.pumpWidget(_widget);

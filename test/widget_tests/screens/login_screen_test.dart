@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_event.dart';
@@ -44,7 +45,19 @@ void main() {
       navigatorObservers: [mockObserver],
     ),
   );
-
+  testWidgets('Should render background image', (tester) async {
+    Device.devicePixelRatio = 1;
+    Device.screenWidth = 800;
+    Device.screenHeight = 900;
+    await tester.pumpWidget(_widget);
+    final _boxDecoration = tester
+        .firstWidget<Container>(find.byType(Container))
+        .decoration as BoxDecoration;
+    final _background = _boxDecoration.image as DecorationImage;
+    print(_background.image);
+    expect(_background.image,
+        AssetImage('assets/images/login-signup-background.jpeg'));
+  });
   testWidgets('Should render LoginAndSignupHeader, LoginAndsignupBody',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);

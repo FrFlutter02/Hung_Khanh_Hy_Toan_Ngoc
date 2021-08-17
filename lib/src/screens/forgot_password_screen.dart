@@ -228,10 +228,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                                     width: double.maxFinite,
                                     height: _screenUtil.height(50),
                                     child: CustomButton(
-                                      buttonOnPress: () => context
-                                          .read<ForgotPasswordBloc>()
-                                          .add(ForgotPasswordRequested(
-                                              emailTextEditingController.text)),
+                                      buttonOnPress: () => {
+                                        context.read<ForgotPasswordBloc>().add(
+                                            ForgotPasswordRequested(
+                                                emailTextEditingController
+                                                    .text))
+                                      },
                                       height: 50,
                                       width: Device.screenWidth,
                                       value: ForgotPasswordText.sendButton,
