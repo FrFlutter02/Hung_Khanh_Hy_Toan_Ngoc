@@ -51,7 +51,7 @@ class ItemNewRecipe extends StatelessWidget {
               width: double.infinity,
               child: Container(
                 padding: EdgeInsets.only(
-                    top: 15.h, bottom: 15.h, left: 15.w, right: 5.w),
+                    top: 10.h, bottom: 10.h, left: 15.w, right: 5.w),
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: NewRecipeScreenColor.borderButtonColor),
@@ -59,7 +59,7 @@ class ItemNewRecipe extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 15),
+                      padding: EdgeInsets.only(right: 15.w),
                       child: Icon(
                         Icons.add_outlined,
                         size: 20,
@@ -75,7 +75,7 @@ class ItemNewRecipe extends StatelessWidget {
                           enabledBorder: InputBorder.none,
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 8),
+                          contentPadding: EdgeInsets.symmetric(vertical: 7.h),
                           hintText: hintText,
                         ),
                       ),

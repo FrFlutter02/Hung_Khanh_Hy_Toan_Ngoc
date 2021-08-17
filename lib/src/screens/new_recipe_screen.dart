@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/src/utils/image_picker.dart';
 
+import '../widgets/new_recipe/bottom_sheet_pick_image.dart';
+import '../widgets/new_recipe/item_new_gallery.dart';
 import '../widgets/new_recipe/item_new_ingredients.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
@@ -19,7 +21,13 @@ class NewRecipeScreen extends StatefulWidget {
 
 String dropdownValue = 'Western';
 bool isTablet = false;
-var files;
+List<File> imageGallerys = [];
+var imageMain;
+File imageIngredient = File('');
+int imageOverbalance = 0;
+List<String> listRecipe = ['Western', 'Quick Lunch', 'Vegies'];
+enum ImageType { imageMain, imageForGallery, imageForIngredient }
+ImageType imageType = ImageType.imageMain;
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
   @override
@@ -75,17 +83,22 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                       ),
                       child: InkWell(
                           onTap: () {
+                            imageType = ImageType.imageMain;
                             showModalBottomSheet(
                               context: context,
-                              builder: ((builder) => bottomSheet()),
+                              builder: ((builder) => BottomSheetPickImage(
+                                  photoCamera: () =>
+                                      takePhoto(ImageSource.camera),
+                                  photoGallery: () =>
+                                      takePhoto(ImageSource.gallery))),
                             );
                           },
-                          child: files == null
+                          child: imageMain == null
                               ? Image.asset("assets/images/icons/plus_icon.png")
                               : ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.file(
-                                    File(files.path),
+                                    File(imageMain.path),
                                     fit: BoxFit.fill,
                                   ),
                                 )),
@@ -127,13 +140,31 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                   ],
                 ),
                 SizedBox(height: 10.h),
-                ItemNewRecipe(
-                  label: NewRecipeText.labelGalleryText,
-                  hintText: NewRecipeText.hintGalleryText,
+                ItemNewGallery(
+                  dataImage: imageGallerys,
+                  imageOverbalance: imageOverbalance,
+                  addImageGallery: () {
+                    imageType = ImageType.imageForGallery;
+                    showModalBottomSheet(
+                      context: context,
+                      builder: ((builder) => BottomSheetPickImage(
+                          photoCamera: () => takePhoto(ImageSource.camera),
+                          photoGallery: () => takePhoto(ImageSource.gallery))),
+                    );
+                  },
                 ),
                 ItemNewIngredients(
-                  label: NewRecipeText.labelIngredientsText,
-                  hintText: NewRecipeText.hintIngredientsText,
+                  dataImage: imageIngredient,
+                  addImageIngredient: () {
+                    imageType = ImageType.imageForIngredient;
+                    showModalBottomSheet(
+                      context: context,
+                      builder: ((builder) => BottomSheetPickImage(
+                          photoCamera: () => takePhoto(ImageSource.camera),
+                          photoGallery: () => takePhoto(ImageSource.gallery))),
+                    );
+                  },
+                  resetImageIngredient: resetImageIngredient,
                 ),
                 ItemNewRecipe(
                   label: NewRecipeText.labelHowToCookText,
@@ -172,9 +203,8 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                       ),
                       child: DropdownButton<String>(
                         value: dropdownValue,
-                        icon: const Icon(Icons.expand_more_outlined),
-                        iconSize: 24,
-                        elevation: 16,
+                        icon: Icon(Icons.expand_more_outlined),
+                        iconSize: 23,
                         isExpanded: true,
                         style: const TextStyle(color: AppColor.primaryBlack),
                         underline: SizedBox(),
@@ -183,11 +213,11 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                             dropdownValue = newValue!;
                           });
                         },
-                        items: <String>['Western', 'Quick Lunch', 'Vegies']
+                        items: listRecipe
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text("$value (${listRecipe.length})"),
                           );
                         }).toList(),
                       ),
@@ -220,8 +250,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                       child: TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
-                            backgroundColor: NewRecipeScreenColor
-                                .borderUnderlineTextFieldColor),
+                            backgroundColor: AppColor.green),
                         child: Text(
                           NewRecipeText.postToFeedText,
                           style:
@@ -244,79 +273,27 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
   }
 
   Future takePhoto(ImageSource source) async {
+    if (imageType == ImageType.imageMain) {}
     final file = await ImagePickerUtils.pickMedia(
       source: source,
     );
     if (file == null) return;
-    setState(() => {files = file});
+    setState(() => {
+          if (imageType == ImageType.imageMain)
+            {imageMain = file}
+          else if (imageType == ImageType.imageForGallery)
+            {
+              imageGallerys.add(file),
+              imageOverbalance = imageGallerys.length - 4
+            }
+          else
+            {imageIngredient = file}
+        });
   }
 
-  Widget bottomSheet() {
-    return Container(
-      height: 100.h,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Choose option",
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            InkWell(
-                onTap: () {
-                  takePhoto(ImageSource.camera);
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.camera,
-                        color: AppColor.green,
-                      ),
-                    ),
-                    Text(
-                      "Camera",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    )
-                  ],
-                )),
-            InkWell(
-                onTap: () {
-                  takePhoto(ImageSource.gallery);
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.photo,
-                        color: AppColor.green,
-                      ),
-                    ),
-                    Text(
-                      "Gallery",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    )
-                  ],
-                )),
-          ])
-        ],
-      ),
-    );
+  resetImageIngredient() {
+    setState(() {
+      imageIngredient = File("");
+    });
   }
 }

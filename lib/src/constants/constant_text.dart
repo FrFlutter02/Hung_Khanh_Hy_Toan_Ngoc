@@ -72,4 +72,7 @@ class NewRecipeText {
   static const String postToFeedText = "Post to Feed";
   static const String leadingText = "Back to My Recipes";
   static const String titleText = "Create New Recipe";
+  static const String camera = "Camera";
+  static const String gallery = "Gallery";
+  static const String chooseOption = "Choose option";
 }

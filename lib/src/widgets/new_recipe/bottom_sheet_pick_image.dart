@@ -1,36 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mobile_app/src/utils/image_picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 
 import '../../constants/constant_colors.dart';
 
 class BottomSheetPickImage extends StatelessWidget {
-  const BottomSheetPickImage({Key? key}) : super(key: key);
-
+  const BottomSheetPickImage(
+      {Key? key, required this.photoCamera, required this.photoGallery})
+      : super(key: key);
+  final void Function() photoCamera;
+  final void Function() photoGallery;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
+      height: 100.h,
       width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
       margin: EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: 10,
         vertical: 20,
       ),
       child: Column(
-        children: <Widget>[
+        children: [
           Text(
-            "Choose option",
+            NewRecipeText.chooseOption,
             style: TextStyle(
               fontSize: 20.0,
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             InkWell(
                 onTap: () {
-                  // takePhoto(ImageSource.camera);
+                  photoCamera();
+                  Navigator.pop(context);
                 },
                 child: Row(
                   children: [
@@ -42,14 +49,15 @@ class BottomSheetPickImage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Camera",
-                      style: Theme.of(context).textTheme.bodyText1,
+                      NewRecipeText.camera,
+                      style: Theme.of(context).textTheme.subtitle1,
                     )
                   ],
                 )),
             InkWell(
                 onTap: () {
-                  // takePhoto(ImageSource.gallery);
+                  photoGallery();
+                  Navigator.pop(context);
                 },
                 child: Row(
                   children: [
@@ -61,8 +69,8 @@ class BottomSheetPickImage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Gallery",
-                      style: Theme.of(context).textTheme.bodyText1,
+                      NewRecipeText.gallery,
+                      style: Theme.of(context).textTheme.subtitle1,
                     )
                   ],
                 )),

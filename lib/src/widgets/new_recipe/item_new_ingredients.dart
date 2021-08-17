@@ -1,18 +1,38 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 
+import '../../models/ingredients_model.dart';
 import '../../constants/constant_colors.dart';
 
-class ItemNewIngredients extends StatelessWidget {
+class ItemNewIngredients extends StatefulWidget {
   const ItemNewIngredients({
     Key? key,
-    required this.label,
-    required this.hintText,
+    required this.dataImage,
+    required this.addImageIngredient,
+    required this.resetImageIngredient,
   }) : super(key: key);
-  final String label;
-  final String hintText;
+  final File dataImage;
+  final void Function() addImageIngredient;
+  final void Function() resetImageIngredient;
+
+  @override
+  _ItemNewIngredientsState createState() => _ItemNewIngredientsState();
+}
+
+final List<IngredientModel> ingredientList = [];
+bool checkImage = false;
+final myController = TextEditingController();
+
+class _ItemNewIngredientsState extends State<ItemNewIngredients> {
   @override
   Widget build(BuildContext context) {
+    if (widget.dataImage.path != "") {
+      checkImage = true;
+    } else {
+      checkImage = false;
+    }
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 10.h),
@@ -36,7 +56,7 @@ class ItemNewIngredients extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  label,
+                  NewRecipeText.labelIngredientsText,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         height: 1.37,
                         color: AppColor.primaryBlack,
@@ -46,60 +66,136 @@ class ItemNewIngredients extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20.h),
-            SizedBox(
+            Container(
+              child: Column(
+                children: ingredientList
+                    .map((data) => Container(
+                          height: 50.h,
+                          padding: EdgeInsets.only(left: 15.w, right: 5.w),
+                          margin: EdgeInsets.only(bottom: 10.h),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color:
+                                      NewRecipeScreenColor.borderButtonColor),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(right: 15.w),
+                                child: Icon(
+                                  Icons.add_outlined,
+                                  size: 20,
+                                  color: AppColor.primaryBlack.withOpacity(0.5),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(data.ingredient),
+                              ),
+                              Container(
+                                height: 39.h,
+                                width: 56.w,
+                                decoration: BoxDecoration(
+                                    color: NewRecipeScreenColor
+                                        .buttonIngredientsColor,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: Image.file(
+                                    data.image,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
+            Container(
               height: 50.h,
-              child: Container(
-                padding: EdgeInsets.only(left: 15.w, right: 5.w),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: NewRecipeScreenColor.borderButtonColor),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 15.w),
+              padding: EdgeInsets.only(left: 15.w, right: 5.w),
+              margin: EdgeInsets.only(bottom: 10.h),
+              decoration: BoxDecoration(
+                  border:
+                      Border.all(color: NewRecipeScreenColor.borderButtonColor),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 15.w),
+                    child: InkWell(
+                      onTap: () {
+                        if (myController.text.isNotEmpty && checkImage) {
+                          addIngredient(myController.text, widget.dataImage);
+                          setState(() {
+                            myController.text = "";
+                          });
+                          widget.resetImageIngredient();
+                        }
+                      },
                       child: Icon(
                         Icons.add_outlined,
                         size: 20,
                         color: AppColor.primaryBlack.withOpacity(0.5),
                       ),
                     ),
-                    Expanded(
-                      child: TextField(
-                        cursorColor: AppColor.green,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 7),
-                          hintText: hintText,
-                        ),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      controller: myController,
+                      cursorColor: AppColor.green,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(vertical: 7),
+                        hintText: NewRecipeText.hintIngredientsText,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 39.h,
-                        width: 56.w,
-                        decoration: BoxDecoration(
-                            color: NewRecipeScreenColor.buttonIngredientsColor,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Image.asset(
-                          "assets/images/icons/image_icon.png",
-                          height: 28.w,
-                          width: 28.w,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  Container(
+                    height: 39.h,
+                    width: 56.w,
+                    decoration: BoxDecoration(
+                        color: NewRecipeScreenColor.buttonIngredientsColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: InkWell(
+                      onTap: widget.addImageIngredient,
+                      child: checkImage
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: Image.file(
+                                widget.dataImage,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Image.asset(
+                              "assets/images/icons/image_icon.png",
+                              height: 28.w,
+                              width: 28.w,
+                            ),
+                    ),
+                  )
+                ],
               ),
             )
           ],
         ),
       ),
     );
+  }
+
+  void addIngredient(String textIngredient, File imageIngredient) {
+    final ingredient = IngredientModel(
+      id: DateTime.now().toString(),
+      ingredient: textIngredient,
+      image: imageIngredient,
+    );
+    setState(() {
+      ingredientList.add(ingredient);
+    });
   }
 }
