@@ -1,18 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
-
 import 'package:mobile_app/src/screens/home_screen.dart';
 import 'package:mobile_app/src/screens/recipe_screen.dart';
 import 'package:mobile_app/src/screens/search_screen.dart';
 import 'package:mobile_app/src/screens/user_profile_screen.dart';
-
 import 'package:mocktail/mocktail.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
@@ -51,20 +47,17 @@ void main() {
     );
     await tester.pumpWidget(_widget);
     final bottomNavigationBarFinder = find.byType(BottomNavigationBar);
-
     final _imageFinder = find.descendant(
         of: bottomNavigationBarFinder, matching: find.byType(Image));
-
     final List<Image> _listImage =
         tester.widgetList<Image>(_imageFinder).toList();
-
     expect(_listImage[0].image, imageSearch);
     expect(_listImage[1].image, imageCarosel);
     expect(_listImage[2].image, imageUserProfile);
   });
 
   testWidgets(
-      'Should render icon have correct color AppColor.green and SearchScreen  when tap the Search icon',
+      'Should render icon have correct color AppColor.green and navigate to SearchScreen  when tap the Search icon',
       (tester) async {
     await tester.pumpWidget(_widget);
     await tester.tap(find.text('Search'));
@@ -84,7 +77,7 @@ void main() {
     expect(_listImage[2].color, AppColor.iconText);
   });
   testWidgets(
-      'Should render icon have correct color AppColor.green and SearchScreen when tap the Recipe icon',
+      'Should render icon have correct color AppColor.green and navigate to RecipeScreen when tap the Recipe icon',
       (tester) async {
     await tester.pumpWidget(_widget);
     await tester.tap(find.text('Recipe'));
@@ -103,7 +96,7 @@ void main() {
     expect(_listImage[2].color, AppColor.iconText);
   });
   testWidgets(
-      'Should render icon have correct color AppColor.green and SearchScreen when tap the User profile icon',
+      'Should render icon have correct color AppColor.green and navigate to UserProfileScreen when tap the User profile icon',
       (tester) async {
     await tester.pumpWidget(_widget);
     await tester.tap(find.text('User profile'));

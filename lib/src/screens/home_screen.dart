@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/screens/recipe_screen.dart';
-import 'package:mobile_app/src/screens/search_screen.dart';
-import 'package:mobile_app/src/screens/user_profile_screen.dart';
+import '../../src/constants/constant_colors.dart';
+import '../../src/screens/recipe_screen.dart';
+import '../../src/screens/search_screen.dart';
+import '../../src/screens/user_profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,7 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
     RecipeScreen(),
     UserProfileScreen()
   ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
