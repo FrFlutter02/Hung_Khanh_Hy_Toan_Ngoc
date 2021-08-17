@@ -57,7 +57,9 @@ class ForgotPasswordText {
 }
 
 class RecipeFeedText {
-  static const likes = 'likes';
+  static const likes = 'Likes';
   static const comments = 'Comments';
   static const save = 'Save';
+  static const textButton = 'Create Recipe';
+  static const ofYourFollowersAreOnline = 'of your followers are online';
 }

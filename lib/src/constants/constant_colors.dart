@@ -61,7 +61,7 @@ class GardientColorBackgroundOfOnboarding {
 }
 
 class RecipeFeedColor {
-  static const primaryBlack = Color(0xff030F09);
   static const subtitleCardHeader = Color(0xff767676);
   static const iconColor = Color(0xff363837);
+  static const dividerColor = Color(0xffE6E6E6);
 }

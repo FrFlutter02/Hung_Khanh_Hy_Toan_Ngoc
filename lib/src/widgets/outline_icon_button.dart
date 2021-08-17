@@ -32,7 +32,7 @@ class OutlineIconButton extends StatelessWidget {
               title,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1!
+                  .subtitle2!
                   .copyWith(color: AppColor.green, height: (18 / 14).h),
             )
           ],
