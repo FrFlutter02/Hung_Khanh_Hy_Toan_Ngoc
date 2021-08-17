@@ -70,7 +70,6 @@ void main() {
         tester.widgetList<Image>(_imageFinder).toList();
     final _screenFinder = find.descendant(
         of: find.byType(Center), matching: find.byType(SearchScreen));
-    print(_screenFinder);
     expect(_screenFinder, findsOneWidget);
     expect(_listImage[0].color, AppColor.green);
     expect(_listImage[1].color, AppColor.iconText);
@@ -89,7 +88,6 @@ void main() {
         tester.widgetList<Image>(_imageFinder).toList();
     final _screenFinder = find.descendant(
         of: find.byType(Center), matching: find.byType(RecipeScreen));
-    print(_screenFinder);
     expect(_screenFinder, findsOneWidget);
     expect(_listImage[0].color, AppColor.iconText);
     expect(_listImage[1].color, AppColor.green);
@@ -110,7 +108,6 @@ void main() {
         tester.widgetList<Image>(_imageFinder).toList();
     final _screenFinder = find.descendant(
         of: find.byType(Center), matching: find.byType(UserProfileScreen));
-    print(_screenFinder);
     expect(_screenFinder, findsOneWidget);
     expect(_listImage[0].color, AppColor.iconText);
     expect(_listImage[1].color, AppColor.iconText);
