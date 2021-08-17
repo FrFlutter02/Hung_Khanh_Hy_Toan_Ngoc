@@ -26,7 +26,6 @@ class _SearchBoxState extends State<SearchBox> {
   StreamSubscription? searchStreamSubscription;
   final double circularProgressIndicatorSize = 20.w;
   final double iconSize = 24.w;
-  late FocusNode searchFocusNode;
 
   String searchHintText = SearchScreenText.searchHintText;
 
@@ -41,6 +40,8 @@ class _SearchBoxState extends State<SearchBox> {
 
   EdgeInsets searchTextFieldContentPadding =
       EdgeInsets.symmetric(horizontal: 9.w);
+
+  double searchAndNotificationSizedBoxWidth = 0;
 
   EdgeInsets dropdownPadding =
       EdgeInsets.symmetric(horizontal: 44.w, vertical: 12.h);
@@ -91,7 +92,6 @@ class _SearchBoxState extends State<SearchBox> {
                           child: BlocListener<SearchBloc, SearchState>(
                             listener: (context, _) {},
                             child: TextField(
-                              focusNode: searchFocusNode,
                               onChanged: (text) {
                                 const duration = Duration(milliseconds: 500);
                                 final VoidCallback handleChange = () {
@@ -187,9 +187,9 @@ class _SearchBoxState extends State<SearchBox> {
             ),
           ),
           SizedBox(
-            width: 38.w,
+            width: searchAndNotificationSizedBoxWidth,
           ),
-          CustomNotification(),
+          isTablet ? CustomNotification() : SizedBox.shrink(),
         ],
       ),
     );
@@ -198,7 +198,6 @@ class _SearchBoxState extends State<SearchBox> {
   @override
   void dispose() {
     searchStreamSubscription?.cancel();
-    searchFocusNode.dispose();
     super.dispose();
   }
 
@@ -215,6 +214,8 @@ class _SearchBoxState extends State<SearchBox> {
           Border(bottom: BorderSide(color: AppColor.secondaryGrey));
 
       searchTextFieldContentPadding = EdgeInsets.only(left: 5.w, right: 25.w);
+
+      searchAndNotificationSizedBoxWidth = 38.w;
 
       dropdownPadding = EdgeInsets.zero;
       dropdownMargin = EdgeInsets.symmetric(horizontal: 25.w, vertical: 12.h);
