@@ -13,8 +13,8 @@ class SearchRecipeTextFieldChanged extends SearchEvent {
   const SearchRecipeTextFieldChanged({required this.recipeTextFieldValue});
 }
 
-class SearchRecipeSearchRequested extends SearchEvent {
+class SearchRecipeRequested extends SearchEvent {
   final String searchQuery;
 
-  const SearchRecipeSearchRequested({required this.searchQuery});
+  const SearchRecipeRequested({required this.searchQuery});
 }

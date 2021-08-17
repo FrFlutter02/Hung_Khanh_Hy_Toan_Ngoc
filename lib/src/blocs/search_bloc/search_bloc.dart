@@ -23,14 +23,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             recipeTextFieldValue: recipeTextFieldValue);
         if (recipeTextFieldValue.isNotEmpty) {
           yield SearchFindRecipeInProgress();
-          add(SearchRecipeSearchRequested(searchQuery: recipeTextFieldValue));
+          add(SearchRecipeRequested(searchQuery: recipeTextFieldValue));
         }
         break;
 
-      case SearchRecipeSearchRequested:
+      case SearchRecipeRequested:
         try {
-          final recipes = await searchServices.searcRecipesByName(
-              (event as SearchRecipeSearchRequested).searchQuery);
+          final recipes = await searchServices
+              .searcRecipesByName((event as SearchRecipeRequested).searchQuery);
           yield SearchFindRecipeSuccess(recipes: recipes);
         } catch (e) {
           yield SearchFindRecipeFailure(errorMessage: e.toString());

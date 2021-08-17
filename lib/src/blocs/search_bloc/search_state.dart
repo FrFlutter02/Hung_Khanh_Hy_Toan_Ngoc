@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile_app/src/models/recipe_model.dart';
 
 abstract class SearchState extends Equatable {
   const SearchState();
@@ -18,7 +19,7 @@ class SearchRecipeTextFieldChangeSuccess extends SearchState {
 }
 
 class SearchFindRecipeSuccess extends SearchState {
-  final List<String> recipes;
+  final List<RecipeModel> recipes;
   const SearchFindRecipeSuccess({required this.recipes});
   @override
   List<Object> get props => [recipes];

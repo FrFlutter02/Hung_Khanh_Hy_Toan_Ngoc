@@ -17,7 +17,8 @@ class Searchscreen extends StatefulWidget {
 
 class _SearchscreenState extends State<Searchscreen> {
   EdgeInsets distanceFromSearchBorderTopToNextSection =
-      EdgeInsets.only(top: 36.h);
+      EdgeInsets.only(top: 81.h);
+  double searchAndRecipesDividerHeight = 0;
 
   bool isTablet = Device.get().isTablet;
 
@@ -33,7 +34,7 @@ class _SearchscreenState extends State<Searchscreen> {
                 padding: distanceFromSearchBorderTopToNextSection,
                 children: [
                   Divider(
-                    height: 0.6.h,
+                    height: searchAndRecipesDividerHeight,
                     color: AppColor.secondaryGrey,
                   ),
                 ],
@@ -53,6 +54,7 @@ class _SearchscreenState extends State<Searchscreen> {
   void initState() {
     if (isTablet) {
       distanceFromSearchBorderTopToNextSection = EdgeInsets.only(top: 80.h);
+      searchAndRecipesDividerHeight = 0.6.h;
     }
     super.initState();
   }
