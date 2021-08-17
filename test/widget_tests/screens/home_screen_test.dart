@@ -49,26 +49,22 @@ void main() {
     );
     await tester.pumpWidget(_widget);
     final bottomNavigationBarFinder = find.byType(BottomNavigationBar);
-
     final _imageFinder = find.descendant(
         of: bottomNavigationBarFinder, matching: find.byType(Image));
-
     final List<Image> _listImage =
         tester.widgetList<Image>(_imageFinder).toList();
-
     expect(_listImage[0].image, imageSearch);
     expect(_listImage[1].image, imageCarosel);
     expect(_listImage[2].image, imageUserProfile);
   });
 
   testWidgets(
-      'Should render icon have correct color AppColor.green and SearchScreen  when tap the Search icon',
+      'Should render icon have correct color AppColor.green and render SearchScreen  when tap the Search icon',
       (tester) async {
     await tester.pumpWidget(_widget);
     await tester.tap(find.text('Search'));
     await tester.pump();
     final bottomNavigationBarFinder = find.byType(BottomNavigationBar);
-
     final _imageFinder = find.descendant(
         of: bottomNavigationBarFinder, matching: find.byType(Image));
     final List<Image> _listImage =
@@ -82,7 +78,7 @@ void main() {
     expect(_listImage[2].color, AppColor.iconGrey);
   });
   testWidgets(
-      'Should render icon have correct color AppColor.green and SearchScreen when tap the Recipe icon',
+      'Should render icon have correct color AppColor.green and render Recipecreen when tap the Recipe icon',
       (tester) async {
     await tester.pumpWidget(_widget);
     await tester.tap(find.text('Recipe'));
@@ -101,7 +97,7 @@ void main() {
     expect(_listImage[2].color, AppColor.iconGrey);
   });
   testWidgets(
-      'Should render icon have correct color AppColor.green and SearchScreen when tap the User profile icon',
+      'Should render icon have correct color AppColor.green and render UserProfileScreen when tap the User profile icon',
       (tester) async {
     await tester.pumpWidget(_widget);
     await tester.tap(find.text('User profile'));
