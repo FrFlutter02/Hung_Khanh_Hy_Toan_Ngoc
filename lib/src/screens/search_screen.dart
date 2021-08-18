@@ -16,11 +16,7 @@ class Searchscreen extends StatefulWidget {
 }
 
 class _SearchscreenState extends State<Searchscreen> {
-  EdgeInsets distanceFromSearchBorderTopToNextSection =
-      EdgeInsets.only(top: 81.h);
   double searchAndRecipesDividerHeight = 0;
-
-  bool isTablet = Device.get().isTablet;
 
   @override
   Widget build(BuildContext context) {
@@ -29,21 +25,15 @@ class _SearchscreenState extends State<Searchscreen> {
       body: SafeArea(
         child: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
-            return Stack(children: [
-              ListView(
-                padding: distanceFromSearchBorderTopToNextSection,
-                children: [
-                  Divider(
-                    height: searchAndRecipesDividerHeight,
-                    color: AppColor.secondaryGrey,
-                  ),
-                ],
-              ),
-              SearchBox(
-                recipesByName:
-                    state is SearchFindRecipeSuccess ? state.recipes : [],
-              ),
-            ]);
+            return ListView(
+              children: [
+                SearchBox(),
+                Divider(
+                  height: searchAndRecipesDividerHeight,
+                  color: AppColor.secondaryGrey,
+                ),
+              ],
+            );
           },
         ),
       ),
@@ -52,8 +42,7 @@ class _SearchscreenState extends State<Searchscreen> {
 
   @override
   void initState() {
-    if (isTablet) {
-      distanceFromSearchBorderTopToNextSection = EdgeInsets.only(top: 80.h);
+    if (Device.get().isTablet) {
       searchAndRecipesDividerHeight = 0.6.h;
     }
     super.initState();
