@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
+        color: AppColor.white,
         height: _screenUtil.height(90),
         child: BottomNavigationBar(
           showSelectedLabels: false,
