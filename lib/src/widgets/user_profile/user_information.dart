@@ -27,7 +27,7 @@ class UserInformation extends StatelessWidget {
 
     if (Device.get().isPhone) {
       UserInformationWidth = _screenUtil.width(325);
-      UserInformationHeight = _screenUtil.height(90);
+
       if (isMyProfile) {
         UserInformationHeight = _screenUtil.height(108);
       } else {
@@ -35,7 +35,7 @@ class UserInformation extends StatelessWidget {
       }
     } else {
       UserInformationWidth = _screenUtil.width(718);
-      UserInformationHeight = _screenUtil.height(113);
+      UserInformationHeight = _screenUtil.height(100);
     }
     return Container(
       width: UserInformationWidth,

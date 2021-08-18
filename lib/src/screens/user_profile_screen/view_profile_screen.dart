@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/models/user_model.dart';
-import 'package:mobile_app/src/repository/user_data.dart';
-import 'package:mobile_app/src/widgets/custom_button.dart';
-import 'package:mobile_app/src/widgets/user_profile/bottom_navigation.dart';
 
+import '../../models/user_model.dart';
+import '../../repository/user_data.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/notification_user.dart';
+import '../../widgets/user_profile/bottom_navigation.dart';
 import '../../widgets/user_profile/user_information.dart';
 import '../../widgets/user_profile/main_card.dart';
 import '../../widgets/user_profile/recipe_card.dart';
@@ -154,9 +155,7 @@ class ViewProfileScreen extends StatelessWidget {
                   SizedBox(
                     height: _screenUtil.height(24),
                   ),
-                  SizedBox(
-                    height: _screenUtil.width(80),
-                  ),
+                  NotificationUser(avatar: userData[0].avatar),
                   SizedBox(
                     height: _screenUtil.height(25),
                   ),
@@ -169,27 +168,32 @@ class ViewProfileScreen extends StatelessWidget {
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsets.only(left: _screenUtil.width(25)),
+                                  EdgeInsets.only(left: _screenUtil.width(5)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    height: _screenUtil.height(32),
-                                    width: _screenUtil.width(32),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                UserProfileText.backIcon))),
-                                  ),
                                   TextButton(
                                     onPressed: () {},
-                                    child: Text(
-                                      UserProfileText.back,
-                                      style: TextStyle(
-                                          color: AppColor.primaryBlack,
-                                          fontSize: 16),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: _screenUtil.height(32),
+                                          width: _screenUtil.width(20),
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      UserProfileText
+                                                          .backIcon))),
+                                        ),
+                                        Text(
+                                          UserProfileText.back,
+                                          style: TextStyle(
+                                              color: AppColor.primaryBlack,
+                                              fontSize: 16),
+                                        )
+                                      ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

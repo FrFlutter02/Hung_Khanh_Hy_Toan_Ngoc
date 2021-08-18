@@ -9,7 +9,6 @@ import '../../widgets/user_profile/bottom_navigation.dart';
 
 import '../../widgets/user_profile/user_information.dart';
 import '../../widgets/user_profile/main_card.dart';
-import '../../widgets/user_profile/recipe_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../utils/screen_util.dart';
@@ -149,36 +148,7 @@ class MyProfileScreen extends StatelessWidget {
                   SizedBox(
                     height: _screenUtil.height(24),
                   ),
-                  Container(
-                    height: _screenUtil.height(80),
-                    width: _screenUtil.width(768),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: AppColor.primaryWhite))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: _screenUtil.height(32),
-                          width: _screenUtil.width(32),
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage(UserProfileText.searchIcon))),
-                        ),
-                        Container(
-                          height: _screenUtil.height(32),
-                          width: _screenUtil.width(102),
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(UserProfileText.logo))),
-                        ),
-                        // NotificationUser(
-                        //   avatar: userData[0].avatar,
-                        // )
-                      ],
-                    ),
-                  ),
+                  NotificationUser(avatar: userData[0].avatar),
                   SizedBox(
                     height: _screenUtil.height(25),
                   ),
@@ -195,21 +165,26 @@ class MyProfileScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    height: _screenUtil.height(32),
-                                    width: _screenUtil.width(32),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                UserProfileText.backIcon))),
-                                  ),
                                   TextButton(
                                     onPressed: () {},
-                                    child: Text(
-                                      UserProfileText.back,
-                                      style: TextStyle(
-                                          color: AppColor.primaryBlack,
-                                          fontSize: 16),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: _screenUtil.height(32),
+                                          width: _screenUtil.width(20),
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      UserProfileText
+                                                          .backIcon))),
+                                        ),
+                                        Text(
+                                          UserProfileText.back,
+                                          style: TextStyle(
+                                              color: AppColor.primaryBlack,
+                                              fontSize: 16),
+                                        )
+                                      ],
                                     ),
                                   )
                                 ],

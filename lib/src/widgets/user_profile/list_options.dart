@@ -33,7 +33,7 @@ class ListOption extends StatelessWidget {
       }
     } else {
       MainCardWidth = _screenUtil.width(718);
-      MainCardHeight = _screenUtil.height(70);
+      MainCardHeight = _screenUtil.height(80);
       if (isMyProfile == true) {
         buttonWidth = _screenUtil.width(186);
       } else {
@@ -44,6 +44,7 @@ class ListOption extends StatelessWidget {
       return Container(
         height: MainCardHeight,
         width: MainCardWidth,
+        alignment: Alignment.center,
         child: Column(
           children: [
             Row(
@@ -76,43 +77,49 @@ class ListOption extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: buttonWidth,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      children: [
-                        Text(saved,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColor.primaryBlack,
-                            )),
-                        Text("Saved",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColor.primaryBlack,
-                            )),
-                      ],
+                Opacity(
+                  opacity: 0.4,
+                  child: Container(
+                    width: buttonWidth,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Column(
+                        children: [
+                          Text(saved,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: AppColor.primaryBlack,
+                              )),
+                          Text("Saved",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColor.primaryBlack,
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Container(
                   width: buttonWidth,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      children: [
-                        Text(following,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColor.primaryBlack,
-                            )),
-                        Text("Following",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColor.primaryBlack,
-                            )),
-                      ],
+                  child: Opacity(
+                    opacity: 0.4,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Column(
+                        children: [
+                          Text(following,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: AppColor.primaryBlack,
+                              )),
+                          Text("Following",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColor.primaryBlack,
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -157,23 +164,26 @@ class ListOption extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: buttonWidth,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      children: [
-                        Text(following,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColor.primaryBlack,
-                            )),
-                        Text("Following",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColor.primaryBlack,
-                            )),
-                      ],
+                Opacity(
+                  opacity: 0.4,
+                  child: Container(
+                    width: buttonWidth,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Column(
+                        children: [
+                          Text(following,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: AppColor.primaryBlack,
+                              )),
+                          Text("Following",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColor.primaryBlack,
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 )
