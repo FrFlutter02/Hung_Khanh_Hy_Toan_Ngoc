@@ -57,6 +57,8 @@ class ForgotPasswordText {
 }
 
 class SearchScreenText {
-  static const searchHintText = 'Sweets';
-  static const searchHintTextTablet = 'Search Recipe, Profile, or Ingredients';
+  static const String searchHintText = 'Sweets';
+  static const String searchHintTextTablet =
+      'Search Recipe, Profile, or Ingredients';
+  static const String searchFailureMessage = 'No result was found';
 }
