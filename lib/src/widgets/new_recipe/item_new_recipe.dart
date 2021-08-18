@@ -46,42 +46,40 @@ class ItemNewRecipe extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20.h),
-            SizedBox(
+            Container(
               height: 50.h,
               width: double.infinity,
-              child: Container(
-                padding: EdgeInsets.only(
-                    top: 10.h, bottom: 10.h, left: 15.w, right: 5.w),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: NewRecipeScreenColor.borderButtonColor),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 15.w),
-                      child: Icon(
-                        Icons.add_outlined,
-                        size: 20,
-                        color: AppColor.primaryBlack.withOpacity(0.5),
+              padding: EdgeInsets.only(
+                  top: 10.h, bottom: 10.h, left: 15.w, right: 5.w),
+              decoration: BoxDecoration(
+                  border:
+                      Border.all(color: NewRecipeScreenColor.borderButtonColor),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 15.w),
+                    child: Icon(
+                      Icons.add_outlined,
+                      size: 20,
+                      color: AppColor.primaryBlack.withOpacity(0.5),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      cursorColor: AppColor.green,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(vertical: 7.h),
+                        hintText: hintText,
                       ),
                     ),
-                    Expanded(
-                      child: TextField(
-                        cursorColor: AppColor.green,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 7.h),
-                          hintText: hintText,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             )
           ],

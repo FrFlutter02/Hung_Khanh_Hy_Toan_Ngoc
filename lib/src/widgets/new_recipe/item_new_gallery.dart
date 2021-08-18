@@ -11,16 +11,17 @@ class ItemNewGallery extends StatelessWidget {
     Key? key,
     required this.dataImage,
     required this.addImageGallery,
-    required this.imageOverbalance,
   }) : super(key: key);
   final List<File> dataImage;
-  final int imageOverbalance;
+
   final void Function() addImageGallery;
   @override
   Widget build(BuildContext context) {
     List<File> listImage = [];
     listImage.addAll(dataImage);
+    int imageOverbalance = 0;
     if (listImage.length > 4) {
+      imageOverbalance = listImage.length - 4;
       listImage.removeRange(4, listImage.length);
     }
 

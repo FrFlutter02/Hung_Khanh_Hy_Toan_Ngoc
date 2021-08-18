@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/src/utils/image_picker.dart';
 
+import '../widgets/new_recipe/item_new_how_to_cook.dart';
 import '../widgets/new_recipe/bottom_sheet_pick_image.dart';
 import '../widgets/new_recipe/item_new_gallery.dart';
 import '../widgets/new_recipe/item_new_ingredients.dart';
@@ -24,7 +25,6 @@ bool isTablet = false;
 List<File> imageGallerys = [];
 var imageMain;
 File imageIngredient = File('');
-int imageOverbalance = 0;
 List<String> listRecipe = ['Western', 'Quick Lunch', 'Vegies'];
 enum ImageType { imageMain, imageForGallery, imageForIngredient }
 ImageType imageType = ImageType.imageMain;
@@ -142,7 +142,6 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 SizedBox(height: 10.h),
                 ItemNewGallery(
                   dataImage: imageGallerys,
-                  imageOverbalance: imageOverbalance,
                   addImageGallery: () {
                     imageType = ImageType.imageForGallery;
                     showModalBottomSheet(
@@ -166,10 +165,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                   },
                   resetImageIngredient: resetImageIngredient,
                 ),
-                ItemNewRecipe(
-                  label: NewRecipeText.labelHowToCookText,
-                  hintText: NewRecipeText.hintHowToCookText,
-                ),
+                ItemNewHowToCook(),
                 ItemNewRecipe(
                   label: NewRecipeText.labelAdditionalInfoText,
                   hintText: NewRecipeText.hintAdditionalInfoText,
@@ -273,22 +269,30 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
   }
 
   Future takePhoto(ImageSource source) async {
-    if (imageType == ImageType.imageMain) {}
-    final file = await ImagePickerUtils.pickMedia(
-      source: source,
-    );
-    if (file == null) return;
-    setState(() => {
-          if (imageType == ImageType.imageMain)
-            {imageMain = file}
-          else if (imageType == ImageType.imageForGallery)
-            {
-              imageGallerys.add(file),
-              imageOverbalance = imageGallerys.length - 4
-            }
-          else
-            {imageIngredient = file}
-        });
+    if (imageType == ImageType.imageForGallery &&
+        source == ImageSource.gallery) {
+      final images = await ImagePicker().pickMultiImage();
+      List<File> listImage = [];
+      images!.map((e) => listImage.add(File(e.path))).toList();
+      setState(() {
+        return imageGallerys.addAll(listImage);
+      });
+    } else {
+      final file = await ImagePickerUtils.pickMedia(
+        source: source,
+      );
+      if (file == null) return;
+      setState(() => {
+            if (imageType == ImageType.imageMain)
+              {imageMain = file}
+            else if (imageType == ImageType.imageForGallery)
+              {
+                imageGallerys.add(file),
+              }
+            else
+              {imageIngredient = file}
+          });
+    }
   }
 
   resetImageIngredient() {

@@ -22,8 +22,8 @@ class ItemNewIngredients extends StatefulWidget {
 }
 
 final List<IngredientModel> ingredientList = [];
+final addIngredientController = TextEditingController();
 bool checkImage = false;
-final myController = TextEditingController();
 
 class _ItemNewIngredientsState extends State<ItemNewIngredients> {
   @override
@@ -101,7 +101,7 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
                                   child: Image.file(
-                                    data.image,
+                                    File(data.image.path),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -126,10 +126,12 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                     padding: EdgeInsets.only(right: 15.w),
                     child: InkWell(
                       onTap: () {
-                        if (myController.text.isNotEmpty && checkImage) {
-                          addIngredient(myController.text, widget.dataImage);
+                        if (addIngredientController.text.isNotEmpty &&
+                            checkImage) {
+                          addIngredient(
+                              addIngredientController.text, widget.dataImage);
                           setState(() {
-                            myController.text = "";
+                            addIngredientController.text = "";
                           });
                           widget.resetImageIngredient();
                         }
@@ -143,7 +145,7 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                   ),
                   Expanded(
                     child: TextField(
-                      controller: myController,
+                      controller: addIngredientController,
                       cursorColor: AppColor.green,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -168,7 +170,7 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(6),
                               child: Image.file(
-                                widget.dataImage,
+                                File(widget.dataImage.path),
                                 fit: BoxFit.cover,
                               ),
                             )

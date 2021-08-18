@@ -75,4 +75,5 @@ class NewRecipeText {
   static const String camera = "Camera";
   static const String gallery = "Gallery";
   static const String chooseOption = "Choose option";
+  static const String stepHintText = "Add step";
 }
