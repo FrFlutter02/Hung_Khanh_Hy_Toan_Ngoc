@@ -5,14 +5,14 @@ import '../../src/screens/recipe_screen.dart';
 import '../../src/screens/search_screen.dart';
 import '../../src/screens/user_profile_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class NavigationScreen extends StatefulWidget {
+  const NavigationScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NavigationScreenState extends State<NavigationScreen> {
   final ScreenUtil _screenUtil = ScreenUtil();
   int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[
