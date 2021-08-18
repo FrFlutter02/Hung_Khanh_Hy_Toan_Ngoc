@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/services/search_services.dart';
 
 import 'search_event.dart';
@@ -31,11 +32,22 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         try {
           final recipes = await searchServices
               .searcRecipesByName((event as SearchRecipeRequested).searchQuery);
-          yield SearchFindRecipeSuccess(recipes: recipes);
+          if (recipes.isNotEmpty) {
+            yield SearchFindRecipeSuccess(recipes: recipes);
+          } else {
+            yield SearchFindRecipeFailure(
+                failureMessage: SearchScreenText.searchFailureMessage);
+          }
         } catch (e) {
-          yield SearchFindRecipeFailure(errorMessage: e.toString());
+          yield SearchFindRecipeFailure(failureMessage: e.toString());
         }
         break;
     }
+  }
+
+  @override
+  void onChange(Change<SearchState> change) {
+    print(change);
+    super.onChange(change);
   }
 }

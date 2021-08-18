@@ -26,10 +26,10 @@ class SearchFindRecipeSuccess extends SearchState {
 }
 
 class SearchFindRecipeFailure extends SearchState {
-  final String errorMessage;
-  const SearchFindRecipeFailure({required this.errorMessage});
+  final String failureMessage;
+  const SearchFindRecipeFailure({required this.failureMessage});
   @override
-  List<Object> get props => [errorMessage];
+  List<Object> get props => [failureMessage];
 }
 
 class SearchFindRecipeInProgress extends SearchState {}
