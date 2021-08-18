@@ -28,7 +28,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     borderRadius: BorderRadius.circular(8.r),
     boxShadow: [
       BoxShadow(
-        color: AppColor.secondaryGrey.withOpacity(0.1),
+        color: AppColor.secondaryGrey.withOpacity(0.12),
         blurRadius: 15,
         spreadRadius: 10,
         offset: Offset(0, 0),
@@ -136,12 +136,14 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       controller: controller,
                       itemBuilder: (context, index) {
                         return Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.w, vertical: 39.h),
-                          child: recipeCardMobile(
-                            context,
-                          ),
-                        );
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 39.h),
+                            child: index == currentpage
+                                ? recipeCardMobile(context)
+                                : Opacity(
+                                    opacity: 0.5,
+                                    child: recipeCardMobile(context),
+                                  ));
                       },
                     ),
                   ),
@@ -155,17 +157,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     return Container(
       width: 195.w,
       decoration: boxDecorationStyle,
-      // decoration: BoxDecoration(
-      //   borderRadius: BorderRadius.circular(8.r),
-      //   boxShadow: [
-      //     BoxShadow(
-      //       color: AppColor.secondaryGrey.withOpacity(0.15),
-      //       blurRadius: 6,
-      //       spreadRadius: 6,
-      //       offset: Offset(0, 0),
-      //     ),
-      //   ],
-      // ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -368,3 +359,64 @@ class CardContent extends StatelessWidget {
     );
   }
 }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(),
+//       body: Center(
+//         child: SizedBox(
+//           child: PageView.builder(
+//             itemCount: 10,
+//             controller: PageController(viewportFraction: 0.64),
+//             onPageChanged: (int index) => setState(() => currentpage = index),
+//             itemBuilder: (_, i) {
+//               return Padding(
+//                 padding: EdgeInsets.symmetric(horizontal: 10.w),
+//                 child: Card(
+//                     elevation: 6,
+//                     // color: i == currentpage ? Colors.amber : Colors.blue,
+//                     shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(20)),
+//                     child: i == currentpage
+//                         ? Container(
+//                             decoration: BoxDecoration(
+//                               borderRadius: BorderRadius.only(
+//                                 topLeft: Radius.circular(8.r),
+//                                 topRight: Radius.circular(8.r),
+//                               ),
+//                               image: DecorationImage(
+//                                 fit: BoxFit.cover,
+//                                 image: AssetImage(
+//                                     'assets/images/recipe_book/dau.jpg'),
+//                               ),
+//                             ),
+//                             width: Device.screenWidth,
+//                             height: 396.h,
+//                           )
+//                         : Opacity(
+//                             opacity: 0.25,
+//                             child: Container(
+//                               decoration: BoxDecoration(
+//                                 borderRadius: BorderRadius.only(
+//                                   topLeft: Radius.circular(8.r),
+//                                   topRight: Radius.circular(8.r),
+//                                 ),
+//                                 image: DecorationImage(
+//                                   fit: BoxFit.cover,
+//                                   image: AssetImage(
+//                                       'assets/images/recipe_book/dau.jpg'),
+//                                 ),
+//                               ),
+//                               width: Device.screenWidth,
+//                               height: 396.h,
+//                             ),
+//                           )),
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
