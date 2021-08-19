@@ -7,7 +7,7 @@ import 'package:mobile_app/src/widgets/custom_notification.dart';
 import '../blocs/search_bloc/search_bloc.dart';
 import '../blocs/search_bloc/search_state.dart';
 import '../constants/constant_colors.dart';
-import '../widgets/search/search_box.dart';
+import '../widgets/search/search_bar.dart';
 
 class Searchscreen extends StatefulWidget {
   const Searchscreen({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class _SearchscreenState extends State<Searchscreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SearchBox(),
+                      SearchBar(),
                       Expanded(
                         child: SizedBox.shrink(),
                       ),

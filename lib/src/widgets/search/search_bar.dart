@@ -12,14 +12,14 @@ import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../models/recipe_model.dart';
 
-class SearchBox extends StatefulWidget {
-  SearchBox({Key? key}) : super(key: key);
+class SearchBar extends StatefulWidget {
+  SearchBar({Key? key}) : super(key: key);
 
   @override
-  _SearchBoxState createState() => _SearchBoxState();
+  _SearchBarState createState() => _SearchBarState();
 }
 
-class _SearchBoxState extends State<SearchBox> {
+class _SearchBarState extends State<SearchBar> {
   final double circularProgressIndicatorSize = 20.w;
   final double iconSize = 24.w;
   late FocusNode searchFocusNode;

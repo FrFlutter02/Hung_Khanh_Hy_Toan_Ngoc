@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
 import 'package:mobile_app/src/screens/search_screen.dart';
 import 'package:mobile_app/src/services/search_services.dart';
-import 'package:mobile_app/src/widgets/search/search_box.dart';
+import 'package:mobile_app/src/widgets/search/search_bar.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../cloud_firestore_mock.dart';
@@ -30,7 +30,7 @@ void main() {
 
   testWidgets('Should render a SearchBox', (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    expect(find.byType(SearchBox), findsOneWidget);
+    expect(find.byType(SearchBar), findsOneWidget);
   });
 
   testWidgets('Should render Dividers adequately', (WidgetTester tester) async {
