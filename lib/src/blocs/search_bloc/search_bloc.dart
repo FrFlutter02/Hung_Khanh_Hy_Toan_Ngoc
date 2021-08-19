@@ -36,10 +36,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             yield SearchRecipeSuccess(recipes: recipes);
           } else {
             yield SearchRecipeFailure(
-                failureMessage: SearchScreenText.searchFailureMessage);
+                failureMessage: SearchScreenText.searchNoResultMessage);
           }
         } catch (e) {
-          yield SearchRecipeFailure(failureMessage: e.toString());
+          yield SearchRecipeFailure(
+              failureMessage: SearchScreenText.searchErrorMessage);
         }
         break;
     }

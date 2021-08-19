@@ -60,5 +60,6 @@ class SearchScreenText {
   static const String searchHintText = 'Sweets';
   static const String searchHintTextTablet =
       'Search Recipe, Profile, or Ingredients';
-  static const String searchFailureMessage = 'No result was found';
+  static const String searchNoResultMessage = 'No result was found';
+  static const String searchErrorMessage = 'An error has occured';
 }
