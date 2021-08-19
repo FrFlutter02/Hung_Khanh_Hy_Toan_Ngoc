@@ -181,7 +181,7 @@ class MyProfileScreen extends StatelessWidget {
                                         Text(
                                           UserProfileText.back,
                                           style: TextStyle(
-                                              color: AppColor.primaryBlack,
+                                              color: AppColor.grey,
                                               fontSize: 16),
                                         )
                                       ],
