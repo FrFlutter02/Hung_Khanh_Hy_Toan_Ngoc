@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'screens/new_recipe_screen.dart';
 import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import '../src/blocs/login_bloc/login_bloc.dart';
@@ -40,6 +41,8 @@ class App extends StatelessWidget {
               create: (context) => LoginBloc(userServices: userServices)),
           BlocProvider(
               create: (context) => SignupBloc(userServices: userServices)),
+          BlocProvider(
+              create: (context) => NewRecipeBloc(userServices: userServices)),
         ],
         child: MaterialApp(
           theme: ThemeData(fontFamily: "Nunito-Regular"),

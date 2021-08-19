@@ -59,7 +59,6 @@ class ItemNewGallery extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             Container(
-              // height: galleryHeight,
               child: StaggeredGridView.countBuilder(
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
@@ -76,6 +75,7 @@ class ItemNewGallery extends StatelessWidget {
                             File(listImage[index].path),
                             fit: BoxFit.cover,
                             height: double.infinity,
+                            width: double.infinity,
                           ),
                         ),
                         Center(

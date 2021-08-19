@@ -76,4 +76,8 @@ class NewRecipeText {
   static const String gallery = "Gallery";
   static const String chooseOption = "Choose option";
   static const String stepHintText = "Add step";
+  static const String saveInfoText = "Save info";
+  static const String tagsText = "Tags";
+  static const String nutritionFactText = "Nutrition Fact";
+  static const String servingTimeText = "Serving Time (±)";
 }
