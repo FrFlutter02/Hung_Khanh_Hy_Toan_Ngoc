@@ -222,7 +222,10 @@ class _SearchBoxState extends State<SearchBox> {
     }
 
     if (searchState is SearchFindRecipeFailure) {
-      return Text(searchState.failureMessage);
+      return Text(
+        searchState.failureMessage,
+        style: TextStyle(color: AppColor.secondaryGrey),
+      );
     }
   }
 
@@ -275,7 +278,7 @@ class _SearchBoxState extends State<SearchBox> {
                   decoration: BoxDecoration(
                       color: AppColor.white,
                       border: Border.all(
-                        color: AppColor.green,
+                        color: AppColor.secondaryGrey,
                       )),
                   width: 0.7109.sw,
                   padding: recipesByName.isNotEmpty ||
