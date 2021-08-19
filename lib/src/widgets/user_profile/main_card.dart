@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/widgets/user_profile/list_options.dart';
 
+import 'list_options.dart';
 import 'recipe_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
