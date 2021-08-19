@@ -11,7 +11,6 @@ import '../../blocs/search_bloc/search_state.dart';
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../models/recipe_model.dart';
-import '../../widgets/custom_notification.dart';
 
 class SearchBox extends StatefulWidget {
   SearchBox({Key? key}) : super(key: key);
@@ -26,9 +25,9 @@ class _SearchBoxState extends State<SearchBox> {
   late FocusNode searchFocusNode;
 
   double searchContainerBoxShadowOpacity = 0.2;
+  double searchContainerWidth = 1.sw;
   double searchAndNotificationSizedBoxWidth = 0;
   BorderSide searchContainerBottomBorder = BorderSide(width: 0);
-  EdgeInsets searchBoxPadding = EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 24.h);
   EdgeInsets searchTextFieldContainerPadding = EdgeInsets.all(11.w);
   EdgeInsets searchTextFieldContentPadding =
       EdgeInsets.symmetric(horizontal: 9.w);
@@ -46,95 +45,90 @@ class _SearchBoxState extends State<SearchBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: searchBoxPadding,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 0.7109.sw,
-            decoration: BoxDecoration(
-              color: AppColor.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.secondaryGrey
-                      .withOpacity(searchContainerBoxShadowOpacity),
-                  blurRadius: 12,
-                  spreadRadius: 8,
-                  offset: Offset(0, 0),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: searchTextFieldContainerPadding,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: searchContainerBottomBorder,
-                    ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: searchContainerWidth,
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: AppColor.secondaryGrey
+                    .withOpacity(searchContainerBoxShadowOpacity),
+                blurRadius: 12,
+                spreadRadius: 8,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: searchTextFieldContainerPadding,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: searchContainerBottomBorder,
                   ),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/icons/search_icon.png',
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/images/icons/search_icon.png',
+                      width: iconSize,
+                      height: iconSize,
+                      color: AppColor.iconText,
+                    ),
+                    Expanded(
+                      child: BlocListener<SearchBloc, SearchState>(
+                        listener: (context, _) {},
+                        child: TextField(
+                          controller: searchTextEditingController,
+                          focusNode: searchFocusNode,
+                          onChanged: (text) {
+                            const duration = Duration(milliseconds: 500);
+                            final VoidCallback handleChange = () {
+                              context.read<SearchBloc>().add(
+                                  SearchTextFieldChanged(
+                                      recipeTextFieldValue: text));
+                            };
+                            if (_searchTimer != null) {
+                              setState(() => _searchTimer!.cancel());
+                            }
+                            setState(() =>
+                                _searchTimer = Timer(duration, handleChange));
+                          },
+                          style: TextStyle(color: AppColor.primaryBlack),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: searchTextFieldContentPadding,
+                            hintText: searchHintText,
+                            hintStyle: TextStyle(
+                              color: AppColor.secondaryGrey,
+                            ),
+                            isDense: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: Image.asset(
+                        'assets/images/icons/filter_icon.png',
                         width: iconSize,
                         height: iconSize,
                         color: AppColor.iconText,
                       ),
-                      Expanded(
-                        child: BlocListener<SearchBloc, SearchState>(
-                          listener: (context, _) {},
-                          child: TextField(
-                            controller: searchTextEditingController,
-                            focusNode: searchFocusNode,
-                            onChanged: (text) {
-                              const duration = Duration(milliseconds: 500);
-                              final VoidCallback handleChange = () {
-                                context.read<SearchBloc>().add(
-                                    SearchTextFieldChanged(
-                                        recipeTextFieldValue: text));
-                              };
-                              if (_searchTimer != null) {
-                                setState(() => _searchTimer!.cancel());
-                              }
-                              setState(() =>
-                                  _searchTimer = Timer(duration, handleChange));
-                            },
-                            style: TextStyle(color: AppColor.primaryBlack),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: searchTextFieldContentPadding,
-                              hintText: searchHintText,
-                              hintStyle: TextStyle(
-                                color: AppColor.secondaryGrey,
-                              ),
-                              isDense: true,
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        child: Image.asset(
-                          'assets/images/icons/filter_icon.png',
-                          width: iconSize,
-                          height: iconSize,
-                          color: AppColor.iconText,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Expanded(child: SizedBox()),
-          customNotificationWidget
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -149,15 +143,14 @@ class _SearchBoxState extends State<SearchBox> {
     if (Device.get().isTablet) {
       searchContainerBoxShadowOpacity = 0;
       searchAndNotificationSizedBoxWidth = 38.w;
+      searchContainerWidth = 0.7109.sw;
       searchContainerBottomBorder =
           BorderSide(width: 1.w, color: AppColor.secondaryGrey);
-      searchBoxPadding = EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 20);
       searchTextFieldContainerPadding = EdgeInsets.only(top: 7.h, bottom: 7.h);
       searchTextFieldContentPadding = EdgeInsets.only(left: 5.w, right: 25.w);
       dropdownMargin = EdgeInsets.only(left: 25.w);
       dropdownPadding = EdgeInsets.fromLTRB(29.w, 12.h, 29.w, 12.h);
       searchHintText = SearchScreenText.searchHintTextTablet;
-      customNotificationWidget = CustomNotification();
     }
 
     searchStreamSubscription =
