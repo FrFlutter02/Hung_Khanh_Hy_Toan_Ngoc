@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
