@@ -10,26 +10,25 @@ abstract class SearchState extends Equatable {
 
 class SearchInitial extends SearchState {}
 
-class SearchRecipeTextFieldChangeSuccess extends SearchState {
+class SearchTextFieldChangeSuccess extends SearchState {
   final String recipeTextFieldValue;
-  const SearchRecipeTextFieldChangeSuccess(
-      {required this.recipeTextFieldValue});
+  const SearchTextFieldChangeSuccess({required this.recipeTextFieldValue});
   @override
   List<Object> get props => [recipeTextFieldValue];
 }
 
-class SearchFindRecipeSuccess extends SearchState {
+class SearchRecipeInProgress extends SearchState {}
+
+class SearchRecipeSuccess extends SearchState {
   final List<RecipeModel> recipes;
-  const SearchFindRecipeSuccess({required this.recipes});
+  const SearchRecipeSuccess({required this.recipes});
   @override
   List<Object> get props => [recipes];
 }
 
-class SearchFindRecipeFailure extends SearchState {
+class SearchRecipeFailure extends SearchState {
   final String failureMessage;
-  const SearchFindRecipeFailure({required this.failureMessage});
+  const SearchRecipeFailure({required this.failureMessage});
   @override
   List<Object> get props => [failureMessage];
 }
-
-class SearchFindRecipeInProgress extends SearchState {}

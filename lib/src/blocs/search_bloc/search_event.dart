@@ -7,10 +7,10 @@ abstract class SearchEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SearchRecipeTextFieldChanged extends SearchEvent {
+class SearchTextFieldChanged extends SearchEvent {
   final String recipeTextFieldValue;
 
-  const SearchRecipeTextFieldChanged({required this.recipeTextFieldValue});
+  const SearchTextFieldChanged({required this.recipeTextFieldValue});
 }
 
 class SearchRecipeRequested extends SearchEvent {

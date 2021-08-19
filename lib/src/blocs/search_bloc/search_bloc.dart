@@ -17,29 +17,29 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchEvent event,
   ) async* {
     switch (event.runtimeType) {
-      case SearchRecipeTextFieldChanged:
+      case SearchTextFieldChanged:
         String recipeTextFieldValue =
-            (event as SearchRecipeTextFieldChanged).recipeTextFieldValue;
-        yield SearchRecipeTextFieldChangeSuccess(
+            (event as SearchTextFieldChanged).recipeTextFieldValue;
+        yield SearchTextFieldChangeSuccess(
             recipeTextFieldValue: recipeTextFieldValue);
         if (recipeTextFieldValue.isNotEmpty) {
-          yield SearchFindRecipeInProgress();
           add(SearchRecipeRequested(searchQuery: recipeTextFieldValue));
         }
         break;
 
       case SearchRecipeRequested:
         try {
+          yield SearchRecipeInProgress();
           final recipes = await searchServices
               .searcRecipesByName((event as SearchRecipeRequested).searchQuery);
           if (recipes.isNotEmpty) {
-            yield SearchFindRecipeSuccess(recipes: recipes);
+            yield SearchRecipeSuccess(recipes: recipes);
           } else {
-            yield SearchFindRecipeFailure(
+            yield SearchRecipeFailure(
                 failureMessage: SearchScreenText.searchFailureMessage);
           }
         } catch (e) {
-          yield SearchFindRecipeFailure(failureMessage: e.toString());
+          yield SearchRecipeFailure(failureMessage: e.toString());
         }
         break;
     }
