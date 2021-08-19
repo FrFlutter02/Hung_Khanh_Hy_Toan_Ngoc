@@ -41,7 +41,7 @@ class ViewProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: _screenUtil.height(49),
+                    height: _screenUtil.height(39),
                   ),
                   Container(
                     width: _screenUtil.width(325),

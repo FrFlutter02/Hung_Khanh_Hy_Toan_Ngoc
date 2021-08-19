@@ -24,7 +24,7 @@ class ListOption extends StatelessWidget {
     late double buttonWidth;
     if (Device.get().isPhone) {
       MainCardWidth = _screenUtil.width(325);
-      MainCardHeight = _screenUtil.height(80);
+      MainCardHeight = _screenUtil.height(90);
 
       if (isMyProfile == true) {
         buttonWidth = _screenUtil.width(84);
