@@ -7,7 +7,7 @@ import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_event.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/screens/home_screen.dart';
+import 'package:mobile_app/src/screens/navigation_screen.dart';
 import 'package:mobile_app/src/screens/signup_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/email_text_field.dart';
@@ -41,7 +41,7 @@ void main() {
     child: MaterialApp(
       routes: {
         "/": (context) => SignupScreen(),
-        "/homeScreen": (context) => HomeScreen(),
+        "/homeScreen": (context) => NavigationScreen(),
       },
       navigatorObservers: [mockObserver],
     ),
