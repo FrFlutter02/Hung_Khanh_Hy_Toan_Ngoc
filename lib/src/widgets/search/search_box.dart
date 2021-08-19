@@ -95,7 +95,7 @@ class _SearchBoxState extends State<SearchBox> {
                               const duration = Duration(milliseconds: 500);
                               final VoidCallback handleChange = () {
                                 context.read<SearchBloc>().add(
-                                    SearchRecipeTextFieldChanged(
+                                    SearchTextFieldChanged(
                                         recipeTextFieldValue: text));
                               };
                               if (_searchTimer != null) {
@@ -162,14 +162,14 @@ class _SearchBoxState extends State<SearchBox> {
 
     searchStreamSubscription =
         context.read<SearchBloc>().stream.listen((searchState) {
-      if (searchState is SearchRecipeTextFieldChangeSuccess &&
+      if (searchState is SearchTextFieldChangeSuccess &&
           searchTextEditingController.text.isEmpty) {
         _removeDropdownOverlay();
       }
-      if (searchState is SearchFindRecipeInProgress) {
+      if (searchState is SearchRecipeInProgress) {
         _showDropdownOverlay(context);
       }
-      if (searchState is SearchFindRecipeSuccess) {
+      if (searchState is SearchRecipeSuccess) {
         setState(() {
           recipesByName = searchState.recipes;
         });
@@ -192,7 +192,7 @@ class _SearchBoxState extends State<SearchBox> {
   Widget? _dropdownWidget() {
     final searchState = context.read<SearchBloc>().state;
 
-    if (searchState is SearchFindRecipeInProgress) {
+    if (searchState is SearchRecipeInProgress) {
       return Center(
         child: SizedBox(
           width: circularProgressIndicatorSize,
@@ -204,7 +204,7 @@ class _SearchBoxState extends State<SearchBox> {
       );
     }
 
-    if (searchState is SearchFindRecipeSuccess) {
+    if (searchState is SearchRecipeSuccess) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -221,7 +221,7 @@ class _SearchBoxState extends State<SearchBox> {
       );
     }
 
-    if (searchState is SearchFindRecipeFailure) {
+    if (searchState is SearchRecipeFailure) {
       return Text(
         searchState.failureMessage,
         style: TextStyle(color: AppColor.secondaryGrey),
@@ -283,12 +283,12 @@ class _SearchBoxState extends State<SearchBox> {
                   width: 0.7109.sw,
                   padding: recipesByName.isNotEmpty ||
                           context.read<SearchBloc>().state
-                              is SearchFindRecipeInProgress
+                              is SearchRecipeInProgress
                       ? dropdownPadding
                       : null,
                   margin: recipesByName.isNotEmpty ||
                           context.read<SearchBloc>().state
-                              is SearchFindRecipeInProgress
+                              is SearchRecipeInProgress
                       ? dropdownMargin
                       : null,
                   child: _dropdownWidget()),
