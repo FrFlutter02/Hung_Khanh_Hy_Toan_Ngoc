@@ -17,9 +17,9 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  EdgeInsets screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 24.h);
-  SizedBox tabletDivider = SizedBox.shrink();
-  Widget customNotificationWidget = SizedBox.shrink();
+  EdgeInsets _screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 24.h);
+  Widget _tabletDivider = SizedBox.shrink();
+  Widget _customNotificationWidget = SizedBox.shrink();
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +31,19 @@ class _SearchScreenState extends State<SearchScreen> {
             return ListView(
               children: [
                 Padding(
-                  padding: screenHeaderPadding,
+                  padding: _screenHeaderPadding,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(child: SearchBar()),
-                      customNotificationWidget
+                      SizedBox(
+                        width: 38.w,
+                      ),
+                      _customNotificationWidget
                     ],
                   ),
                 ),
-                tabletDivider
+                _tabletDivider,
               ],
             );
           },
@@ -53,14 +55,12 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     if (Device.get().isTablet) {
-      screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 19.h);
-      tabletDivider = SizedBox(
-        child: Divider(
-          height: 0.6.h,
-          color: AppColor.secondaryGrey,
-        ),
+      _screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 19.h);
+      _tabletDivider = Divider(
+        height: 0.6.h,
+        color: AppColor.secondaryGrey,
       );
-      customNotificationWidget = CustomNotification();
+      _customNotificationWidget = CustomNotification();
     }
     super.initState();
   }
