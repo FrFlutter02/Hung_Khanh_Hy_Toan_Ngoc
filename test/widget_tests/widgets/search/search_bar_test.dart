@@ -25,7 +25,7 @@ void main() {
       create: (_) => SearchBloc(searchServices: mockSearchServices),
       child: ScreenUtilInit(
         builder: () => MaterialApp(
-          home: Searchscreen(),
+          home: SearchScreen(),
         ),
       ));
 
@@ -65,5 +65,15 @@ void main() {
     final imageSource = (imageWidget.image as AssetImage).assetName;
 
     expect(imageSource, 'assets/images/icons/search_icon.png');
+  });
+
+  testWidgets('Should render filter_icon image', (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+
+    final imageFinder = find.byType(Image).last;
+    final imageWidget = tester.widget<Image>(imageFinder);
+    final imageSource = (imageWidget.image as AssetImage).assetName;
+
+    expect(imageSource, 'assets/images/icons/filter_icon.png');
   });
 }
