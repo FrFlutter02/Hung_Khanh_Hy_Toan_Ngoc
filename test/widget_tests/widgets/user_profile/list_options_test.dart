@@ -9,17 +9,6 @@ import 'package:mobile_app/src/widgets/user_profile/list_options.dart';
 
 import '../../../cloud_firestore_mock.dart';
 
-List<MyProfileModel> userData = user_data
-    .map((user) => MyProfileModel(
-        name: user["name"],
-        role: user["role"],
-        socialMedia: user["social-media"],
-        recipes: user["recipes"],
-        recipeImages: user["recipes-images"],
-        following: user["following"],
-        avatar: user["avatar"],
-        saved: user["saved"]))
-    .toList();
 main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();

@@ -3,23 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mobile_app/src/models/user_model.dart';
-import 'package:mobile_app/src/repository/user_data.dart';
 import 'package:mobile_app/src/widgets/user_profile/bottom_navigation.dart';
 
 import '../../../cloud_firestore_mock.dart';
 
-List<MyProfileModel> userData = user_data
-    .map((user) => MyProfileModel(
-        name: user["name"],
-        role: user["role"],
-        socialMedia: user["social-media"],
-        recipes: user["recipes"],
-        recipeImages: user["recipes-images"],
-        following: user["following"],
-        avatar: user["avatar"],
-        saved: user["saved"]))
-    .toList();
 main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
