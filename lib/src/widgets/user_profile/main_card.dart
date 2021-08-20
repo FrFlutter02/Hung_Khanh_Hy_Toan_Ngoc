@@ -4,8 +4,6 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:mobile_app/src/widgets/user_profile/list_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'recipe_card.dart';
-import '../../constants/constant_colors.dart';
-import '../../utils/screen_util.dart';
 
 class MainCard extends StatelessWidget {
   @override

@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../models/user_model.dart';
 import '../../repository/user_data.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/notification_user.dart';
 import '../../widgets/user_profile/bottom_navigation.dart';
 import '../../widgets/user_profile/user_information.dart';
 import '../../widgets/user_profile/main_card.dart';
-import '../../widgets/user_profile/recipe_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
-import '../../utils/screen_util.dart';
 
 class ViewProfileScreen extends StatelessWidget {
   const ViewProfileScreen({Key? key}) : super(key: key);
