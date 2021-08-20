@@ -18,3 +18,9 @@ class SearchRecipeRequested extends SearchEvent {
 
   const SearchRecipeRequested({required this.searchQuery});
 }
+
+class SearchAutofilled extends SearchEvent {
+  final String autofillValue;
+
+  const SearchAutofilled({required this.autofillValue});
+}
