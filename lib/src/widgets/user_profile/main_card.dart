@@ -35,7 +35,7 @@ class MainCard extends StatelessWidget {
       buttonWidth = 84.w;
     } else {
       MainCardWidth = 718.w;
-      MainCardHeight = 630.h;
+      MainCardHeight = 610.h;
       buttonWidth = 171.w;
     }
 

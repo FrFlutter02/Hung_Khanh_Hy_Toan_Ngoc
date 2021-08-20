@@ -14,18 +14,6 @@ import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../utils/screen_util.dart';
 
-List<MyProfileModel> userData = user_data
-    .map((user) => MyProfileModel(
-        name: user["name"],
-        role: user["role"],
-        socialMedia: user["social-media"],
-        recipes: user["recipes"],
-        recipeImages: user["recipes-images"],
-        following: user["following"],
-        avatar: user["avatar"],
-        saved: user["saved"]))
-    .toList();
-
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
 
