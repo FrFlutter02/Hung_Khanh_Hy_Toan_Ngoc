@@ -24,7 +24,7 @@ void main() {
       create: (_) => SearchBloc(searchServices: mockSearchServices),
       child: ScreenUtilInit(
         builder: () => MaterialApp(
-          home: Searchscreen(),
+          home: SearchScreen(),
         ),
       ));
 
