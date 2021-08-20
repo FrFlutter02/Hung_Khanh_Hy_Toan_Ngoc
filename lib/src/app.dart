@@ -53,7 +53,7 @@ class App extends StatelessWidget {
           theme: ThemeData(fontFamily: "Nunito-Regular"),
           debugShowCheckedModeBanner: false,
           routes: {
-            "/": (context) => Searchscreen()
+            "/": (context) => SearchScreen()
             // "/": (context) => OnboardingScreen(),
             // "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
             // "/homeScreen": (context) => HomeScreen(),

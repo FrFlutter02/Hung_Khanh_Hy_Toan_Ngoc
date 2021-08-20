@@ -9,16 +9,16 @@ import '../constants/constant_colors.dart';
 import '../widgets/custom_notification.dart';
 import '../widgets/search/search_bar.dart';
 
-class Searchscreen extends StatefulWidget {
-  const Searchscreen({Key? key}) : super(key: key);
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchscreenState createState() => _SearchscreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _SearchscreenState extends State<Searchscreen> {
-  double searchAndRecipesDividerHeight = 0;
-  EdgeInsets searchBoxPadding = EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 24.h);
+class _SearchScreenState extends State<SearchScreen> {
+  EdgeInsets screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 24.h);
+  SizedBox tabletDivider = SizedBox.shrink();
   Widget customNotificationWidget = SizedBox.shrink();
 
   @override
@@ -31,23 +31,17 @@ class _SearchscreenState extends State<Searchscreen> {
             return ListView(
               children: [
                 Padding(
-                  padding: searchBoxPadding,
+                  padding: screenHeaderPadding,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SearchBar(),
-                      Expanded(
-                        child: SizedBox.shrink(),
-                      ),
+                      Expanded(child: SearchBar()),
                       customNotificationWidget
                     ],
                   ),
                 ),
-                Divider(
-                  height: searchAndRecipesDividerHeight,
-                  color: AppColor.secondaryGrey,
-                ),
+                tabletDivider
               ],
             );
           },
@@ -59,8 +53,13 @@ class _SearchscreenState extends State<Searchscreen> {
   @override
   void initState() {
     if (Device.get().isTablet) {
-      searchAndRecipesDividerHeight = 0.6.h;
-      searchBoxPadding = EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 19.h);
+      screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 19.h);
+      tabletDivider = SizedBox(
+        child: Divider(
+          height: 0.6.h,
+          color: AppColor.secondaryGrey,
+        ),
+      );
       customNotificationWidget = CustomNotification();
     }
     super.initState();
