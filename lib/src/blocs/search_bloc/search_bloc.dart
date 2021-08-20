@@ -18,31 +18,51 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async* {
     switch (event.runtimeType) {
       case SearchTextFieldChanged:
-        String recipeTextFieldValue =
-            (event as SearchTextFieldChanged).recipeTextFieldValue;
-        yield SearchTextFieldChangeSuccess(
-            recipeTextFieldValue: recipeTextFieldValue);
-        if (recipeTextFieldValue.isNotEmpty) {
-          add(SearchRecipeRequested(searchQuery: recipeTextFieldValue));
-        }
+        yield* mapSearchTextFieldChangedToState(
+            event as SearchTextFieldChanged);
+        break;
+      case SearchRecipeRequested:
+        yield* mapSearchRecipeInProgressToState(event as SearchRecipeRequested);
         break;
 
-      case SearchRecipeRequested:
-        try {
-          yield SearchRecipeInProgress();
-          final recipes = await searchServices
-              .searcRecipesByName((event as SearchRecipeRequested).searchQuery);
-          if (recipes.isNotEmpty) {
-            yield SearchRecipeSuccess(recipes: recipes);
-          } else {
-            yield SearchRecipeFailure(
-                failureMessage: SearchScreenText.searchNoResultMessage);
-          }
-        } catch (e) {
-          yield SearchRecipeFailure(
-              failureMessage: SearchScreenText.searchErrorMessage);
-        }
+      case SearchAutofilled:
+        yield* mapSearchAutofilledToState(event as SearchAutofilled);
         break;
+    }
+  }
+
+  Stream<SearchState> mapSearchTextFieldChangedToState(
+      SearchTextFieldChanged event) async* {
+    String recipeTextFieldValue = event.recipeTextFieldValue;
+    yield SearchTextFieldChangeSuccess(
+        recipeTextFieldValue: recipeTextFieldValue);
+    if (recipeTextFieldValue.isNotEmpty) {
+      add(SearchRecipeRequested(searchQuery: recipeTextFieldValue));
+    }
+  }
+
+  Stream<SearchState> mapSearchRecipeInProgressToState(
+      SearchRecipeRequested event) async* {
+    try {
+      yield SearchRecipeInProgress();
+      final recipes =
+          await searchServices.searcRecipesByName(event.searchQuery);
+      if (recipes.isNotEmpty) {
+        yield SearchRecipeSuccess(recipes: recipes);
+      } else {
+        yield SearchRecipeFailure(
+            failureMessage: SearchScreenText.searchNoResultMessage);
+      }
+    } catch (e) {
+      yield SearchRecipeFailure(
+          failureMessage: SearchScreenText.searchErrorMessage);
+    }
+  }
+
+  Stream<SearchState> mapSearchAutofilledToState(
+      SearchAutofilled event) async* {
+    if (event.autofillValue.isNotEmpty) {
+      yield SearchAutofillSuccess(autofillValue: event.autofillValue);
     }
   }
 }
