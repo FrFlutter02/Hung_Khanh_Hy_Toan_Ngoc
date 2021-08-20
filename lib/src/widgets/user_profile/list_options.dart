@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'recipe_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
 
@@ -17,33 +19,31 @@ class ListOption extends StatelessWidget {
       required this.saved});
   @override
   Widget build(BuildContext context) {
-    ScreenUtil _screenUtil = ScreenUtil();
     late double MainCardWidth;
     late double MainCardHeight;
     late double buttonWidth;
     if (Device.get().isPhone) {
-      MainCardWidth = _screenUtil.width(325);
-      MainCardHeight = _screenUtil.height(90);
+      MainCardWidth = 325.w;
+      MainCardHeight = 116.h;
 
       if (isMyProfile == true) {
-        buttonWidth = _screenUtil.width(84);
+        buttonWidth = (90.w);
       } else {
-        buttonWidth = _screenUtil.width(149);
+        buttonWidth = (149.h);
       }
     } else {
-      MainCardWidth = _screenUtil.width(718);
-      MainCardHeight = _screenUtil.height(80);
+      MainCardWidth = 718.w;
+      MainCardHeight = 100.h;
       if (isMyProfile == true) {
-        buttonWidth = _screenUtil.width(186);
+        buttonWidth = (186.w);
       } else {
-        buttonWidth = _screenUtil.width(350);
+        buttonWidth = 340.w;
       }
     }
     if (isMyProfile == true) {
       return Container(
         height: MainCardHeight,
         width: MainCardWidth,
-        alignment: Alignment.center,
         child: Column(
           children: [
             Row(
@@ -52,39 +52,44 @@ class ListOption extends StatelessWidget {
                 Container(
                   child: TextButton(
                     onPressed: () {},
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: buttonWidth,
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Column(
-                            children: [
-                              Text(recipes,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: AppColor.primaryBlack,
-                                  )),
-                              Text("Recipes",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColor.primaryBlack,
-                                  ))
-                            ],
-                          ),
+                    child: Container(
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: buttonWidth,
+                              padding: EdgeInsets.only(bottom: 8.h),
+                              child: Column(
+                                children: [
+                                  Text(recipes,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: AppColor.primaryBlack,
+                                      )),
+                                  Text("Recipes",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: AppColor.primaryBlack,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              child: Container(
+                                width: buttonWidth,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                    color: AppColor.green,
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(8),
+                                        topLeft: Radius.circular(8))),
+                              ),
+                            )
+                          ],
                         ),
-                        Positioned(
-                          bottom: 0,
-                          child: Container(
-                            width: buttonWidth,
-                            height: 4,
-                            decoration: BoxDecoration(
-                                color: AppColor.green,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(8),
-                                    topLeft: Radius.circular(8))),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -94,22 +99,19 @@ class ListOption extends StatelessWidget {
                     width: buttonWidth,
                     child: TextButton(
                       onPressed: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          children: [
-                            Text(saved,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: AppColor.primaryBlack,
-                                )),
-                            Text("Saved",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColor.primaryBlack,
-                                )),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          Text(saved,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: AppColor.primaryBlack,
+                              )),
+                          Text("Saved",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColor.primaryBlack,
+                              )),
+                        ],
                       ),
                     ),
                   ),
@@ -118,24 +120,21 @@ class ListOption extends StatelessWidget {
                   width: buttonWidth,
                   child: Opacity(
                     opacity: 0.4,
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Column(
-                          children: [
-                            Text(following,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: AppColor.primaryBlack,
-                                )),
-                            Text("Following",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColor.primaryBlack,
-                                )),
-                          ],
-                        ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Column(
+                        children: [
+                          Text(following,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: AppColor.primaryBlack,
+                              )),
+                          Text("Following",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColor.primaryBlack,
+                              )),
+                        ],
                       ),
                     ),
                   ),
@@ -157,46 +156,50 @@ class ListOption extends StatelessWidget {
                 Container(
                   child: TextButton(
                     onPressed: () {},
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          width: buttonWidth,
-                          child: Column(
-                            children: [
-                              Text(recipes,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: AppColor.primaryBlack,
-                                  )),
-                              Text("Recipes",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColor.primaryBlack,
-                                  ))
-                            ],
-                          ),
+                    child: Container(
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: buttonWidth,
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Column(
+                                children: [
+                                  Text(recipes,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: AppColor.primaryBlack,
+                                      )),
+                                  Text("Recipes",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: AppColor.primaryBlack,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              child: Container(
+                                width: buttonWidth,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                    color: AppColor.green,
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(8),
+                                        topLeft: Radius.circular(8))),
+                              ),
+                            )
+                          ],
                         ),
-                        Positioned(
-                          bottom: 0,
-                          child: Container(
-                            width: buttonWidth,
-                            height: 4,
-                            decoration: BoxDecoration(
-                                color: AppColor.green,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(8),
-                                    topLeft: Radius.circular(8))),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
                   ),
                 ),
                 Opacity(
                   opacity: 0.4,
                   child: Container(
-                    padding: EdgeInsets.only(bottom: 10),
                     width: buttonWidth,
                     child: TextButton(
                       onPressed: () {},

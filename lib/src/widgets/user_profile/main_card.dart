@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-
-import 'list_options.dart';
+import 'package:mobile_app/src/widgets/user_profile/list_options.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'recipe_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
@@ -21,24 +21,28 @@ class MainCard extends StatelessWidget {
       required this.savedNumber,
       required this.image});
   Widget build(BuildContext context) {
-    ScreenUtil _screenUtil = ScreenUtil();
     late double MainCardWidth;
     late double MainCardHeight;
     late double buttonWidth;
     if (Device.get().isPhone) {
-      MainCardWidth = _screenUtil.width(325);
-      MainCardHeight = _screenUtil.height(460);
-      buttonWidth = _screenUtil.width(84);
+      MainCardWidth = 325.w;
+      if (isMyProfile == false) {
+        MainCardHeight = 370.h;
+      } else {
+        MainCardHeight = 460.h;
+      }
+
+      buttonWidth = 84.w;
     } else {
-      MainCardWidth = _screenUtil.width(718);
-      MainCardHeight = _screenUtil.height(610);
-      buttonWidth = _screenUtil.width(171);
+      MainCardWidth = 718.w;
+      MainCardHeight = 630.h;
+      buttonWidth = 171.w;
     }
 
     return Container(
       height: MainCardHeight,
       width: MainCardWidth,
-      margin: EdgeInsets.only(left: _screenUtil.width(25)),
+      margin: EdgeInsets.only(left: 25.w),
       child: Column(
         children: [
           ListOption(
@@ -49,7 +53,7 @@ class MainCard extends StatelessWidget {
           ),
           Expanded(
               child: GridView.builder(
-                  itemCount: 6,
+                  itemCount: image.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, childAspectRatio: 1.4),
                   itemBuilder: (context, index) => RecipeCard(

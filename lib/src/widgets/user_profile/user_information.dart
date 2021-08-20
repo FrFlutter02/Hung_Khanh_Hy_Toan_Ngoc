@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_text.dart';
 import '../../constants/constant_colors.dart';
@@ -22,21 +23,20 @@ class UserInformation extends StatelessWidget {
       required this.avatar});
   @override
   Widget build(BuildContext context) {
-    ScreenUtil _screenUtil = ScreenUtil();
     late double UserInformationWidth;
     late double UserInformationHeight;
 
     if (Device.get().isPhone) {
-      UserInformationWidth = _screenUtil.width(325);
+      UserInformationWidth = (325.w);
 
       if (isMyProfile) {
-        UserInformationHeight = _screenUtil.height(108);
+        UserInformationHeight = (108.h);
       } else {
-        UserInformationHeight = _screenUtil.height(90);
+        UserInformationHeight = (90.h);
       }
     } else {
-      UserInformationWidth = _screenUtil.width(718);
-      UserInformationHeight = _screenUtil.height(100);
+      UserInformationWidth = (718.w);
+      UserInformationHeight = (100.h);
     }
     return Container(
       width: UserInformationWidth,
@@ -52,13 +52,13 @@ class UserInformation extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: _screenUtil.width(15)),
+            padding: EdgeInsets.only(left: (15.w)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: _screenUtil.height(5)),
-                  width: _screenUtil.width(80),
+                  padding: EdgeInsets.only(top: (5.h)),
+                  width: (80.w),
                   child: Text(name,
                       style: TextStyle(
                         fontSize: 16,
@@ -69,7 +69,7 @@ class UserInformation extends StatelessWidget {
                     style:
                         TextStyle(fontSize: 14, color: AppColor.primaryGrey)),
                 SizedBox(
-                  height: _screenUtil.height(11),
+                  height: (11.h),
                 ),
                 Row(
                   children: [
@@ -79,8 +79,8 @@ class UserInformation extends StatelessWidget {
                           TextStyle(color: AppColor.primaryGrey, fontSize: 14),
                     ),
                     Container(
-                        width: _screenUtil.width(24),
-                        height: _screenUtil.height(24),
+                        width: (24.w),
+                        height: (24.h),
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage(UserProfileText.dot)))),

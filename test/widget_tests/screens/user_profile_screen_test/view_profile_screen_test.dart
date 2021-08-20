@@ -4,10 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mobile_app/src/models/user_model.dart';
 import 'package:mobile_app/src/repository/user_data.dart';
-import 'package:mobile_app/src/screens/user_profile_screen/my_profile_screen.dart';
 import 'package:mobile_app/src/screens/user_profile_screen/view_profile_screen.dart';
 import 'package:mobile_app/src/widgets/custom_button.dart';
-import 'package:mobile_app/src/widgets/user_profile/bottom_navigation.dart';
 import 'package:mobile_app/src/widgets/user_profile/main_card.dart';
 import 'package:mobile_app/src/widgets/user_profile/user_information.dart';
 

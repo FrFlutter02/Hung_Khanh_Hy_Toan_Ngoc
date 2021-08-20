@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mobile_app/src/models/user_model.dart';
@@ -24,16 +25,17 @@ main() {
     await Firebase.initializeApp();
   });
 
-  final myProfileWidget = MaterialApp(
-    home: UserInformation(
-      avatar: userData[0].avatar,
-      follower: "5 followers",
-      isMyProfile: true,
-      likes: '24 likes',
-      name: 'Tuan Ngoc',
-      role: 'Master Chief',
-    ),
-  );
+  final myProfileWidget = ScreenUtilInit(
+      builder: () => MaterialApp(
+            home: UserInformation(
+              avatar: userData[0].avatar,
+              follower: "5 followers",
+              isMyProfile: true,
+              likes: '24 likes',
+              name: 'Tuan Ngoc',
+              role: 'Master Chief',
+            ),
+          ));
 
   group("user information test testing", () {
     testWidgets("Should render correct name", (WidgetTester tester) async {

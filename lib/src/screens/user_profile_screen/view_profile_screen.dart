@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../models/user_model.dart';
 import '../../repository/user_data.dart';
@@ -9,11 +10,11 @@ import '../../widgets/notification_user.dart';
 import '../../widgets/user_profile/bottom_navigation.dart';
 import '../../widgets/user_profile/user_information.dart';
 import '../../widgets/user_profile/main_card.dart';
+import '../../widgets/user_profile/recipe_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../utils/screen_util.dart';
 
-ScreenUtil _screenUtil = ScreenUtil();
 List<MyProfileModel> userData = user_data
     .map((user) => MyProfileModel(
         name: user["name"],
@@ -32,117 +33,114 @@ class ViewProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Device.get().isPhone) {
-      return Scaffold(
-        body: Container(
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: _screenUtil.height(39),
-                  ),
-                  Container(
-                    width: _screenUtil.width(325),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: _screenUtil.width(129),
-                          child: TextButton(
-                              onPressed: () {},
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: _screenUtil.width(15)),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: _screenUtil.height(32),
-                                          width: _screenUtil.width(20),
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      UserProfileText
-                                                          .backIcon))),
-                                        ),
-                                        Text(
-                                          UserProfileText.back,
-                                          style: TextStyle(
-                                              color: AppColor.grey,
-                                              fontSize: 16),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )),
-                        ),
-                        Container(
-                            height: _screenUtil.height(32),
-                            width: _screenUtil.width(20),
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        UserProfileText.moreOption))))
-                      ],
-                    ),
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(left: _screenUtil.width(25)),
-                      width: _screenUtil.width(315),
-                      height: _screenUtil.height(163),
-                      child: Column(
+      return ScreenUtilInit(
+          builder: () => Scaffold(
+                body: Container(
+                  child: Stack(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            child: UserInformation(
-                                isMyProfile: false,
-                                avatar: userData[0].avatar,
-                                name: userData[0].name,
-                                follower: userData[0].socialMedia[0],
-                                likes: userData[0].socialMedia[1],
-                                role: userData[0].role),
-                          ),
                           SizedBox(
-                            height: _screenUtil.height(10),
+                            height: (30.h),
                           ),
                           Container(
-                            child: CustomButton(
-                                width: _screenUtil.width(315),
-                                height: _screenUtil.height(50),
-                                value: "Follow",
-                                buttonOnPress: () {}),
-                          )
+                            width: (325.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: (129.w),
+                                  child: TextButton(
+                                      onPressed: () {},
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsets.only(left: (15).w),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  height: (32.h),
+                                                  width: (20).w,
+                                                  decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: AssetImage(
+                                                              UserProfileText
+                                                                  .backIcon))),
+                                                ),
+                                                Text(
+                                                  UserProfileText.back,
+                                                  style: TextStyle(
+                                                      color: AppColor.grey,
+                                                      fontSize: 16),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                                Container(
+                                    height: 32.h,
+                                    width: 20.w,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                UserProfileText.moreOption))))
+                              ],
+                            ),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(left: 25.w),
+                              width: 315.w,
+                              height: 163.h,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    child: UserInformation(
+                                        isMyProfile: false,
+                                        avatar: userData[0].avatar,
+                                        name: userData[0].name,
+                                        follower: userData[0].socialMedia[0],
+                                        likes: userData[0].socialMedia[1],
+                                        role: userData[0].role),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Container(
+                                    child: CustomButton(
+                                        width: 315.w,
+                                        height: 50.h,
+                                        value: "Follow",
+                                        buttonOnPress: () {}),
+                                  )
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: AppColor.primaryWhite)))),
+                          MainCard(
+                              isMyProfile: false,
+                              recipesNumber: userData[0].recipes,
+                              savedNumber: userData[0].saved,
+                              followingNumber: userData[0].following,
+                              image: userData[0].recipeImages)
                         ],
                       ),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom:
-                                  BorderSide(color: AppColor.primaryWhite)))),
-                  SizedBox(
-                    height: _screenUtil.height(13),
+                      Container(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height - (90)),
+                        child: BottomNavigation(),
+                      )
+                    ],
                   ),
-                  MainCard(
-                      isMyProfile: false,
-                      recipesNumber: userData[0].recipes,
-                      savedNumber: userData[0].saved,
-                      followingNumber: userData[0].following,
-                      image: userData[0].recipeImages)
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height -
-                        _screenUtil.height(90)),
-                child: BottomNavigation(),
-              )
-            ],
-          ),
-        ),
-      );
+                ),
+              ));
     } else {
       return Scaffold(
         body: Container(
@@ -152,11 +150,11 @@ class ViewProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: _screenUtil.height(24),
+                    height: 24.h,
                   ),
                   NotificationUser(avatar: userData[0].avatar),
                   SizedBox(
-                    height: _screenUtil.height(25),
+                    height: 25.h,
                   ),
                   Container(
                     child: Row(
@@ -166,8 +164,7 @@ class ViewProfileScreen extends StatelessWidget {
                             child: Row(
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsets.only(left: _screenUtil.width(5)),
+                              padding: EdgeInsets.only(left: 25.w),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -176,8 +173,8 @@ class ViewProfileScreen extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Container(
-                                          height: _screenUtil.height(32),
-                                          width: _screenUtil.width(20),
+                                          height: 32.h,
+                                          width: 20.w,
                                           decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
@@ -199,12 +196,12 @@ class ViewProfileScreen extends StatelessWidget {
                           ],
                         )),
                         Padding(
-                          padding: EdgeInsets.only(right: 25),
+                          padding: EdgeInsets.only(right: 25.w),
                           child: TextButton(
                               onPressed: () {},
                               child: Container(
-                                height: _screenUtil.height(24),
-                                width: _screenUtil.width(24),
+                                height: 24.h,
+                                width: 24.w,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image:
@@ -214,13 +211,12 @@ class ViewProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: 32.h),
                   Container(
                     child: Stack(
                       children: [
                         Container(
-                            margin:
-                                EdgeInsets.only(left: _screenUtil.width(25)),
+                            margin: EdgeInsets.only(left: 25.w),
                             child: UserInformation(
                                 isMyProfile: false,
                                 avatar: userData[0].avatar,
@@ -236,16 +232,13 @@ class ViewProfileScreen extends StatelessWidget {
                           top: 0,
                           right: 0,
                           child: CustomButton(
-                              width: _screenUtil.width(156),
-                              height: _screenUtil.height(50),
+                              width: 156.w,
+                              height: 50.h,
                               value: "Follow",
                               buttonOnPress: () {}),
                         )
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: _screenUtil.height(25),
                   ),
                   MainCard(
                       isMyProfile: false,
@@ -257,8 +250,7 @@ class ViewProfileScreen extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height -
-                        _screenUtil.height(90)),
+                    top: MediaQuery.of(context).size.height - 90.h),
                 child: BottomNavigation(),
               )
             ],

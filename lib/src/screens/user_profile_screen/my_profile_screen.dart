@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:mobile_app/src/widgets/notification_user.dart';
 
-import '../../widgets/notification_user.dart';
 import '../../models/user_model.dart';
 import '../../repository/user_data.dart';
 import '../../widgets/user_profile/bottom_navigation.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../widgets/user_profile/user_information.dart';
 import '../../widgets/user_profile/main_card.dart';
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../utils/screen_util.dart';
 
-ScreenUtil _screenUtil = ScreenUtil();
 List<MyProfileModel> userData = user_data
     .map((user) => MyProfileModel(
         name: user["name"],
@@ -39,13 +40,13 @@ class MyProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: _screenUtil.height(49),
+                    height: 49.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 25),
+                        padding: EdgeInsets.only(left: 25.w),
                         child: Text(
                           UserProfileText.title,
                           style: TextStyle(
@@ -55,7 +56,7 @@ class MyProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: _screenUtil.width(124)),
+                        padding: EdgeInsets.only(left: 124.w),
                         child: Row(
                           children: [
                             Container(
@@ -65,8 +66,8 @@ class MyProfileScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
-                                      height: _screenUtil.height(20),
-                                      width: _screenUtil.width(20),
+                                      height: 20.h,
+                                      width: 20.w,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: AssetImage(
@@ -87,11 +88,11 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: _screenUtil.height(30),
+                    height: 30.h,
                   ),
                   Container(
-                      margin: EdgeInsets.only(left: _screenUtil.width(25)),
-                      width: _screenUtil.width(325),
+                      margin: EdgeInsets.only(left: 25.w),
+                      width: 325.w,
                       child: Stack(children: [
                         UserInformation(
                             isMyProfile: true,
@@ -104,8 +105,8 @@ class MyProfileScreen extends StatelessWidget {
                             top: 0,
                             right: 0,
                             child: Container(
-                                height: _screenUtil.height(32),
-                                width: _screenUtil.width(20),
+                                height: 32.h,
+                                width: 20.w,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image: AssetImage(
@@ -116,7 +117,7 @@ class MyProfileScreen extends StatelessWidget {
                               bottom:
                                   BorderSide(color: AppColor.primaryWhite)))),
                   SizedBox(
-                    height: _screenUtil.height(25),
+                    height: 25.h,
                   ),
                   MainCard(
                       isMyProfile: true,
@@ -128,8 +129,7 @@ class MyProfileScreen extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height -
-                        _screenUtil.height(90)),
+                    top: MediaQuery.of(context).size.height - 90.h),
                 child: BottomNavigation(),
               )
             ],
@@ -145,11 +145,11 @@ class MyProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: _screenUtil.height(24),
+                    height: 24.h,
                   ),
                   NotificationUser(avatar: userData[0].avatar),
                   SizedBox(
-                    height: _screenUtil.height(25),
+                    height: (25.h),
                   ),
                   Container(
                     child: Row(
@@ -159,8 +159,7 @@ class MyProfileScreen extends StatelessWidget {
                             child: Row(
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsets.only(left: _screenUtil.width(25)),
+                              padding: EdgeInsets.only(left: (25.w)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -169,8 +168,8 @@ class MyProfileScreen extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Container(
-                                          height: _screenUtil.height(32),
-                                          width: _screenUtil.width(20),
+                                          height: (32.h),
+                                          width: (20.w),
                                           decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
@@ -196,8 +195,8 @@ class MyProfileScreen extends StatelessWidget {
                           child: TextButton(
                               onPressed: () {},
                               child: Container(
-                                height: _screenUtil.height(24),
-                                width: _screenUtil.width(24),
+                                height: (24.h),
+                                width: (24.w),
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image:
@@ -207,9 +206,9 @@ class MyProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: 32.h),
                   Container(
-                      margin: EdgeInsets.only(left: _screenUtil.width(25)),
+                      margin: EdgeInsets.only(left: (25.w)),
                       child: UserInformation(
                         isMyProfile: true,
                         avatar: userData[0].avatar,
@@ -223,7 +222,7 @@ class MyProfileScreen extends StatelessWidget {
                               bottom:
                                   BorderSide(color: AppColor.primaryWhite)))),
                   SizedBox(
-                    height: _screenUtil.height(25),
+                    height: (25),
                   ),
                   MainCard(
                     isMyProfile: true,
@@ -236,8 +235,7 @@ class MyProfileScreen extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height -
-                        _screenUtil.height(90)),
+                    top: MediaQuery.of(context).size.height - (90.h)),
                 child: BottomNavigation(),
               )
             ],

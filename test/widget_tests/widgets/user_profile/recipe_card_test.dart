@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/models/user_model.dart';
@@ -25,8 +26,9 @@ main() {
     await Firebase.initializeApp();
   });
 
-  final widget =
-      MaterialApp(home: RecipeCard(image: userData[0].recipeImages[0]));
+  final widget = ScreenUtilInit(
+      builder: () =>
+          MaterialApp(home: RecipeCard(image: userData[0].recipeImages[0])));
 
   group("user information test testing", () {
     testWidgets("Should render correct title", (WidgetTester tester) async {
