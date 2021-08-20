@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_event.dart';
 import '../../constants/constant_text.dart';
 import '../../constants/constant_colors.dart';
@@ -27,6 +30,10 @@ bool saveInfo = false;
 class _ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
   @override
   Widget build(BuildContext context) {
+    bool isTablet = false;
+    if (Device.get().isTablet) {
+      isTablet = true;
+    }
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 10.h),
@@ -129,7 +136,7 @@ class _ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
                         ? Container(
                             margin: EdgeInsets.only(top: 10.h),
                             padding: EdgeInsets.symmetric(horizontal: 6.w),
-                            width: 280.w,
+                            width: isTablet ? 480.w : 280.w,
                             child: Text(
                               addServingTimeController.text,
                               softWrap: true,
@@ -156,7 +163,7 @@ class _ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
                         ? Container(
                             margin: EdgeInsets.only(top: 10.h),
                             padding: EdgeInsets.symmetric(horizontal: 6.w),
-                            width: 280.w,
+                            width: isTablet ? 480.w : 280.w,
                             child: Text(
                               addNutritionTimeController.text,
                               softWrap: true,
@@ -183,7 +190,7 @@ class _ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
                         ? Container(
                             margin: EdgeInsets.only(top: 10.h),
                             padding: EdgeInsets.symmetric(horizontal: 6.w),
-                            width: 280.w,
+                            width: isTablet ? 480.w : 280.w,
                             child: Text(
                               addTagsController.text,
                               softWrap: true,
@@ -207,10 +214,11 @@ class _ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
                         width: double.infinity,
                         child: TextButton(
                             onPressed: () {
-                              NewRecipeSaveAdditionalInfoSubmitted(
-                                  addServingTimeController.text,
-                                  addNutritionTimeController.text,
-                                  addTagsController.text);
+                              context.read<NewRecipeBloc>().add(
+                                  NewRecipeSaveAdditionalInfoSubmitted(
+                                      addServingTimeController.text,
+                                      addNutritionTimeController.text,
+                                      addTagsController.text));
                               setState(() {
                                 saveInfo = true;
                               });

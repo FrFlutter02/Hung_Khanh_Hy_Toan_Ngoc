@@ -1,9 +1,14 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_app/src/widgets/custom_button.dart';
 
+import '../blocs/new_recipe_bloc/new_recipe_event.dart';
+import '../models/gallery_model.dart';
+import '../services/up_load_image.dart';
 import '../blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import '../blocs/new_recipe_bloc/new_recipe_state.dart';
 import '../widgets/new_recipe/item_new_how_to_cook.dart';
@@ -24,13 +29,15 @@ class NewRecipeScreen extends StatefulWidget {
 String dropdownValue = 'Western';
 bool isTablet = false;
 List<File> imageGallerys = [];
-var imageMain;
+File imageMain = File("");
 
 List<String> listRecipe = ['Western', 'Quick Lunch', 'Vegies'];
 enum ImageType { imageMain, imageForGallery, imageForIngredient }
 ImageType imageType = ImageType.imageMain;
+final nameRecipeController = TextEditingController();
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
+  List<GalleryModel> galleryList = [];
   @override
   Widget build(BuildContext context) {
     if (Device.get().isTablet) {
@@ -94,7 +101,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                     )),
                               );
                             },
-                            child: imageMain == null
+                            child: imageMain.path == ""
                                 ? Image.asset(
                                     "assets/images/icons/plus_icon.png")
                                 : ClipRRect(
@@ -125,6 +132,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                 child: SizedBox(
                                   height: isTablet ? 22.h : 20.h,
                                   child: TextField(
+                                    controller: nameRecipeController,
                                     decoration: InputDecoration(
                                         hintText:
                                             NewRecipeText.hintRecipeNameText,
@@ -223,7 +231,11 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                         height: 50.h,
                         width: isTablet ? 155.w : 120.w,
                         child: OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              String image =
+                                  await UploadFile.upLoadImage(imageMain);
+                              print(image);
+                            },
                             style: OutlinedButton.styleFrom(
                                 side:
                                     BorderSide(color: AppColor.green, width: 2),
@@ -243,23 +255,17 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                       ),
                       SizedBox(width: isTablet ? 15.w : 0.w),
                       Container(
-                        width: isTablet ? 155.w : double.infinity,
-                        height: 50.h,
                         margin: EdgeInsets.only(top: isTablet ? 0.h : 30.h),
-                        child: TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom(
-                              backgroundColor: AppColor.green),
-                          child: Text(
-                            NewRecipeText.postToFeedText,
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      color: Colors.white,
-                                      height: 1.31,
-                                    ),
-                          ),
+                        child: CustomButton(
+                          height: 50.h,
+                          width: isTablet ? 155.w : double.infinity,
+                          value: NewRecipeText.postToFeedText,
+                          buttonOnPress: () {
+                            context.read<NewRecipeBloc>().add(NewRecipeSaved(
+                                nameRecipeController.text, dropdownValue));
+                          },
                         ),
-                      ),
+                      )
                     ],
                   ),
                   SizedBox(height: isTablet ? 70.h : 36.h),
@@ -282,13 +288,9 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 imageGallerys.addAll(state.listFile);
               });
               break;
-            case NewRecipeAddImageIngredientSuccess:
-              state as NewRecipeAddImageIngredientSuccess;
-              setState(() {
-                imageIngredient = state.file;
-              });
+            case NewRecipeSaveRecipeFailure:
+              state as NewRecipeSaveRecipeFailure;
               break;
-            default:
           }
         },
       )),

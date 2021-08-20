@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -20,11 +21,17 @@ class ItemNewGallery extends StatelessWidget {
     List<File> listImage = [];
     listImage.addAll(dataImage);
     int imageOverbalance = 0;
-    if (listImage.length > 4) {
-      imageOverbalance = listImage.length - 4;
-      listImage.removeRange(4, listImage.length);
+    int imageLimit = 4;
+    bool isTablet = false;
+    if (Device.get().isTablet) {
+      isTablet = true;
+      imageLimit = 7;
     }
 
+    if (listImage.length > imageLimit) {
+      imageOverbalance = listImage.length - imageLimit;
+      listImage.removeRange(imageLimit, listImage.length);
+    }
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 10.h),
@@ -63,10 +70,10 @@ class ItemNewGallery extends StatelessWidget {
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 padding: EdgeInsets.only(top: 0, bottom: 5.h),
-                crossAxisCount: 3,
+                crossAxisCount: isTablet ? 7 : 3,
                 itemCount: listImage.length,
                 itemBuilder: (context, index) {
-                  if (index == 3 && imageOverbalance > 0) {
+                  if (index == (imageLimit - 1) && imageOverbalance > 0) {
                     return Stack(
                       children: [
                         Opacity(
@@ -91,8 +98,11 @@ class ItemNewGallery extends StatelessWidget {
                         fit: BoxFit.cover);
                   }
                 },
-                staggeredTileBuilder: (index) => StaggeredTile.count(
-                    (index % 4 == 0) ? 3 : 1, (index % 4 == 0) ? 1.5 : 1),
+                staggeredTileBuilder: (index) => isTablet
+                    ? StaggeredTile.count(
+                        (index % 8 == 0) ? 4 : 1, (index % 8 == 0) ? 2 : 1)
+                    : StaggeredTile.count(
+                        (index % 4 == 0) ? 3 : 1, (index % 4 == 0) ? 1.5 : 1),
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:duration_picker/duration_picker.dart';
 
@@ -27,8 +28,13 @@ bool addLink = false;
 class _ItemNewHowToCookState extends State<ItemNewHowToCook> {
   Duration? resultDuration = Duration(minutes: 3);
   int step = 1;
+
   @override
   Widget build(BuildContext context) {
+    bool isTablet = false;
+    if (Device.get().isTablet) {
+      isTablet = true;
+    }
     return BlocListener<NewRecipeBloc, NewRecipeState>(
       child: Container(
         width: double.infinity,
@@ -159,7 +165,7 @@ class _ItemNewHowToCookState extends State<ItemNewHowToCook> {
                                     )),
                                   ),
                                   Container(
-                                    width: 260.w,
+                                    width: isTablet ? 460.w : 260.w,
                                     padding: const EdgeInsets.only(
                                         left: 15, right: 5),
                                     child: Text(
@@ -239,6 +245,10 @@ class _ItemNewHowToCookState extends State<ItemNewHowToCook> {
                                               BorderRadius.circular(10)));
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());
+                                  // String twoDigits(int n) =>
+                                  //     n.toString().padLeft(2, "0");
+                                  // String twoDigitMinutes = twoDigits(
+                                  //     resultDuration!.inMinutes.remainder(60));
                                   // var resultDurationString = resultDuration.toString().split(".");
                                 },
                                 child: Icon(Icons.timer_outlined)),

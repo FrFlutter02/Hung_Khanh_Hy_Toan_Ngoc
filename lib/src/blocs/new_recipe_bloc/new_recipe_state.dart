@@ -71,3 +71,7 @@ class NewRecipeAddStepHowToCookSuccess extends NewRecipeState {
 }
 
 class NewRecipeAddStepHowToCookFailure extends NewRecipeState {}
+
+class NewRecipeSaveRecipeSuccess extends NewRecipeState {}
+
+class NewRecipeSaveRecipeFailure extends NewRecipeState {}

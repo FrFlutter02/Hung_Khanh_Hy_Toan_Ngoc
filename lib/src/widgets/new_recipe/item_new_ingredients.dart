@@ -97,21 +97,22 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                                         Theme.of(context).textTheme.subtitle1,
                                   ),
                                 ),
-                                Container(
-                                  height: 39.h,
-                                  width: 56.w,
-                                  decoration: BoxDecoration(
-                                      color: NewRecipeScreenColor
-                                          .buttonIngredientsColor,
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(6),
-                                    child: Image.file(
-                                      File(data.image.path),
-                                      fit: BoxFit.cover,
+                                if (data.image.path != "")
+                                  (Container(
+                                    height: 39.h,
+                                    width: 56.w,
+                                    decoration: BoxDecoration(
+                                        color: NewRecipeScreenColor
+                                            .buttonIngredientsColor,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(6),
+                                      child: Image.file(
+                                        File(data.image.path),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  ))
                               ],
                             ),
                           ))
@@ -132,8 +133,7 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                       padding: EdgeInsets.only(right: 15.w),
                       child: InkWell(
                         onTap: () {
-                          if (addIngredientController.text.isNotEmpty &&
-                              checkImage) {
+                          if (addIngredientController.text.isNotEmpty) {
                             context.read<NewRecipeBloc>().add(
                                 NewRecipeAddIngredientSubmitted(
                                     addIngredientController.text,
