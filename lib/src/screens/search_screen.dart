@@ -17,6 +17,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  double _searchBarAndNotificationDistance = 0;
   EdgeInsets _screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 11.h, 25.w, 24.h);
   Widget _tabletDivider = SizedBox.shrink();
   Widget _customNotificationWidget = SizedBox.shrink();
@@ -37,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: [
                       Expanded(child: SearchBar()),
                       SizedBox(
-                        width: 38.w,
+                        width: _searchBarAndNotificationDistance,
                       ),
                       _customNotificationWidget
                     ],
@@ -55,6 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     if (Device.get().isTablet) {
+      _searchBarAndNotificationDistance = 38.w;
       _screenHeaderPadding = EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 19.h);
       _tabletDivider = Divider(
         height: 0.6.h,
