@@ -4,40 +4,45 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_event.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/models/recipe_model.dart';
 import 'package:mobile_app/src/services/search_services.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../cloud_firestore_mock.dart';
 
-final String fakeErrorMessage = 'An error was occurred!';
-final String fakeNoResultMessage = 'No result was found';
-final String fakeValidSearchValue = 'chicken';
+final String fakeValidSearchValue = 'Chicken';
+final String fakeNoResultValue = 'Fake no result';
 final fakeRecipes = [
-  RecipeModel(name: 'result 1'),
-  RecipeModel(name: 'result 2'),
+  RecipeModel(name: 'Chicken 1'),
+  RecipeModel(name: 'Chicken 2'),
 ];
 
 class MockSearchServices extends Mock implements SearchServices {
   @override
   Future<List<RecipeModel>> searcRecipesByName(String searchQuery) async {
-    if (searchQuery.isEmpty) {
-      throw fakeNoResultMessage;
-    }
     if (searchQuery == fakeValidSearchValue) {
       return fakeRecipes;
     }
-    throw fakeErrorMessage;
+    if (searchQuery == fakeNoResultValue) {
+      return [];
+    }
+    throw Exception();
   }
 }
 
 void main() {
-  MockSearchServices mockSearchServices = MockSearchServices();
-  SearchBloc searchBloc = SearchBloc(searchServices: mockSearchServices);
+  late MockSearchServices mockSearchServices;
+  late SearchBloc searchBloc;
 
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
+  });
+
+  setUp(() {
+    mockSearchServices = MockSearchServices();
+    searchBloc = SearchBloc(searchServices: mockSearchServices);
   });
 
   tearDown(() {
@@ -45,48 +50,52 @@ void main() {
   });
 
   blocTest('emits [] when no event is called',
-      build: () {
-        return SearchBloc(searchServices: mockSearchServices);
-      },
-      expect: () => []);
+      build: () => searchBloc, expect: () => []);
 
   blocTest(
       'emits [SearchRecipeInProgress()] then [SearchRecipeSuccess(recipes: fakeRecipes)] when [SearchRecipeRequested] is called',
-      build: () {
-        return SearchBloc(searchServices: mockSearchServices);
-      },
-      act: (SearchBloc searchBloc) {
-        when(searchBloc
-            .add(SearchRecipeRequested(searchQuery: fakeValidSearchValue)));
-      },
+      build: () => searchBloc,
+      act: (SearchBloc searchBloc) => searchBloc
+          .add(SearchRecipeRequested(searchQuery: fakeValidSearchValue)),
       expect: () => [
             SearchRecipeInProgress(),
             SearchRecipeSuccess(recipes: fakeRecipes),
           ]);
 
   blocTest(
-      'emits [SearchRecipeFailure(failureMessage: \'$fakeNoResultMessage\')] when [SearchRecipeRequested] is called and search query is empty',
-      build: () {
-        return SearchBloc(searchServices: mockSearchServices);
-      },
-      act: (SearchBloc searchBloc) {
-        when(searchBloc.add(SearchRecipeRequested(searchQuery: '')));
-      },
+      'emits [SearchRecipeFailure(failureMessage:...)] when [SearchRecipeRequested] is called and no result was found',
+      build: () => searchBloc,
+      act: (SearchBloc searchBloc) =>
+          searchBloc.add(SearchRecipeRequested(searchQuery: fakeNoResultValue)),
       expect: () => [
             SearchRecipeInProgress(),
-            SearchRecipeFailure(failureMessage: fakeNoResultMessage),
+            SearchRecipeFailure(
+                failureMessage: SearchScreenText.searchNoResultMessage),
           ]);
 
   blocTest(
-      'emits [SearchRecipeFailure(failureMessage: \'$fakeErrorMessage\')] when [SearchRecipeRequested] is called and service throws error',
-      build: () {
-        return SearchBloc(searchServices: mockSearchServices);
-      },
-      act: (SearchBloc searchBloc) {
-        when(searchBloc.add(SearchRecipeRequested(searchQuery: 'hamburger')));
-      },
+      'emits [SearchRecipeFailure(failureMessage:...)] when [SearchRecipeRequested] is called and service throws error',
+      build: () => searchBloc,
+      act: (SearchBloc searchBloc) =>
+          searchBloc.add(SearchRecipeRequested(searchQuery: 'error')),
       expect: () => [
             SearchRecipeInProgress(),
-            SearchRecipeFailure(failureMessage: fakeErrorMessage),
+            SearchRecipeFailure(
+                failureMessage: SearchScreenText.searchErrorMessage),
           ]);
+
+  blocTest(
+      'emits [] when [SearchAutofilled] is called and autofill value is empty',
+      build: () => searchBloc,
+      act: (SearchBloc searchBloc) =>
+          searchBloc.add(SearchAutofilled(autofillValue: '')),
+      expect: () => []);
+
+  blocTest(
+      'emits [] when [SearchAutofilled] then [SearchInitial] is called and autofill value is not empty',
+      build: () => searchBloc,
+      act: (SearchBloc searchBloc) =>
+          searchBloc.add(SearchAutofilled(autofillValue: 'autofill')),
+      expect: () =>
+          [SearchAutofillSuccess(autofillValue: 'autofill'), SearchInitial()]);
 }

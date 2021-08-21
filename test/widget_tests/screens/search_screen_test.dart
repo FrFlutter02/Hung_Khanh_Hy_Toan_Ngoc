@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
@@ -28,16 +29,21 @@ void main() {
         ),
       ));
 
-  testWidgets('Should render a SearchBox', (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    expect(find.byType(SearchBar), findsOneWidget);
-  });
-
-  testWidgets('Should render Dividers adequately', (WidgetTester tester) async {
+  testWidgets('Should render Dividers on tablet screen',
+      (WidgetTester tester) async {
+    Device.width = 1920;
+    Device.height = 1920;
+    Device.devicePixelRatio = 2;
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     await tester.pumpWidget(_widget);
     expect(
         find.descendant(
             of: find.byType(ListView), matching: find.byType(Divider)),
-        findsNWidgets(1));
+        findsNWidgets(2));
+  });
+
+  testWidgets('Should render a SearchBox', (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    expect(find.byType(SearchBar), findsOneWidget);
   });
 }

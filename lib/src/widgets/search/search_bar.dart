@@ -41,29 +41,29 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: _searchTextFieldContainerPadding,
-          decoration: BoxDecoration(
-            color: AppColor.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
-            ),
-            border: _getSearchTextFieldBorder(),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.secondaryGrey
-                    .withOpacity(_searchContainerBoxShadowOpacity),
-                blurRadius: 12,
-                spreadRadius: 8,
-                offset: Offset(0, 0),
+    return CompositedTransformTarget(
+      link: _layerLink,
+      child: Column(
+        children: [
+          Container(
+            padding: _searchTextFieldContainerPadding,
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
               ),
-            ],
-          ),
-          child: CompositedTransformTarget(
-            link: _layerLink,
+              border: _getSearchTextFieldBorder(),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColor.secondaryGrey
+                      .withOpacity(_searchContainerBoxShadowOpacity),
+                  blurRadius: 12,
+                  spreadRadius: 8,
+                  offset: Offset(0, 0),
+                ),
+              ],
+            ),
             child: Row(
               children: [
                 Image.asset(
@@ -103,9 +103,9 @@ class _SearchBarState extends State<SearchBar> {
               ],
             ),
           ),
-        ),
-        _searchBottomBorder,
-      ],
+          _searchBottomBorder,
+        ],
+      ),
     );
   }
 
@@ -117,13 +117,6 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   void initState() {
-    _setTabletVariables();
-    _listenToSearchBlocStream();
-    _listenToSearchFocusNode();
-    super.initState();
-  }
-
-  void _setTabletVariables() {
     if (Device.get().isTablet) {
       _searchContainerBoxShadowOpacity = 0;
       _searchTextFieldContainerPadding = EdgeInsets.only(bottom: 7.h);
@@ -135,9 +128,7 @@ class _SearchBarState extends State<SearchBar> {
         color: AppColor.secondaryGrey,
       );
     }
-  }
 
-  void _listenToSearchBlocStream() {
     _searchStreamSubscription =
         context.read<SearchBloc>().stream.listen((searchState) {
       if (searchState is SearchRecipeInProgress) {
@@ -158,9 +149,7 @@ class _SearchBarState extends State<SearchBar> {
       }
       Overlay.of(context)!.setState(() {});
     });
-  }
 
-  void _listenToSearchFocusNode() {
     _searchFocusNode.addListener(() {
       if (_searchFocusNode.hasFocus) {
         setState(() => _searchHasFocus = true);
@@ -174,6 +163,8 @@ class _SearchBarState extends State<SearchBar> {
       }
       Overlay.of(context)!.setState(() {});
     });
+
+    super.initState();
   }
 
   void textFieldOnChangedCallback(String text) {
@@ -182,9 +173,7 @@ class _SearchBarState extends State<SearchBar> {
     final VoidCallback handleChange = () {
       _searchBloc.add(SearchTextFieldChanged(recipeTextFieldValue: text));
     };
-    if (_searchBloc.state is SearchAutofillSuccess) {
-      return;
-    }
+    if (_searchBloc.state is SearchAutofillSuccess) return;
     if (_searchTimer != null) {
       _searchTimer!.cancel();
     }
@@ -192,31 +181,29 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   void _openDropdown(BuildContext context) async {
-    if (_dropdownOverlayEntry == null) {
-      RenderBox renderBox = (context.findRenderObject() as RenderBox);
-      final size = renderBox.size;
-      _dropdownOverlayEntry = OverlayEntry(builder: (BuildContext context) {
-        return Positioned(
-            width: size.width,
-            child: Material(
-              color: Colors.transparent,
-              child: CompositedTransformFollower(
-                link: _layerLink,
-                showWhenUnlinked: false,
-                offset: Offset(0, size.height - 4.h),
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: AppColor.white,
-                        border: Border.all(
-                          color: AppColor.secondaryGrey,
-                        )),
-                    padding: _dropdownPadding,
-                    child: _getDropdownWidget()),
-              ),
-            ));
-      });
-      Overlay.of(context)?.insert(_dropdownOverlayEntry!);
-    }
+    if (_dropdownOverlayEntry != null) return;
+
+    final RenderBox _renderBox = (context.findRenderObject() as RenderBox);
+    final size = _renderBox.size;
+
+    _dropdownOverlayEntry = OverlayEntry(builder: (BuildContext context) {
+      return Positioned(
+          width: size.width,
+          child: CompositedTransformFollower(
+            link: _layerLink,
+            showWhenUnlinked: false,
+            offset: Offset(0, size.height),
+            child: Container(
+                decoration: BoxDecoration(
+                    color: AppColor.white,
+                    border: Border.all(
+                      color: AppColor.secondaryGrey,
+                    )),
+                child: Material(
+                    color: Colors.transparent, child: _getDropdownWidget())),
+          ));
+    });
+    Overlay.of(context)?.insert(_dropdownOverlayEntry!);
   }
 
   void _closeDropdown() {
@@ -243,39 +230,49 @@ class _SearchBarState extends State<SearchBar> {
   Widget? _getDropdownWidget() {
     final searchState = context.read<SearchBloc>().state;
     if (searchState is SearchRecipeInProgress) {
-      return Center(
-        child: SizedBox(
-          width: _circularProgressIndicatorSize,
-          height: _circularProgressIndicatorSize,
-          child: CircularProgressIndicator(
-            color: AppColor.green,
+      return Padding(
+        padding: _dropdownPadding,
+        child: Center(
+          child: SizedBox(
+            width: _circularProgressIndicatorSize,
+            height: _circularProgressIndicatorSize,
+            child: CircularProgressIndicator(
+              color: AppColor.green,
+            ),
           ),
         ),
       );
     }
     if (searchState is SearchRecipeSuccess) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ..._recipesByName.map((recipe) => Padding(
-                padding: EdgeInsets.only(bottom: 14.h),
-                child: InkWell(
-                  onTap: () {
-                    context.read<SearchBloc>().add(SearchAutofilled(
-                        autofillValue: recipe.name.toLowerCase()));
-                  },
+          ..._recipesByName.map(
+            (recipe) => InkWell(
+              onTap: () {
+                context.read<SearchBloc>().add(
+                    SearchAutofilled(autofillValue: recipe.name.toLowerCase()));
+              },
+              child: SizedBox(
+                width: 1.sw,
+                child: Padding(
+                  padding: _dropdownPadding,
                   child: _getRichTextWithBoldKeyword(
                       keyword: _searchTextEditingController.text.toLowerCase(),
                       searchResultText: recipe.name.toLowerCase()),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       );
     }
     if (searchState is SearchRecipeFailure) {
-      return Text(
-        searchState.failureMessage,
-        style: TextStyle(color: AppColor.secondaryGrey),
+      return Padding(
+        padding: _dropdownPadding,
+        child: Text(
+          searchState.failureMessage,
+          style: TextStyle(color: AppColor.secondaryGrey),
+        ),
       );
     }
   }
