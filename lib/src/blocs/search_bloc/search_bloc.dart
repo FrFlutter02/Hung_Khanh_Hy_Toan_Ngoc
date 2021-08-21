@@ -24,7 +24,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       case SearchRecipeRequested:
         yield* mapSearchRecipeRequestedToState(event as SearchRecipeRequested);
         break;
-
       case SearchAutofilled:
         yield* mapSearchAutofilledToState(event as SearchAutofilled);
         break;
