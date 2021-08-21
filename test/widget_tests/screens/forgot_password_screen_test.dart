@@ -9,7 +9,6 @@ import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/forgot_password_screen.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
-import 'package:mobile_app/src/widgets/custom_button.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/email_text_field.dart';
 import 'package:mobile_app/src/widgets/logo.dart';
 import 'package:mocktail/mocktail.dart';

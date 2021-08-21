@@ -22,7 +22,7 @@ class MockUserServices extends Mock implements UserServices {
 
 void main() {
   ForgotPasswordBloc? forgotBloc;
-
+  MockUserServices mockUserServices;
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
@@ -45,29 +45,20 @@ void main() {
   blocTest(
       'emits [ForgotPasswordFailure] with empty error when [ForgotPasswordRequested] has invalid email',
       build: () {
-        return ForgotPasswordBloc();
+        mockUserServices = MockUserServices();
+        return ForgotPasswordBloc(userServices: mockUserServices);
       },
       act: (ForgotPasswordBloc bloc) {
         return bloc.add(ForgotPasswordRequested(''));
       },
-      expect: () => [
-            ForgotPasswordFailure(
-              emailErrorMessage: "Email must not be empty",
-            )
-          ]);
+      expect: () => [ForgotPasswordFailure()]);
 
   blocTest(
       'emits [ForgotPasswordFailure] with invalid format error when [ForgotPasswordRequested] has invalid email',
       build: () {
         return ForgotPasswordBloc();
       },
-      act: (ForgotPasswordBloc bloc) {
-        return bloc.add(ForgotPasswordRequested('aaaa'));
-      },
-      expect: () => [
-            ForgotPasswordFailure(
-              emailErrorMessage:
-                  "Please enter a valid email, e.g: john@gmail.com",
-            )
-          ]);
+      act: (ForgotPasswordBloc bloc) =>
+          bloc.add(ForgotPasswordRequested('aaaa')),
+      expect: () => [ForgotPasswordFailure()]);
 }

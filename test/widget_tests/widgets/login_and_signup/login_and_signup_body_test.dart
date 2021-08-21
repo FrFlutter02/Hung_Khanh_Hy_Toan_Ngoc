@@ -31,23 +31,10 @@ void main() {
       final _bottomTitleFinder =
           find.text(SignupScreenText.alreadyHaveAnAccount);
       final _bottomLinkFinder = find.text(SignupScreenText.loginHere);
-
       await tester.pumpWidget(_widget);
-
       expect(_titleFinder, findsOneWidget);
       expect(_bottomTitleFinder, findsOneWidget);
       expect(_bottomLinkFinder, findsOneWidget);
-    });
-
-    testWidgets(
-        'Should navigate to the login screen when clicking on bottom link',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(_widget);
-      final _signupBottomLinkFinder = find.descendant(
-          of: find.byType(Center), matching: find.byType(InkWell));
-      await tester.tap(_signupBottomLinkFinder);
-      await tester.pumpAndSettle();
-      expect(find.byType(LoginScreen), findsOneWidget);
     });
   });
 }
