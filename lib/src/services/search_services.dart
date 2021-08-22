@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mobile_app/src/constants/constant_text.dart';
 
 import '../models/recipe_model.dart';
 
@@ -17,7 +18,7 @@ class SearchServices {
       final _labelsToListString = List<RecipeModel>.from(_labels);
       return _labelsToListString;
     } else {
-      throw Exception('Failed to search recipes');
+      throw SearchScreenText.searchErrorMessage;
     }
   }
 }
