@@ -4,6 +4,8 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:mobile_app/src/widgets/user_profile/list_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'recipe_card.dart';
+import '../../constants/constant_colors.dart';
+import '../../utils/screen_util.dart';
 
 class MainCard extends StatelessWidget {
   @override
@@ -21,42 +23,42 @@ class MainCard extends StatelessWidget {
   Widget build(BuildContext context) {
     late double MainCardWidth;
     late double MainCardHeight;
-    late double buttonWidth;
+
     if (Device.get().isPhone) {
       MainCardWidth = 325.w;
-      if (isMyProfile == false) {
-        MainCardHeight = 370.h;
-      } else {
-        MainCardHeight = 460.h;
-      }
-
-      buttonWidth = 84.w;
+      MainCardHeight = 460.h;
     } else {
       MainCardWidth = 718.w;
       MainCardHeight = 610.h;
-      buttonWidth = 171.w;
     }
 
     return Container(
       height: MainCardHeight,
       width: MainCardWidth,
-      margin: EdgeInsets.only(left: 25.w),
+      margin: EdgeInsets.symmetric(horizontal: 25.w),
       child: Column(
         children: [
-          ListOption(
-            isMyProfile: isMyProfile,
-            recipes: recipesNumber,
-            saved: savedNumber,
-            following: followingNumber,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: ListOption(
+              isMyProfile: isMyProfile,
+              recipes: recipesNumber,
+              saved: savedNumber,
+              following: followingNumber,
+            ),
           ),
           Expanded(
-              child: GridView.builder(
-                  itemCount: image.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 1.4),
-                  itemBuilder: (context, index) => RecipeCard(
-                        image: image[index],
-                      )))
+              child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: GridView.builder(
+                itemCount: image.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, childAspectRatio: 1.4),
+                itemBuilder: (context, index) => RecipeCard(
+                      image: image[index],
+                      title: "Foods",
+                    )),
+          ))
         ],
       ),
     );

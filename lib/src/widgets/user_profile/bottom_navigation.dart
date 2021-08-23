@@ -4,6 +4,9 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_text.dart';
+import 'recipe_card.dart';
+import '../../constants/constant_colors.dart';
+import '../../utils/screen_util.dart';
 
 class BottomNavigation extends StatelessWidget {
   @override
@@ -26,8 +29,8 @@ class BottomNavigation extends StatelessWidget {
               height: (32.h),
               width: (32.w),
               decoration: BoxDecoration(
-                  image:
-                      DecorationImage(image: AssetImage(UserProfileText.nav1))),
+                  image: DecorationImage(
+                      image: AssetImage(UserProfileText.searchIcon))),
             ),
           ),
           TextButton(
@@ -36,8 +39,8 @@ class BottomNavigation extends StatelessWidget {
               height: 32.h,
               width: 32.w,
               decoration: BoxDecoration(
-                  image:
-                      DecorationImage(image: AssetImage(UserProfileText.nav2))),
+                  image: DecorationImage(
+                      image: AssetImage(UserProfileText.pagingIcon))),
             ),
           ),
           TextButton(
@@ -46,8 +49,8 @@ class BottomNavigation extends StatelessWidget {
               height: 32.h,
               width: 32.w,
               decoration: BoxDecoration(
-                  image:
-                      DecorationImage(image: AssetImage(UserProfileText.nav3))),
+                  image: DecorationImage(
+                      image: AssetImage(UserProfileText.cookIcon))),
             ),
           )
         ],

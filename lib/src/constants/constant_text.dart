@@ -61,9 +61,9 @@ class UserProfileText {
   static const String icon = "assets/images/user_profile_icon/Settings.png";
   static const String dot = "assets/images/user_profile_icon/dot.png";
   static const String edit = "assets/images/user_profile_icon/Edit.png";
-  static const String nav1 = "assets/images/user_profile_icon/nav1.png";
-  static const String nav2 = "assets/images/user_profile_icon/nav2.png";
-  static const String nav3 = "assets/images/user_profile_icon/nav3.png";
+
+  static const String pagingIcon = "assets/images/user_profile_icon/nav2.png";
+  static const String cookIcon = "assets/images/user_profile_icon/nav3.png";
   static const String backIcon = "assets/images/user_profile_icon/back.png";
   static const String editIcon = "assets/images/user_profile_icon/Edit.png";
   static const String searchIcon = "assets/images/icons/search.png";

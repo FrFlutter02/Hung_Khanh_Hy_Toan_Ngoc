@@ -48,7 +48,7 @@ class App extends StatelessWidget {
               child: MaterialApp(
                 theme: ThemeData(fontFamily: "Nunito-Regular"),
                 debugShowCheckedModeBanner: false,
-                initialRoute: "/myProfile",
+                initialRoute: "/viewProfile",
                 routes: {
                   "/": (context) => OnboardingScreen(),
                   "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),

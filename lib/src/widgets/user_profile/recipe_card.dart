@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_colors.dart';
 import '../../utils/screen_util.dart';
@@ -8,9 +9,9 @@ import '../../utils/screen_util.dart';
 class RecipeCard extends StatelessWidget {
   @override
   String image;
-  RecipeCard({required this.image});
+  String title;
+  RecipeCard({required this.image, required this.title});
   Widget build(BuildContext context) {
-    ScreenUtil _screenUtil = ScreenUtil();
     late double recipeCardWidth;
     late double recipeCardHeight;
     late double imageWidth;
@@ -20,25 +21,25 @@ class RecipeCard extends StatelessWidget {
     late double foodTitleSize;
     late double verticalPaddingTitle;
     if (Device.get().isPhone) {
-      recipeCardWidth = _screenUtil.width(155);
-      recipeCardHeight = _screenUtil.width(132);
-      imageWidth = _screenUtil.width(155);
-      imageHeight = _screenUtil.height(100);
+      recipeCardWidth = (155.w);
+      recipeCardHeight = 129.h;
+      imageWidth = 155.w;
+      imageHeight = 90.h;
       foodTitleSize = 16;
-      verticalPaddingTitle = 0;
+      verticalPaddingTitle = 7.5.h;
     } else if (Device.get().isTablet) {
-      recipeCardWidth = _screenUtil.width(382);
-      recipeCardHeight = _screenUtil.height(183);
-      imageWidth = _screenUtil.width(382);
-      imageHeight = _screenUtil.height(150);
+      recipeCardWidth = 382.w;
+      recipeCardHeight = 183.h;
+      imageWidth = 382.w;
+      imageHeight = 150.h;
       foodTitleSize = 22;
-      verticalPaddingTitle = _screenUtil.height(15);
+      verticalPaddingTitle = 15.h;
     }
 
     return Card(
       child: Container(
-        width: _screenUtil.width(recipeCardWidth),
-        height: _screenUtil.height(recipeCardHeight),
+        width: recipeCardWidth,
+        height: recipeCardHeight,
         child: Column(
           children: [
             Container(
@@ -55,7 +56,7 @@ class RecipeCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: verticalPaddingTitle),
               child: Center(
                 child: Text(
-                  "Foods",
+                  title,
                   style: TextStyle(
                       fontSize: foodTitleSize, color: AppColor.primaryBlack),
                 ),
