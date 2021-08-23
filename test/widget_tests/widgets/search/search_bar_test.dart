@@ -100,7 +100,7 @@ void main() {
       final result =
           _searchBarState.getFormattedResult(keyword: 'chicken', recipes: [
         RecipeModel(name: 'roast chicken'),
-        RecipeModel(name: 'fried chicken with tomato sauce'),
+        RecipeModel(name: 'chicken'),
         RecipeModel(name: 'chicken made in Vietnam'),
       ]);
       expect(result, [
@@ -110,9 +110,9 @@ void main() {
           'afterKeyword': '',
         },
         {
-          'beforeKeyword': 'fried ',
-          'result': 'fried chicken with tomato sauce',
-          'afterKeyword': ' with tomato sauce',
+          'beforeKeyword': '',
+          'result': 'chicken',
+          'afterKeyword': '',
         },
         {
           'beforeKeyword': '',
