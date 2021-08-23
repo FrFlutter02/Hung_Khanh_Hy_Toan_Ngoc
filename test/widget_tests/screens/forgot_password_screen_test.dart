@@ -27,10 +27,10 @@ void main() {
     registerFallbackValue(FakeRoute());
   });
 
-  final _forgotBloc = ForgotPasswordBloc();
+  final _forgotPasswordBloc = ForgotPasswordBloc();
   final mockObserver = MockNavigationObserver();
   final _widget = BlocProvider(
-    create: (_) => _forgotBloc,
+    create: (_) => _forgotPasswordBloc,
     child: MaterialApp(
       routes: {
         "/": (context) => ForgotPasswordScreen(),
@@ -43,7 +43,7 @@ void main() {
       'Should render correct errorText when state is [ForgotPasswordFailure]',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    _forgotBloc.emit(ForgotPasswordFailure(
+    _forgotPasswordBloc.emit(ForgotPasswordFailure(
         emailErrorMessage: AppText.emailMustNotBeEmptyErrorText));
     await tester.pump();
     var emailTextField = find.byType(EmailTextField);
@@ -51,16 +51,14 @@ void main() {
         (tester.widget<EmailTextField>(emailTextField).errorText);
     print(emailMustNotEmptyErrorMust);
     expect(emailMustNotEmptyErrorMust, AppText.emailMustNotBeEmptyErrorText);
-
-    _forgotBloc.emit(ForgotPasswordFailure(
+    _forgotPasswordBloc.emit(ForgotPasswordFailure(
         emailErrorMessage: AppText.emailInvalidErrorText));
     await tester.pump();
     var emaiInvalidlError =
         (tester.widget<EmailTextField>(emailTextField).errorText);
     print(emaiInvalidlError);
     expect(emaiInvalidlError, AppText.emailInvalidErrorText);
-
-    _forgotBloc.emit(ForgotPasswordFailure(
+    _forgotPasswordBloc.emit(ForgotPasswordFailure(
         emailErrorMessage: AppText.emailDoesNotExistErrorText));
     await tester.pump();
     var emailNotEmptyError =
@@ -139,7 +137,7 @@ void main() {
       'Should navigate to login screen when state is [ForgotPasswordSuccess]',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    _forgotBloc.emit(ForgotPasswordSuccess());
+    _forgotPasswordBloc.emit(ForgotPasswordSuccess());
     await tester.pump();
     verify(() => mockObserver.didPush(any(), any()));
   });

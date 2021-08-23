@@ -51,31 +51,24 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
     final emailTextField = find.byType(EmailTextField);
-
     _signupBloc
         .emit(SignupFailure(emailErrorMessage: AppText.emailInvalidErrorText));
     await tester.pump();
     var emailError = (tester.widget<EmailTextField>(emailTextField).errorText);
-    print(emailError);
     expect(emailError, AppText.emailInvalidErrorText);
-
     _signupBloc.emit(
         SignupFailure(emailErrorMessage: AppText.emailAlreadyExistsErrorText));
     await tester.pump();
     var emailError1 = (tester.widget<EmailTextField>(emailTextField).errorText);
-    print(emailError1);
     expect(emailError1, AppText.emailAlreadyExistsErrorText);
-
     _signupBloc.emit(
         SignupFailure(emailErrorMessage: AppText.emailMustNotBeEmptyErrorText));
     await tester.pump();
     var emailError2 = (tester.widget<EmailTextField>(emailTextField).errorText);
-    print(emailError2);
     expect(emailError2, AppText.emailMustNotBeEmptyErrorText);
     _signupBloc.emit(SignupFailure(emailErrorMessage: ''));
     await tester.pump();
     var emailError3 = (tester.widget<EmailTextField>(emailTextField).errorText);
-    print(emailError3);
     expect(emailError3, '');
   });
   testWidgets('Should render LoginAndSignupHeader, LoginAndsignupBody',
