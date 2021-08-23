@@ -99,7 +99,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: BlocConsumer<SignupBloc, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccess) {
-            Navigator.of(context).pushNamed('/homeScreen');
+            Navigator.of(context).pushNamed('/navigationScreen');
           }
         },
         builder: (context, state) {
