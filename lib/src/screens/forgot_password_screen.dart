@@ -254,6 +254,4 @@ class ForgotPasswordScreen extends StatelessWidget {
       ),
     );
   }
-
-  void isDeviceTablet() {}
 }
