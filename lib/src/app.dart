@@ -18,11 +18,11 @@ import 'services/search_services.dart';
 import 'services/user_services.dart';
 
 class App extends StatelessWidget {
+  final userServices = UserServices();
+  final searchServices = SearchServices();
+
   @override
   Widget build(BuildContext context) {
-    final userServices = UserServices();
-    final searchServices = SearchServices();
-
     Size designSize = Size(375, 812);
 
     if (Device.get().isTablet) {
