@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/services/search_services.dart';
 
+import '../../constants/constant_text.dart';
+import '../../services/search_services.dart';
 import 'search_event.dart';
 import 'search_state.dart';
 

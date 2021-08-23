@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobile_app/src/models/recipe_model.dart';
+
+import '../../models/recipe_model.dart';
 
 abstract class SearchState extends Equatable {
   const SearchState();
