@@ -37,13 +37,13 @@ void main() {
   testWidgets('Should render Search logo , Carosel logo and User profile logo',
       (tester) async {
     final AssetImage imageSearch = AssetImage(
-      'assets/images/search_icon.jpg',
+      'assets/images/icons/search_icon.jpg',
     );
     final AssetImage imageCarosel = AssetImage(
-      'assets/images/carosel_icon.jpg',
+      'assets/images/icons/carosel_icon.jpg',
     );
     final AssetImage imageUserProfile = AssetImage(
-      'assets/images/user_profile_icon.jpg',
+      'assets/images/icons/user_profile_icon.jpg',
     );
     await tester.pumpWidget(_widget);
     final bottomNavigationBarFinder = find.byType(BottomNavigationBar);

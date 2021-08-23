@@ -41,21 +41,22 @@ class _NavigationScreenState extends State<NavigationScreen> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Image(
-                  image: AssetImage('assets/images/search_icon.jpg'),
+                  image: AssetImage('assets/images/icons/search_icon.jpg'),
                   color:
                       _selectedIndex == 0 ? AppColor.green : AppColor.iconText,
                 ),
                 label: 'Search'),
             BottomNavigationBarItem(
                 icon: Image(
-                  image: AssetImage('assets/images/carosel_icon.jpg'),
+                  image: AssetImage('assets/images/icons/carosel_icon.jpg'),
                   color:
                       _selectedIndex == 1 ? AppColor.green : AppColor.iconText,
                 ),
                 label: 'Recipe'),
             BottomNavigationBarItem(
                 icon: Image(
-                  image: AssetImage('assets/images/user_profile_icon.jpg'),
+                  image:
+                      AssetImage('assets/images/icons/user_profile_icon.jpg'),
                   color:
                       _selectedIndex == 2 ? AppColor.green : AppColor.iconText,
                 ),
