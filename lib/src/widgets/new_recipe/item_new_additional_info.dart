@@ -11,11 +11,7 @@ import '../../constants/constant_colors.dart';
 class ItemNewAdditionalInfo extends StatefulWidget {
   const ItemNewAdditionalInfo({
     Key? key,
-    required this.label,
-    required this.hintText,
   }) : super(key: key);
-  final String label;
-  final String hintText;
 
   @override
   _ItemNewAdditionalInfoState createState() => _ItemNewAdditionalInfoState();
@@ -57,7 +53,7 @@ class _ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.label,
+                  NewRecipeText.labelAdditionalInfoText,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         height: 1.37,
                         color: AppColor.primaryBlack,

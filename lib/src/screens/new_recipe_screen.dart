@@ -8,7 +8,6 @@ import 'package:mobile_app/src/widgets/custom_button.dart';
 
 import '../blocs/new_recipe_bloc/new_recipe_event.dart';
 import '../models/gallery_model.dart';
-import '../services/up_load_image.dart';
 import '../blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import '../blocs/new_recipe_bloc/new_recipe_state.dart';
 import '../widgets/new_recipe/item_new_how_to_cook.dart';
@@ -28,12 +27,11 @@ class NewRecipeScreen extends StatefulWidget {
 
 String dropdownValue = 'Western';
 bool isTablet = false;
-List<File> imageGallerys = [];
+
 File imageMain = File("");
 
 List<String> listRecipe = ['Western', 'Quick Lunch', 'Vegies'];
 enum ImageType { imageMain, imageForGallery, imageForIngredient }
-ImageType imageType = ImageType.imageMain;
 final nameRecipeController = TextEditingController();
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
@@ -93,11 +91,10 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                         ),
                         child: InkWell(
                             onTap: () {
-                              imageType = ImageType.imageMain;
                               showModalBottomSheet(
                                 context: context,
                                 builder: ((builder) => BottomSheetPickImage(
-                                      typeImage: imageType,
+                                      typeImage: ImageType.imageMain,
                                     )),
                               );
                             },
@@ -150,34 +147,10 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                     ],
                   ),
                   SizedBox(height: 10.h),
-                  ItemNewGallery(
-                    dataImage: imageGallerys,
-                    addImageGallery: () {
-                      imageType = ImageType.imageForGallery;
-                      showModalBottomSheet(
-                        context: context,
-                        builder: ((builder) => BottomSheetPickImage(
-                              typeImage: imageType,
-                            )),
-                      );
-                    },
-                  ),
-                  ItemNewIngredients(
-                    addImageIngredient: () {
-                      imageType = ImageType.imageForIngredient;
-                      showModalBottomSheet(
-                        context: context,
-                        builder: ((builder) => BottomSheetPickImage(
-                              typeImage: imageType,
-                            )),
-                      );
-                    },
-                  ),
+                  ItemNewGallery(),
+                  ItemNewIngredients(),
                   ItemNewHowToCook(),
-                  ItemNewAdditionalInfo(
-                    label: NewRecipeText.labelAdditionalInfoText,
-                    hintText: NewRecipeText.hintAdditionalInfoText,
-                  ),
+                  ItemNewAdditionalInfo(),
                   SizedBox(height: isTablet ? 50.h : 20.h),
                   Text(
                     NewRecipeText.saveToText,
@@ -232,9 +205,8 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                         width: isTablet ? 155.w : 120.w,
                         child: OutlinedButton(
                             onPressed: () async {
-                              String image =
-                                  await UploadFile.upLoadImage(imageMain);
-                              print(image);
+                              context.read<NewRecipeBloc>().add(NewRecipeSaved(
+                                  nameRecipeController.text, dropdownValue));
                             },
                             style: OutlinedButton.styleFrom(
                                 side:
@@ -260,10 +232,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                           height: 50.h,
                           width: isTablet ? 155.w : double.infinity,
                           value: NewRecipeText.postToFeedText,
-                          buttonOnPress: () {
-                            context.read<NewRecipeBloc>().add(NewRecipeSaved(
-                                nameRecipeController.text, dropdownValue));
-                          },
+                          buttonOnPress: () {},
                         ),
                       )
                     ],
@@ -280,12 +249,6 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
               state as NewRecipeAddImageMainSuccess;
               setState(() {
                 imageMain = state.file;
-              });
-              break;
-            case NewRecipeAddImageGallerySuccess:
-              state as NewRecipeAddImageGallerySuccess;
-              setState(() {
-                imageGallerys.addAll(state.listFile);
               });
               break;
             case NewRecipeSaveRecipeFailure:

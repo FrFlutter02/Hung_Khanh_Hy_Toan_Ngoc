@@ -3,19 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../screens/new_recipe_screen.dart';
+import '../../services/up_load_image.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_event.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_state.dart';
 import '../../constants/constant_text.dart';
 import '../../models/ingredients_model.dart';
 import '../../constants/constant_colors.dart';
+import 'bottom_sheet_pick_image.dart';
 
 class ItemNewIngredients extends StatefulWidget {
   const ItemNewIngredients({
     Key? key,
-    required this.addImageIngredient,
   }) : super(key: key);
-  final void Function() addImageIngredient;
+
   @override
   _ItemNewIngredientsState createState() => _ItemNewIngredientsState();
 }
@@ -132,7 +134,7 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                     Padding(
                       padding: EdgeInsets.only(right: 15.w),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (addIngredientController.text.isNotEmpty) {
                             context.read<NewRecipeBloc>().add(
                                 NewRecipeAddIngredientSubmitted(
@@ -142,6 +144,11 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                               addIngredientController.text = "";
                               imageIngredient = File("");
                             });
+                          } else {
+                            List<IngredientUpLoadModel> lisIngredient =
+                                await UploadFile.upLoadIngredient(
+                                    ingredientList);
+                            print("list :$lisIngredient");
                           }
                         },
                         child: Icon(
@@ -173,7 +180,14 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                           color: NewRecipeScreenColor.buttonIngredientsColor,
                           borderRadius: BorderRadius.circular(8)),
                       child: InkWell(
-                        onTap: widget.addImageIngredient,
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: ((builder) => BottomSheetPickImage(
+                                  typeImage: ImageType.imageForIngredient,
+                                )),
+                          );
+                        },
                         child: checkImage
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(6),

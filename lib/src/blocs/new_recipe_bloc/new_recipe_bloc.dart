@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_app/src/models/gallery_model.dart';
 
+import '../../models/gallery_model.dart';
 import '../../services/up_load_image.dart';
 import '../../models/how_to_cook_model.dart';
 import '../../services/user_services.dart';
@@ -122,38 +119,27 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         break;
       case NewRecipeSaved:
         event as NewRecipeSaved;
+        String mainImage = "";
+        List<GalleryModel> galleryUploadList = [];
+        List<IngredientUpLoadModel> ingredientUpLoadList = [];
+
+        mainImage = await UploadFile.upLoadImage(imageMain);
+        // galleryUploadList = await UploadFile.upLoadGallery(imageGallerys);
+        // ingredientUpLoadList =
+        //     await UploadFile.upLoadIngredient(ingredientList);
+
         try {
-          String mainImage = "";
-          List<GalleryModel> galleryList = [];
-          List<IngredientUpLoadModel> ingredientUpLoadList = [];
-          // if (imageMain != File("")) {
-          //   mainImage = await UploadFile.upLoadImage(imageMain);
-          // }
-
-          // if (imageGallerys != []) {
-          //   galleryList = await UploadFile.upLoadGallery(imageGallerys);
-          // }
-          // if (ingredientList != []) {
-          //   ingredientUpLoadList =
-          //       await UploadFile.upLoadIngredient(ingredientList);
-          // }
-
-          await FirebaseFirestore.instance
-              .collection('recipe')
-              .doc("daovantoan10234@gmail.com")
-              .set({
-            'id': DateTime.now().toString(),
-            "mainImage": mainImage,
-            "nameRecipe": event.nameRecipe,
-            "galleryList": galleryList,
-            "ingredientList": ingredientUpLoadList,
-            "direction": directions,
-            "stepList": stepList,
-            "servingTime": servingTime,
-            "nutritionFact": nutritionFact,
-            "tags": tags,
-            "category": event.category,
-          });
+          await UploadFile.uploadDataFirebase(
+              mainImage,
+              event.nameRecipe,
+              galleryUploadList,
+              ingredientUpLoadList,
+              directions,
+              stepList,
+              servingTime,
+              nutritionFact,
+              tags,
+              event.category);
           yield NewRecipeSaveRecipeSuccess();
         } catch (e) {
           yield NewRecipeSaveRecipeFailure();

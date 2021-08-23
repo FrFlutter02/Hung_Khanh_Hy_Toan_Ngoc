@@ -1,27 +1,42 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../models/how_to_cook_model.dart';
 import '../models/ingredients_model.dart';
 import '../models/gallery_model.dart';
-
-// FirebaseStorage storage =
-//     FirebaseStorage.instanceFor(bucket: 'gs://tam-ke-flutter.appspot.com/');
 
 class UploadFile {
   static Future<String> upLoadImage(File file) async {
     try {
+      String link = "";
       Reference ref = FirebaseStorage.instance
           .ref("test/")
           .child('${file.path.split('/').last}');
-      UploadTask uploadTask = ref.putFile(file);
-      final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
-      String link = await taskSnapshot.ref.getDownloadURL();
+      await ref.putFile(file).whenComplete(() async {
+        link = await ref.getDownloadURL();
+      });
+      print(link);
       return link;
     } on FirebaseStorage catch (e) {
-      print("err firebase $e");
+      print("Err firebaseStorage: $e");
       return "";
     }
+  }
+
+  static Future<TaskSnapshot> taskSnapshotExample(
+      Reference ref, File file) async {
+    TaskSnapshot taskSnapshot = await ref.putFile(file).whenComplete(() {});
+    return taskSnapshot;
+  }
+
+  static Future<String> downloadURL(File file) async {
+    Reference ref = FirebaseStorage.instance
+        .ref("test/")
+        .child('${file.path.split('/').last}');
+    String downloadURL = await ref.getDownloadURL();
+    return downloadURL;
   }
 
   static Future<List<GalleryModel>> upLoadGallery(
@@ -39,9 +54,9 @@ class UploadFile {
   }
 
   static Future<List<IngredientUpLoadModel>> upLoadIngredient(
-      List<IngredientModel> imageGallerys) async {
+      List<IngredientModel> imageIngredient) async {
     List<IngredientUpLoadModel> ingredientList = [];
-    imageGallerys.forEach((element) async {
+    imageIngredient.forEach((element) async {
       if (element.image == File("")) {
         var ingredient = IngredientUpLoadModel(
           id: element.id,
@@ -60,5 +75,73 @@ class UploadFile {
       }
     });
     return ingredientList;
+  }
+
+  static Future<List<GalleryModel>> getUrlGallery(
+      List<File> imageGallerys) async {
+    List<GalleryModel> galleryList = [];
+    imageGallerys.forEach((element) async {
+      String link = await UploadFile.downloadURL(element);
+      var gallery = GalleryModel(
+        id: DateTime.now().toString(),
+        link: link,
+      );
+      galleryList.add(gallery);
+    });
+    return galleryList;
+  }
+
+  static Future<List<IngredientUpLoadModel>> getLinkUrlIngredient(
+      List<IngredientModel> imageGallerys) async {
+    List<IngredientUpLoadModel> ingredientList = [];
+    imageGallerys.forEach((element) async {
+      if (element.image == File("")) {
+        var ingredient = IngredientUpLoadModel(
+          id: element.id,
+          ingredient: element.ingredient,
+          image: "",
+        );
+        ingredientList.add(ingredient);
+      } else {
+        String link = await UploadFile.downloadURL(element.image);
+        var ingredient = IngredientUpLoadModel(
+          id: element.id,
+          ingredient: element.ingredient,
+          image: link,
+        );
+        ingredientList.add(ingredient);
+      }
+    });
+    return ingredientList;
+  }
+
+  static Future<void> uploadDataFirebase(
+    String mainImage,
+    String nameRecipe,
+    List<GalleryModel> galleryList,
+    List<IngredientUpLoadModel> ingredientUpLoadList,
+    String directions,
+    List<HowToCookModel> stepList,
+    String servingTime,
+    String nutritionFact,
+    String tags,
+    String category,
+  ) async {
+    FirebaseFirestore.instance
+        .collection('recipe')
+        .doc("daovantoan10234@gmail.com")
+        .set({
+      'id': DateTime.now().toString(),
+      "mainImage": mainImage,
+      "nameRecipe": nameRecipe,
+      "galleryList": galleryList.map((e) => e.toJson()).toList(),
+      "ingredientList": ingredientUpLoadList.map((e) => e.toJson()).toList(),
+      "direction": directions,
+      "stepList": stepList.map((e) => e.toJson()).toList(),
+      "servingTime": servingTime,
+      "nutritionFact": nutritionFact,
+      "tags": tags,
+      "category": category,
+    });
   }
 }

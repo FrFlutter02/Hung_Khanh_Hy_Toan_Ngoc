@@ -22,4 +22,6 @@ class IngredientUpLoadModel {
     required this.ingredient,
     required this.image,
   });
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'ingredient': ingredient, 'image': image};
 }

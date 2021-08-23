@@ -10,4 +10,11 @@ class HowToCookModel {
     required this.textHowToCook,
     required this.duration,
   });
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'step': "$step",
+        'stepText': textHowToCook,
+        'duration': duration,
+      };
 }
