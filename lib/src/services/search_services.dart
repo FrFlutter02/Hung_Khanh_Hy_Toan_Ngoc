@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:mobile_app/src/constants/constant_text.dart';
 
+import '../constants/constant_text.dart';
 import '../models/recipe_model.dart';
 
 class SearchServices {
@@ -15,8 +15,7 @@ class SearchServices {
       final _hits = Map<String, dynamic>.from(_body)['hits'];
       final _labels =
           _hits.map((hit) => RecipeModel(name: hit['recipe']['label']));
-      final _labelsToListString = List<RecipeModel>.from(_labels);
-      return _labelsToListString;
+      return List<RecipeModel>.from(_labels);
     } else {
       throw SearchScreenText.searchErrorMessage;
     }
