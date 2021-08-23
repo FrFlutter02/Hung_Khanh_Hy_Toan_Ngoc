@@ -4,18 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
-import '../src/blocs/login_bloc/login_bloc.dart';
-import '../src/blocs/search_bloc/search_bloc.dart';
-import '../src/blocs/signup_bloc/signup_bloc.dart';
-import '../src/screens/search_screen.dart';
-import '../src/services/user_services.dart';
+import 'blocs/forgot_password_bloc/forgot_password_bloc.dart';
+import 'blocs/login_bloc/login_bloc.dart';
+import 'blocs/search_bloc/search_bloc.dart';
+import 'blocs/signup_bloc/signup_bloc.dart';
 import 'screens/forgot_password_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
+import 'screens/search_screen.dart';
 import 'screens/signup_screen.dart';
 import 'services/search_services.dart';
+import 'services/user_services.dart';
 
 class App extends StatelessWidget {
   @override
@@ -53,13 +53,12 @@ class App extends StatelessWidget {
           theme: ThemeData(fontFamily: "Nunito-Regular"),
           debugShowCheckedModeBanner: false,
           routes: {
-            "/": (context) => HomeScreen(),
-            "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
             "/homeScreen": (context) => HomeScreen(),
+            "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
             "/loginScreen": (context) => LoginScreen(),
             "/onboardingScreen": (context) => OnboardingScreen(),
             "/signupScreen": (context) => SignupScreen(),
-            "/searchScreen": (context) => SearchScreen()
+            "/": (context) => SearchScreen()
           },
         ),
       ),
