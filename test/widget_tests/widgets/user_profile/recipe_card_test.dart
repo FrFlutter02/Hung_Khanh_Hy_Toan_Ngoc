@@ -15,8 +15,11 @@ main() {
   });
 
   final widget = ScreenUtilInit(
-      builder: () =>
-          MaterialApp(home: RecipeCard(image: userData[0].recipeImages[0])));
+      builder: () => MaterialApp(
+              home: RecipeCard(
+            image: userData[0].recipeImages[0],
+            title: "Foods",
+          )));
 
   group("user information test testing", () {
     testWidgets("Should render correct title", (WidgetTester tester) async {

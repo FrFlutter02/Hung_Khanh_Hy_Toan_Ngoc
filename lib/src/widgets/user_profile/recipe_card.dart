@@ -4,7 +4,6 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_colors.dart';
-import '../../utils/screen_util.dart';
 
 class RecipeCard extends StatelessWidget {
   @override

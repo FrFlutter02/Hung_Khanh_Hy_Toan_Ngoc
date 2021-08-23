@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_text.dart';
 import '../../constants/constant_colors.dart';
-import '../../utils/screen_util.dart';
 
 class UserInformation extends StatelessWidget {
   bool isMyProfile;
