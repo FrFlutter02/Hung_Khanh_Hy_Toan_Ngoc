@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/icon_button_custom.dart';
 
 class CustomNotification extends StatelessWidget {
-  const CustomNotification({
-    Key? key,
-  }) : super(key: key);
+  final bool isTablet;
+
+  const CustomNotification({Key? key, this.isTablet = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,12 @@ class CustomNotification extends StatelessWidget {
             onTap: () {},
           ),
         ),
-        CircleAvatar(
-          radius: 18.r,
-          backgroundImage: AssetImage('assets/users/user0.png'),
-        ),
+        isTablet
+            ? CircleAvatar(
+                radius: 18.r,
+                backgroundImage: AssetImage('assets/users/user0.png'),
+              )
+            : SizedBox.shrink(),
       ],
     );
   }

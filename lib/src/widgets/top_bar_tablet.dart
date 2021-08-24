@@ -6,7 +6,9 @@ import '../widgets/logo.dart';
 import 'custom_notification.dart';
 
 class TopBarTablet extends StatelessWidget {
-  const TopBarTablet({Key? key}) : super(key: key);
+  final void Function() onTap;
+
+  const TopBarTablet({Key? key, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,11 @@ class TopBarTablet extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 25.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButtonCustom(
                 icons: 'assets/images/icons/search.png',
-                onTap: () {},
+                onTap: onTap,
               ),
               CustomNotification(),
             ],

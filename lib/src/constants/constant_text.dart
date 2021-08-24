@@ -62,4 +62,5 @@ class RecipeFeedText {
   static const save = 'Save';
   static const textButton = 'Create Recipe';
   static const ofYourFollowersAreOnline = 'of your followers are online';
+  static const loadingFail = 'Loading Faild';
 }

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OutlineIconButton extends StatelessWidget {
   final String title;
   final String icons;
+  final double radius;
+  final Color color;
 
-  const OutlineIconButton({Key? key, required this.title, required this.icons})
+  const OutlineIconButton(
+      {Key? key,
+      required this.title,
+      required this.icons,
+      required this.radius,
+      required this.color})
       : super(key: key);
 
   @override
@@ -17,9 +24,9 @@ class OutlineIconButton extends StatelessWidget {
         padding: EdgeInsets.only(right: 11.w),
         decoration: BoxDecoration(
           border: Border.all(
-            color: AppColor.green,
+            color: color,
           ),
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(radius),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +40,7 @@ class OutlineIconButton extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .subtitle2!
-                  .copyWith(color: AppColor.green, height: (18 / 14).h),
+                  .copyWith(color: color, height: (18 / 14).h),
             )
           ],
         ),

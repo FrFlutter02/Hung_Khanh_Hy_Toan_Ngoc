@@ -16,11 +16,13 @@ class Logo extends StatelessWidget {
       children: [
         Image.asset('assets/images/logo_icon.png'),
         SizedBox(width: _screenUtil.width(10)),
-        Text(AppText.iconText,
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(fontFamily: "Nunito-Bold")),
+        Text(
+          AppText.iconText,
+          style: Theme.of(context)
+              .textTheme
+              .headline6!
+              .copyWith(fontFamily: "Nunito-Bold"),
+        ),
       ],
     );
   }

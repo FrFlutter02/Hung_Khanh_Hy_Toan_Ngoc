@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
-import '../src/blocs/login_bloc/login_bloc.dart';
-import '../src/blocs/signup_bloc/signup_bloc.dart';
+import 'blocs/forgot_password_bloc/forgot_password_bloc.dart';
+import 'blocs/login_bloc/login_bloc.dart';
+import 'blocs/signup_bloc/signup_bloc.dart';
+import 'blocs/post_bloc/post_bloc.dart';
 import 'screens/forgot_password_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/signup_screen.dart';
@@ -14,11 +15,14 @@ import 'services/user_services.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/recipe_feed_screen.dart';
+import 'screens/search_screen.dart';
+import 'services/post_service.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userServices = UserServices();
+    final postServices = PostServices();
 
     Size designSize = Size(375, 812);
 
@@ -39,6 +43,7 @@ class App extends StatelessWidget {
             create: (context) => LoginBloc(userServices: userServices)),
         BlocProvider(
             create: (context) => SignupBloc(userServices: userServices)),
+        BlocProvider(create: (context) => PostBloc(postServices: postServices)),
       ],
       child: ScreenUtilInit(
         designSize: designSize,
@@ -55,6 +60,7 @@ class App extends StatelessWidget {
             "/onboardingScreen": (context) => OnboardingScreen(),
             "/signupScreen": (context) => SignupScreen(),
             "/recipeFeedScreen": (context) => RecipeFeedScreen(),
+            "/searchScreen ": (context) => SearchScreen(),
           },
         ),
       ),

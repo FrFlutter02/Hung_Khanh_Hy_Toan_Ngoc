@@ -24,7 +24,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         String emailErrorMessage = await Validator.validateLoginEmail(event);
         String passwordErrorMessage =
             await Validator.validateLoginPassword(event);
-
         try {
           yield LoginInProgress();
           UserModel userModel = UserModel(
