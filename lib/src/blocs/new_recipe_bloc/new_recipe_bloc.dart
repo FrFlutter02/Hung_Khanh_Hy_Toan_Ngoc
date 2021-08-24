@@ -124,9 +124,9 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         List<IngredientUpLoadModel> ingredientUpLoadList = [];
 
         mainImage = await UploadFile.upLoadImage(imageMain);
-        // galleryUploadList = await UploadFile.upLoadGallery(imageGallerys);
-        // ingredientUpLoadList =
-        //     await UploadFile.upLoadIngredient(ingredientList);
+        galleryUploadList = await UploadFile.upLoadGallery(imageGallerys);
+        ingredientUpLoadList =
+            await UploadFile.upLoadIngredient(ingredientList);
 
         try {
           await UploadFile.uploadDataFirebase(

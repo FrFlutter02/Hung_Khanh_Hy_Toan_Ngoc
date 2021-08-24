@@ -14,16 +14,15 @@ class ItemNewAdditionalInfo extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ItemNewAdditionalInfoState createState() => _ItemNewAdditionalInfoState();
+  ItemNewAdditionalInfoState createState() => ItemNewAdditionalInfoState();
 }
 
-final addServingTimeController = TextEditingController();
-final addNutritionTimeController = TextEditingController();
-final addTagsController = TextEditingController();
-bool addInfo = false;
-bool saveInfo = false;
-
-class _ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
+class ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
+  final addServingTimeController = TextEditingController();
+  final addNutritionTimeController = TextEditingController();
+  final addTagsController = TextEditingController();
+  bool addInfo = false;
+  bool saveInfo = false;
   @override
   Widget build(BuildContext context) {
     bool isTablet = false;

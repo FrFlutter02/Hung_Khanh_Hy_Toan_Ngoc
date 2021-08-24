@@ -89,8 +89,15 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                               color: NewRecipeScreenColor.borderButtonColor),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: InkWell(
-                            onTap: () {
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(0),
+                              primary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {
                               showModalBottomSheet(
                                 context: context,
                                 builder: ((builder) => BottomSheetPickImage(
@@ -106,6 +113,8 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                     child: Image.file(
                                       File(imageMain.path),
                                       fit: BoxFit.fill,
+                                      height: double.infinity,
+                                      width: double.infinity,
                                     ),
                                   )),
                       ),

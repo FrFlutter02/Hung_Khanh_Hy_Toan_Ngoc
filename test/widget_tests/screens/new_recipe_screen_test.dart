@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -76,11 +78,22 @@ void main() {
   });
   testWidgets('Should render correct main icon name recipes',
       (WidgetTester tester) async {
+    File imageMain = File("");
+
     await tester.pumpWidget(_widget);
+
+    final containerFiner =
+        find.descendant(of: find.byType(Row), matching: find.byType(Container));
+    final elevatedButtonFinder = find.descendant(
+        of: containerFiner, matching: find.byType(ElevatedButton));
+    expect(elevatedButtonFinder, findsOneWidget);
     final _image =
-        find.descendant(of: find.byType(InkWell), matching: find.byType(Image));
+        find.descendant(of: elevatedButtonFinder, matching: find.byType(Image));
     final _imageFinder = tester.widget<Image>(_image).image as AssetImage;
-    expect(_imageFinder, findsWidgets);
+
+    imageMain.path == ""
+        ? expect(_imageFinder.assetName, "assets/images/icons/plus_icon.png")
+        : expect(_imageFinder, findsNothing);
   });
   testWidgets('Should render correct label text field name recipes',
       (WidgetTester tester) async {
@@ -92,9 +105,7 @@ void main() {
   });
   testWidgets('Should render a drop down button', (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-
     final dropDownButtonFinder = find.byType(DropdownButton);
-
     expect(dropDownButtonFinder, findsWidgets);
   });
   testWidgets('Should render a outLineButton', (WidgetTester tester) async {
