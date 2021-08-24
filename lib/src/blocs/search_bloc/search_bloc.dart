@@ -27,6 +27,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       case SearchAutofilled:
         yield* mapSearchAutofilledToState(event as SearchAutofilled);
         break;
+      case SearchInitialReturned:
+        yield SearchInitial();
+        break;
     }
   }
 
@@ -46,10 +49,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield SearchRecipeInProgress();
       final recipes = await searchServices
           .searcRecipesByName(event.searchQuery)
-          .then((recipe) => recipe
+          .then((recipes) => recipes
               .where((recipe) => recipe.name
                   .toLowerCase()
-                  .contains(event.searchQuery.toLowerCase()))
+                  .startsWith(event.searchQuery.toLowerCase()))
               .toSet()
               .take(7)
               .toList());
@@ -68,7 +71,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> mapSearchAutofilledToState(
       SearchAutofilled event) async* {
     if (event.autofillValue.isNotEmpty) {
-      yield SearchAutofillSuccess(autofillValue: event.autofillValue);
+      yield SearchAutofillSuccess(
+          autofillValue: event.autofillValue.toLowerCase());
       await Future.delayed(Duration(seconds: 1));
       yield SearchInitial();
     }

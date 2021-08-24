@@ -39,27 +39,27 @@ class _HomeScreenState extends State<HomeScreen> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Image(
-                  image: AssetImage('assets/images/search_icon.jpg'),
-                  color:
-                      _selectedIndex == 0 ? AppColor.green : AppColor.iconText,
-                ),
-                label: 'Search'),
-            BottomNavigationBarItem(
-                icon: Image(
-                  image: AssetImage('assets/images/carosel_icon.jpg'),
-                  color:
-                      _selectedIndex == 1 ? AppColor.green : AppColor.iconText,
-                ),
-                label: 'Recipe'),
-            BottomNavigationBarItem(
-                icon: Image(
-                  image: AssetImage('assets/images/user_profile_icon.jpg'),
-                  color:
-                      _selectedIndex == 2 ? AppColor.green : AppColor.iconText,
-                ),
-                label: 'User profile')
+            // BottomNavigationBarItem(
+            //     icon: Image(
+            //       image: AssetImage('assets/images/search_icon.jpg'),
+            //       color:
+            //           _selectedIndex == 0 ? AppColor.green : AppColor.iconText,
+            //     ),
+            //     label: 'Search'),
+            // BottomNavigationBarItem(
+            //     icon: Image(
+            //       image: AssetImage('assets/images/carosel_icon.jpg'),
+            //       color:
+            //           _selectedIndex == 1 ? AppColor.green : AppColor.iconText,
+            //     ),
+            //     label: 'Recipe'),
+            // BottomNavigationBarItem(
+            //     icon: Image(
+            //       image: AssetImage('assets/images/user_profile_icon.jpg'),
+            //       color:
+            //           _selectedIndex == 2 ? AppColor.green : AppColor.iconText,
+            //     ),
+            //     label: 'User profile')
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,

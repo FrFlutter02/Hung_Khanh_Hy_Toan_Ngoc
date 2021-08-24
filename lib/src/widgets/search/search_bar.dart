@@ -21,6 +21,7 @@ class SearchBar extends StatefulWidget {
 class SearchBarState extends State<SearchBar> {
   final double circularProgressIndicatorSize = 20.w;
   final double iconSize = 24.w;
+  final Radius searchTextFieldAndDropdownRadius = Radius.circular(8);
   final FocusNode searchFocusNode = FocusNode();
   final LayerLink layerLink = LayerLink();
   bool searchHasFocus = false;
@@ -103,130 +104,10 @@ class SearchBarState extends State<SearchBar> {
     );
   }
 
-  void closeDropdown() {
-    if (dropdownOverlayEntry != null) {
-      dropdownOverlayEntry!.remove();
-      dropdownOverlayEntry = null;
-      if (searchTextEditingController.text.isEmpty) {
-        recipesByName = [];
-      }
-    }
-  }
-
   @override
   void dispose() {
     searchStreamSubscription?.cancel();
     super.dispose();
-  }
-
-  Widget? getDropdownWidget() {
-    final searchState = context.read<SearchBloc>().state;
-    if (searchState is SearchRecipeInProgress) {
-      return Padding(
-        padding: dropdownPadding,
-        child: Center(
-          child: SizedBox(
-            width: circularProgressIndicatorSize,
-            height: circularProgressIndicatorSize,
-            child: CircularProgressIndicator(
-              color: AppColor.green,
-            ),
-          ),
-        ),
-      );
-    }
-    if (searchState is SearchRecipeSuccess) {
-      final _list = getFormattedResult(
-          keyword: searchTextEditingController.text, recipes: recipesByName);
-      return Column(
-        children: [
-          ..._list.map((recipe) {
-            return InkWell(
-              onTap: () {
-                context.read<SearchBloc>().add(SearchAutofilled(
-                    autofillValue: recipe['result']!.toLowerCase()));
-              },
-              child: SizedBox(
-                width: 1.sw,
-                child: Padding(
-                  padding: dropdownPadding,
-                  child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      text: TextSpan(
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    color: AppColor.primaryBlack,
-                                  ),
-                          children: [
-                            TextSpan(
-                              text: recipe['beforeKeyword'],
-                            ),
-                            recipe['beforeKeyword']!.isEmpty &&
-                                    recipe['afterKeyword']!.isEmpty
-                                ? TextSpan(text: recipe['result'])
-                                : TextSpan(
-                                    text: searchTextEditingController.text,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                            TextSpan(
-                              text: recipe['afterKeyword'],
-                            )
-                          ])),
-                ),
-              ),
-            );
-          }),
-        ],
-      );
-    }
-    if (searchState is SearchRecipeFailure) {
-      return Padding(
-        padding: dropdownPadding,
-        child: Text(
-          searchState.failureMessage,
-          style: TextStyle(color: AppColor.secondaryGrey),
-        ),
-      );
-    }
-  }
-
-  List<Map<String, String>> getFormattedResult(
-      {String keyword = '', required List<RecipeModel> recipes}) {
-    return List<Map<String, String>>.from(recipes.map((element) {
-      final int keywordStartIndex =
-          element.name.toLowerCase().indexOf(keyword.toLowerCase());
-      final int keywordEndIndex =
-          keywordStartIndex != -1 ? keywordStartIndex + keyword.length - 1 : -1;
-      final stringBeforeKeyword = keywordStartIndex != -1
-          ? element.name.substring(0, keywordStartIndex)
-          : '';
-      final stringAfterKeyword = keywordEndIndex != -1
-          ? element.name.substring(keywordEndIndex + 1)
-          : '';
-      return {
-        'beforeKeyword': stringBeforeKeyword.toLowerCase(),
-        'result': element.name,
-        'afterKeyword': stringAfterKeyword.toLowerCase(),
-      };
-    }));
-  }
-
-  Border getSearchTextFieldBorder() {
-    return Border.all(
-      color: dropdownOverlayEntry != null
-          ? AppColor.secondaryGrey
-          : AppColor.white,
-    );
-  }
-
-  BorderRadius getSearchTextFieldBorderRadius() {
-    return dropdownOverlayEntry != null
-        ? BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(8),
-          )
-        : BorderRadius.circular(8);
   }
 
   @override
@@ -281,24 +162,131 @@ class SearchBarState extends State<SearchBar> {
     super.initState();
   }
 
+  Widget? getDropdownWidget() {
+    final searchState = context.read<SearchBloc>().state;
+    if (searchState is SearchRecipeInProgress) {
+      return Padding(
+        padding: dropdownPadding,
+        child: Center(
+          child: SizedBox(
+            width: circularProgressIndicatorSize,
+            height: circularProgressIndicatorSize,
+            child: CircularProgressIndicator(
+              color: AppColor.green,
+            ),
+          ),
+        ),
+      );
+    }
+    if (searchState is SearchRecipeSuccess) {
+      return Column(
+        children: [
+          ...recipesByName.map((recipe) {
+            return InkWell(
+              onTap: () {
+                context
+                    .read<SearchBloc>()
+                    .add(SearchAutofilled(autofillValue: recipe.name));
+              },
+              child: SizedBox(
+                width: 1.sw,
+                child: Padding(
+                  padding: dropdownPadding,
+                  child: RichText(
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    color: AppColor.primaryBlack,
+                                  ),
+                          children: getFormattedResult(
+                              keyword: searchTextEditingController.text,
+                              result: recipe.name))),
+                ),
+              ),
+            );
+          }),
+        ],
+      );
+    }
+    if (searchState is SearchRecipeFailure) {
+      return Padding(
+        padding: dropdownPadding,
+        child: Text(
+          searchState.failureMessage,
+          style: TextStyle(color: AppColor.secondaryGrey),
+        ),
+      );
+    }
+  }
+
+  List<TextSpan> getFormattedResult(
+      {required String keyword, required String result}) {
+    String _resultToLowerCase = result.toLowerCase();
+    List<TextSpan> _textSpanList = [];
+
+    while (_resultToLowerCase.isNotEmpty) {
+      int _indexOfKeyword = _resultToLowerCase.indexOf(keyword);
+      _textSpanList.add(
+        TextSpan(
+          text: _resultToLowerCase.substring(0, keyword.length),
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      );
+      _indexOfKeyword = _resultToLowerCase.indexOf(keyword, keyword.length);
+      _textSpanList.add(
+        TextSpan(
+          text: _resultToLowerCase.substring(
+              keyword.length,
+              _indexOfKeyword == -1
+                  ? _resultToLowerCase.length
+                  : _indexOfKeyword),
+        ),
+      );
+      _resultToLowerCase = _resultToLowerCase.substring(
+          _indexOfKeyword == -1 ? _resultToLowerCase.length : _indexOfKeyword);
+    }
+    return _textSpanList;
+  }
+
+  Border getSearchTextFieldBorder() {
+    return Border.all(
+      color: dropdownOverlayEntry != null
+          ? AppColor.secondaryGrey
+          : AppColor.white,
+    );
+  }
+
+  BorderRadius getSearchTextFieldBorderRadius() {
+    return dropdownOverlayEntry != null
+        ? BorderRadius.only(
+            topLeft: searchTextFieldAndDropdownRadius,
+            topRight: Radius.circular(8),
+          )
+        : BorderRadius.circular(8);
+  }
+
   void openDropdown(BuildContext context) async {
     if (dropdownOverlayEntry != null) return;
 
     final RenderBox _renderBox = (context.findRenderObject() as RenderBox);
     final size = _renderBox.size;
-
     dropdownOverlayEntry = OverlayEntry(builder: (BuildContext context) {
       return Positioned(
           width: size.width,
           child: CompositedTransformFollower(
             link: layerLink,
             showWhenUnlinked: false,
-            offset: Offset(0, size.height - 1.h),
+            offset: Offset(0, size.height),
             child: Container(
                 decoration: BoxDecoration(
                     color: AppColor.white,
                     border: Border.all(
                       color: AppColor.secondaryGrey,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: searchTextFieldAndDropdownRadius,
+                      bottomRight: searchTextFieldAndDropdownRadius,
                     )),
                 child: Material(
                     color: Colors.transparent, child: getDropdownWidget())),
@@ -307,12 +295,23 @@ class SearchBarState extends State<SearchBar> {
     Overlay.of(context)?.insert(dropdownOverlayEntry!);
   }
 
+  void closeDropdown() {
+    if (dropdownOverlayEntry != null) {
+      dropdownOverlayEntry!.remove();
+      dropdownOverlayEntry = null;
+      if (searchTextEditingController.text.isEmpty) {
+        recipesByName = [];
+      }
+    }
+  }
+
   void textFieldOnChangedCallback(String text) {
     const _duration = Duration(milliseconds: 500);
     final _searchBloc = context.read<SearchBloc>();
     final VoidCallback handleChange = () {
       _searchBloc.add(SearchTextFieldChanged(recipeTextFieldValue: text));
     };
+    _searchBloc.add(SearchInitialReturned());
     if (_searchBloc.state is SearchAutofillSuccess) return;
     if (searchTimer != null) {
       searchTimer!.cancel();

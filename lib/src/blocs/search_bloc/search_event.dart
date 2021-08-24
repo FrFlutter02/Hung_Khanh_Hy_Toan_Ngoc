@@ -30,3 +30,8 @@ class SearchAutofilled extends SearchEvent {
   @override
   List<Object> get props => [autofillValue];
 }
+
+class SearchInitialReturned extends SearchEvent {
+  @override
+  List<Object?> get props => [];
+}

@@ -91,37 +91,6 @@ void main() {
   });
 
   group('Method tests', () {
-    testWidgets('Test getFormattedResult()', (WidgetTester tester) async {
-      await tester.pumpWidget(_widget);
-      final StatefulElement _searchBarElement =
-          tester.element(find.byType(SearchBar));
-      final SearchBarState _searchBarState =
-          _searchBarElement.state as SearchBarState;
-      final result =
-          _searchBarState.getFormattedResult(keyword: 'chicken', recipes: [
-        RecipeModel(name: 'roast chicken'),
-        RecipeModel(name: 'chicken'),
-        RecipeModel(name: 'chicken made in Vietnam'),
-      ]);
-      expect(result, [
-        {
-          'beforeKeyword': 'roast ',
-          'result': 'roast chicken',
-          'afterKeyword': '',
-        },
-        {
-          'beforeKeyword': '',
-          'result': 'chicken',
-          'afterKeyword': '',
-        },
-        {
-          'beforeKeyword': '',
-          'result': 'chicken made in Vietnam',
-          'afterKeyword': ' made in Vietnam',
-        },
-      ]);
-    });
-
     testWidgets('Test openDropdown()', (WidgetTester tester) async {
       await tester.pumpWidget(_widget);
       final StatefulElement _searchBarElement =
@@ -179,21 +148,57 @@ void main() {
 
       searchBloc.emit(SearchRecipeInProgress());
       await tester.pump();
-      expect(
-          find.ancestor(
-              of: find.byType(Center), matching: find.byType(Padding)),
-          findsWidgets);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
-      searchBloc.emit(SearchRecipeSuccess(recipes: []));
+      _searchBarState.searchTextEditingController.text = 'chicken';
+      searchBloc.emit(SearchRecipeSuccess(recipes: [
+        RecipeModel(name: 'chicken 1'),
+      ]));
       await tester.pump();
-      expect(_searchBarState.recipesByName, []);
+      expect(_searchBarState.recipesByName, [
+        RecipeModel(name: 'chicken 1'),
+      ]);
 
       searchBloc.emit(SearchRecipeFailure(failureMessage: 'failure'));
       await tester.pump();
+      expect(find.text('failure'), findsOneWidget);
+    });
+
+    testWidgets('Test getFormattedResult()', (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      final StatefulElement _searchBarElement =
+          tester.element(find.byType(SearchBar));
+      final SearchBarState _searchBarState =
+          _searchBarElement.state as SearchBarState;
+
+      final result = _searchBarState.getFormattedResult(
+          keyword: 'ch', result: 'chicken chop');
       expect(
-          find.descendant(
-              of: find.byType(Padding), matching: find.text('failure')),
-          findsOneWidget);
+        result[0],
+        TextSpan(
+          text: 'ch',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      );
+      expect(
+        result[1],
+        TextSpan(
+          text: 'icken ',
+        ),
+      );
+      expect(
+        result[2],
+        TextSpan(
+          text: 'ch',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      );
+      expect(
+        result[3],
+        TextSpan(
+          text: 'op',
+        ),
+      );
     });
 
     testWidgets('Test listener to searchStreamSubscription',
@@ -242,8 +247,9 @@ void main() {
       expect(_searchBarState.searchHasFocus, false);
       expect(_searchBarState.dropdownOverlayEntry, isNull);
 
+      _searchBarState.searchTextEditingController.text = 'chicken';
       searchBloc.emit(SearchRecipeSuccess(recipes: [
-        RecipeModel(name: 'chicken'),
+        RecipeModel(name: 'chicken 1'),
       ]));
       _searchBarState.searchFocusNode.requestFocus();
       await tester.pump();
