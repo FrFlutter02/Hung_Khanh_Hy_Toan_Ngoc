@@ -9,7 +9,6 @@ import 'blocs/login_bloc/login_bloc.dart';
 import 'blocs/search_bloc/search_bloc.dart';
 import 'blocs/signup_bloc/signup_bloc.dart';
 import 'screens/forgot_password_screen.dart';
-import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/search_screen.dart';
@@ -53,7 +52,6 @@ class App extends StatelessWidget {
           theme: ThemeData(fontFamily: "Nunito-Regular"),
           debugShowCheckedModeBanner: false,
           routes: {
-            "/homeScreen": (context) => HomeScreen(),
             "/forgotPasswordScreen": (context) => ForgotPasswordScreen(),
             "/loginScreen": (context) => LoginScreen(),
             "/onboardingScreen": (context) => OnboardingScreen(),

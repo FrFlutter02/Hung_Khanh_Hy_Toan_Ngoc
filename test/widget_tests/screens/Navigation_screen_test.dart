@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
-import 'package:mobile_app/src/screens/home_screen.dart';
+import 'package:mobile_app/src/screens/navigation_screen.dart';
 import 'package:mobile_app/src/screens/recipe_screen.dart';
 import 'package:mobile_app/src/screens/search_screen.dart';
 import 'package:mobile_app/src/screens/user_profile_screen.dart';
@@ -19,7 +19,7 @@ void main() {
   setUp(() => {registerFallbackValue(MyFakeType())});
   final _widget = BlocProvider(
     create: (_) => ForgotPasswordBloc(),
-    child: MaterialApp(home: HomeScreen()),
+    child: MaterialApp(home: NavigationScreen()),
   );
 
   testWidgets('Should render bottom navigation bar', (tester) async {
@@ -37,13 +37,13 @@ void main() {
   testWidgets('Should render Search logo , Carosel logo and User profile logo',
       (tester) async {
     final AssetImage imageSearch = AssetImage(
-      'assets/images/search_icon.jpg',
+      'assets/images/icons/search_icon.jpg',
     );
     final AssetImage imageCarosel = AssetImage(
-      'assets/images/carosel_icon.jpg',
+      'assets/images/icons/carosel_icon.jpg',
     );
     final AssetImage imageUserProfile = AssetImage(
-      'assets/images/user_profile_icon.jpg',
+      'assets/images/icons/user_profile_icon.jpg',
     );
     await tester.pumpWidget(_widget);
     final bottomNavigationBarFinder = find.byType(BottomNavigationBar);
