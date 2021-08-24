@@ -61,8 +61,10 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                 child: Column(
                   children: [
                     TopBarTablet(
-                        onTap: () =>
-                            Navigator.of(context).pushNamed('/searchScreen')),
+                        // onTap: () {
+                        // Navigator.of(context).pushNamed('/searchScreen');
+                        // }
+                        ),
                     Divider(
                         height: 1.h,
                         thickness: 2.h,
@@ -111,32 +113,37 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       ],
                     ),
                   ),
-                  BlocBuilder<PostBloc, PostState>(builder: (context, state) {
-                    if (state is PostLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(AppColor.green),
-                        ),
-                      );
-                    }
-                    if (state is PostLoadSuccess) {
-                      return ListView.builder(
-                        itemCount: 12,
-                        itemBuilder: (context, index) {
-                          return RecipeCardTablet(post: state.posts[index]);
-                        },
-                      );
-                    } else {
-                      return Center(
-                        child: Text(
-                          state is PostLoadFailure
-                              ? state.errorMessage
-                              : 'Loading Fail',
-                          style: TextStyle(color: Colors.black, fontSize: 50),
-                        ),
-                      );
-                    }
-                  }),
+                  BlocBuilder<PostBloc, PostState>(
+                    builder: (context, state) {
+                      if (state is PostLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(AppColor.green),
+                          ),
+                        );
+                      }
+                      if (state is PostLoadSuccess) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: state.posts.length,
+                          itemBuilder: (context, index) {
+                            return RecipeCardTablet(post: state.posts[index]);
+                          },
+                        );
+                      } else {
+                        return Center(
+                          child: Text(
+                            state is PostLoadFailure
+                                ? state.errorMessage
+                                : 'Loading Fail',
+                            style: TextStyle(color: Colors.black, fontSize: 50),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             )
