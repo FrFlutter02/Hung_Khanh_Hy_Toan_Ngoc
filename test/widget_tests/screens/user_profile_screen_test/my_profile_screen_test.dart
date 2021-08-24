@@ -69,7 +69,7 @@ main() {
   });
   group('tablet test', () {
     testWidgets('Should render  logo', (tester) async {
-      Device.screenWidth = 800;
+      Device.screenWidth = 770;
       Device.screenHeight = 1024;
       Device.devicePixelRatio = 1;
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);

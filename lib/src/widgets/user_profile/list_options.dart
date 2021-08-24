@@ -26,7 +26,7 @@ class ListOption extends StatelessWidget {
       MainCardHeight = 116.h;
 
       if (isMyProfile == true) {
-        buttonWidth = (90.w);
+        buttonWidth = (80.w);
       } else {
         buttonWidth = (149.h);
       }
@@ -34,7 +34,7 @@ class ListOption extends StatelessWidget {
       MainCardWidth = 718.w;
       MainCardHeight = (100.h);
       if (isMyProfile == true) {
-        buttonWidth = (186.w);
+        buttonWidth = 186.w;
       } else {
         buttonWidth = 320.w;
       }
@@ -48,92 +48,129 @@ class ListOption extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: TextButton(
                   onPressed: () {},
-                  child: Container(
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: buttonWidth,
-                            padding: EdgeInsets.only(bottom: 8.h),
-                            child: Column(
-                              children: [
-                                Text(recipes,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: AppColor.primaryBlack,
-                                    )),
-                                Text("Recipes",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.primaryBlack,
-                                    ))
-                              ],
-                            ),
+                  child: Opacity(
+                    opacity: 1,
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: buttonWidth,
+                          padding: EdgeInsets.only(bottom: 8.h),
+                          child: Column(
+                            children: [
+                              Text(recipes,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: AppColor.primaryBlack,
+                                  )),
+                              Text("Recipes",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColor.primaryBlack,
+                                  ))
+                            ],
                           ),
-                          Positioned(
-                            bottom: 0,
-                            child: Container(
-                              width: buttonWidth,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                  color: AppColor.green,
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(8),
-                                      topLeft: Radius.circular(8))),
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            width: buttonWidth,
+                            height: 4,
+                            decoration: BoxDecoration(
+                                color: AppColor.green,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    topLeft: Radius.circular(8))),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
               ),
               isMyProfile
-                  ? Opacity(
-                      opacity: 0.4,
-                      child: Container(
-                        width: buttonWidth,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Column(
+                  ? Container(
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Opacity(
+                          opacity: 0.4,
+                          child: Stack(
                             children: [
-                              Text(saved,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: AppColor.primaryBlack,
-                                  )),
-                              Text("Saved",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColor.primaryBlack,
-                                  )),
+                              Container(
+                                width: buttonWidth,
+                                padding: EdgeInsets.only(bottom: 8.h),
+                                child: Column(
+                                  children: [
+                                    Text(recipes,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: AppColor.primaryBlack,
+                                        )),
+                                    Text("Saved",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppColor.primaryBlack,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                child: Container(
+                                  width: buttonWidth,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                      color: null,
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(8),
+                                          topLeft: Radius.circular(8))),
+                                ),
+                              )
                             ],
                           ),
                         ),
                       ),
                     )
-                  : SizedBox.shrink(),
+                  : Container(),
               Container(
-                width: buttonWidth,
-                child: Opacity(
-                  opacity: 0.4,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Column(
+                child: TextButton(
+                  onPressed: () {},
+                  child: Opacity(
+                    opacity: 0.4,
+                    child: Stack(
                       children: [
-                        Text(following,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColor.primaryBlack,
-                            )),
-                        Text("Following",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColor.primaryBlack,
-                            )),
+                        Container(
+                          width: buttonWidth,
+                          padding: EdgeInsets.only(bottom: 8.h),
+                          child: Column(
+                            children: [
+                              Text(recipes,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: AppColor.primaryBlack,
+                                  )),
+                              Text("Following",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColor.primaryBlack,
+                                  ))
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            width: buttonWidth,
+                            height: 4,
+                            decoration: BoxDecoration(
+                                color: null,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    topLeft: Radius.circular(8))),
+                          ),
+                        )
                       ],
                     ),
                   ),
