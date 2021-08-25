@@ -50,8 +50,17 @@ class SearchBarState extends State<SearchBar> {
             padding: searchTextFieldContainerPadding,
             decoration: BoxDecoration(
               color: AppColor.white,
-              borderRadius: getSearchTextFieldBorderRadius(),
-              border: getSearchTextFieldBorder(),
+              borderRadius: dropdownOverlayEntry != null
+                  ? BorderRadius.only(
+                      topLeft: searchTextFieldAndDropdownRadius,
+                      topRight: Radius.circular(8),
+                    )
+                  : BorderRadius.circular(8),
+              border: Border.all(
+                color: dropdownOverlayEntry != null
+                    ? AppColor.secondaryGrey
+                    : AppColor.white,
+              ),
               boxShadow: [
                 BoxShadow(
                   color: AppColor.secondaryGrey
@@ -248,23 +257,6 @@ class SearchBarState extends State<SearchBar> {
           _indexOfKeyword == -1 ? _resultToLowerCase.length : _indexOfKeyword);
     }
     return _textSpanList;
-  }
-
-  Border getSearchTextFieldBorder() {
-    return Border.all(
-      color: dropdownOverlayEntry != null
-          ? AppColor.secondaryGrey
-          : AppColor.white,
-    );
-  }
-
-  BorderRadius getSearchTextFieldBorderRadius() {
-    return dropdownOverlayEntry != null
-        ? BorderRadius.only(
-            topLeft: searchTextFieldAndDropdownRadius,
-            topRight: Radius.circular(8),
-          )
-        : BorderRadius.circular(8);
   }
 
   void openDropdown(BuildContext context) async {
