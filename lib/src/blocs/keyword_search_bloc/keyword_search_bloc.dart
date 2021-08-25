@@ -29,9 +29,6 @@ class KeywordSearchBloc extends Bloc<KeywordSearchEvent, KeywordSearchState> {
       case KeywordSearchAutofilled:
         yield* mapSearchAutofilledToState(event as KeywordSearchAutofilled);
         break;
-      case KeywordSearchInitialReturned:
-        yield KeywordSearchInitial();
-        break;
     }
   }
 
@@ -40,9 +37,6 @@ class KeywordSearchBloc extends Bloc<KeywordSearchEvent, KeywordSearchState> {
     String recipeTextFieldValue = event.recipeTextFieldValue;
     yield SearchTextFieldChangeSuccess(
         recipeTextFieldValue: recipeTextFieldValue);
-    if (recipeTextFieldValue.isNotEmpty) {
-      add(KeywordSearchRecipeRequested(searchQuery: recipeTextFieldValue));
-    }
   }
 
   Stream<KeywordSearchState> mapSearchRecipeRequestedToState(
