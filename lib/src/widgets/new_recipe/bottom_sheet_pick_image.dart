@@ -40,7 +40,6 @@ class BottomSheetPickImage extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             InkWell(
                 onTap: () {
-                  // photoCamera();
                   if (typeImage == ImageType.imageMain) {
                     context
                         .read<NewRecipeBloc>()
@@ -72,7 +71,6 @@ class BottomSheetPickImage extends StatelessWidget {
                 )),
             InkWell(
                 onTap: () {
-                  // photoGallery();
                   if (typeImage == ImageType.imageMain) {
                     context
                         .read<NewRecipeBloc>()

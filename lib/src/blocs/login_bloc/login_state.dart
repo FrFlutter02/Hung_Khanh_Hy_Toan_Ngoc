@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../models/user_model.dart';
 
@@ -13,7 +14,10 @@ class LoginInitial extends LoginState {}
 
 class LoginInProgress extends LoginState {}
 
-class LoginSuccess extends LoginState {}
+class LoginSuccess extends LoginState {
+  // final User? firebaseUser;
+  // const LoginSuccess({required this.firebaseUser});
+}
 
 class LoginFailure extends LoginState {
   final UserModel userModel;

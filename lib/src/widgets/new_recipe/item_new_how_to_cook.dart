@@ -17,15 +17,14 @@ class ItemNewHowToCook extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ItemNewHowToCookState createState() => _ItemNewHowToCookState();
+  ItemNewHowToCookState createState() => ItemNewHowToCookState();
 }
 
-final List<HowToCookModel> howToCookList = [];
-final addLinkController = TextEditingController();
-final addStepController = TextEditingController();
-bool addLink = false;
-
-class _ItemNewHowToCookState extends State<ItemNewHowToCook> {
+class ItemNewHowToCookState extends State<ItemNewHowToCook> {
+  final List<HowToCookModel> howToCookList = [];
+  final addLinkController = TextEditingController();
+  final addStepController = TextEditingController();
+  bool addLink = false;
   Duration? resultDuration = Duration(minutes: 3);
   int step = 1;
 
@@ -245,11 +244,6 @@ class _ItemNewHowToCookState extends State<ItemNewHowToCook> {
                                               BorderRadius.circular(10)));
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());
-                                  // String twoDigits(int n) =>
-                                  //     n.toString().padLeft(2, "0");
-                                  // String twoDigitMinutes = twoDigits(
-                                  //     resultDuration!.inMinutes.remainder(60));
-                                  // var resultDurationString = resultDuration.toString().split(".");
                                 },
                                 child: Icon(Icons.timer_outlined)),
                           )

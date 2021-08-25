@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../screens/new_recipe_screen.dart';
-import '../../services/up_load_image.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_event.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_state.dart';
@@ -19,15 +18,15 @@ class ItemNewIngredients extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ItemNewIngredientsState createState() => _ItemNewIngredientsState();
+  ItemNewIngredientsState createState() => ItemNewIngredientsState();
 }
 
-final List<IngredientModel> ingredientList = [];
-final addIngredientController = TextEditingController();
-bool checkImage = false;
-File imageIngredient = File('');
+class ItemNewIngredientsState extends State<ItemNewIngredients> {
+  final List<IngredientModel> ingredientList = [];
+  final addIngredientController = TextEditingController();
+  bool checkImage = false;
+  File imageIngredient = File('');
 
-class _ItemNewIngredientsState extends State<ItemNewIngredients> {
   @override
   Widget build(BuildContext context) {
     if (imageIngredient.path != "") {
@@ -144,11 +143,6 @@ class _ItemNewIngredientsState extends State<ItemNewIngredients> {
                               addIngredientController.text = "";
                               imageIngredient = File("");
                             });
-                          } else {
-                            List<IngredientUpLoadModel> lisIngredient =
-                                await UploadFile.upLoadIngredient(
-                                    ingredientList);
-                            print("list :$lisIngredient");
                           }
                         },
                         child: Icon(

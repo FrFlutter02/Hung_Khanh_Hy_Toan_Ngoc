@@ -1,29 +1,32 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
+import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
 
 import '../../models/gallery_model.dart';
-import '../../services/up_load_image.dart';
+import '../../services/new_recipe_services.dart';
 import '../../models/how_to_cook_model.dart';
 import '../../services/user_services.dart';
 import '../../models/ingredients_model.dart';
 import 'new_recipe_event.dart';
 import 'new_recipe_state.dart';
 
-File imageMain = File('');
-File imageIngredient = File('');
-List<File> imageGallerys = [];
-List<IngredientModel> ingredientList = [];
-List<HowToCookModel> stepList = [];
-String directions = '';
-String servingTime = "";
-String nutritionFact = "";
-String tags = "";
-
 class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
-  final UserServices? userServices;
-  NewRecipeBloc({this.userServices}) : super(NewRecipeInitial());
-
+  // final LoginBloc loginBloc;
+  // NewRecipeBloc({required this.loginBloc}) : super(NewRecipeInitial());
+  NewRecipeBloc() : super(NewRecipeInitial());
+  // StreamSubscription? loginStreamSubscription;
+  File imageMain = File('');
+  File imageIngredient = File('');
+  List<File> imageGallerys = [];
+  List<IngredientModel> ingredientList = [];
+  List<HowToCookModel> stepList = [];
+  String directions = '';
+  String servingTime = "";
+  String nutritionFact = "";
+  String tags = "";
   @override
   Stream<NewRecipeState> mapEventToState(NewRecipeEvent event) async* {
     switch (event.runtimeType) {
@@ -64,7 +67,6 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
       case NewRecipeIngredientImagePicked:
         event as NewRecipeIngredientImagePicked;
         try {
-          yield NewRecipeLoading();
           final XFile? image =
               await ImagePicker().pickImage(source: event.imageSource);
           imageIngredient = File(image!.path);
@@ -85,7 +87,6 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
           ingredientList.add(ingredient);
           yield NewRecipeAddIngredientSuccess(ingredient);
         } catch (e) {
-          print(e);
           yield NewRecipeAddIngredientFailure();
         }
         break;
@@ -119,17 +120,24 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         break;
       case NewRecipeSaved:
         event as NewRecipeSaved;
+        // loginStreamSubscription = loginBloc.stream.listen((loginState) {
+        //   if (loginState is LoginSuccess) {
+        //    String? emailUer= loginState.firebaseUser?.email ;
+        //   }
+        // });
         String mainImage = "";
         List<GalleryModel> galleryUploadList = [];
         List<IngredientUpLoadModel> ingredientUpLoadList = [];
-
-        mainImage = await UploadFile.upLoadImage(imageMain);
-        galleryUploadList = await UploadFile.upLoadGallery(imageGallerys);
+        if (imageMain != File("")) {
+          mainImage = await NewRecipeServices.upLoadImage(imageMain);
+        }
+        galleryUploadList =
+            await NewRecipeServices.upLoadGallery(imageGallerys);
         ingredientUpLoadList =
-            await UploadFile.upLoadIngredient(ingredientList);
+            await NewRecipeServices.upLoadIngredient(ingredientList);
 
         try {
-          await UploadFile.uploadDataFirebase(
+          await NewRecipeServices.addNewRecipeFirebase(
               mainImage,
               event.nameRecipe,
               galleryUploadList,

@@ -2,11 +2,12 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 import '../models/how_to_cook_model.dart';
 import '../models/ingredients_model.dart';
 import '../models/gallery_model.dart';
 
-class UploadFile {
+class NewRecipeServices {
   static Future<String> upLoadImage(File file) async {
     try {
       String link = "";
@@ -18,30 +19,15 @@ class UploadFile {
       });
       return link;
     } on FirebaseStorage catch (e) {
-      print(e);
       return "";
     }
-  }
-
-  static Future<TaskSnapshot> taskSnapshotExample(
-      Reference ref, File file) async {
-    TaskSnapshot taskSnapshot = await ref.putFile(file).whenComplete(() {});
-    return taskSnapshot;
-  }
-
-  static Future<String> downloadURL(File file) async {
-    Reference ref = FirebaseStorage.instance
-        .ref("test/")
-        .child('${file.path.split('/').last}');
-    String downloadURL = await ref.getDownloadURL();
-    return downloadURL;
   }
 
   static Future<List<GalleryModel>> upLoadGallery(
       List<File> imageGallerys) async {
     List<GalleryModel> galleryList = [];
     await Future.wait(imageGallerys.map((element) async {
-      String link = await UploadFile.upLoadImage(element);
+      String link = await NewRecipeServices.upLoadImage(element);
       var gallery = GalleryModel(
         id: DateTime.now().toString(),
         link: link,
@@ -63,7 +49,7 @@ class UploadFile {
         );
         ingredientList.add(ingredient);
       } else {
-        String link = await UploadFile.upLoadImage(element.image);
+        String link = await NewRecipeServices.upLoadImage(element.image);
         var ingredient = IngredientUpLoadModel(
           id: element.id,
           ingredient: element.ingredient,
@@ -75,7 +61,8 @@ class UploadFile {
     return ingredientList;
   }
 
-  static Future<void> uploadDataFirebase(
+  static Future<void> addNewRecipeFirebase(
+    // String? emailUser,
     String mainImage,
     String nameRecipe,
     List<GalleryModel> galleryList,

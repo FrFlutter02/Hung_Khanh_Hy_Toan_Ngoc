@@ -59,7 +59,7 @@ void main() {
     });
   });
   group('new_recipe_screen', () {
-    final _newRecipeBloc = NewRecipeBloc(userServices: MockUserServices());
+    final _newRecipeBloc = NewRecipeBloc();
     final Widget _widget = BlocProvider(
         create: (_) => _newRecipeBloc,
         child: ScreenUtilInit(

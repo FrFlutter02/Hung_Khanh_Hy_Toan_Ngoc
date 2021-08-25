@@ -32,7 +32,7 @@ void main() {
   });
   final mockObserver = MockNavigationObserver();
   final mockUserServices = MockUserServices();
-  final _newRecipeBloc = NewRecipeBloc(userServices: mockUserServices);
+  final _newRecipeBloc = NewRecipeBloc();
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
       child: ScreenUtilInit(
@@ -105,8 +105,12 @@ void main() {
   });
   testWidgets('Should render a drop down button', (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    final dropDownButtonFinder = find.byType(DropdownButton);
-    expect(dropDownButtonFinder, findsWidgets);
+    final Type dropdownButtonType = DropdownButton<String>(
+      onChanged: (_) {},
+      items: const <DropdownMenuItem<String>>[],
+    ).runtimeType;
+    final dropdownButton = find.byType(dropdownButtonType);
+    expect(dropdownButton, findsOneWidget);
   });
   testWidgets('Should render a outLineButton', (WidgetTester tester) async {
     await tester.pumpWidget(_widget);

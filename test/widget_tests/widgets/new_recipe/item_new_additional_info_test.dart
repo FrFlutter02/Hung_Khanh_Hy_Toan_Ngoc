@@ -24,7 +24,7 @@ void main() {
   });
 
   final mockUserServices = MockUserServices();
-  final _newRecipeBloc = NewRecipeBloc(userServices: mockUserServices);
+  final _newRecipeBloc = NewRecipeBloc();
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
       child: ScreenUtilInit(
@@ -111,8 +111,7 @@ void main() {
     expect(textNutritionFactFinder, findsOneWidget);
     expect(textTagsFinder, findsOneWidget);
   });
-  testWidgets("Should render servingTimeText, nutritionFactFinderText, tagText",
-      (WidgetTester tester) async {
+  testWidgets("Should close form additional info", (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
     final StatefulElement _itemNewAdditionalInfoElement =
         tester.element(find.byType(ItemNewAdditionalInfo));
@@ -122,7 +121,6 @@ void main() {
         of: find.byType(InkWell), matching: find.byType(Container));
     await tester.tap(containerFinder);
     await tester.pump();
-
     final inkWellFinder =
         find.descendant(of: find.byType(Row), matching: find.byType(InkWell));
     await tester.tap(inkWellFinder);

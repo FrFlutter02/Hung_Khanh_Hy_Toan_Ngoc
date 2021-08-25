@@ -21,7 +21,7 @@ void main() {
   });
 
   final mockUserServices = MockUserServices();
-  final _newRecipeBloc = NewRecipeBloc(userServices: mockUserServices);
+  final _newRecipeBloc = NewRecipeBloc();
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
       child: ScreenUtilInit(

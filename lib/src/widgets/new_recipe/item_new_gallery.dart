@@ -18,12 +18,12 @@ class ItemNewGallery extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ItemNewGalleryState createState() => _ItemNewGalleryState();
+  ItemNewGalleryState createState() => ItemNewGalleryState();
 }
 
-List<File> imageGallerys = [];
-
-class _ItemNewGalleryState extends State<ItemNewGallery> {
+class ItemNewGalleryState extends State<ItemNewGallery> {
+  List<File> imageGallerys = [];
+  int imageOverbalance = 0;
   @override
   Widget build(BuildContext context) {
     // imageGallerys.addAll(dataImage);

@@ -21,6 +21,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginBloc = LoginBloc(userServices: userServices);
     Size designSize = Size(375, 812);
     if (Device.get().isTablet) {
       designSize = Size(768, 1024);
@@ -37,12 +38,12 @@ class App extends StatelessWidget {
           BlocProvider(
               create: (context) =>
                   ForgotPasswordBloc(userServices: userServices)),
-          BlocProvider(
-              create: (context) => LoginBloc(userServices: userServices)),
+          BlocProvider(create: (context) => loginBloc),
           BlocProvider(
               create: (context) => SignupBloc(userServices: userServices)),
           BlocProvider(
-              create: (context) => NewRecipeBloc(userServices: userServices)),
+              // create: (context) => NewRecipeBloc(loginBloc: loginBloc)),
+              create: (context) => NewRecipeBloc()),
         ],
         child: MaterialApp(
           theme: ThemeData(fontFamily: "Nunito-Regular"),

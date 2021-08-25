@@ -44,4 +44,8 @@ class UserServices {
     await userCollection.doc(userModel.email).set(userModel.toMap());
     return userCredential;
   }
+
+  Future<User> getUser() async {
+    return firebaseAuth.currentUser!;
+  }
 }
