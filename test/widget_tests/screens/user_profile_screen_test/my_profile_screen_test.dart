@@ -77,5 +77,23 @@ main() {
       final firstTitleFinder = find.byType(MainCard);
       expect(firstTitleFinder, findsOneWidget);
     });
+    testWidgets('Should render  userInformation', (tester) async {
+      Device.screenWidth = 770;
+      Device.screenHeight = 1024;
+      Device.devicePixelRatio = 1;
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(tabletWidget);
+      final firstTitleFinder = find.byType(UserInformation);
+      expect(firstTitleFinder, findsOneWidget);
+    });
+    testWidgets('Should render  main card', (tester) async {
+      Device.screenWidth = 770;
+      Device.screenHeight = 1024;
+      Device.devicePixelRatio = 1;
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(tabletWidget);
+      final firstTitleFinder = find.byType(MainCard);
+      expect(firstTitleFinder, findsOneWidget);
+    });
   });
 }

@@ -21,6 +21,7 @@ main() {
   final mobileWidget = ScreenUtilInit(
       designSize: Size(375, 812),
       builder: () => MaterialApp(home: ViewProfileScreen()));
+
   final tabletWidget = ScreenUtilInit(
       designSize: Size(800, 1024),
       builder: () => MaterialApp(home: ViewProfileScreen()));
@@ -60,6 +61,34 @@ main() {
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
       await tester.pumpWidget(tabletWidget);
       final firstTitleFinder = find.byType(NotificationUser);
+      expect(firstTitleFinder, findsOneWidget);
+    });
+    testWidgets('Should render user information', (tester) async {
+      Device.screenWidth = 770;
+      Device.screenHeight = 1024;
+      Device.devicePixelRatio = 1;
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(tabletWidget);
+      final firstTitleFinder = find.byType(MainCard);
+      expect(firstTitleFinder, findsOneWidget);
+    });
+    testWidgets('Should render following button', (tester) async {
+      Device.screenWidth = 770;
+      Device.screenHeight = 1024;
+      Device.devicePixelRatio = 1;
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(tabletWidget);
+      final followingButton = find.descendant(
+          matching: find.text("Follow"), of: find.byType(CustomButton));
+      expect(followingButton, findsOneWidget);
+    });
+    testWidgets('Should render main card', (tester) async {
+      Device.screenWidth = 770;
+      Device.screenHeight = 1024;
+      Device.devicePixelRatio = 1;
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(tabletWidget);
+      final firstTitleFinder = find.byType(MainCard);
       expect(firstTitleFinder, findsOneWidget);
     });
   });
