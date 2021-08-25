@@ -116,29 +116,6 @@ void main() {
       expect(_searchBarState.recipesByName, isEmpty);
     });
 
-    testWidgets('Test getSearchTextFieldBorderRadius()',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(_widget);
-      final StatefulElement _searchBarElement =
-          tester.element(find.byType(SearchBar));
-      final SearchBarState _searchBarState =
-          _searchBarElement.state as SearchBarState;
-
-      _searchBarState.openDropdown(_searchBarState.context);
-      await tester.pump();
-      expect(
-          _searchBarState.getSearchTextFieldBorderRadius(),
-          BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(8),
-          ));
-
-      _searchBarState.closeDropdown();
-      await tester.pump();
-      expect(_searchBarState.getSearchTextFieldBorderRadius(),
-          BorderRadius.circular(8));
-    });
-
     testWidgets('Test getDropdownWidget()', (WidgetTester tester) async {
       await tester.pumpWidget(_widget);
       final StatefulElement _searchBarElement =
