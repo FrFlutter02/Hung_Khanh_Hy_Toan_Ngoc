@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
+import 'package:mobile_app/src/blocs/keyword_search_bloc/keyword_search_bloc.dart';
+import 'package:mobile_app/src/blocs/keyword_search_bloc/keyword_search_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/models/recipe_model.dart';
 import 'package:mobile_app/src/screens/search_screen.dart';
@@ -19,7 +19,7 @@ class MockSearchServices extends Mock implements SearchServices {}
 
 void main() {
   late MockSearchServices mockSearchServices;
-  late SearchBloc searchBloc;
+  late KeywordSearchBloc searchBloc;
   final Widget _widget = BlocProvider(
       create: (_) => searchBloc,
       child: ScreenUtilInit(
@@ -35,7 +35,7 @@ void main() {
 
   setUp(() {
     mockSearchServices = MockSearchServices();
-    searchBloc = SearchBloc(searchServices: mockSearchServices);
+    searchBloc = KeywordSearchBloc(searchServices: mockSearchServices);
   });
 
   tearDownAll(() {
@@ -146,12 +146,12 @@ void main() {
       final SearchBarState _searchBarState =
           _searchBarElement.state as SearchBarState;
 
-      searchBloc.emit(SearchRecipeInProgress());
+      searchBloc.emit(KeywordSearchRecipeInProgress());
       await tester.pump();
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
       _searchBarState.searchTextEditingController.text = 'chicken';
-      searchBloc.emit(SearchRecipeSuccess(recipes: [
+      searchBloc.emit(KeywordSearchRecipeSuccess(recipes: [
         RecipeModel(name: 'chicken 1'),
       ]));
       await tester.pump();
@@ -159,7 +159,7 @@ void main() {
         RecipeModel(name: 'chicken 1'),
       ]);
 
-      searchBloc.emit(SearchRecipeFailure(failureMessage: 'failure'));
+      searchBloc.emit(KeywordSearchRecipeFailure(failureMessage: 'failure'));
       await tester.pump();
       expect(find.text('failure'), findsOneWidget);
     });
@@ -211,7 +211,7 @@ void main() {
 
       searchBloc.stream.listen((event) {});
 
-      searchBloc.emit(SearchRecipeInProgress());
+      searchBloc.emit(KeywordSearchRecipeInProgress());
       await tester.pump();
       expect(_searchBarState.dropdownOverlayEntry, isNotNull);
 
@@ -219,7 +219,7 @@ void main() {
       await tester.pump();
       expect(_searchBarState.dropdownOverlayEntry, isNull);
 
-      searchBloc.emit(SearchAutofillSuccess(autofillValue: 'chicken'));
+      searchBloc.emit(KeywordSearchAutofillSuccess(autofillValue: 'chicken'));
       await tester.pump();
       expect(_searchBarState.dropdownOverlayEntry, isNull);
       expect(_searchBarState.searchTextEditingController.text, 'chicken');
@@ -248,7 +248,7 @@ void main() {
       expect(_searchBarState.dropdownOverlayEntry, isNull);
 
       _searchBarState.searchTextEditingController.text = 'chicken';
-      searchBloc.emit(SearchRecipeSuccess(recipes: [
+      searchBloc.emit(KeywordSearchRecipeSuccess(recipes: [
         RecipeModel(name: 'chicken 1'),
       ]));
       _searchBarState.searchFocusNode.requestFocus();

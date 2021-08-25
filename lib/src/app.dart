@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'blocs/login_bloc/login_bloc.dart';
-import 'blocs/search_bloc/search_bloc.dart';
+import 'blocs/keyword_search_bloc/keyword_search_bloc.dart';
 import 'blocs/signup_bloc/signup_bloc.dart';
 import 'screens/forgot_password_screen.dart';
 import 'screens/login_screen.dart';
@@ -44,7 +44,8 @@ class App extends StatelessWidget {
         BlocProvider(
             create: (context) => SignupBloc(userServices: userServices)),
         BlocProvider(
-            create: (context) => SearchBloc(searchServices: searchServices)),
+            create: (context) =>
+                KeywordSearchBloc(searchServices: searchServices)),
       ],
       child: ScreenUtilInit(
         designSize: designSize,

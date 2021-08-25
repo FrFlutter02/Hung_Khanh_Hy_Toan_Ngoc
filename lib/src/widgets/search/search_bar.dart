@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../blocs/search_bloc/search_bloc.dart';
-import '../../blocs/search_bloc/search_event.dart';
-import '../../blocs/search_bloc/search_state.dart';
+import '../../blocs/keyword_search_bloc/keyword_search_bloc.dart';
+import '../../blocs/keyword_search_bloc/keyword_search_event.dart';
+import '../../blocs/keyword_search_bloc/keyword_search_state.dart';
 import '../../constants/constant_colors.dart';
 import '../../constants/constant_text.dart';
 import '../../models/recipe_model.dart';
@@ -74,7 +74,7 @@ class SearchBarState extends State<SearchBar> {
                   child: TextField(
                     controller: searchTextEditingController,
                     focusNode: searchFocusNode,
-                    onChanged: (text) => textFieldOnChangedCallback(text),
+                    onChanged: (text) => _textFieldOnChangedCallback(text),
                     style: TextStyle(color: AppColor.primaryBlack),
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -125,18 +125,18 @@ class SearchBarState extends State<SearchBar> {
     }
 
     searchStreamSubscription =
-        context.read<SearchBloc>().stream.listen((searchState) {
-      if (searchState is SearchRecipeInProgress) {
+        context.read<KeywordSearchBloc>().stream.listen((searchState) {
+      if (searchState is KeywordSearchRecipeInProgress) {
         openDropdown(context);
       }
       if (searchState is SearchTextFieldChangeSuccess &&
           searchState.recipeTextFieldValue.isEmpty) {
         closeDropdown();
       }
-      if (searchState is SearchRecipeSuccess) {
+      if (searchState is KeywordSearchRecipeSuccess) {
         recipesByName = searchState.recipes;
       }
-      if (searchState is SearchAutofillSuccess) {
+      if (searchState is KeywordSearchAutofillSuccess) {
         closeDropdown();
         searchTextEditingController.text = searchState.autofillValue;
         searchTextEditingController.selection = TextSelection.fromPosition(
@@ -153,7 +153,8 @@ class SearchBarState extends State<SearchBar> {
         setState(() => searchHasFocus = false);
         closeDropdown();
       } else if (recipesByName.isNotEmpty &&
-          context.read<SearchBloc>().state.runtimeType != SearchInitial) {
+          context.read<KeywordSearchBloc>().state.runtimeType !=
+              KeywordSearchInitial) {
         openDropdown(context);
       }
       Overlay.of(context)!.setState(() {});
@@ -163,8 +164,8 @@ class SearchBarState extends State<SearchBar> {
   }
 
   Widget? getDropdownWidget() {
-    final searchState = context.read<SearchBloc>().state;
-    if (searchState is SearchRecipeInProgress) {
+    final searchState = context.read<KeywordSearchBloc>().state;
+    if (searchState is KeywordSearchRecipeInProgress) {
       return Padding(
         padding: dropdownPadding,
         child: Center(
@@ -178,15 +179,15 @@ class SearchBarState extends State<SearchBar> {
         ),
       );
     }
-    if (searchState is SearchRecipeSuccess) {
+    if (searchState is KeywordSearchRecipeSuccess) {
       return Column(
         children: [
           ...recipesByName.map((recipe) {
             return InkWell(
               onTap: () {
                 context
-                    .read<SearchBloc>()
-                    .add(SearchAutofilled(autofillValue: recipe.name));
+                    .read<KeywordSearchBloc>()
+                    .add(KeywordSearchAutofilled(autofillValue: recipe.name));
               },
               child: SizedBox(
                 width: 1.sw,
@@ -209,7 +210,7 @@ class SearchBarState extends State<SearchBar> {
         ],
       );
     }
-    if (searchState is SearchRecipeFailure) {
+    if (searchState is KeywordSearchRecipeFailure) {
       return Padding(
         padding: dropdownPadding,
         child: Text(
@@ -305,14 +306,15 @@ class SearchBarState extends State<SearchBar> {
     }
   }
 
-  void textFieldOnChangedCallback(String text) {
+  void _textFieldOnChangedCallback(String text) {
     const _duration = Duration(milliseconds: 500);
-    final _searchBloc = context.read<SearchBloc>();
+    final _searchBloc = context.read<KeywordSearchBloc>();
     final VoidCallback handleChange = () {
-      _searchBloc.add(SearchTextFieldChanged(recipeTextFieldValue: text));
+      _searchBloc
+          .add(KeywordSearchTextFieldChanged(recipeTextFieldValue: text));
     };
-    _searchBloc.add(SearchInitialReturned());
-    if (_searchBloc.state is SearchAutofillSuccess) return;
+    _searchBloc.add(KeywordSearchInitialReturned());
+    if (_searchBloc.state is KeywordSearchAutofillSuccess) return;
     if (searchTimer != null) {
       searchTimer!.cancel();
     }

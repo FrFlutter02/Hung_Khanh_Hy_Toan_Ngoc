@@ -1,9 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_event.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_state.dart';
+import 'package:mobile_app/src/blocs/keyword_search_bloc/keyword_search_bloc.dart';
+import 'package:mobile_app/src/blocs/keyword_search_bloc/keyword_search_event.dart';
+import 'package:mobile_app/src/blocs/keyword_search_bloc/keyword_search_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/models/recipe_model.dart';
 import 'package:mobile_app/src/services/search_services.dart';
@@ -33,7 +33,7 @@ class MockSearchServices extends Mock implements SearchServices {
 
 void main() {
   late MockSearchServices mockSearchServices;
-  late SearchBloc searchBloc;
+  late KeywordSearchBloc searchBloc;
 
   setUpAll(() async {
     setupCloudFirestoreMocks();
@@ -42,7 +42,7 @@ void main() {
 
   setUp(() {
     mockSearchServices = MockSearchServices();
-    searchBloc = SearchBloc(searchServices: mockSearchServices);
+    searchBloc = KeywordSearchBloc(searchServices: mockSearchServices);
   });
 
   tearDown(() {
@@ -55,8 +55,8 @@ void main() {
   blocTest(
       'emits [SearchTextFieldChangeSuccess] when [SearchTextFieldChanged] is called and text field is empty',
       build: () => searchBloc,
-      act: (SearchBloc searchBloc) =>
-          searchBloc.add(SearchTextFieldChanged(recipeTextFieldValue: '')),
+      act: (KeywordSearchBloc searchBloc) => searchBloc
+          .add(KeywordSearchTextFieldChanged(recipeTextFieldValue: '')),
       expect: () => [
             SearchTextFieldChangeSuccess(recipeTextFieldValue: ''),
           ]);
@@ -64,59 +64,62 @@ void main() {
   blocTest(
       'emits [SearchTextFieldChangeSuccess] then [SearchRecipeInProgress] then [SearchRecipeSuccess(recipes:...)] when [SearchTextFieldChanged] is called and text field is not empty',
       build: () => searchBloc,
-      act: (SearchBloc searchBloc) => searchBloc.add(
-          SearchTextFieldChanged(recipeTextFieldValue: fakeValidSearchValue)),
+      act: (KeywordSearchBloc searchBloc) => searchBloc.add(
+          KeywordSearchTextFieldChanged(
+              recipeTextFieldValue: fakeValidSearchValue)),
       expect: () => [
             SearchTextFieldChangeSuccess(
                 recipeTextFieldValue: fakeValidSearchValue),
-            SearchRecipeInProgress(),
-            SearchRecipeSuccess(recipes: fakeRecipes),
+            KeywordSearchRecipeInProgress(),
+            KeywordSearchRecipeSuccess(recipes: fakeRecipes),
           ]);
 
   blocTest(
       'emits [SearchRecipeInProgress] then [SearchRecipeSuccess(recipes: fakeRecipes)] when [SearchRecipeRequested] is called',
       build: () => searchBloc,
-      act: (SearchBloc searchBloc) => searchBloc
-          .add(SearchRecipeRequested(searchQuery: fakeValidSearchValue)),
+      act: (KeywordSearchBloc searchBloc) => searchBloc
+          .add(KeywordSearchRecipeRequested(searchQuery: fakeValidSearchValue)),
       expect: () => [
-            SearchRecipeInProgress(),
-            SearchRecipeSuccess(recipes: fakeRecipes),
+            KeywordSearchRecipeInProgress(),
+            KeywordSearchRecipeSuccess(recipes: fakeRecipes),
           ]);
 
   blocTest(
       'emits [SearchRecipeFailure(failureMessage:...)] when [SearchRecipeRequested] is called and no result was found',
       build: () => searchBloc,
-      act: (SearchBloc searchBloc) =>
-          searchBloc.add(SearchRecipeRequested(searchQuery: fakeNoResultValue)),
+      act: (KeywordSearchBloc searchBloc) => searchBloc
+          .add(KeywordSearchRecipeRequested(searchQuery: fakeNoResultValue)),
       expect: () => [
-            SearchRecipeInProgress(),
-            SearchRecipeFailure(
+            KeywordSearchRecipeInProgress(),
+            KeywordSearchRecipeFailure(
                 failureMessage: SearchScreenText.searchNoResultMessage),
           ]);
 
   blocTest(
       'emits [SearchRecipeFailure(failureMessage:...)] when [SearchRecipeRequested] is called and service throws error',
       build: () => searchBloc,
-      act: (SearchBloc searchBloc) =>
-          searchBloc.add(SearchRecipeRequested(searchQuery: 'error')),
+      act: (KeywordSearchBloc searchBloc) =>
+          searchBloc.add(KeywordSearchRecipeRequested(searchQuery: 'error')),
       expect: () => [
-            SearchRecipeInProgress(),
-            SearchRecipeFailure(
+            KeywordSearchRecipeInProgress(),
+            KeywordSearchRecipeFailure(
                 failureMessage: SearchScreenText.searchErrorMessage),
           ]);
 
   blocTest(
       'emits [] when [SearchAutofilled] is called and autofill value is empty',
       build: () => searchBloc,
-      act: (SearchBloc searchBloc) =>
-          searchBloc.add(SearchAutofilled(autofillValue: '')),
+      act: (KeywordSearchBloc searchBloc) =>
+          searchBloc.add(KeywordSearchAutofilled(autofillValue: '')),
       expect: () => []);
 
   blocTest(
       'emits [] when [SearchAutofilled] then [SearchInitial] is called and autofill value is not empty',
       build: () => searchBloc,
-      act: (SearchBloc searchBloc) =>
-          searchBloc.add(SearchAutofilled(autofillValue: 'autofill')),
-      expect: () =>
-          [SearchAutofillSuccess(autofillValue: 'autofill'), SearchInitial()]);
+      act: (KeywordSearchBloc searchBloc) =>
+          searchBloc.add(KeywordSearchAutofilled(autofillValue: 'autofill')),
+      expect: () => [
+            KeywordSearchAutofillSuccess(autofillValue: 'autofill'),
+            KeywordSearchInitial()
+          ]);
 }

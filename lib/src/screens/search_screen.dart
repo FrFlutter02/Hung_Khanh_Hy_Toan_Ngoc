@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../blocs/search_bloc/search_bloc.dart';
-import '../blocs/search_bloc/search_state.dart';
+import '../blocs/keyword_search_bloc/keyword_search_bloc.dart';
+import '../blocs/keyword_search_bloc/keyword_search_state.dart';
 import '../constants/constant_colors.dart';
 import '../widgets/custom_notification.dart';
 import '../widgets/search/search_bar.dart';
@@ -27,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: AppColor.white,
       body: SafeArea(
-        child: BlocBuilder<SearchBloc, SearchState>(
+        child: BlocBuilder<KeywordSearchBloc, KeywordSearchState>(
           builder: (context, state) {
             return ListView(
               children: [

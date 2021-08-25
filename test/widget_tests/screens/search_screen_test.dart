@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/blocs/search_bloc/search_bloc.dart';
+import 'package:mobile_app/src/blocs/keyword_search_bloc/keyword_search_bloc.dart';
 import 'package:mobile_app/src/screens/search_screen.dart';
 import 'package:mobile_app/src/services/search_services.dart';
 import 'package:mobile_app/src/widgets/search/search_bar.dart';
@@ -22,7 +22,7 @@ void main() {
 
   final mockSearchServices = MockSearchServices();
   final Widget _widget = BlocProvider(
-      create: (_) => SearchBloc(searchServices: mockSearchServices),
+      create: (_) => KeywordSearchBloc(searchServices: mockSearchServices),
       child: ScreenUtilInit(
         builder: () => MaterialApp(
           home: SearchScreen(),
