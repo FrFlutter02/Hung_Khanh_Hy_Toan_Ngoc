@@ -46,10 +46,10 @@ class CardContent extends StatelessWidget {
         ),
         isTablet ? SizedBox(height: 0.h) : SizedBox(height: 10.h),
         SizedBox(
-          height: isTablet ? 75.h : 40.h,
+          height: isTablet ? 75.h : 44.h,
           child: Text(
             subtitle,
-            maxLines: 3,
+            maxLines: isTablet ? 3 : 2,
             overflow: TextOverflow.visible,
             style: Theme.of(context).textTheme.subtitle2!.copyWith(
                 color: AppColor.secondaryGrey,
