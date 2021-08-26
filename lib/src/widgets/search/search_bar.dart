@@ -189,7 +189,6 @@ class SearchBarState extends State<SearchBar> {
       );
     }
     if (searchState is KeywordSearchRecipeSuccess) {
-      print('hehehe');
       return Column(
         children: [
           ...recipesByName.map((recipe) {
@@ -302,16 +301,15 @@ class SearchBarState extends State<SearchBar> {
   void _textFieldOnChangedCallback(String text) {
     const _duration = Duration(milliseconds: 500);
     final _searchBloc = context.read<KeywordSearchBloc>();
-    final VoidCallback searchRequest = () {
-      _searchBloc.add(KeywordSearchRecipeRequested(searchQuery: text));
-    };
     _searchBloc.add(KeywordSearchTextFieldChanged(recipeTextFieldValue: text));
     if (_searchBloc.state is KeywordSearchAutofillSuccess) return;
     if (searchTimer != null) {
       searchTimer!.cancel();
     }
     if (text.isNotEmpty) {
-      setState(() => searchTimer = Timer(_duration, searchRequest));
+      setState(() => searchTimer = Timer(_duration, () {
+            _searchBloc.add(KeywordSearchRecipeRequested(searchQuery: text));
+          }));
     }
   }
 }
