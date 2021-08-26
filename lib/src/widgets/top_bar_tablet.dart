@@ -6,10 +6,6 @@ import '../widgets/logo.dart';
 import 'custom_notification.dart';
 
 class TopBarTablet extends StatelessWidget {
-  final void Function() onTap;
-
-  const TopBarTablet({Key? key, required this.onTap}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,7 +21,7 @@ class TopBarTablet extends StatelessWidget {
             children: [
               IconButtonCustom(
                 icons: 'assets/images/icons/search.png',
-                onTap: onTap,
+                onTap: () => Navigator.of(context).pushNamed('/searchScreen'),
               ),
               CustomNotification(),
             ],

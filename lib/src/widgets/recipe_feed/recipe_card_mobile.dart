@@ -51,8 +51,8 @@ class RecipeCardMobile extends StatelessWidget {
                 child: CardHeader(
                   avatar:
                       'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
-                  fullName: post.name,
-                  time: "3",
+                  fullName: 'John Kerry',
+                  time: post.time,
                 ),
               ),
             ],
@@ -63,8 +63,7 @@ class RecipeCardMobile extends StatelessWidget {
             child: CardContent(
               isTablet: false,
               title: post.name,
-              subtitle: 'Apparently we had reached a great height in '
-                  'the atmosphere, for the sky was…',
+              subtitle: post.description,
               numberLikes: post.likes,
               numberComments: post.comments,
             ),

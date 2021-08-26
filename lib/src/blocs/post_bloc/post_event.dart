@@ -8,11 +8,3 @@ abstract class PostEvent extends Equatable {
 }
 
 class PostLoaded extends PostEvent {}
-
-class PostPageChanged extends PostEvent {
-  final int postNumber;
-  PostPageChanged(this.postNumber);
-
-  @override
-  List<Object> get props => [postNumber];
-}

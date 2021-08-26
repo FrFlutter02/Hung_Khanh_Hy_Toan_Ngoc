@@ -50,7 +50,7 @@ class CardContent extends StatelessWidget {
           child: Text(
             subtitle,
             maxLines: isTablet ? 3 : 2,
-            overflow: TextOverflow.visible,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.subtitle2!.copyWith(
                 color: AppColor.secondaryGrey,
                 height: (1.5).h,
@@ -87,6 +87,7 @@ class CardContent extends StatelessWidget {
               title: RecipeFeedText.save,
               radius: 4.r,
               color: AppColor.green,
+              onTap: () {},
             ),
           ],
         ),

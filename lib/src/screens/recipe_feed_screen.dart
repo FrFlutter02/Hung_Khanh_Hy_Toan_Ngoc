@@ -130,9 +130,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       } else {
                         return Center(
                           child: Text(
-                            state is PostLoadFailure
-                                ? state.errorMessage
-                                : 'Loading Fail',
+                            RecipeFeedText.loadingFail,
                             style: TextStyle(color: Colors.black, fontSize: 50),
                           ),
                         );
@@ -154,7 +152,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                 }
                 if (state is PostLoadSuccess) {
                   return PageView.builder(
-                    itemCount: state.posts.length,
+                    itemCount: 5,
                     onPageChanged: (value) {
                       setState(() {
                         currentpage = value;
@@ -166,23 +164,23 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 10.w, vertical: 39.h),
                         child: index == currentpage
-                            ? RecipeCardMobile(post: state.posts[index])
+                            ? RecipeCardMobile(
+                                post: state.posts[index],
+                              )
                             : Opacity(
                                 opacity: 0.5,
-                                child:
-                                    RecipeCardMobile(post: state.posts[index])),
+                                child: RecipeCardMobile(
+                                  post: state.posts[index],
+                                )),
                       );
                     },
                   );
                 } else {
                   return Center(
-                    child: Text(
-                      state is PostLoadFailure
-                          ? state.errorMessage
-                          : 'Loading Fail',
-                      style: TextStyle(color: Colors.black, fontSize: 50),
-                    ),
-                  );
+                      child: Text(
+                    RecipeFeedText.loadingFail,
+                    style: TextStyle(color: Colors.black, fontSize: 50),
+                  ));
                 }
               },
             ),

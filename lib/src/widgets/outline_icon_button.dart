@@ -7,19 +7,20 @@ class OutlineIconButton extends StatelessWidget {
   final String icons;
   final double radius;
   final Color color;
-
+  final void Function() onTap;
   const OutlineIconButton(
       {Key? key,
       required this.title,
       required this.icons,
       required this.radius,
-      required this.color})
+      required this.color,
+      required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
+    return InkWell(
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.only(right: 11.w),
         decoration: BoxDecoration(
@@ -37,10 +38,8 @@ class OutlineIconButton extends StatelessWidget {
             ),
             Text(
               title,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2!
-                  .copyWith(color: color, height: (18 / 14).h),
+              style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  color: color, height: (18 / 14).h, fontFamily: 'Nunito-Bold'),
             )
           ],
         ),

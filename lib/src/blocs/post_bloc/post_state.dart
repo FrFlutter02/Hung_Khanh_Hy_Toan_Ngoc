@@ -12,7 +12,6 @@ class PostLoading extends PostState {}
 
 class PostLoadSuccess extends PostState {
   final List<Post> posts;
-
   PostLoadSuccess({this.posts = const <Post>[]});
 
   @override

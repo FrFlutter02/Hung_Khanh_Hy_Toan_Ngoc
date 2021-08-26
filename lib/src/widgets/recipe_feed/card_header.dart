@@ -31,10 +31,10 @@ class CardHeader extends StatelessWidget {
             Text(
               fullName,
               overflow: TextOverflow.clip,
-              style: Theme.of(context)
-                  .textTheme
-                  .caption!
-                  .copyWith(color: AppColor.primaryBlack, fontSize: 12.sp),
+              style: Theme.of(context).textTheme.caption!.copyWith(
+                  color: AppColor.primaryBlack,
+                  fontSize: 12.sp,
+                  fontFamily: 'Nunito-Bold'),
             ),
             Text(
               '${time}h ago',

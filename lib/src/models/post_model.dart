@@ -9,6 +9,7 @@ class Post extends Equatable {
   final int comments;
   final String name;
   final String backgroundImage;
+  final String time;
 
   const Post({
     required this.recipeId,
@@ -18,6 +19,7 @@ class Post extends Equatable {
     required this.comments,
     required this.name,
     required this.backgroundImage,
+    required this.time,
   });
 
   @override
@@ -29,6 +31,7 @@ class Post extends Equatable {
         comments,
         name,
         backgroundImage,
+        time
       ];
 
   static Post fromSnapshot(DocumentSnapshot snapshot) {
@@ -40,6 +43,7 @@ class Post extends Equatable {
       comments: snapshot['comments'],
       name: snapshot['name'],
       backgroundImage: snapshot['backgroundImage'],
+      time: snapshot['time'],
     );
     return post;
   }
