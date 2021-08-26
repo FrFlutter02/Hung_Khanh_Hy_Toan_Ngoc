@@ -161,12 +161,9 @@ class SearchBarState extends State<SearchBar> {
       if (!searchFocusNode.hasFocus) {
         setState(() => searchHasFocus = false);
         closeDropdown();
-      } else if (recipesByName.isNotEmpty &&
-          context.read<KeywordSearchBloc>().state.runtimeType !=
-              KeywordSearchInitial) {
+      } else if (recipesByName.isNotEmpty) {
         openDropdown(context);
       }
-      Overlay.of(context)!.setState(() {});
     });
 
     super.initState();
