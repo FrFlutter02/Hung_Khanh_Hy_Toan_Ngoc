@@ -31,7 +31,7 @@ void main() {
   late NewRecipeBloc _newRecipeBloc;
   setUp(() {
     _mockUserServices = MockUserServices();
-    _newRecipeBloc = NewRecipeBloc(userServices: _mockUserServices);
+    _newRecipeBloc = NewRecipeBloc();
   });
 
   final _widget = BlocProvider(

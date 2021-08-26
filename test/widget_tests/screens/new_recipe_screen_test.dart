@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
+import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
@@ -31,7 +32,6 @@ void main() {
     registerFallbackValue(FakeRoute());
   });
   final mockObserver = MockNavigationObserver();
-  final mockUserServices = MockUserServices();
   final _newRecipeBloc = NewRecipeBloc();
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
@@ -120,5 +120,21 @@ void main() {
         matching: find.text(NewRecipeText.saveRecipeText));
     expect(outLineButtonFinder, findsWidgets);
     expect(textFinder, findsWidgets);
+  });
+  testWidgets('Should render a CircularProgressIndicator',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    // final outLineButtonFinder = find.byType(OutlinedButton);
+    // final textFinder = find.descendant(
+    //     of: outLineButtonFinder,
+    //     matching: find.text(NewRecipeText.saveRecipeText));
+    _newRecipeBloc.emit(NewRecipeLoading());
+    await tester.pump();
+    final iii = find.descendant(
+        of: find.byType(Center),
+        matching: find.byType(CircularProgressIndicator));
+    expect(iii, findsOneWidget);
+    // expect(outLineButtonFinder, findsWidgets);
+    // expect(textFinder, findsWidgets);
   });
 }

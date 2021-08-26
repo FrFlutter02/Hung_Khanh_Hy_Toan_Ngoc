@@ -2,22 +2,16 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
 
 import '../../models/gallery_model.dart';
 import '../../services/new_recipe_services.dart';
 import '../../models/how_to_cook_model.dart';
-import '../../services/user_services.dart';
 import '../../models/ingredients_model.dart';
 import 'new_recipe_event.dart';
 import 'new_recipe_state.dart';
 
 class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
-  // final LoginBloc loginBloc;
-  // NewRecipeBloc({required this.loginBloc}) : super(NewRecipeInitial());
   NewRecipeBloc() : super(NewRecipeInitial());
-  // StreamSubscription? loginStreamSubscription;
   File imageMain = File('');
   File imageIngredient = File('');
   List<File> imageGallerys = [];
@@ -120,21 +114,22 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         break;
       case NewRecipeSaved:
         event as NewRecipeSaved;
-        // loginStreamSubscription = loginBloc.stream.listen((loginState) {
-        //   if (loginState is LoginSuccess) {
-        //    String? emailUer= loginState.firebaseUser?.email ;
-        //   }
-        // });
+        yield NewRecipeLoading();
+
         String mainImage = "";
         List<GalleryModel> galleryUploadList = [];
         List<IngredientUpLoadModel> ingredientUpLoadList = [];
         if (imageMain != File("")) {
           mainImage = await NewRecipeServices.upLoadImage(imageMain);
         }
-        galleryUploadList =
-            await NewRecipeServices.upLoadGallery(imageGallerys);
-        ingredientUpLoadList =
-            await NewRecipeServices.upLoadIngredient(ingredientList);
+        if (imageGallerys != []) {
+          galleryUploadList =
+              await NewRecipeServices.upLoadGallery(imageGallerys);
+        }
+        if (ingredientList != []) {
+          ingredientUpLoadList =
+              await NewRecipeServices.upLoadIngredient(ingredientList);
+        }
 
         try {
           await NewRecipeServices.addNewRecipeFirebase(

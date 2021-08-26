@@ -62,7 +62,7 @@ class NewRecipeServices {
   }
 
   static Future<void> addNewRecipeFirebase(
-    // String? emailUser,
+   
     String mainImage,
     String nameRecipe,
     List<GalleryModel> galleryList,
