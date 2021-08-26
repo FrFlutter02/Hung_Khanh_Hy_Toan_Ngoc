@@ -53,25 +53,12 @@ void main() {
       build: () => searchBloc, expect: () => []);
 
   blocTest(
-      'emits [SearchTextFieldChangeSuccess] when [SearchTextFieldChanged] is called and text field is empty',
+      'emits [SearchTextFieldChangeSuccess] when [SearchTextFieldChanged] is called',
       build: () => searchBloc,
       act: (KeywordSearchBloc searchBloc) => searchBloc
-          .add(KeywordSearchTextFieldChanged(recipeTextFieldValue: '')),
+          .add(KeywordSearchTextFieldChanged(recipeTextFieldValue: 'chicken')),
       expect: () => [
-            SearchTextFieldChangeSuccess(recipeTextFieldValue: ''),
-          ]);
-
-  blocTest(
-      'emits [SearchTextFieldChangeSuccess] then [SearchRecipeInProgress] then [SearchRecipeSuccess(recipes:...)] when [SearchTextFieldChanged] is called and text field is not empty',
-      build: () => searchBloc,
-      act: (KeywordSearchBloc searchBloc) => searchBloc.add(
-          KeywordSearchTextFieldChanged(
-              recipeTextFieldValue: fakeValidSearchValue)),
-      expect: () => [
-            SearchTextFieldChangeSuccess(
-                recipeTextFieldValue: fakeValidSearchValue),
-            KeywordSearchRecipeInProgress(),
-            KeywordSearchRecipeSuccess(recipes: fakeRecipes),
+            SearchTextFieldChangeSuccess(recipeTextFieldValue: 'chicken'),
           ]);
 
   blocTest(
