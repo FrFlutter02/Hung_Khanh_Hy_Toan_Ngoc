@@ -54,17 +54,12 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
       backgroundColor: AppColor.white,
       appBar: isTablet
           ? PreferredSize(
-              preferredSize: Size.fromHeight(85.h),
+              preferredSize: Size.fromHeight(80.h),
               child: Container(
-                color: AppColor.white,
                 margin: EdgeInsets.only(top: 24.h),
-                child: Column(
+                child: Wrap(
                   children: [
-                    TopBarTablet(
-                        // onTap: () {
-                        // Navigator.of(context).pushNamed('/searchScreen');
-                        // }
-                        ),
+                    TopBarTablet(),
                     Divider(
                         height: 1.h,
                         thickness: 2.h,
@@ -95,7 +90,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   Container(
                     height: 80.h,
                     margin: EdgeInsets.only(left: 25.w, right: 25.w, top: 25.h),
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
                     decoration: boxDecorationStyle,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,6 +108,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10.h),
                   BlocBuilder<PostBloc, PostState>(
                     builder: (context, state) {
                       if (state is PostLoading) {
@@ -143,7 +139,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       }
                     },
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                 ],
               ),
             )
@@ -156,7 +152,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     ),
                   );
                 }
-
                 if (state is PostLoadSuccess) {
                   return PageView.builder(
                     itemCount: state.posts.length,
