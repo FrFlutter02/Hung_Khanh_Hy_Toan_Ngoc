@@ -126,7 +126,7 @@ class SearchBarState extends State<SearchBar> {
       searchTextFieldContainerPadding = EdgeInsets.only(bottom: 7.h);
       searchTextFieldContentPadding = EdgeInsets.symmetric(horizontal: 5.w);
       dropdownPadding = EdgeInsets.fromLTRB(29.w, 12.h, 29.w, 12.h);
-      searchHintText = SearchScreenText.searchHintTextTablet;
+      searchHintText = SearchScreenText.searchHintText;
       searchBottomBorder = Divider(
         height: 1.h,
         color: AppColor.secondaryGrey,

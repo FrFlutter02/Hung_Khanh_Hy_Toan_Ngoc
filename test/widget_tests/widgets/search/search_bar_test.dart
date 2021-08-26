@@ -54,7 +54,7 @@ void main() {
     final hintText =
         tester.widget<TextField>(textFieldFinder).decoration?.hintText;
 
-    expect(hintText, SearchScreenText.searchHintTextTablet);
+    expect(hintText, SearchScreenText.searchHintText);
   });
 
   testWidgets('Should render correct hint text on phone screen',
