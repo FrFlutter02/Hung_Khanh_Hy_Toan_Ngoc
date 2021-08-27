@@ -20,7 +20,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
   String directions = '';
   String servingTime = "";
   String nutritionFact = "";
-  String tags = "";
+  List<String> tags = [];
   @override
   Stream<NewRecipeState> mapEventToState(NewRecipeEvent event) async* {
     switch (event.runtimeType) {
@@ -119,14 +119,14 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         String mainImage = "";
         List<GalleryModel> galleryUploadList = [];
         List<IngredientUpLoadModel> ingredientUpLoadList = [];
-        if (imageMain != File("")) {
+        if (imageMain.path != '') {
           mainImage = await NewRecipeServices.upLoadImage(imageMain);
         }
-        if (imageGallerys != []) {
+        if (imageGallerys.isNotEmpty) {
           galleryUploadList =
               await NewRecipeServices.upLoadGallery(imageGallerys);
         }
-        if (ingredientList != []) {
+        if (ingredientList.isNotEmpty) {
           ingredientUpLoadList =
               await NewRecipeServices.upLoadIngredient(ingredientList);
         }

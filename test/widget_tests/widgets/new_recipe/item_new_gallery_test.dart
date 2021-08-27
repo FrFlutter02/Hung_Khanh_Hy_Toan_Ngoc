@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:duration_picker/duration_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
-import 'package:mobile_app/src/models/how_to_cook_model.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/bottom_sheet_pick_image.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_gallery.dart';
-import 'package:mobile_app/src/widgets/new_recipe/item_new_how_to_cook.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../cloud_firestore_mock.dart';
@@ -27,10 +23,8 @@ void main() {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
-  late MockUserServices _mockUserServices;
   late NewRecipeBloc _newRecipeBloc;
   setUp(() {
-    _mockUserServices = MockUserServices();
     _newRecipeBloc = NewRecipeBloc();
   });
 
@@ -47,7 +41,6 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
     final textFinder = find.text("Gallery");
-
     expect(textFinder, findsOneWidget);
   });
 
@@ -103,11 +96,8 @@ void main() {
   });
   testWidgets("Test second InkWell onTap()", (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    final StatefulElement _itemNewGalleryElement =
-        tester.element(find.byType(ItemNewGallery));
     final secondInkWell = find.descendant(
         of: find.byType(Padding), matching: find.byType(InkWell).last);
-
     await tester.tap(secondInkWell);
     await tester.pumpAndSettle();
     expect(find.byType(BottomSheetPickImage), findsOneWidget);

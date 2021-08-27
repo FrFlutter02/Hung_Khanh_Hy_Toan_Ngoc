@@ -1,4 +1,3 @@
-import 'package:duration_picker/duration_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,21 +61,13 @@ void main() {
         tester.element(find.byType(ItemNewHowToCook));
     final ItemNewHowToCookState _itemHowToCookState =
         _itemHowToCook.state as ItemNewHowToCookState;
-
     _itemHowToCookState.addLinkController.text = "http";
     _itemHowToCookState.addStepController.text = "step 1";
     await tester.tap(find.descendant(
         of: find.byType(InkWell), matching: find.byIcon(Icons.add_outlined)));
     await tester.pump();
     final linkFinder = find.text("http");
-
-    // await tester.tap(find.descendant(
-    //     of: find.byType(ElevatedButton),
-    //     matching: find.byIcon(Icons.add_outlined)));
-    // await tester.pumpAndSettle();
     final stepFinder = find.text("step 1");
-
-    final videoIcon = find.byIcon(Icons.timer_outlined);
     expect(linkFinder, findsOneWidget);
     expect(stepFinder, findsOneWidget);
   });
@@ -93,7 +84,7 @@ void main() {
         of: find.byType(InkWell), matching: find.byIcon(Icons.add_outlined)));
     await tester.pump();
     final fakeHowToCook = HowToCookModel(
-        duration: '3 munites', id: '1', step: 1, textHowToCook: 'step 1');
+        duration: '3 minute', id: '1', step: 1, textHowToCook: 'step 1');
 
     _newRecipeBloc.emit(NewRecipeAddStepHowToCookSuccess(fakeHowToCook));
     await tester.pump();

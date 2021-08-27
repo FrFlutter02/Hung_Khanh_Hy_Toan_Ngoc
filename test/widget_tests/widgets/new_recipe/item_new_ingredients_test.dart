@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/models/ingredients_model.dart';
@@ -19,8 +17,6 @@ import '../../../cloud_firestore_mock.dart';
 class MockUserServices extends Mock implements UserServices {}
 
 void main() {
-  late MockUserServices _mockUserServices;
-
   late NewRecipeBloc _newRecipeBloc;
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
@@ -37,7 +33,6 @@ void main() {
   });
 
   setUp(() {
-    _mockUserServices = MockUserServices();
     _newRecipeBloc = NewRecipeBloc();
   });
 

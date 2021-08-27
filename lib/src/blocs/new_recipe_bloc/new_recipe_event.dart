@@ -56,7 +56,7 @@ class NewRecipeAddStepHowToCookSubmitted extends NewRecipeEvent {
 class NewRecipeSaveAdditionalInfoSubmitted extends NewRecipeEvent {
   final String servingTime;
   final String nutritionFact;
-  final String tags;
+  final List<String> tags;
   NewRecipeSaveAdditionalInfoSubmitted(
       this.servingTime, this.nutritionFact, this.tags);
   @override

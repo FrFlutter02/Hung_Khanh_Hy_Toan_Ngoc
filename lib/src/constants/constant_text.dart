@@ -72,6 +72,7 @@ class NewRecipeText {
   static const String postToFeedText = "Post to Feed";
   static const String leadingText = "Back to My Recipes";
   static const String titleText = "New Recipe";
+  static const String titleTabletText = "Create New Recipe";
   static const String camera = "Camera";
   static const String gallery = "Gallery";
   static const String chooseOption = "Choose option";
@@ -80,4 +81,6 @@ class NewRecipeText {
   static const String tagsText = "Tags";
   static const String nutritionFactText = "Nutrition Fact";
   static const String servingTimeText = "Serving Time (±)";
+  static const String saveNewRecipeSuccessText = 'Save new recipe success';
+  static const String saveNewRecipeFailureText = 'Save new recipe failure';
 }

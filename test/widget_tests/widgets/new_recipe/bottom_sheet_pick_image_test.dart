@@ -7,7 +7,6 @@ import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/bottom_sheet_pick_image.dart';
-import 'package:mobile_app/src/widgets/new_recipe/item_new_ingredients.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../cloud_firestore_mock.dart';
@@ -21,8 +20,6 @@ void main() {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
-  final BottomSheetPickImage bottomSheetPickImage;
-  final mockUserServices = MockUserServices();
   final _newRecipeBloc = NewRecipeBloc();
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,

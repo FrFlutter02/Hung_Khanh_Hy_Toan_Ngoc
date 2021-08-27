@@ -25,14 +25,15 @@ class NewRecipeScreen extends StatefulWidget {
   _NewRecipeScreenState createState() => _NewRecipeScreenState();
 }
 
-String dropdownValue = 'Western';
-bool isTablet = false;
-File imageMain = File("");
-List<String> listRecipe = ['Western', 'Quick Lunch', 'Vegies'];
 enum ImageType { imageMain, imageForGallery, imageForIngredient }
-final nameRecipeController = TextEditingController();
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
+  String dropdownValue = 'Western';
+  bool isTablet = false;
+  File imageMain = File("");
+  List<String> listRecipe = ['Western', 'Quick Lunch', 'Vegies'];
+  final nameRecipeController = TextEditingController();
+
   List<GalleryModel> galleryList = [];
   @override
   Widget build(BuildContext context) {
@@ -73,7 +74,9 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        NewRecipeText.titleText,
+                        isTablet
+                            ? NewRecipeText.titleTabletText
+                            : NewRecipeText.titleText,
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                             color: AppColor.primaryBlack,
                             height: 1.33,
@@ -141,13 +144,17 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                       height: isTablet ? 22.h : 20.h,
                                       child: TextField(
                                         controller: nameRecipeController,
+                                        cursorColor: AppColor.green,
                                         decoration: InputDecoration(
-                                            hintText: NewRecipeText
-                                                .hintRecipeNameText,
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: NewRecipeScreenColor
-                                                        .borderUnderlineTextFieldColor))),
+                                          hintText:
+                                              NewRecipeText.hintRecipeNameText,
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: AppColor.green,
+                                              width: 2,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -171,96 +178,84 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                             ),
                       ),
                       SizedBox(height: 10.h),
-                      Stack(
+                      Wrap(
                         children: [
-                          Wrap(
-                            children: [
-                              Container(
-                                width: 190.w,
-                                height: 50.h,
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.2),
-                                      spreadRadius: 4,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 3),
-                                    ),
-                                  ],
+                          Container(
+                            width: 190.w,
+                            height: 50.h,
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 4,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
                                 ),
-                                child: DropdownButton<String>(
-                                  value: dropdownValue,
-                                  icon: Icon(Icons.expand_more_outlined),
-                                  iconSize: 23,
-                                  isExpanded: true,
-                                  style: const TextStyle(
-                                      color: AppColor.primaryBlack),
-                                  underline: SizedBox(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      dropdownValue = newValue!;
-                                    });
-                                  },
-                                  items: listRecipe
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child:
-                                          Text("$value (${listRecipe.length})"),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(width: 15.w),
-                              SizedBox(
-                                height: 50.h,
-                                width: isTablet ? 155.w : 120.w,
-                                child: OutlinedButton(
-                                    onPressed: () async {
-                                      context.read<NewRecipeBloc>().add(
-                                          NewRecipeSaved(
-                                              nameRecipeController.text,
-                                              dropdownValue));
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                        side: BorderSide(
-                                            color: AppColor.green, width: 2),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10))),
-                                    child: Text(
-                                      NewRecipeText.saveRecipeText,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                            color: AppColor.green,
-                                            letterSpacing: 0.32,
-                                            height: 1.37,
-                                          ),
-                                    )),
-                              ),
-                              SizedBox(width: isTablet ? 15.w : 0.w),
-                              Container(
-                                margin:
-                                    EdgeInsets.only(top: isTablet ? 0.h : 30.h),
-                                child: CustomButton(
-                                  height: 50.h,
-                                  width: isTablet ? 155.w : double.infinity,
-                                  value: NewRecipeText.postToFeedText,
-                                  buttonOnPress: () {},
-                                ),
-                              )
-                            ],
+                              ],
+                            ),
+                            child: DropdownButton<String>(
+                              value: dropdownValue,
+                              icon: Icon(Icons.expand_more_outlined),
+                              iconSize: 23,
+                              isExpanded: true,
+                              style:
+                                  const TextStyle(color: AppColor.primaryBlack),
+                              underline: SizedBox(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownValue = newValue!;
+                                });
+                              },
+                              items: listRecipe.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text("$value (${listRecipe.length})"),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                          if (state is NewRecipeLoading)
-                            (Container(
-                              child: Center(child: CircularProgressIndicator()),
-                            ))
+                          SizedBox(width: 15.w),
+                          SizedBox(
+                            height: 50.h,
+                            width: isTablet ? 155.w : 120.w,
+                            child: OutlinedButton(
+                                onPressed: () async {
+                                  context.read<NewRecipeBloc>().add(
+                                      NewRecipeSaved(nameRecipeController.text,
+                                          dropdownValue));
+                                },
+                                style: OutlinedButton.styleFrom(
+                                    side: BorderSide(
+                                        color: AppColor.green, width: 2),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                                child: Text(
+                                  NewRecipeText.saveRecipeText,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        color: AppColor.green,
+                                        letterSpacing: 0.32,
+                                        height: 1.37,
+                                      ),
+                                )),
+                          ),
+                          SizedBox(width: isTablet ? 15.w : 0.w),
+                          Container(
+                            margin: EdgeInsets.only(top: isTablet ? 0.h : 30.h),
+                            child: CustomButton(
+                              height: 50.h,
+                              width: isTablet ? 155.w : double.infinity,
+                              value: NewRecipeText.postToFeedText,
+                              buttonOnPress: () {},
+                            ),
+                          )
                         ],
                       ),
                       SizedBox(height: isTablet ? 70.h : 36.h),
@@ -270,10 +265,15 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
               ],
             ),
             if (state is NewRecipeLoading)
-              (Container(
-                height: ScreenUtil().screenHeight,
-                child: Center(child: CircularProgressIndicator()),
-              ))
+              Positioned(
+                  bottom: 1.sh / 2 - 20.w,
+                  left: 1.sw / 2 - 20.w,
+                  child: (SizedBox(
+                      width: 40.w,
+                      height: 40.w,
+                      child: CircularProgressIndicator(
+                        color: AppColor.green,
+                      ))))
           ]);
         },
         listener: (context, state) {
@@ -283,6 +283,16 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
               setState(() {
                 imageMain = state.file;
               });
+              break;
+            case NewRecipeSaveRecipeSuccess:
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(NewRecipeText.saveNewRecipeSuccessText),
+              ));
+              break;
+            case NewRecipeSaveRecipeFailure:
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(NewRecipeText.saveNewRecipeFailureText),
+              ));
               break;
           }
         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:textfield_tags/textfield_tags.dart';
 
 import '../../blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import '../../blocs/new_recipe_bloc/new_recipe_event.dart';
@@ -23,6 +24,8 @@ class ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
   final addTagsController = TextEditingController();
   bool addInfo = false;
   bool saveInfo = false;
+  String tags = "";
+  List<String> listTag = [];
   @override
   Widget build(BuildContext context) {
     bool isTablet = false;
@@ -81,6 +84,7 @@ class ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
                     addServingTimeController.text = "";
                     addNutritionTimeController.text = "";
                     addTagsController.text = "";
+                    listTag = [];
                   });
                 },
                 child: Container(
@@ -187,21 +191,55 @@ class ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
                             padding: EdgeInsets.symmetric(horizontal: 6.w),
                             width: isTablet ? 480.w : 280.w,
                             child: Text(
-                              addTagsController.text,
+                              tags,
                               softWrap: true,
                               style: Theme.of(context).textTheme.subtitle1,
                             ))
-                        : TextField(
-                            controller: addTagsController,
-                            cursorColor: AppColor.green,
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppColor.green,
-                                  width: 2,
+                        : TextFieldTags(
+                            tagsStyler: TagsStyler(
+                              showHashtag: true,
+                              tagMargin: const EdgeInsets.only(right: 4.0),
+                              tagCancelIcon: Icon(Icons.cancel,
+                                  size: 15.0, color: Colors.black),
+                              tagCancelIconPadding:
+                                  EdgeInsets.only(left: 4.0, top: 2.0),
+                              tagPadding: EdgeInsets.only(
+                                  top: 2.0, bottom: 4.0, left: 8.0, right: 4.0),
+                              tagDecoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.grey.shade300,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(20.0),
                                 ),
                               ),
-                            )),
+                              tagTextStyle: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black),
+                            ),
+                            textFieldStyler: TextFieldStyler(
+                              cursorColor: AppColor.green,
+                              hintText: "",
+                              isDense: false,
+                              textFieldFocusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColor.green, width: 2.0),
+                              ),
+                              textFieldBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColor.green, width: 2.0),
+                              ),
+                            ),
+                            onDelete: (tag) {
+                              listTag.remove(tag);
+                              tags = "${listTag.join(", ")}";
+                            },
+                            onTag: (tag) {
+                              listTag.add(tag);
+                              tags = "${listTag.join(", ")}";
+                            },
+                          ),
                     SizedBox(height: 12.h),
                     if (saveInfo == false)
                       (SizedBox(
@@ -213,7 +251,7 @@ class ItemNewAdditionalInfoState extends State<ItemNewAdditionalInfo> {
                                   NewRecipeSaveAdditionalInfoSubmitted(
                                       addServingTimeController.text,
                                       addNutritionTimeController.text,
-                                      addTagsController.text));
+                                      listTag));
                               setState(() {
                                 saveInfo = true;
                               });

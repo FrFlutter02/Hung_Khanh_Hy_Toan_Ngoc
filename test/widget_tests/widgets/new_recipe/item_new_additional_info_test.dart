@@ -1,14 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_additional_info.dart';
-import 'package:mobile_app/src/widgets/new_recipe/item_new_ingredients.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../cloud_firestore_mock.dart';
@@ -23,7 +21,6 @@ void main() {
     await Firebase.initializeApp();
   });
 
-  final mockUserServices = MockUserServices();
   final _newRecipeBloc = NewRecipeBloc();
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
@@ -53,11 +50,6 @@ void main() {
   });
   testWidgets("Should render button add info", (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    final StatefulElement _itemNewAdditionalInfoElement =
-        tester.element(find.byType(ItemNewAdditionalInfo));
-    final ItemNewAdditionalInfoState _itemNewAdditionalInfoState =
-        _itemNewAdditionalInfoElement.state as ItemNewAdditionalInfoState;
-
     final iconFinder = find.byIcon(Icons.add_outlined);
     final textFinder = find.text(NewRecipeText.hintAdditionalInfoText);
     expect(iconFinder, findsOneWidget);

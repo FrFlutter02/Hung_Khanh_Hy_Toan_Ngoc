@@ -41,7 +41,7 @@ class NewRecipeServices {
       List<IngredientModel> imageIngredient) async {
     List<IngredientUpLoadModel> ingredientList = [];
     await Future.wait(imageIngredient.map((element) async {
-      if (element.image == File("")) {
+      if (element.image.path == "") {
         var ingredient = IngredientUpLoadModel(
           id: element.id,
           ingredient: element.ingredient,
@@ -62,7 +62,6 @@ class NewRecipeServices {
   }
 
   static Future<void> addNewRecipeFirebase(
-   
     String mainImage,
     String nameRecipe,
     List<GalleryModel> galleryList,
@@ -71,7 +70,7 @@ class NewRecipeServices {
     List<HowToCookModel> stepList,
     String servingTime,
     String nutritionFact,
-    String tags,
+    List<String> tags,
     String category,
   ) async {
     FirebaseFirestore.instance

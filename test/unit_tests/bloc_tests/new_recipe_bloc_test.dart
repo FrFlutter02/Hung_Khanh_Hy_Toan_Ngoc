@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_event.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
-import 'package:firebase_storage_mocks/firebase_storage_mocks.dart';
 
 import '../../cloud_firestore_mock.dart';
 
@@ -26,14 +24,11 @@ void main() {
 
   final List<MethodCall> log = <MethodCall>[];
 
-  final picker = ImagePicker();
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
-    final storage = MockFirebaseStorage();
-    final storageRef = storage.ref().child(mockFile.path);
+
     final image = File(mockFile.path);
-    await storageRef.putFile(image);
   });
   setUp(() {
     newRecipeBloc = NewRecipeBloc();
@@ -79,7 +74,7 @@ void main() {
             isA<NewRecipeAddIngredientSuccess>(),
           ]);
   blocTest(
-      'emits [NewRecipeAddStepHowToCookSuccess] when [NewRecipeAddStepHowToCookSubmitted] is called and text field is empty',
+      'emits [NewRecipeAddStepHowToCookSuccess] when [NewRecipeAddStepHowToCookSubmitted] is called ',
       build: () => newRecipeBloc,
       act: (NewRecipeBloc newRecipeBloc) => newRecipeBloc
           .add(NewRecipeAddStepHowToCookSubmitted(1, "step 1", "00:03:00")),
@@ -112,12 +107,12 @@ void main() {
             NewRecipeLoading(),
             isA<NewRecipeAddImageIngredientFailure>(),
           ]);
-  blocTest(
-      'emits [NewRecipeSaveRecipeSuccess] when [NewRecipeSaved] is empty m',
+  blocTest('emits [NewRecipeSaveRecipeSuccess] when [NewRecipeSaved] ',
       build: () => newRecipeBloc,
       act: (NewRecipeBloc newRecipeBloc) =>
           newRecipeBloc.add(NewRecipeSaved("name recipe", "catalog")),
       expect: () => [
+            NewRecipeLoading(),
             NewRecipeSaveRecipeSuccess(),
           ]);
 }
