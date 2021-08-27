@@ -61,6 +61,26 @@ class NewRecipeServices {
     return ingredientList;
   }
 
+  static Future<List<Map<String, dynamic>>> countRecipesInACategory(
+      {required String userId}) async {
+    List<Map<String, dynamic>> result = [];
+    Map<String, dynamic> categoryAndTotalRecipesMap = {};
+    await FirebaseFirestore.instance
+        .collection('recipe')
+        .where('user_id', isEqualTo: userId)
+        .get()
+        .then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((element) {
+        categoryAndTotalRecipesMap.update(
+            element['category'], (value) => value + 1,
+            ifAbsent: () => 1);
+      });
+    });
+    categoryAndTotalRecipesMap.forEach((key, value) =>
+        result.add({'categoryName': key, 'totalRecipes': value}));
+    return result;
+  }
+
   static Future<void> addNewRecipeFirebase(
     String mainImage,
     String nameRecipe,

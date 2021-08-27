@@ -24,9 +24,10 @@ class ItemNewGallery extends StatefulWidget {
 class ItemNewGalleryState extends State<ItemNewGallery> {
   List<File> imageGallerys = [];
   int imageOverbalance = 0;
+  String errorText = '';
+
   @override
   Widget build(BuildContext context) {
-    // imageGallerys.addAll(dataImage);
     int imageOverbalance = 0;
     int imageLimit = 4;
     bool isTablet = false;
@@ -72,6 +73,13 @@ class ItemNewGalleryState extends State<ItemNewGallery> {
                   ],
                 ),
                 SizedBox(height: 20.h),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      errorText,
+                      style: TextStyle(color: AppColor.red),
+                    )),
+                errorText.isEmpty ? SizedBox.shrink() : SizedBox(height: 10.h),
                 Container(
                   child: StaggeredGridView.countBuilder(
                     shrinkWrap: true,
@@ -167,7 +175,10 @@ class ItemNewGalleryState extends State<ItemNewGallery> {
               setState(() {
                 imageGallerys.addAll(state.listFile);
               });
-
+              break;
+            case NewRecipeSaveRecipeFailure:
+              state as NewRecipeSaveRecipeFailure;
+              errorText = state.galleryErrorMessage;
               break;
           }
         });

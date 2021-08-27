@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_app/src/utils/new_recipe_validator.dart';
 
 import '../../models/gallery_model.dart';
 import '../../services/new_recipe_services.dart';
@@ -12,9 +13,9 @@ import 'new_recipe_state.dart';
 
 class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
   NewRecipeBloc() : super(NewRecipeInitial());
-  File imageMain = File('');
+  File mainImage = File('');
   File imageIngredient = File('');
-  List<File> imageGallerys = [];
+  List<File> gallery = [];
   List<IngredientModel> ingredientList = [];
   List<HowToCookModel> stepList = [];
   String directions = '';
@@ -30,8 +31,8 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
           yield NewRecipeLoading();
           final XFile? image =
               await ImagePicker().pickImage(source: event.imageSource);
-          imageMain = File(image!.path);
-          yield NewRecipeAddImageMainSuccess(imageMain);
+          mainImage = File(image!.path);
+          yield NewRecipeAddImageMainSuccess(mainImage);
         } catch (e) {
           yield NewRecipeAddImageMainFailure();
         }
@@ -44,13 +45,13 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
           if (event.imageSource == ImageSource.camera) {
             final XFile? image =
                 await ImagePicker().pickImage(source: event.imageSource);
-            imageGallerys.add(File(image!.path));
-            yield NewRecipeAddImageGallerySuccess(imageGallerys);
+            gallery.add(File(image!.path));
+            yield NewRecipeAddImageGallerySuccess(gallery);
           } else {
             final List<XFile?>? images = await ImagePicker().pickMultiImage();
             List<File> listImages = [];
             images!.map((e) => listImages.add(File(e!.path))).toList();
-            imageGallerys.addAll(listImages);
+            gallery.addAll(listImages);
             yield NewRecipeAddImageGallerySuccess(listImages);
           }
         } catch (e) {
@@ -106,25 +107,44 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
           yield NewRecipeAddStepHowToCookFailure();
         }
         break;
+
       case NewRecipeSaveAdditionalInfoSubmitted:
         event as NewRecipeSaveAdditionalInfoSubmitted;
         servingTime = event.servingTime;
         nutritionFact = event.nutritionFact;
         tags = event.tags;
         break;
+
       case NewRecipeSaved:
         event as NewRecipeSaved;
-        yield NewRecipeLoading();
-
-        String mainImage = "";
+        String mainImageUrl = "";
         List<GalleryModel> galleryUploadList = [];
         List<IngredientUpLoadModel> ingredientUpLoadList = [];
-        if (imageMain.path != '') {
-          mainImage = await NewRecipeServices.upLoadImage(imageMain);
+
+        final errorList = [
+          NewRecipeValidator.validateMainImage(mainImage),
+          NewRecipeValidator.validateRecipeName(event.recipeName),
+          NewRecipeValidator.validateGallery(gallery),
+          NewRecipeValidator.validateIngredients(ingredientList),
+          NewRecipeValidator.validateHowToCook(directions),
+        ];
+        final hasError = errorList.any((error) => error.isNotEmpty);
+        if (hasError) {
+          yield NewRecipeSaveRecipeFailure(
+            mainImageErrorMessage: errorList[0],
+            recipeNameErrorMessage: errorList[1],
+            galleryErrorMessage: errorList[2],
+            ingredientsErrorMessage: errorList[3],
+            howToCookErrorMessage: errorList[4],
+          );
+          break;
         }
-        if (imageGallerys.isNotEmpty) {
-          galleryUploadList =
-              await NewRecipeServices.upLoadGallery(imageGallerys);
+
+        if (mainImage != File("")) {
+          mainImageUrl = await NewRecipeServices.upLoadImage(mainImage);
+        }
+        if (gallery != []) {
+          galleryUploadList = await NewRecipeServices.upLoadGallery(gallery);
         }
         if (ingredientList.isNotEmpty) {
           ingredientUpLoadList =
@@ -132,9 +152,10 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         }
 
         try {
+          yield NewRecipeLoading();
           await NewRecipeServices.addNewRecipeFirebase(
-              mainImage,
-              event.nameRecipe,
+              mainImageUrl,
+              event.recipeName,
               galleryUploadList,
               ingredientUpLoadList,
               directions,
@@ -146,6 +167,18 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
           yield NewRecipeSaveRecipeSuccess();
         } catch (e) {
           yield NewRecipeSaveRecipeFailure();
+        }
+        break;
+
+      case NewRecipeGetCategoriesRequested:
+        try {
+          final categoriesAndTotalRecipes =
+              await NewRecipeServices.countRecipesInACategory(
+                  userId: 'daovantoan10234@gmail.com');
+          yield NewRecipeCategoriesLoadSuccess(
+              categoriesAndTotalRecipes: categoriesAndTotalRecipes);
+        } catch (e) {
+          yield NewRecipeCategoriesLoadFailure();
         }
         break;
     }

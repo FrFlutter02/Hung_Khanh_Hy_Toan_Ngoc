@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
@@ -28,13 +27,25 @@ class NewRecipeScreen extends StatefulWidget {
 enum ImageType { imageMain, imageForGallery, imageForIngredient }
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
+  final nameRecipeController = TextEditingController();
   String dropdownValue = 'Western';
   bool isTablet = false;
-  File imageMain = File("");
-  List<String> listRecipe = ['Western', 'Quick Lunch', 'Vegies'];
-  final nameRecipeController = TextEditingController();
-
+  File imageMain = File('');
+  List<Map<String, dynamic>> categoryAndTotalRecipes = [];
   List<GalleryModel> galleryList = [];
+
+  @override
+  void initState() {
+    context.read<NewRecipeBloc>().add(NewRecipeGetCategoriesRequested());
+    context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
+      if (newRecipeState is NewRecipeCategoriesLoadSuccess) {
+        categoryAndTotalRecipes = newRecipeState.categoriesAndTotalRecipes;
+        dropdownValue = categoryAndTotalRecipes[0]['categoryName'];
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (Device.get().isTablet) {
@@ -83,6 +94,11 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                             fontWeight: FontWeight.w500),
                       ),
                       SizedBox(height: isTablet ? 25.h : 33.h),
+                      state is NewRecipeSaveRecipeFailure &&
+                              state.mainImageErrorMessage.isNotEmpty
+                          ? Text(state.mainImageErrorMessage,
+                              style: TextStyle(color: AppColor.red))
+                          : SizedBox.shrink(),
                       Row(
                         children: [
                           Container(
@@ -138,6 +154,10 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                             height: 1.57,
                                             color: AppColor.secondaryGrey),
                                   ),
+                                  state is NewRecipeSaveRecipeFailure
+                                      ? Text(state.recipeNameErrorMessage,
+                                          style: TextStyle(color: AppColor.red))
+                                      : SizedBox.shrink(),
                                   Padding(
                                     padding: EdgeInsets.only(top: 15.h),
                                     child: SizedBox(
@@ -183,7 +203,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                           Container(
                             width: 190.w,
                             height: 50.h,
-                            padding: EdgeInsets.all(15),
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -209,11 +229,13 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                   dropdownValue = newValue!;
                                 });
                               },
-                              items: listRecipe.map<DropdownMenuItem<String>>(
-                                  (String value) {
+                              items: categoryAndTotalRecipes
+                                  .map<DropdownMenuItem<String>>(
+                                      (Map<String, dynamic> element) {
                                 return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text("$value (${listRecipe.length})"),
+                                  value: element['categoryName'],
+                                  child: Text(
+                                      "${element['categoryName']} (${element['totalRecipes']})"),
                                 );
                               }).toList(),
                             ),
@@ -255,7 +277,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                               value: NewRecipeText.postToFeedText,
                               buttonOnPress: () {},
                             ),
-                          )
+                          ),
                         ],
                       ),
                       SizedBox(height: isTablet ? 70.h : 36.h),
