@@ -96,4 +96,13 @@ class NewRecipeSaveRecipeFailure extends NewRecipeState {
     this.ingredientsErrorMessage = '',
     this.howToCookErrorMessage = '',
   });
+
+  @override
+  List<Object> get props => [
+        mainImageErrorMessage,
+        recipeNameErrorMessage,
+        galleryErrorMessage,
+        ingredientsErrorMessage,
+        howToCookErrorMessage
+      ];
 }

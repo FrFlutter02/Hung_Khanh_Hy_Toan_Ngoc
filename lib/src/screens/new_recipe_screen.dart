@@ -28,11 +28,13 @@ enum ImageType { imageMain, imageForGallery, imageForIngredient }
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
   final nameRecipeController = TextEditingController();
-  String dropdownValue = 'Western';
+  String dropdownValue = '';
   bool isTablet = false;
   File imageMain = File('');
   List<Map<String, dynamic>> categoryAndTotalRecipes = [];
   List<GalleryModel> galleryList = [];
+  String mainImageErrorText = '';
+  String recipeNameErrorText = '';
 
   @override
   void initState() {
@@ -94,11 +96,10 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                             fontWeight: FontWeight.w500),
                       ),
                       SizedBox(height: isTablet ? 25.h : 33.h),
-                      state is NewRecipeSaveRecipeFailure &&
-                              state.mainImageErrorMessage.isNotEmpty
-                          ? Text(state.mainImageErrorMessage,
-                              style: TextStyle(color: AppColor.red))
-                          : SizedBox.shrink(),
+                      mainImageErrorText.isEmpty
+                          ? SizedBox.shrink()
+                          : Text(mainImageErrorText,
+                              style: TextStyle(color: AppColor.red)),
                       Row(
                         children: [
                           Container(
@@ -154,10 +155,11 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                             height: 1.57,
                                             color: AppColor.secondaryGrey),
                                   ),
-                                  state is NewRecipeSaveRecipeFailure
-                                      ? Text(state.recipeNameErrorMessage,
-                                          style: TextStyle(color: AppColor.red))
-                                      : SizedBox.shrink(),
+                                  recipeNameErrorText.isEmpty
+                                      ? SizedBox.shrink()
+                                      : Text(recipeNameErrorText,
+                                          style:
+                                              TextStyle(color: AppColor.red)),
                                   Padding(
                                     padding: EdgeInsets.only(top: 15.h),
                                     child: SizedBox(
@@ -312,6 +314,9 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
               ));
               break;
             case NewRecipeSaveRecipeFailure:
+              state as NewRecipeSaveRecipeFailure;
+              mainImageErrorText = state.mainImageErrorMessage;
+              recipeNameErrorText = state.recipeNameErrorMessage;
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(NewRecipeText.saveNewRecipeFailureText),
               ));

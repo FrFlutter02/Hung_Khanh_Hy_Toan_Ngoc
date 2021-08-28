@@ -137,7 +137,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
             ingredientsErrorMessage: errorList[3],
             howToCookErrorMessage: errorList[4],
           );
-          break;
+          return;
         }
 
         if (mainImage != File("")) {
@@ -172,11 +172,13 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
 
       case NewRecipeGetCategoriesRequested:
         try {
-          final categoriesAndTotalRecipes =
+          final List<Map<String, dynamic>> categoriesAndTotalRecipes =
               await NewRecipeServices.countRecipesInACategory(
                   userId: 'daovantoan10234@gmail.com');
-          yield NewRecipeCategoriesLoadSuccess(
-              categoriesAndTotalRecipes: categoriesAndTotalRecipes);
+          if (categoriesAndTotalRecipes.isNotEmpty) {
+            yield NewRecipeCategoriesLoadSuccess(
+                categoriesAndTotalRecipes: categoriesAndTotalRecipes);
+          }
         } catch (e) {
           yield NewRecipeCategoriesLoadFailure();
         }

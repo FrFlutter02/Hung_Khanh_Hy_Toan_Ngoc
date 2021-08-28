@@ -6,7 +6,7 @@ import 'package:mobile_app/src/models/ingredients_model.dart';
 class NewRecipeValidator {
   static String validateMainImage(File mainImage) {
     if (mainImage.path.isEmpty) {
-      return NewRecipeText.recipeNameErrorText;
+      return NewRecipeText.mainImageErrorText;
     }
     return '';
   }
@@ -19,7 +19,6 @@ class NewRecipeValidator {
   }
 
   static String validateGallery(List<File> galleryList) {
-    print(galleryList);
     if (galleryList.isEmpty) {
       return NewRecipeText.galleryMustNotBeEmptyErrorText;
     }

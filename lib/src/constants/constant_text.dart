@@ -84,6 +84,7 @@ class NewRecipeText {
   static const String saveNewRecipeSuccessText = 'Save new recipe success';
   static const String saveNewRecipeFailureText = 'Save new recipe failure';
 
+  static const String mainImageErrorText = 'Please upload an image.';
   static const String recipeNameErrorText = 'Recipe name must not be empty.';
   static const String galleryMustNotBeEmptyErrorText =
       'Please upload at least 1 image.';
