@@ -226,8 +226,11 @@ class ItemNewIngredientsState extends State<ItemNewIngredients> {
               imageIngredient = state.file;
             });
             break;
-          case NewRecipeSaveRecipeFailure:
-            state as NewRecipeSaveRecipeFailure;
+          case NewRecipeValidateSuccess:
+            errorText = '';
+            break;
+          case NewRecipeValidateFailure:
+            state as NewRecipeValidateFailure;
             errorText = state.ingredientsErrorMessage;
             break;
         }

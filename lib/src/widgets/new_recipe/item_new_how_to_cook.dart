@@ -272,8 +272,11 @@ class ItemNewHowToCookState extends State<ItemNewHowToCook> {
               howToCookList.add(state.listStep);
             });
             break;
-          case NewRecipeSaveRecipeFailure:
-            state as NewRecipeSaveRecipeFailure;
+          case NewRecipeValidateSuccess:
+            errorText = '';
+            break;
+          case NewRecipeValidateFailure:
+            state as NewRecipeValidateFailure;
             errorText = state.howToCookErrorMessage;
             break;
         }

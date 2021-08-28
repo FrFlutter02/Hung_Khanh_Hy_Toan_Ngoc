@@ -176,8 +176,11 @@ class ItemNewGalleryState extends State<ItemNewGallery> {
                 imageGallerys.addAll(state.listFile);
               });
               break;
-            case NewRecipeSaveRecipeFailure:
-              state as NewRecipeSaveRecipeFailure;
+            case NewRecipeValidateSuccess:
+              errorText = '';
+              break;
+            case NewRecipeValidateFailure:
+              state as NewRecipeValidateFailure;
               errorText = state.galleryErrorMessage;
               break;
           }

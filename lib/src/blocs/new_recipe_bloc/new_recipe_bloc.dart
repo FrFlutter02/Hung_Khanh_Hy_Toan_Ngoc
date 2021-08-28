@@ -130,7 +130,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         ];
         final hasError = errorList.any((error) => error.isNotEmpty);
         if (hasError) {
-          yield NewRecipeSaveRecipeFailure(
+          yield NewRecipeValidateFailure(
             mainImageErrorMessage: errorList[0],
             recipeNameErrorMessage: errorList[1],
             galleryErrorMessage: errorList[2],
@@ -138,7 +138,8 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
             howToCookErrorMessage: errorList[4],
           );
           return;
-        }
+        } else
+          yield NewRecipeValidateSuccess();
 
         if (mainImage != File("")) {
           mainImageUrl = await NewRecipeServices.upLoadImage(mainImage);
@@ -151,23 +152,23 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
               await NewRecipeServices.upLoadIngredient(ingredientList);
         }
 
-        try {
-          yield NewRecipeLoading();
-          await NewRecipeServices.addNewRecipeFirebase(
-              mainImageUrl,
-              event.recipeName,
-              galleryUploadList,
-              ingredientUpLoadList,
-              directions,
-              stepList,
-              servingTime,
-              nutritionFact,
-              tags,
-              event.category);
-          yield NewRecipeSaveRecipeSuccess();
-        } catch (e) {
-          yield NewRecipeSaveRecipeFailure();
-        }
+        // try {
+        //   yield NewRecipeLoading();
+        //   await NewRecipeServices.addNewRecipeFirebase(
+        //       mainImageUrl,
+        //       event.recipeName,
+        //       galleryUploadList,
+        //       ingredientUpLoadList,
+        //       directions,
+        //       stepList,
+        //       servingTime,
+        //       nutritionFact,
+        //       tags,
+        //       event.category);
+        //   yield NewRecipeSaveRecipeSuccess();
+        // } catch (e) {
+        //   yield NewRecipeSaveRecipeFailure();
+        // }
         break;
 
       case NewRecipeGetCategoriesRequested:

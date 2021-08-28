@@ -82,14 +82,16 @@ class NewRecipeCategoriesLoadFailure extends NewRecipeState {}
 
 class NewRecipeSaveRecipeSuccess extends NewRecipeState {}
 
-class NewRecipeSaveRecipeFailure extends NewRecipeState {
+class NewRecipeValidateSuccess extends NewRecipeState {}
+
+class NewRecipeValidateFailure extends NewRecipeState {
   final String mainImageErrorMessage;
   final String recipeNameErrorMessage;
   final String galleryErrorMessage;
   final String ingredientsErrorMessage;
   final String howToCookErrorMessage;
 
-  const NewRecipeSaveRecipeFailure({
+  const NewRecipeValidateFailure({
     this.mainImageErrorMessage = '',
     this.recipeNameErrorMessage = '',
     this.galleryErrorMessage = '',

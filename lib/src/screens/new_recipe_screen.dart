@@ -313,8 +313,12 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 content: Text(NewRecipeText.saveNewRecipeSuccessText),
               ));
               break;
-            case NewRecipeSaveRecipeFailure:
-              state as NewRecipeSaveRecipeFailure;
+            case NewRecipeValidateSuccess:
+              mainImageErrorText = '';
+              recipeNameErrorText = '';
+              break;
+            case NewRecipeValidateFailure:
+              state as NewRecipeValidateFailure;
               mainImageErrorText = state.mainImageErrorMessage;
               recipeNameErrorText = state.recipeNameErrorMessage;
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
