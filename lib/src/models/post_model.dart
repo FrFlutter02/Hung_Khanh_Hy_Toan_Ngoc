@@ -9,7 +9,7 @@ class Post extends Equatable {
   final int comments;
   final String name;
   final String backgroundImage;
-  final String time;
+  final int time;
 
   const Post({
     required this.recipeId,

@@ -43,7 +43,7 @@ class RecipeCardTablet extends StatelessWidget {
                     avatar:
                         'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
                     fullName: 'fullName',
-                    time: '18',
+                    time: post.time,
                   ),
                 ),
                 SizedBox(height: 14.h),

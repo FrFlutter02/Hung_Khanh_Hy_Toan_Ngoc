@@ -19,11 +19,13 @@ class RecipeFeedScreen extends StatefulWidget {
   const RecipeFeedScreen({Key? key}) : super(key: key);
 
   @override
-  _RecipeFeedScreenState createState() => _RecipeFeedScreenState();
+  RecipeFeedScreenState createState() => RecipeFeedScreenState();
 }
 
-class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
-  PageController controller = PageController();
+class RecipeFeedScreenState extends State<RecipeFeedScreen> {
+  PageController pageviewController = PageController();
+
+  ScrollController listviewController = ScrollController();
   int currentpage = 0;
   bool isTablet = false;
   double viewPortFraction = 0.84;
@@ -34,7 +36,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     if (Device.get().isTablet) {
       isTablet = true;
     }
-    controller = PageController(
+    pageviewController = PageController(
       initialPage: currentpage,
       keepPage: false,
       viewportFraction: viewPortFraction,
@@ -44,7 +46,8 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
 
   @override
   dispose() {
-    controller.dispose();
+    pageviewController.dispose();
+    listviewController.dispose();
     super.dispose();
   }
 
@@ -123,6 +126,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: state.posts.length,
+                          controller: listviewController,
                           itemBuilder: (context, index) {
                             return RecipeCardTablet(post: state.posts[index]);
                           },
@@ -152,13 +156,13 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                 }
                 if (state is PostLoadSuccess) {
                   return PageView.builder(
-                    itemCount: 5,
+                    itemCount: state.posts.length > 5 ? 5 : state.posts.length,
                     onPageChanged: (value) {
                       setState(() {
                         currentpage = value;
                       });
                     },
-                    controller: controller,
+                    controller: pageviewController,
                     itemBuilder: (context, index) {
                       return Container(
                         padding: EdgeInsets.symmetric(

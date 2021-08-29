@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../utils/time_ago.dart';
 import '../../constants/constant_colors.dart';
 
 class CardHeader extends StatelessWidget {
   final String avatar;
   final String fullName;
-  final String time;
+  final int time;
 
   const CardHeader(
       {Key? key,
@@ -30,14 +30,14 @@ class CardHeader extends StatelessWidget {
           children: [
             Text(
               fullName,
-              overflow: TextOverflow.clip,
+              overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.caption!.copyWith(
                   color: AppColor.primaryBlack,
                   fontSize: 12.sp,
                   fontFamily: 'Nunito-Bold'),
             ),
             Text(
-              '${time}h ago',
+              TimeAgo.timeAgoSinceDate(time),
               style: Theme.of(context).textTheme.caption!.copyWith(
                   color: RecipeFeedColor.subtitleCardHeader, fontSize: 12.sp),
             ),

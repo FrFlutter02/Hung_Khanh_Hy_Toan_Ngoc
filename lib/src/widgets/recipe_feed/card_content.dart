@@ -53,7 +53,7 @@ class CardContent extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.subtitle2!.copyWith(
                 color: AppColor.secondaryGrey,
-                height: (1.5).h,
+                height: (1.57).h,
                 fontSize: 14.sp),
           ),
         ),
@@ -62,7 +62,7 @@ class CardContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Row(
+              child: Wrap(
                 children: [
                   Text(
                     '$numberLikes ${RecipeFeedText.likes}',
@@ -85,6 +85,8 @@ class CardContent extends StatelessWidget {
             OutlineIconButton(
               icons: 'assets/images/icons/add.png',
               title: RecipeFeedText.save,
+              height: 26.h,
+              width: 73.w,
               radius: 4.r,
               color: AppColor.green,
               onTap: () {},

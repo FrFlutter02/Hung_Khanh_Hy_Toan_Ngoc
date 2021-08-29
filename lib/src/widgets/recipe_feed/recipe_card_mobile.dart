@@ -20,7 +20,6 @@ class RecipeCardMobile extends StatelessWidget {
       width: 195.w,
       decoration: boxDecorationStyle,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           Stack(
             children: [

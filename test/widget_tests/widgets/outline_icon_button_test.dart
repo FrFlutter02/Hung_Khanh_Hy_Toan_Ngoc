@@ -15,29 +15,22 @@ import '../../cloud_firestore_mock.dart';
 class MockPostServices extends Mock implements PostServices {}
 
 void main() {
-  late PostBloc postBloc;
-  late MockPostServices mockPostServices;
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
-  setUp(() {
-    mockPostServices = MockPostServices();
-    postBloc = PostBloc(postServices: mockPostServices);
-  });
 
   final widget = ScreenUtilInit(
     builder: () => MaterialApp(
-      home: BlocProvider(
-        create: (context) => postBloc,
-        child: Scaffold(
-          body: OutlineIconButton(
-            title: RecipeFeedText.save,
-            icons: 'assets/images/icons/add.png',
-            radius: 8,
-            color: AppColor.green,
-            onTap: () {},
-          ),
+      home: Scaffold(
+        body: OutlineIconButton(
+          title: RecipeFeedText.save,
+          icons: 'assets/images/icons/add.png',
+          height: 10,
+          width: 10,
+          radius: 8,
+          color: AppColor.green,
+          onTap: () {},
         ),
       ),
     ),
