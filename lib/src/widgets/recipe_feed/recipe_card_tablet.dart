@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_colors.dart';
+import '../../models/user_model.dart';
 import '../../models/post_model.dart';
 import 'card_content.dart';
 import 'card_header.dart';
@@ -9,9 +10,11 @@ import 'card_header.dart';
 class RecipeCardTablet extends StatelessWidget {
   final Post post;
 
+  final UserModel user;
   const RecipeCardTablet({
     Key? key,
     required this.post,
+    required this.user,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -40,9 +43,8 @@ class RecipeCardTablet extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 15.45.w, top: 15.h),
                   child: CardHeader(
-                    avatar:
-                        'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
-                    fullName: 'fullName',
+                    avatar: user.avatar,
+                    fullName: user.fullName,
                     time: post.time,
                   ),
                 ),

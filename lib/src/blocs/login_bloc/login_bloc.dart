@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../services/post_service.dart';
 import '../../constants/constant_text.dart';
 import '../../models/user_model.dart';
 import '../../services/user_services.dart';
@@ -11,8 +11,8 @@ import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserServices? userServices;
-
-  LoginBloc({this.userServices}) : super(LoginInitial());
+  final PostServices? postServices;
+  LoginBloc({this.userServices, this.postServices}) : super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(

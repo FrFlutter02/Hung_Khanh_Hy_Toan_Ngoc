@@ -4,9 +4,6 @@ class TimeAgo {
     final difference =
         dateNow.difference(DateTime.fromMillisecondsSinceEpoch(dateString));
     if (difference.inDays > 8) {
-      print(difference.inDays);
-      print(dateString);
-      print("date2: $dateNow");
       return dateString.toString();
     } else if ((difference.inDays / 7).floor() >= 1) {
       return '1 week ago';

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/post_bloc/post_bloc.dart';
 import 'package:mobile_app/src/models/post_model.dart';
+import 'package:mobile_app/src/models/user_model.dart';
 import 'package:mobile_app/src/screens/recipe_feed_screen.dart';
 import 'package:mobile_app/src/services/post_service.dart';
 import 'package:mobile_app/src/widgets/recipe_feed/card_content.dart';
@@ -22,8 +23,8 @@ void main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
+    HttpOverrides.global = null;
   });
-  setUpAll(() => HttpOverrides.global = null);
   final mockPost = Post(
       backgroundImage:
           "https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg",
@@ -34,12 +35,19 @@ void main() {
       recipeId: 'ádasd',
       userId: 'vip',
       description: 'hgildasgi');
+
+  final mockUser = UserModel(
+      fullName: '',
+      avatar:
+          'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
+      email: '');
   final widget = ScreenUtilInit(
     designSize: Size(375, 812),
     builder: () => MaterialApp(
       home: Scaffold(
         body: RecipeCardMobile(
           post: mockPost,
+          user: mockUser,
         ),
       ),
     ),

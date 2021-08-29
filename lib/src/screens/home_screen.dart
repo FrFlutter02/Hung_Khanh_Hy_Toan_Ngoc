@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-/// This is the private State class that goes with HomeScreen.
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[

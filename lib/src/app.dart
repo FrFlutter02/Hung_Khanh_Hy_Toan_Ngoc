@@ -43,7 +43,9 @@ class App extends StatelessWidget {
             create: (context) => LoginBloc(userServices: userServices)),
         BlocProvider(
             create: (context) => SignupBloc(userServices: userServices)),
-        BlocProvider(create: (context) => PostBloc(postServices: postServices)),
+        BlocProvider(
+            create: (context) => PostBloc(
+                postServices: postServices, userServices: userServices)),
       ],
       child: ScreenUtilInit(
         designSize: designSize,

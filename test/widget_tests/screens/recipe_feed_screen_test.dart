@@ -12,8 +12,10 @@ import 'package:mobile_app/src/blocs/post_bloc/post_bloc.dart';
 import 'package:mobile_app/src/blocs/post_bloc/post_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/models/post_model.dart';
+import 'package:mobile_app/src/models/user_model.dart';
 import 'package:mobile_app/src/screens/recipe_feed_screen.dart';
 import 'package:mobile_app/src/services/post_service.dart';
+import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/custom_button.dart';
 import 'package:mobile_app/src/widgets/icon_button_custom.dart';
 import 'package:mobile_app/src/widgets/logo.dart';
@@ -26,17 +28,22 @@ import '../../cloud_firestore_mock.dart';
 
 class MockPostServices extends Mock implements PostServices {}
 
+class MockUserServices extends Mock implements UserServices {}
+
 void main() {
   late PostBloc postBloc;
   late MockPostServices mockPostServices;
+  late MockUserServices mockUserServices;
   setUpAll(() async {
     setupCloudFirestoreMocks();
     Firebase.initializeApp();
+    HttpOverrides.global = null;
   });
   setUp(() {
     mockPostServices = MockPostServices();
-    postBloc = PostBloc(postServices: mockPostServices);
-    HttpOverrides.global = null;
+    mockUserServices = MockUserServices();
+    postBloc = PostBloc(
+        postServices: mockPostServices, userServices: mockUserServices);
   });
 
   final mobileWidget = ScreenUtilInit(
@@ -90,7 +97,12 @@ void main() {
           recipeId: 'ádasd',
           userId: 'vip',
           description: 'hgildasgi');
-      postBloc.emit(PostLoadSuccess(posts: [mockPost]));
+      final mockUser = UserModel(
+          fullName: '',
+          avatar:
+              'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
+          email: '');
+      postBloc.emit(PostLoadSuccess(posts: [mockPost], users: [mockUser]));
       await tester.pump();
       var pageController =
           (tester.widget<PageView>(pageViewFinder).onPageChanged);

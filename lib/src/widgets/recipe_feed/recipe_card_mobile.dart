@@ -3,16 +3,19 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_colors.dart';
+import '../../models/user_model.dart';
 import '../../models/post_model.dart';
 import 'card_content.dart';
 import 'card_header.dart';
 
 class RecipeCardMobile extends StatelessWidget {
   final Post post;
+  final UserModel user;
 
   const RecipeCardMobile({
     Key? key,
     required this.post,
+    required this.user,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -48,9 +51,8 @@ class RecipeCardMobile extends StatelessWidget {
                 height: 62.h,
                 padding: EdgeInsets.only(left: 15.w),
                 child: CardHeader(
-                  avatar:
-                      'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
-                  fullName: 'John Kerry',
+                  avatar: user.avatar,
+                  fullName: user.fullName,
                   time: post.time,
                 ),
               ),

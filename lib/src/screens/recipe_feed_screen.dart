@@ -41,7 +41,7 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
       keepPage: false,
       viewportFraction: viewPortFraction,
     );
-    context.read<PostBloc>().add(PostLoaded());
+    context.read<PostBloc>().add(PostRequested());
   }
 
   @override
@@ -128,7 +128,10 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           itemCount: state.posts.length,
                           controller: listviewController,
                           itemBuilder: (context, index) {
-                            return RecipeCardTablet(post: state.posts[index]);
+                            return RecipeCardTablet(
+                              post: state.posts[index],
+                              user: state.users[index],
+                            );
                           },
                         );
                       } else {
@@ -170,11 +173,13 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         child: index == currentpage
                             ? RecipeCardMobile(
                                 post: state.posts[index],
+                                user: state.users[index],
                               )
                             : Opacity(
                                 opacity: 0.5,
                                 child: RecipeCardMobile(
                                   post: state.posts[index],
+                                  user: state.users[index],
                                 )),
                       );
                     },
