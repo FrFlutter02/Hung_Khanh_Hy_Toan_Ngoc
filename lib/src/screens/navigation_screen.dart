@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../src/utils/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../src/constants/constant_colors.dart';
 import '../../src/screens/recipe_screen.dart';
 import '../../src/screens/search_screen.dart';
@@ -13,7 +14,6 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  final ScreenUtil _screenUtil = ScreenUtil();
   int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[
     SearchScreen(),
@@ -34,7 +34,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       ),
       bottomNavigationBar: Container(
         color: AppColor.white,
-        height: _screenUtil.height(90),
+        height: 90.h,
         child: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,

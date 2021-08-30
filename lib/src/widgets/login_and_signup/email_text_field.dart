@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_colors.dart';
-import '../../utils/screen_util.dart';
 
 class EmailTextField extends StatefulWidget {
   final String label;
@@ -20,8 +20,6 @@ class EmailTextField extends StatefulWidget {
 }
 
 class _EmailTextFieldState extends State<EmailTextField> {
-  final ScreenUtil _screenUtil = ScreenUtil();
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,26 +34,26 @@ class _EmailTextFieldState extends State<EmailTextField> {
                 .copyWith(color: AppColor.secondaryGrey),
           ),
         ),
-        SizedBox(height: _screenUtil.height(15)),
+        SizedBox(height: 15.h),
         TextField(
           controller: widget.emailController,
           cursorColor: AppColor.green,
           enableSuggestions: false,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: _screenUtil.height(6)),
+            contentPadding: EdgeInsets.only(bottom: 6.h),
             errorMaxLines: 2,
             errorText: widget.errorText.isEmpty ? null : widget.errorText,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: LoginScreenColor.textFieldBottomBorder,
-                width: _screenUtil.width(1),
+                width: 1.w,
               ),
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: AppColor.green,
-                width: _screenUtil.width(1),
+                width: 1.w,
               ),
             ),
             isDense: true,
@@ -65,7 +63,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
               .bodyText2!
               .copyWith(color: AppColor.primaryBlack),
         ),
-        SizedBox(height: _screenUtil.height(30)),
+        SizedBox(height: 30.h),
       ],
     );
   }

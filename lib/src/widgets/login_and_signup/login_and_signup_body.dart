@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_colors.dart';
-import '../../utils/screen_util.dart';
 import '../custom_button.dart';
 
 class LoginAndSignupBody extends StatelessWidget {
@@ -28,13 +28,12 @@ class LoginAndSignupBody extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ScreenUtil _screenUtil = ScreenUtil();
     return Padding(
       padding: EdgeInsets.only(
-        left: _screenUtil.width(isTabletScreen ? 171 : 25),
-        right: _screenUtil.width(isTabletScreen ? 171 : 25),
-        top: isTabletScreen ? 0 : _screenUtil.height(20),
-        bottom: isTabletScreen ? _screenUtil.height(45) : 0,
+        left: isTabletScreen ? 171.w : 25.w,
+        right: isTabletScreen ? 171.w : 25.w,
+        top: isTabletScreen ? 0 : 20.h,
+        bottom: isTabletScreen ? 45.h : 0,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -55,8 +54,8 @@ class LoginAndSignupBody extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: isTabletScreen ? _screenUtil.width(50) : 0,
-            vertical: isTabletScreen ? _screenUtil.height(50) : 0,
+            horizontal: isTabletScreen ? 50.w : 0,
+            vertical: isTabletScreen ? 50.h : 0,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,14 +67,14 @@ class LoginAndSignupBody extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText2!,
                 ),
               ),
-              SizedBox(height: _screenUtil.height(30)),
+              SizedBox(height: 30.h),
               ...textFieldList,
               CustomButton(
                   value: buttonText,
                   width: Device.screenWidth,
-                  height: _screenUtil.height(50),
+                  height: 50.h,
                   buttonOnPress: buttonOnPress),
-              SizedBox(height: _screenUtil.height(30)),
+              SizedBox(height: 30.h),
               Center(
                 child: Text(
                   bottomTitleText,
@@ -85,7 +84,7 @@ class LoginAndSignupBody extends StatelessWidget {
                       .copyWith(color: AppColor.secondaryGrey),
                 ),
               ),
-              SizedBox(height: _screenUtil.height(5)),
+              SizedBox(height: 5.h),
               Center(
                 child: InkWell(
                   onTap: () {
