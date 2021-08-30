@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../src/widgets/logo.dart';
 import '../blocs/forgot_password_bloc/forgot_password_bloc.dart';
@@ -8,12 +9,10 @@ import '../blocs/forgot_password_bloc/forgot_password_event.dart';
 import '../blocs/forgot_password_bloc/forgot_password_state.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
-import '../utils/screen_util.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/login_and_signup/email_text_field.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  final ScreenUtil _screenUtil = ScreenUtil();
   final TextEditingController emailTextEditingController =
       new TextEditingController();
 
@@ -52,8 +51,8 @@ class ForgotPasswordScreen extends StatelessWidget {
       displayBackgroundTablet = true;
       displayColorBackgroundTablet = true;
       displayTabletLabel = true;
-      paddingHorizonalTwoSide = _screenUtil.width(172);
-      paddingHorizonalContent = _screenUtil.width(50);
+      paddingHorizonalTwoSide = 172.w;
+      paddingHorizonalContent = 50.w;
       borderRadius = 8;
       colorBackGround = AppColor.white;
       colorShadow = AppColor.primaryGrey.withOpacity(0.1);
@@ -63,21 +62,21 @@ class ForgotPasswordScreen extends StatelessWidget {
       fontFamilyTitle = "Nunito-SemiBold";
       lableText = ForgotPasswordText.label;
       fonsizeLabel = 16;
-      sizedBoxHeightUnderLabel = _screenUtil.height(57);
-      sizedBoxHeightUnderForm = _screenUtil.height(18.58);
-      sizeBoxHeightUnerCustomButton = _screenUtil.height(105);
-      sizeBoxHeightTopMobileLogo = _screenUtil.height(37);
-      sizeBoxHeightTopTabletLogo = _screenUtil.height(82.5);
-      sizeBoxHeightUnderTabletLogo = _screenUtil.height(135.5);
-      sizeBoxHeightUnderTabletLabel = _screenUtil.height(39);
+      sizedBoxHeightUnderLabel = 57.h;
+      sizedBoxHeightUnderForm = 18.58.h;
+      sizeBoxHeightUnerCustomButton = 105.h;
+      sizeBoxHeightTopMobileLogo = 37.h;
+      sizeBoxHeightTopTabletLogo = 82.5.h;
+      sizeBoxHeightUnderTabletLogo = 135.5.h;
+      sizeBoxHeightUnderTabletLabel = 39.h;
     } else {
       showLogoMobile = true;
       displayLogoTablet = false;
       displayBackgroundTablet = false;
       displayColorBackgroundTablet = false;
       displayTabletLabel = false;
-      paddingHorizonalTwoSide = _screenUtil.width(27.5);
-      paddingHorizonalContent = _screenUtil.width(0);
+      paddingHorizonalTwoSide = 27.5.w;
+      paddingHorizonalContent = 0.w;
       borderRadius = 0;
       colorBackGround = Colors.transparent;
       colorShadow = Colors.transparent;
@@ -87,13 +86,13 @@ class ForgotPasswordScreen extends StatelessWidget {
       lableText = ForgotPasswordText.label;
       fonsizeLabel = 15;
       lableTextColor = AppColor.primaryBlack;
-      sizedBoxHeightUnderLabel = _screenUtil.height(106);
-      sizedBoxHeightUnderForm = _screenUtil.height(60);
-      sizeBoxHeightUnerCustomButton = _screenUtil.height(0);
-      sizeBoxHeightTopMobileLogo = _screenUtil.height(60);
-      sizeBoxHeightTopTabletLogo = _screenUtil.height(0);
-      sizeBoxHeightUnderTabletLogo = _screenUtil.height(0);
-      sizeBoxHeightUnderTabletLabel = _screenUtil.height(0);
+      sizedBoxHeightUnderLabel = 106.h;
+      sizedBoxHeightUnderForm = 60.h;
+      sizeBoxHeightUnerCustomButton = 0.h;
+      sizeBoxHeightTopMobileLogo = 60.h;
+      sizeBoxHeightTopTabletLogo = 0.h;
+      sizeBoxHeightUnderTabletLogo = 0.h;
+      sizeBoxHeightUnderTabletLabel = 0.h;
     }
 
     return Scaffold(
@@ -140,7 +139,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         )
                       : SizedBox.shrink(),
                   SizedBox(
-                    height: _screenUtil.height(sizeBoxHeightUnderTabletLogo),
+                    height: sizeBoxHeightUnderTabletLogo.h,
                   ),
                   displayTabletLabel
                       ? Text(
@@ -152,7 +151,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         )
                       : SizedBox.shrink(),
                   SizedBox(
-                    height: _screenUtil.height(sizeBoxHeightUnderTabletLabel),
+                    height: sizeBoxHeightUnderTabletLabel.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -189,7 +188,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                       )
                                     : SizedBox.shrink(),
                                 SizedBox(
-                                  height: _screenUtil.height(37),
+                                  height: 37.h,
                                 ),
                                 Container(
                                   alignment: Alignment.centerLeft,
@@ -203,7 +202,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: _screenUtil.height(23),
+                                  height: 23.h,
                                 ),
                                 Text(lableText,
                                     textAlign: TextAlign.start,
@@ -211,7 +210,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                         fontSize: fonsizeLabel,
                                         fontWeight: FontWeight.w400,
                                         color: lableTextColor,
-                                        wordSpacing: _screenUtil.width(1))),
+                                        wordSpacing: 1.w)),
                                 SizedBox(height: sizedBoxHeightUnderLabel),
                                 Form(
                                   key: formKey,
@@ -226,7 +225,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 SizedBox(height: sizedBoxHeightUnderForm),
                                 Container(
                                     width: double.maxFinite,
-                                    height: _screenUtil.height(50),
+                                    height: 50.h,
                                     child: CustomButton(
                                       buttonOnPress: () => context
                                           .read<ForgotPasswordBloc>()

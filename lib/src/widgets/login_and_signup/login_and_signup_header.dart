@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/constant_colors.dart';
-import '../../utils/screen_util.dart';
 import '../../widgets/logo.dart';
 
 class LoginAndSignupHeader extends StatelessWidget {
@@ -16,13 +16,11 @@ class LoginAndSignupHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScreenUtil _screenUtil = ScreenUtil();
-
     return Container(
       padding: EdgeInsets.only(
-        left: _screenUtil.width(25),
-        right: _screenUtil.width(25),
-        top: isTabletScreen ? _screenUtil.height(80) : _screenUtil.height(60),
+        left: 25.w,
+        right: 25.w,
+        top: isTabletScreen ? 80.h : 60.h,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -31,7 +29,7 @@ class LoginAndSignupHeader extends StatelessWidget {
         image: isTabletScreen
             ? null
             : DecorationImage(
-                alignment: Alignment(0, _screenUtil.height(-0.8)),
+                alignment: Alignment(0, -0.8.h),
                 fit: BoxFit.cover,
                 colorFilter: new ColorFilter.mode(
                     Colors.black.withOpacity(0.3), BlendMode.dstOut),
@@ -39,8 +37,7 @@ class LoginAndSignupHeader extends StatelessWidget {
               ),
       ),
       width: Device.screenWidth,
-      height:
-          isTabletScreen ? _screenUtil.height(305) : _screenUtil.height(285),
+      height: isTabletScreen ? 305.h : 285.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: isTabletScreen
@@ -49,9 +46,7 @@ class LoginAndSignupHeader extends StatelessWidget {
         children: [
           Logo(),
           SizedBox(
-            height: isTabletScreen
-                ? _screenUtil.height(130)
-                : _screenUtil.height(45),
+            height: isTabletScreen ? 130.h : 45.h,
           ),
           Text(
             loginAndSignupHeaderTitle,
