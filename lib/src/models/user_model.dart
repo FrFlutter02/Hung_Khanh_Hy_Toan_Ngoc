@@ -13,6 +13,7 @@ class UserModel extends Equatable {
     this.password = '',
     this.avatar = '',
   });
+
   @override
   List<Object?> get props => [
         fullName,
