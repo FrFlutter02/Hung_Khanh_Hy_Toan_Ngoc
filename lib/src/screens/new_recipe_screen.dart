@@ -1,8 +1,13 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_app/src/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:mobile_app/src/blocs/authentication_bloc/authentication_event.dart';
+import 'package:mobile_app/src/blocs/authentication_bloc/authentication_state.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
 import 'package:mobile_app/src/models/category.dart';
@@ -39,29 +44,42 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
   File imageMain = File('');
   List<GalleryModel> galleryList = [];
   List<CategoryModel> categories = [];
-  String mainImageErrorText = '';
-  String recipeNameErrorText = '';
   String user = "";
   bool addCategory = false;
+  StreamSubscription? authenStreamSubscription;
+  StreamSubscription? recipeStreamSubscriptionNew;
+
   @override
   void initState() {
-    context.read<LoginBloc>().stream.listen((loginState) {
-      if (loginState is LoginSuccess) {
-        print(loginState.user);
-        user = loginState.user;
+    context.read<AuthenticationBloc>().add(AuthenticationLoggedIn());
+    authenStreamSubscription =
+        context.read<AuthenticationBloc>().stream.listen((authenticationState) {
+      if (authenticationState is AuthenticationSuccess) {
+        user = authenticationState.firebaseUser.email!;
+        context
+            .read<NewRecipeBloc>()
+            .add(NewRecipeGetCategoriesRequested(user));
+        recipeStreamSubscriptionNew =
+            context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
+          if (newRecipeState is NewRecipeCategoriesLoadSuccess &&
+              newRecipeState.categories.isNotEmpty) {
+            categories = newRecipeState.categories;
+            dropdownValue = categories[0].categoryName;
+            categories.add(CategoryModel(categoryName: "", totalRecipes: 0));
+          }
+        });
       }
     });
-    context.read<NewRecipeBloc>().add(NewRecipeGetCategoriesRequested());
-    context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
-      if (newRecipeState is NewRecipeCategoriesLoadSuccess) {
-        categories = newRecipeState.categories;
-        if (categories.isNotEmpty) {
-          dropdownValue = categories[0].categoryName;
-        }
-        categories.add(CategoryModel(categoryName: "", totalRecipes: 0));
-      }
-    });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    authenStreamSubscription?.cancel();
+    recipeStreamSubscriptionNew?.cancel();
+
+    super.dispose();
   }
 
   @override
@@ -112,10 +130,6 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                             fontWeight: FontWeight.w500),
                       ),
                       SizedBox(height: isTablet ? 25.h : 33.h),
-                      mainImageErrorText.isEmpty
-                          ? SizedBox.shrink()
-                          : Text(mainImageErrorText,
-                              style: TextStyle(color: AppColor.red)),
                       Row(
                         children: [
                           Container(
@@ -171,11 +185,6 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                             height: 1.57,
                                             color: AppColor.secondaryGrey),
                                   ),
-                                  recipeNameErrorText.isEmpty
-                                      ? SizedBox.shrink()
-                                      : Text(recipeNameErrorText,
-                                          style:
-                                              TextStyle(color: AppColor.red)),
                                   Padding(
                                     padding: EdgeInsets.only(top: 15.h),
                                     child: SizedBox(
@@ -333,7 +342,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                 onPressed: () async {
                                   context.read<NewRecipeBloc>().add(
                                       NewRecipeSaved(nameRecipeController.text,
-                                          dropdownValue));
+                                          dropdownValue, user));
                                 },
                                 style: OutlinedButton.styleFrom(
                                     side: BorderSide(
@@ -373,16 +382,19 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 ),
               ],
             ),
-            // if (state is NewRecipeLoading)
-            //   Positioned(
-            //       bottom: 1.sh / 2 - 20.w,
-            //       left: 1.sw / 2 - 20.w,
-            //       child: (SizedBox(
-            //           width: 40.w,
-            //           height: 40.w,
-            //           child: CircularProgressIndicator(
-            //             color: AppColor.green,
-            //           ))))
+            if (state is NewRecipeLoading)
+              Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: (Container(
+                      width: 1.sw,
+                      height: 1.sh,
+                      color: Colors.grey.withOpacity(0.2),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.green,
+                        ),
+                      ))))
           ]);
         },
         listener: (context, state) {
@@ -398,18 +410,11 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 content: Text(NewRecipeText.saveNewRecipeSuccessText),
               ));
               break;
-            // case NewRecipeLoading:
-            //   break;
-            case NewRecipeValidateSuccess:
-              mainImageErrorText = '';
-              recipeNameErrorText = '';
-              break;
             case NewRecipeValidateFailure:
               state as NewRecipeValidateFailure;
-              mainImageErrorText = state.mainImageErrorMessage;
-              recipeNameErrorText = state.recipeNameErrorMessage;
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(NewRecipeText.saveNewRecipeFailureText),
+                content: Text(
+                    "${state.props.where((e) => e.toString().isNotEmpty).join(', ')} should not be empty"),
               ));
               break;
           }

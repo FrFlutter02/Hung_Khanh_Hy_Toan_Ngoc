@@ -4,23 +4,9 @@ import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/models/ingredients_model.dart';
 
 class NewRecipeValidator {
-  static String validateMainImage(File mainImage) {
-    if (mainImage.path.isEmpty) {
-      return NewRecipeText.mainImageErrorText;
-    }
-    return '';
-  }
-
   static String validateRecipeName(String recipeName) {
     if (recipeName.isEmpty) {
       return NewRecipeText.recipeNameErrorText;
-    }
-    return '';
-  }
-
-  static String validateGallery(List<File> galleryList) {
-    if (galleryList.isEmpty) {
-      return NewRecipeText.galleryMustNotBeEmptyErrorText;
     }
     return '';
   }

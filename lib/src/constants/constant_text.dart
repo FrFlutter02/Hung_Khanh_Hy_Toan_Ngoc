@@ -81,18 +81,11 @@ class NewRecipeText {
   static const String tagsText = "Tags";
   static const String nutritionFactText = "Nutrition Fact";
   static const String servingTimeText = "Serving Time (±)";
-  static const String saveNewRecipeSuccessText = 'Save new recipe success';
-  static const String saveNewRecipeFailureText = 'Save new recipe failure';
-  static const String AddNewCategoryText = '+ Add new category';
-
-  static const String mainImageErrorText = 'Please upload an image.';
-  static const String recipeNameErrorText = 'Recipe name must not be empty.';
-  static const String galleryMustNotBeEmptyErrorText =
-      'Please upload at least 1 image.';
-  static const String ingredientsMustNotBeEmptyErrorText =
-      'Ingredient must not be empty.';
-  static const String howToCookMustNotBeEmptyErrorText =
-      'Direction must not be empty.';
-  static const String additionalInfoMustNotBeEmptyErrorText =
-      'Info must not be empty.';
+  static const String saveNewRecipeSuccessText =
+      'The recipe was saved successfully';
+  static const String saveNewRecipeFailureText = 'Oops! Something wrong';
+  static const String AddNewCategoryText = '+ New category';
+  static const String recipeNameErrorText = 'Recipe name';
+  static const String ingredientsMustNotBeEmptyErrorText = 'Ingredient';
+  static const String howToCookMustNotBeEmptyErrorText = 'How to cook';
 }

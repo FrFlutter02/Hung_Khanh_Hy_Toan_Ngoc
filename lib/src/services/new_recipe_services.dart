@@ -84,6 +84,7 @@ class NewRecipeServices {
 
   static Future<void> addNewRecipeFirebase(
     String mainImage,
+    String user,
     String nameRecipe,
     List<GalleryModel> galleryList,
     List<IngredientUpLoadModel> ingredientUpLoadList,
@@ -100,6 +101,7 @@ class NewRecipeServices {
         .set({
       'id': DateTime.now().toString(),
       "mainImage": mainImage,
+      "user_id": user,
       "nameRecipe": nameRecipe,
       "galleryList": galleryList.map((e) => e.toJson()).toList(),
       "ingredientList": ingredientUpLoadList.map((e) => e.toJson()).toList(),

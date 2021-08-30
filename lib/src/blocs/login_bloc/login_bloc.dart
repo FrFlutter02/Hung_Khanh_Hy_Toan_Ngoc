@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants/constant_text.dart';
@@ -27,12 +28,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         try {
           yield LoginInProgress();
-          String user = "";
           UserModel userModel = UserModel(
               email: event.userModel.email, password: event.userModel.password);
           final firebaseUser = await userServices?.logIn(userModel);
-          user = firebaseUser!.email!;
-          yield LoginSuccess(user: user);
+
+          yield LoginSuccess(user: firebaseUser);
         } catch (e) {
           yield LoginFailure(
               emailErrorMessage: emailErrorMessage,

@@ -27,7 +27,6 @@ class ItemNewHowToCookState extends State<ItemNewHowToCook> {
   bool addLink = false;
   int step = 1;
   Duration? resultDuration = Duration(minutes: 3);
-  String errorText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +68,6 @@ class ItemNewHowToCookState extends State<ItemNewHowToCook> {
                 ],
               ),
               SizedBox(height: 20.h),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    errorText,
-                    style: TextStyle(color: AppColor.red),
-                  )),
-              errorText.isEmpty ? SizedBox.shrink() : SizedBox(height: 10.h),
               if (addLink == false)
                 (Container(
                   height: 50.h,
@@ -273,13 +265,6 @@ class ItemNewHowToCookState extends State<ItemNewHowToCook> {
             setState(() {
               howToCookList.add(state.listStep);
             });
-            break;
-          case NewRecipeValidateSuccess:
-            errorText = '';
-            break;
-          case NewRecipeValidateFailure:
-            state as NewRecipeValidateFailure;
-            errorText = state.howToCookErrorMessage;
             break;
         }
       },

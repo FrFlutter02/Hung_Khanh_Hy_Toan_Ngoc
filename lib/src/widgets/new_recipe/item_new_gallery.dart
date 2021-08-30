@@ -24,7 +24,6 @@ class ItemNewGallery extends StatefulWidget {
 class ItemNewGalleryState extends State<ItemNewGallery> {
   List<File> imageGallerys = [];
   int imageOverbalance = 0;
-  String errorText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -72,15 +71,7 @@ class ItemNewGalleryState extends State<ItemNewGallery> {
                     Image.asset("assets/images/icons/edit_icon.png")
                   ],
                 ),
-                SizedBox(height: 10.h),
-                if (errorText.isNotEmpty)
-                  (Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        errorText,
-                        style: TextStyle(color: AppColor.red),
-                      ))),
-                SizedBox(height: 10.h),
+                SizedBox(height: 20.h),
                 Container(
                   child: StaggeredGridView.countBuilder(
                     shrinkWrap: true,
@@ -176,13 +167,6 @@ class ItemNewGalleryState extends State<ItemNewGallery> {
               setState(() {
                 imageGallerys.addAll(state.listFile);
               });
-              break;
-            case NewRecipeValidateSuccess:
-              errorText = '';
-              break;
-            case NewRecipeValidateFailure:
-              state as NewRecipeValidateFailure;
-              errorText = state.galleryErrorMessage;
               break;
           }
         });

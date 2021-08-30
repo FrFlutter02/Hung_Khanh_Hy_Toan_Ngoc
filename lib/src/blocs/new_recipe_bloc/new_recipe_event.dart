@@ -65,12 +65,18 @@ class NewRecipeSaveAdditionalInfoSubmitted extends NewRecipeEvent {
   List<Object> get props => [servingTime, nutritionFact, tags];
 }
 
-class NewRecipeGetCategoriesRequested extends NewRecipeEvent {}
+class NewRecipeGetCategoriesRequested extends NewRecipeEvent {
+  final String user;
+  NewRecipeGetCategoriesRequested(this.user);
+  @override
+  List<Object> get props => [user];
+}
 
 class NewRecipeSaved extends NewRecipeEvent {
   final String recipeName;
   final String category;
-  NewRecipeSaved(this.recipeName, this.category);
+  final String user;
+  NewRecipeSaved(this.recipeName, this.category,this.user);
   @override
-  List<Object> get props => [recipeName, category];
+  List<Object> get props => [recipeName, category,user];
 }

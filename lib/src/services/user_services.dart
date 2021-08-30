@@ -48,4 +48,12 @@ class UserServices {
   Future<User> getUser() async {
     return firebaseAuth.currentUser!;
   }
+
+  Future<void> signOut() {
+    return Future.wait([firebaseAuth.signOut()]);
+  }
+
+  Future<bool> isSignedIn() async {
+    return firebaseAuth.currentUser != null;
+  }
 }

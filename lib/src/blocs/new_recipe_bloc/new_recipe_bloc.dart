@@ -116,31 +116,28 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
 
       case NewRecipeSaved:
         event as NewRecipeSaved;
+        yield NewRecipeLoading();
         String mainImageUrl = "";
         List<GalleryModel> galleryUploadList = [];
         List<IngredientUpLoadModel> ingredientUpLoadList = [];
 
         final errorList = [
-          NewRecipeValidator.validateMainImage(mainImage),
           NewRecipeValidator.validateRecipeName(event.recipeName),
-          NewRecipeValidator.validateGallery(gallery),
           NewRecipeValidator.validateIngredients(ingredientList),
           NewRecipeValidator.validateHowToCook(directions),
         ];
         final hasError = errorList.any((error) => error.isNotEmpty);
         if (hasError) {
           yield NewRecipeValidateFailure(
-            mainImageErrorMessage: errorList[0],
-            recipeNameErrorMessage: errorList[1],
-            galleryErrorMessage: errorList[2],
-            ingredientsErrorMessage: errorList[3],
-            howToCookErrorMessage: errorList[4],
+            recipeNameErrorMessage: errorList[0],
+            ingredientsErrorMessage: errorList[1],
+            howToCookErrorMessage: errorList[2],
           );
           return;
         } else
           yield NewRecipeValidateSuccess();
 
-        if (mainImage != File("")) {
+        if (mainImage.path != "") {
           mainImageUrl = await NewRecipeServices.upLoadImage(mainImage);
         }
         if (gallery != []) {
@@ -152,9 +149,9 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         }
 
         try {
-          yield NewRecipeLoading();
           await NewRecipeServices.addNewRecipeFirebase(
               mainImageUrl,
+              event.user,
               event.recipeName,
               galleryUploadList,
               ingredientUpLoadList,
@@ -171,10 +168,11 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         break;
 
       case NewRecipeGetCategoriesRequested:
+        event as NewRecipeGetCategoriesRequested;
         try {
           final categoriesAndTotalRecipes =
               await NewRecipeServices.countRecipesInACategory(
-                  userId: 'daovantoan10234@gmail.com');
+                  userId: event.user);
           yield NewRecipeCategoriesLoadSuccess(
               categories: categoriesAndTotalRecipes);
         } catch (e) {

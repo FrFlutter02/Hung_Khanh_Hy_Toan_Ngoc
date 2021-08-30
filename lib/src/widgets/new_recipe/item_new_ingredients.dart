@@ -26,7 +26,6 @@ class ItemNewIngredientsState extends State<ItemNewIngredients> {
   final addIngredientController = TextEditingController();
   bool checkImage = false;
   File imageIngredient = File('');
-  String errorText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +68,6 @@ class ItemNewIngredientsState extends State<ItemNewIngredients> {
                 ],
               ),
               SizedBox(height: 20.h),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    errorText,
-                    style: TextStyle(color: AppColor.red),
-                  )),
-              errorText.isEmpty ? SizedBox.shrink() : SizedBox(height: 10.h),
               Container(
                 child: Column(
                   children: ingredientList
@@ -223,13 +215,6 @@ class ItemNewIngredientsState extends State<ItemNewIngredients> {
             setState(() {
               imageIngredient = state.file;
             });
-            break;
-          case NewRecipeValidateSuccess:
-            errorText = '';
-            break;
-          case NewRecipeValidateFailure:
-            state as NewRecipeValidateFailure;
-            errorText = state.ingredientsErrorMessage;
             break;
         }
       },

@@ -87,26 +87,17 @@ class NewRecipeSaveRecipeFailure extends NewRecipeState {}
 class NewRecipeValidateSuccess extends NewRecipeState {}
 
 class NewRecipeValidateFailure extends NewRecipeState {
-  final String mainImageErrorMessage;
   final String recipeNameErrorMessage;
-  final String galleryErrorMessage;
   final String ingredientsErrorMessage;
   final String howToCookErrorMessage;
 
   const NewRecipeValidateFailure({
-    this.mainImageErrorMessage = '',
     this.recipeNameErrorMessage = '',
-    this.galleryErrorMessage = '',
     this.ingredientsErrorMessage = '',
     this.howToCookErrorMessage = '',
   });
 
   @override
-  List<Object> get props => [
-        mainImageErrorMessage,
-        recipeNameErrorMessage,
-        galleryErrorMessage,
-        ingredientsErrorMessage,
-        howToCookErrorMessage
-      ];
+  List<Object> get props =>
+      [recipeNameErrorMessage, ingredientsErrorMessage, howToCookErrorMessage];
 }
