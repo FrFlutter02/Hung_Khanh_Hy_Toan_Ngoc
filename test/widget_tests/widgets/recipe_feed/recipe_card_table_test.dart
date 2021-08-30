@@ -36,7 +36,7 @@ void main() {
           'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
       email: '');
   final widget = ScreenUtilInit(
-    designSize: Size(768, 1024),
+    designSize: Size(760, 1024),
     builder: () => MaterialApp(
       home: Scaffold(
         body: RecipeCardTablet(
@@ -49,7 +49,7 @@ void main() {
 
   testWidgets('Should render CardHeader vs CardContent widgets',
       (WidgetTester tester) async {
-    Device.screenWidth = 768;
+    Device.screenWidth = 760;
     Device.screenHeight = 1200;
     Device.devicePixelRatio = 1;
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
