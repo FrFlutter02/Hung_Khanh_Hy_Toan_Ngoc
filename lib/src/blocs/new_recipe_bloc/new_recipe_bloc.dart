@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_app/src/utils/new_recipe_validator.dart';
 
+import '../../utils/new_recipe_validator.dart';
 import '../../models/gallery_model.dart';
 import '../../services/new_recipe_services.dart';
 import '../../models/how_to_cook_model.dart';
@@ -172,13 +172,11 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
 
       case NewRecipeGetCategoriesRequested:
         try {
-          final List<Map<String, dynamic>> categoriesAndTotalRecipes =
+          final categoriesAndTotalRecipes =
               await NewRecipeServices.countRecipesInACategory(
                   userId: 'daovantoan10234@gmail.com');
-          if (categoriesAndTotalRecipes.isNotEmpty) {
-            yield NewRecipeCategoriesLoadSuccess(
-                categoriesAndTotalRecipes: categoriesAndTotalRecipes);
-          }
+          yield NewRecipeCategoriesLoadSuccess(
+              categories: categoriesAndTotalRecipes);
         } catch (e) {
           yield NewRecipeCategoriesLoadFailure();
         }

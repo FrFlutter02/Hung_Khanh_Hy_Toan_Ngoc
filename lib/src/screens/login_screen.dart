@@ -31,7 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            Navigator.of(context).pushNamed('/newRecipeScreen');
+            Navigator.of(context)
+                .pushNamed('/newRecipeScreen', arguments: {'user': state.user});
           }
         },
         builder: (context, state) {

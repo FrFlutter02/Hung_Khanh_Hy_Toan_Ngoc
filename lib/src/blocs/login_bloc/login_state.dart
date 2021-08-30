@@ -15,8 +15,8 @@ class LoginInitial extends LoginState {}
 class LoginInProgress extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  // final User? firebaseUser;
-  // const LoginSuccess({required this.firebaseUser});
+  final String user;
+  const LoginSuccess({required this.user});
 }
 
 class LoginFailure extends LoginState {

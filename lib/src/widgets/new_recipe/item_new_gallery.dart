@@ -72,14 +72,15 @@ class ItemNewGalleryState extends State<ItemNewGallery> {
                     Image.asset("assets/images/icons/edit_icon.png")
                   ],
                 ),
-                SizedBox(height: 20.h),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      errorText,
-                      style: TextStyle(color: AppColor.red),
-                    )),
-                errorText.isEmpty ? SizedBox.shrink() : SizedBox(height: 10.h),
+                SizedBox(height: 10.h),
+                if (errorText.isNotEmpty)
+                  (Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        errorText,
+                        style: TextStyle(color: AppColor.red),
+                      ))),
+                SizedBox(height: 10.h),
                 Container(
                   child: StaggeredGridView.countBuilder(
                     shrinkWrap: true,

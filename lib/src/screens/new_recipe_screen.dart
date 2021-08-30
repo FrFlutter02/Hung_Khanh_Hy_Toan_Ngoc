@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
+import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
+import 'package:mobile_app/src/models/category.dart';
+import 'package:mobile_app/src/widgets/custom_button.dart';
 
 import '../blocs/new_recipe_bloc/new_recipe_event.dart';
 import '../models/gallery_model.dart';
@@ -28,21 +32,33 @@ enum ImageType { imageMain, imageForGallery, imageForIngredient }
 
 class _NewRecipeScreenState extends State<NewRecipeScreen> {
   final nameRecipeController = TextEditingController();
+  final categoryController = TextEditingController();
+  final GlobalKey dropdownKey = GlobalKey();
   String dropdownValue = '';
   bool isTablet = false;
   File imageMain = File('');
-  List<Map<String, dynamic>> categoryAndTotalRecipes = [];
   List<GalleryModel> galleryList = [];
+  List<CategoryModel> categories = [];
   String mainImageErrorText = '';
   String recipeNameErrorText = '';
-
+  String user = "";
+  bool addCategory = false;
   @override
   void initState() {
+    context.read<LoginBloc>().stream.listen((loginState) {
+      if (loginState is LoginSuccess) {
+        print(loginState.user);
+        user = loginState.user;
+      }
+    });
     context.read<NewRecipeBloc>().add(NewRecipeGetCategoriesRequested());
     context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
       if (newRecipeState is NewRecipeCategoriesLoadSuccess) {
-        categoryAndTotalRecipes = newRecipeState.categoriesAndTotalRecipes;
-        dropdownValue = categoryAndTotalRecipes[0]['categoryName'];
+        categories = newRecipeState.categories;
+        if (categories.isNotEmpty) {
+          dropdownValue = categories[0].categoryName;
+        }
+        categories.add(CategoryModel(categoryName: "", totalRecipes: 0));
       }
     });
     super.initState();
@@ -203,45 +219,112 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                       Wrap(
                         children: [
                           Container(
-                            width: 190.w,
-                            height: 50.h,
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 4,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: DropdownButton<String>(
-                              value: dropdownValue,
-                              icon: Icon(Icons.expand_more_outlined),
-                              iconSize: 23,
-                              isExpanded: true,
-                              style:
-                                  const TextStyle(color: AppColor.primaryBlack),
-                              underline: SizedBox(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  dropdownValue = newValue!;
-                                });
-                              },
-                              items: categoryAndTotalRecipes
-                                  .map<DropdownMenuItem<String>>(
-                                      (Map<String, dynamic> element) {
-                                return DropdownMenuItem<String>(
-                                  value: element['categoryName'],
-                                  child: Text(
-                                      "${element['categoryName']} (${element['totalRecipes']})"),
-                                );
-                              }).toList(),
-                            ),
-                          ),
+                              width: 190.w,
+                              height: 50.h,
+                              padding: EdgeInsets.symmetric(horizontal: 15.w),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 4,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: addCategory
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                if (categoryController
+                                                    .text.isEmpty) return;
+                                                categories.insert(
+                                                    categories.length - 1,
+                                                    CategoryModel(
+                                                        categoryName:
+                                                            categoryController
+                                                                .text,
+                                                        totalRecipes: 0));
+                                                dropdownValue =
+                                                    categoryController.text;
+                                                categoryController.text = "";
+                                                addCategory = false;
+                                              });
+                                            },
+                                            child: Icon(Icons.add_outlined)),
+                                        SizedBox(
+                                            width: 120,
+                                            height: 30,
+                                            child: TextField(
+                                              controller: categoryController,
+                                              cursorColor: AppColor.green,
+                                              decoration: InputDecoration(
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: AppColor.green,
+                                                    width: 2,
+                                                  ),
+                                                ),
+                                              ),
+                                            )),
+                                      ],
+                                    )
+                                  : DropdownButton<String>(
+                                      key: dropdownKey,
+                                      value: dropdownValue,
+                                      icon: Icon(Icons.expand_more_outlined),
+                                      iconSize: 23,
+                                      isExpanded: true,
+                                      style: const TextStyle(
+                                          color: AppColor.primaryBlack),
+                                      underline: SizedBox(),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          dropdownValue = newValue!;
+                                        });
+                                      },
+                                      items: categories
+                                          .map<DropdownMenuItem<String>>(
+                                              (CategoryModel element) {
+                                        return DropdownMenuItem<String>(
+                                          value: element.categoryName,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              if (element.categoryName == '')
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      addCategory = true;
+                                                    });
+                                                  },
+                                                  child: ((Text(
+                                                    NewRecipeText
+                                                        .AddNewCategoryText,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle1!
+                                                        .copyWith(
+                                                            color:
+                                                                AppColor.green),
+                                                  ))),
+                                                )
+                                              else
+                                                (Text(
+                                                    "${element.categoryName} (${element.totalRecipes})"))
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                    )),
                           SizedBox(width: 15.w),
                           SizedBox(
                             height: 50.h,
@@ -251,10 +334,6 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                   context.read<NewRecipeBloc>().add(
                                       NewRecipeSaved(nameRecipeController.text,
                                           dropdownValue));
-
-                                  // LoadingHelper.openLoadingModal(context);
-                                  // await Future.delayed(Duration(seconds: 2));
-                                  // LoadingHelper.closeLoadingModal(context);
                                 },
                                 style: OutlinedButton.styleFrom(
                                     side: BorderSide(
@@ -281,7 +360,9 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                               height: 50.h,
                               width: isTablet ? 155.w : double.infinity,
                               value: NewRecipeText.postToFeedText,
-                              buttonOnPress: () {},
+                              buttonOnPress: () {
+                                print(user);
+                              },
                             ),
                           ),
                         ],

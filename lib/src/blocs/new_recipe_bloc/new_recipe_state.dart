@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:equatable/equatable.dart';
+import 'package:mobile_app/src/models/category.dart';
 
 import '../../models/how_to_cook_model.dart';
 import '../../models/ingredients_model.dart';
@@ -73,9 +74,8 @@ class NewRecipeAddStepHowToCookSuccess extends NewRecipeState {
 class NewRecipeAddStepHowToCookFailure extends NewRecipeState {}
 
 class NewRecipeCategoriesLoadSuccess extends NewRecipeState {
-  final List<Map<String, dynamic>> categoriesAndTotalRecipes;
-  const NewRecipeCategoriesLoadSuccess(
-      {required this.categoriesAndTotalRecipes});
+  final List<CategoryModel> categories;
+  const NewRecipeCategoriesLoadSuccess({required this.categories});
 }
 
 class NewRecipeCategoriesLoadFailure extends NewRecipeState {}

@@ -83,6 +83,7 @@ class NewRecipeText {
   static const String servingTimeText = "Serving Time (±)";
   static const String saveNewRecipeSuccessText = 'Save new recipe success';
   static const String saveNewRecipeFailureText = 'Save new recipe failure';
+  static const String AddNewCategoryText = '+ Add new category';
 
   static const String mainImageErrorText = 'Please upload an image.';
   static const String recipeNameErrorText = 'Recipe name must not be empty.';

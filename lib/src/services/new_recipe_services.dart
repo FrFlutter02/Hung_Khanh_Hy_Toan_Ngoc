@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:mobile_app/src/models/category.dart';
 
 import '../models/how_to_cook_model.dart';
 import '../models/ingredients_model.dart';
@@ -61,9 +62,9 @@ class NewRecipeServices {
     return ingredientList;
   }
 
-  static Future<List<Map<String, dynamic>>> countRecipesInACategory(
+  static Future<List<CategoryModel>> countRecipesInACategory(
       {required String userId}) async {
-    List<Map<String, dynamic>> result = [];
+    List<CategoryModel> result = [];
     Map<String, dynamic> categoryAndTotalRecipesMap = {};
     await FirebaseFirestore.instance
         .collection('recipe')
@@ -77,7 +78,7 @@ class NewRecipeServices {
       });
     });
     categoryAndTotalRecipesMap.forEach((key, value) =>
-        result.add({'categoryName': key, 'totalRecipes': value}));
+        result.add(CategoryModel(categoryName: key, totalRecipes: value)));
     return result;
   }
 
