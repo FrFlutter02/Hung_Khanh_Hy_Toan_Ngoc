@@ -92,12 +92,14 @@ class ItemNewHowToCookState extends State<ItemNewHowToCook> {
                         padding: EdgeInsets.only(right: 15.w),
                         child: InkWell(
                           onTap: () {
-                            context.read<NewRecipeBloc>().add(
-                                NewRecipeAddLinkHowToCookSubmitted(
-                                    addLinkController.text));
-                            setState(() {
-                              addLink = true;
-                            });
+                            if (addLinkController.text.isNotEmpty) {
+                              context.read<NewRecipeBloc>().add(
+                                  NewRecipeAddLinkHowToCookSubmitted(
+                                      addLinkController.text));
+                              setState(() {
+                                addLink = true;
+                              });
+                            }
                           },
                           child: Icon(
                             Icons.add_outlined,

@@ -142,16 +142,14 @@ class ItemNewIngredientsState extends State<ItemNewIngredients> {
                       padding: EdgeInsets.only(right: 15.w),
                       child: InkWell(
                         onTap: () async {
-                          if (addIngredientController.text.isNotEmpty) {
-                            context.read<NewRecipeBloc>().add(
-                                NewRecipeAddIngredientSubmitted(
-                                    addIngredientController.text,
-                                    imageIngredient));
-                            setState(() {
-                              addIngredientController.text = "";
-                              imageIngredient = File("");
-                            });
-                          }
+                          context.read<NewRecipeBloc>().add(
+                              NewRecipeAddIngredientSubmitted(
+                                  addIngredientController.text,
+                                  imageIngredient));
+                          setState(() {
+                            addIngredientController.text = "";
+                            imageIngredient = File("");
+                          });
                         },
                         child: Icon(
                           Icons.add_outlined,

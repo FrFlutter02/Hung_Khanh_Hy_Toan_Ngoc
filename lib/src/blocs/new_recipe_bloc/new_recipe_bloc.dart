@@ -28,7 +28,6 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
       case NewRecipeMainImagePicked:
         event as NewRecipeMainImagePicked;
         try {
-          yield NewRecipeLoading();
           final XFile? image =
               await ImagePicker().pickImage(source: event.imageSource);
           mainImage = File(image!.path);
@@ -41,7 +40,6 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
       case NewRecipeGalleryImagePicked:
         event as NewRecipeGalleryImagePicked;
         try {
-          yield NewRecipeLoading();
           if (event.imageSource == ImageSource.camera) {
             final XFile? image =
                 await ImagePicker().pickImage(source: event.imageSource);
@@ -73,6 +71,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
 
       case NewRecipeAddIngredientSubmitted:
         event as NewRecipeAddIngredientSubmitted;
+        if (event.nameIngredient.isEmpty) return;
         try {
           final ingredient = IngredientModel(
             id: DateTime.now().toString(),
@@ -152,23 +151,23 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
               await NewRecipeServices.upLoadIngredient(ingredientList);
         }
 
-        // try {
-        //   yield NewRecipeLoading();
-        //   await NewRecipeServices.addNewRecipeFirebase(
-        //       mainImageUrl,
-        //       event.recipeName,
-        //       galleryUploadList,
-        //       ingredientUpLoadList,
-        //       directions,
-        //       stepList,
-        //       servingTime,
-        //       nutritionFact,
-        //       tags,
-        //       event.category);
-        //   yield NewRecipeSaveRecipeSuccess();
-        // } catch (e) {
-        //   yield NewRecipeSaveRecipeFailure();
-        // }
+        try {
+          yield NewRecipeLoading();
+          await NewRecipeServices.addNewRecipeFirebase(
+              mainImageUrl,
+              event.recipeName,
+              galleryUploadList,
+              ingredientUpLoadList,
+              directions,
+              stepList,
+              servingTime,
+              nutritionFact,
+              tags,
+              event.category);
+          yield NewRecipeSaveRecipeSuccess();
+        } catch (e) {
+          yield NewRecipeSaveRecipeFailure();
+        }
         break;
 
       case NewRecipeGetCategoriesRequested:

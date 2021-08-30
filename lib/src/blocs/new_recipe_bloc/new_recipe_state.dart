@@ -82,6 +82,8 @@ class NewRecipeCategoriesLoadFailure extends NewRecipeState {}
 
 class NewRecipeSaveRecipeSuccess extends NewRecipeState {}
 
+class NewRecipeSaveRecipeFailure extends NewRecipeState {}
+
 class NewRecipeValidateSuccess extends NewRecipeState {}
 
 class NewRecipeValidateFailure extends NewRecipeState {

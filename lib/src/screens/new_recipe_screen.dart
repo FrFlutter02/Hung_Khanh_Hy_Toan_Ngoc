@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_app/src/widgets/custom_button.dart';
 
 import '../blocs/new_recipe_bloc/new_recipe_event.dart';
 import '../models/gallery_model.dart';
@@ -15,6 +14,7 @@ import '../widgets/new_recipe/item_new_gallery.dart';
 import '../widgets/new_recipe/item_new_ingredients.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/new_recipe/item_new_additional_info.dart';
 
 class NewRecipeScreen extends StatefulWidget {
@@ -251,6 +251,10 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                                   context.read<NewRecipeBloc>().add(
                                       NewRecipeSaved(nameRecipeController.text,
                                           dropdownValue));
+
+                                  // LoadingHelper.openLoadingModal(context);
+                                  // await Future.delayed(Duration(seconds: 2));
+                                  // LoadingHelper.closeLoadingModal(context);
                                 },
                                 style: OutlinedButton.styleFrom(
                                     side: BorderSide(
@@ -288,16 +292,16 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 ),
               ],
             ),
-            if (state is NewRecipeLoading)
-              Positioned(
-                  bottom: 1.sh / 2 - 20.w,
-                  left: 1.sw / 2 - 20.w,
-                  child: (SizedBox(
-                      width: 40.w,
-                      height: 40.w,
-                      child: CircularProgressIndicator(
-                        color: AppColor.green,
-                      ))))
+            // if (state is NewRecipeLoading)
+            //   Positioned(
+            //       bottom: 1.sh / 2 - 20.w,
+            //       left: 1.sw / 2 - 20.w,
+            //       child: (SizedBox(
+            //           width: 40.w,
+            //           height: 40.w,
+            //           child: CircularProgressIndicator(
+            //             color: AppColor.green,
+            //           ))))
           ]);
         },
         listener: (context, state) {
@@ -313,6 +317,8 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                 content: Text(NewRecipeText.saveNewRecipeSuccessText),
               ));
               break;
+            // case NewRecipeLoading:
+            //   break;
             case NewRecipeValidateSuccess:
               mainImageErrorText = '';
               recipeNameErrorText = '';
