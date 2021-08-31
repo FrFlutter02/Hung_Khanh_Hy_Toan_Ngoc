@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../widgets/user_profile/bottom_navigation.dart';
 
 import '../../repository/user_data.dart';
 import '../../widgets/custom_button.dart';
@@ -164,7 +163,6 @@ class ViewProfileScreen extends StatelessWidget {
               image: userData[0].recipeImages),
         ],
       ),
-      bottomNavigationBar: BottomNavigation(),
     );
   }
 }

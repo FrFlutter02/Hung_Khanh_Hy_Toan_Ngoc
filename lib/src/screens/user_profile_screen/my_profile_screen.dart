@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:mobile_app/src/widgets/notification_user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../widgets/user_profile/bottom_navigation.dart';
 
 import '../../repository/user_data.dart';
 
@@ -139,7 +138,6 @@ class MyProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigation(),
     );
   }
 }
