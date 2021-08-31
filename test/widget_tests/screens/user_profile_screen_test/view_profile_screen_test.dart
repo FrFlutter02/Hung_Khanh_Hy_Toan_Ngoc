@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/screens/user_profile_screen/view_profile_screen.dart';
 import 'package:mobile_app/src/widgets/custom_button.dart';
 import 'package:mobile_app/src/widgets/notification_user.dart';
-import 'package:mobile_app/src/widgets/user_profile/bottom_navigation.dart';
+
 import 'package:mobile_app/src/widgets/user_profile/main_card.dart';
 import 'package:mobile_app/src/widgets/user_profile/user_information.dart';
 
@@ -82,15 +82,6 @@ main() {
       final followingButton = find.descendant(
           matching: find.text("Follow"), of: find.byType(CustomButton));
       expect(followingButton, findsOneWidget);
-    });
-    testWidgets('Should render bottom navigation', (tester) async {
-      Device.screenWidth = 770;
-      Device.screenHeight = 1024;
-      Device.devicePixelRatio = 1;
-      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
-      await tester.pumpWidget(tabletWidget);
-      final firstTitleFinder = find.byType(BottomNavigation);
-      expect(firstTitleFinder, findsOneWidget);
     });
   });
 }
