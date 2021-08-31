@@ -12,10 +12,7 @@ abstract class NewRecipeState extends Equatable {
   List<Object> get props => [];
 }
 
-class NewRecipeInitial extends NewRecipeState {
-  @override
-  List<Object> get props => [];
-}
+class NewRecipeInitial extends NewRecipeState {}
 
 class NewRecipeLoading extends NewRecipeState {}
 

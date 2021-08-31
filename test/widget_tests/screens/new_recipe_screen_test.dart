@@ -6,9 +6,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
+import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_additional_info.dart';
@@ -33,12 +35,20 @@ void main() {
   });
   final mockObserver = MockNavigationObserver();
   final _newRecipeBloc = NewRecipeBloc();
-  final _widget = BlocProvider(
-      create: (_) => _newRecipeBloc,
+  final _widget = MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (context) => _newRecipeBloc,
+        )
+      ],
       child: ScreenUtilInit(
         builder: () => MaterialApp(
           routes: {
             "/": (context) => NewRecipeScreen(),
+            "/loginScreen": (context) => LoginScreen(),
           },
           navigatorObservers: [mockObserver],
         ),

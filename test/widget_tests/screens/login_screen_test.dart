@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,8 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
 
 class MockUserServices extends Mock implements UserServices {}
+
+class MockUser extends Mock implements User {}
 
 class MockNavigationObserver extends Mock implements NavigatorObserver {}
 
@@ -59,8 +62,8 @@ void main() {
   testWidgets('Should navigate to home screen when state is [LoginSuccess]',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-
-    _loginBloc.emit(LoginSuccess(user: ''));
+    MockUser user = MockUser();
+    _loginBloc.emit(LoginSuccess(user: user));
     await tester.pump();
 
     verify(() => mockObserver.didPush(any(), any()));

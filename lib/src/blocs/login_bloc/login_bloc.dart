@@ -19,9 +19,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
-    event as LoginRequested;
     switch (event.runtimeType) {
       case LoginRequested:
+        event as LoginRequested;
         String emailErrorMessage = await Validator.validateLoginEmail(event);
         String passwordErrorMessage =
             await Validator.validateLoginPassword(event);
@@ -41,6 +41,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                   : AppText.passwordIsIncorrect);
         }
         break;
+      case LogInGetUserRequested:
+        final User? firebaseUser = await userServices!.getUser();
+        if (firebaseUser != null) {
+          yield LoginGetUserSuccess(user: firebaseUser);
+        }
     }
   }
 }

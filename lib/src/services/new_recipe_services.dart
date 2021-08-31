@@ -13,7 +13,7 @@ class NewRecipeServices {
     try {
       String link = "";
       Reference ref = FirebaseStorage.instance
-          .ref("test/")
+          .ref("New Recipe/")
           .child('${file.path.split('/').last}');
       await ref.putFile(file).whenComplete(() async {
         link = await ref.getDownloadURL();

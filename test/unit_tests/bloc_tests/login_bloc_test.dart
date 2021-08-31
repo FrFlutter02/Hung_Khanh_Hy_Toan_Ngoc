@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_event.dart';
@@ -12,6 +13,8 @@ import '../../cloud_firestore_mock.dart';
 
 class MockLoginService extends Mock implements UserServices {}
 
+class MockUser extends Mock implements User {}
+
 class MockLoginEvent extends LoginEvent {
   @override
   List<Object?> get props => throw UnimplementedError();
@@ -20,7 +23,7 @@ class MockLoginEvent extends LoginEvent {
 main() {
   UserServices userServices;
   LoginBloc? loginBloc;
-
+  MockUser? mockUser;
   setUpAll(() async {
     setupCloudFirestoreMocks();
     Firebase.initializeApp();
@@ -29,6 +32,7 @@ main() {
   setUp(() async {
     userServices = MockLoginService();
     loginBloc = LoginBloc(userServices: userServices);
+    mockUser = MockUser();
   });
 
   tearDown(() {
@@ -66,7 +70,7 @@ main() {
     act: (LoginBloc bloc) => bloc.add(LoginRequested()),
     expect: () => [
       LoginInProgress(),
-      LoginSuccess(user: ''),
+      LoginSuccess(user: mockUser),
     ],
   );
 

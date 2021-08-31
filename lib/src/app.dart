@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'blocs/authentication_bloc/authentication_bloc.dart';
 import 'blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'screens/new_recipe_screen.dart';
 import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
@@ -41,13 +40,8 @@ class App extends StatelessWidget {
                   ForgotPasswordBloc(userServices: userServices)),
           BlocProvider(create: (context) => loginBloc),
           BlocProvider(
-              create: (context) =>
-                  AuthenticationBloc(userRepository: userServices)),
-          BlocProvider(
               create: (context) => SignupBloc(userServices: userServices)),
-          BlocProvider(
-              // create: (context) => NewRecipeBloc(loginBloc: loginBloc)),
-              create: (context) => NewRecipeBloc()),
+          BlocProvider(create: (context) => NewRecipeBloc()),
         ],
         child: MaterialApp(
           theme: ThemeData(fontFamily: "Nunito-Regular"),

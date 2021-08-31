@@ -1,18 +1,15 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_app/src/blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:mobile_app/src/blocs/authentication_bloc/authentication_event.dart';
-import 'package:mobile_app/src/blocs/authentication_bloc/authentication_state.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
-import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
-import 'package:mobile_app/src/models/category.dart';
-import 'package:mobile_app/src/widgets/custom_button.dart';
 
+import '../blocs/login_bloc/login_bloc.dart';
+import '../blocs/login_bloc/login_event.dart';
+import '../blocs/login_bloc/login_state.dart';
+import '../models/category.dart';
+import '../widgets/custom_button.dart';
 import '../blocs/new_recipe_bloc/new_recipe_event.dart';
 import '../models/gallery_model.dart';
 import '../blocs/new_recipe_bloc/new_recipe_bloc.dart';
@@ -23,7 +20,6 @@ import '../widgets/new_recipe/item_new_gallery.dart';
 import '../widgets/new_recipe/item_new_ingredients.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
-import '../widgets/custom_button.dart';
 import '../widgets/new_recipe/item_new_additional_info.dart';
 
 class NewRecipeScreen extends StatefulWidget {
@@ -51,26 +47,25 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
 
   @override
   void initState() {
-    context.read<AuthenticationBloc>().add(AuthenticationLoggedIn());
-    authenStreamSubscription =
-        context.read<AuthenticationBloc>().stream.listen((authenticationState) {
-      if (authenticationState is AuthenticationSuccess) {
-        user = authenticationState.firebaseUser.email!;
-        context
-            .read<NewRecipeBloc>()
-            .add(NewRecipeGetCategoriesRequested(user));
-        recipeStreamSubscriptionNew =
-            context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
-          if (newRecipeState is NewRecipeCategoriesLoadSuccess &&
-              newRecipeState.categories.isNotEmpty) {
-            categories = newRecipeState.categories;
-            dropdownValue = categories[0].categoryName;
-            categories.add(CategoryModel(categoryName: "", totalRecipes: 0));
-          }
-        });
+    // context.read<LoginBloc>().add(LogInGetUserRequested());
+    // authenStreamSubscription =
+    //     context.read<LoginBloc>().stream.listen((loginState) {
+    //   if (loginState is LoginGetUserSuccess) {
+    //     user = loginState.user.email!;
+    //   }
+    // });
+    context
+        .read<NewRecipeBloc>()
+        .add(NewRecipeGetCategoriesRequested("toan@gmail.com"));
+    recipeStreamSubscriptionNew =
+        context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
+      if (newRecipeState is NewRecipeCategoriesLoadSuccess &&
+          newRecipeState.categories.isNotEmpty) {
+        categories = newRecipeState.categories;
+        dropdownValue = categories[0].categoryName;
+        categories.add(CategoryModel(categoryName: "", totalRecipes: 0));
       }
     });
-
     super.initState();
   }
 

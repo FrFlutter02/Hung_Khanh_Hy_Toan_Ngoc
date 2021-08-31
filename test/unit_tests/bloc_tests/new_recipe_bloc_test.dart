@@ -1,23 +1,60 @@
 import 'dart:io';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_event.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
+import 'package:mobile_app/src/models/gallery_model.dart';
+import 'package:mobile_app/src/models/how_to_cook_model.dart';
+import 'package:mobile_app/src/models/ingredients_model.dart';
 
 import '../../cloud_firestore_mock.dart';
+
+String fakeLink = "http/:...";
+GalleryModel galleryModel = GalleryModel(id: "123", link: "linkGallery");
+IngredientUpLoadModel ingredientUpLoadModel =
+    IngredientUpLoadModel(id: "123", ingredient: "ingredient", image: "image");
+@override
+Future<void> addNewRecipeFirebase(
+  String mainImage,
+  String user,
+  String nameRecipe,
+  List<GalleryModel> galleryList,
+  List<IngredientUpLoadModel> ingredientUpLoadList,
+  String directions,
+  List<HowToCookModel> stepList,
+  String servingTime,
+  String nutritionFact,
+  List<String> tags,
+  String category,
+) async {
+  NewRecipeSaveRecipeSuccess();
+}
+
+@override
+Future<String> upLoadImage(File file) async {
+  return fakeLink;
+}
+
+@override
+Future<List<GalleryModel>> upLoadGallery(List<File> imageGallerys) async {
+  return [galleryModel];
+}
+
+@override
+Future<List<IngredientUpLoadModel>> upLoadIngredient(
+    List<IngredientModel> imageIngredient) async {
+  return [ingredientUpLoadModel];
+}
 
 void main() {
   late NewRecipeBloc newRecipeBloc;
   File mockFile = File("/path");
   String nameRecipe = "abc";
-  String fakeLink = "http/:...";
-  // FirebaseStorage storage =
-  //     FirebaseStorage.instanceFor(bucket: 'secondary-storage-bucket');
-  // Reference ref = FirebaseStorage.instance.ref("test/").child('');
 
   const MethodChannel channel =
       MethodChannel('plugins.flutter.io/image_picker');
@@ -53,7 +90,6 @@ void main() {
         newRecipeBloc.add(NewRecipeMainImagePicked(ImageSource.camera));
       },
       expect: () => [
-            NewRecipeLoading(),
             isA<NewRecipeAddImageMainSuccess>(),
           ]);
   blocTest(
@@ -95,7 +131,6 @@ void main() {
       act: (NewRecipeBloc newRecipeBloc) =>
           newRecipeBloc.add(NewRecipeGalleryImagePicked(ImageSource.camera)),
       expect: () => [
-            NewRecipeLoading(),
             isA<NewRecipeAddImageGallerySuccess>(),
           ]);
   blocTest(
@@ -104,15 +139,20 @@ void main() {
       act: (NewRecipeBloc newRecipeBloc) =>
           newRecipeBloc.add(NewRecipeGalleryImagePicked(ImageSource.gallery)),
       expect: () => [
-            NewRecipeLoading(),
             isA<NewRecipeAddImageIngredientFailure>(),
           ]);
   blocTest('emits [NewRecipeSaveRecipeSuccess] when [NewRecipeSaved] ',
       build: () => newRecipeBloc,
-      act: (NewRecipeBloc newRecipeBloc) =>
-          newRecipeBloc.add(NewRecipeSaved("name recipe", "catalog")),
+      act: (NewRecipeBloc newRecipeBloc) {
+        newRecipeBloc.directions = "link";
+        newRecipeBloc.ingredientList = [
+          IngredientModel(id: "123", ingredient: "ingredient", image: mockFile)
+        ];
+        newRecipeBloc.add(NewRecipeSaved("name recipe", "catalog", "user"));
+      },
       expect: () => [
             NewRecipeLoading(),
+            NewRecipeValidateSuccess(),
             NewRecipeSaveRecipeSuccess(),
           ]);
 }
