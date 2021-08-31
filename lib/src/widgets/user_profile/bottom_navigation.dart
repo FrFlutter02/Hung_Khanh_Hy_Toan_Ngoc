@@ -12,49 +12,42 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late double BottomNavigationWidth;
+    int _selectedIndex = 1;
     if (Device.get().isPhone) {
       BottomNavigationWidth = 375.w;
     } else {
       BottomNavigationWidth = 770.w;
     }
     return Container(
-      width: BottomNavigationWidth,
-      height: 90.h,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: Container(
-              height: (32.h),
-              width: (32.w),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(UserProfileText.searchIcon))),
-            ),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Container(
-              height: 32.h,
-              width: 32.w,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(UserProfileText.pagingIcon))),
-            ),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Container(
-              height: 32.h,
-              width: 32.w,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(UserProfileText.cookIcon))),
-            ),
-          )
-        ],
-      ),
-    );
+        color: AppColor.white,
+        height: 90.h,
+        child: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: AssetImage(UserProfileText.searchIcon),
+                  color:
+                      _selectedIndex == 0 ? AppColor.green : AppColor.iconText,
+                ),
+                label: 'Search'),
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: AssetImage(UserProfileText.pagingIcon),
+                  color:
+                      _selectedIndex == 1 ? AppColor.green : AppColor.iconText,
+                ),
+                label: 'Recipe'),
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: AssetImage(UserProfileText.cookIcon),
+                  color:
+                      _selectedIndex == 2 ? AppColor.green : AppColor.iconText,
+                ),
+                label: 'User profile')
+          ],
+          currentIndex: _selectedIndex,
+        ));
   }
 }

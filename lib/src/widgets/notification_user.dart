@@ -20,13 +20,19 @@ class NotificationUser extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            height: (32.h),
-            width: (82.w),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(UserProfileText.searchIcon))),
-          ),
+          Row(children: [
+            Container(
+              height: (32.h),
+              width: (82.w),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(UserProfileText.searchIcon))),
+            ),
+            Container(
+              height: (32.h),
+              width: (118.w),
+            )
+          ]),
           Container(
             height: (32.h),
             width: (102.w),

@@ -20,6 +20,9 @@ class ListOption extends StatelessWidget {
     late double MainCardWidth;
     late double MainCardHeight;
     late double buttonWidth;
+    String savedButtonText = "Saved";
+    String recipedButtonText = "Recipes";
+    String followingButtonText = "Following";
 
     if (Device.get().isPhone) {
       MainCardWidth = 325.w;
@@ -28,7 +31,7 @@ class ListOption extends StatelessWidget {
       if (isMyProfile == true) {
         buttonWidth = (80.w);
       } else {
-        buttonWidth = (149.h);
+        buttonWidth = (140.h);
       }
     } else {
       MainCardWidth = 718.w;
@@ -65,7 +68,7 @@ class ListOption extends StatelessWidget {
                                     fontSize: 20,
                                     color: AppColor.primaryBlack,
                                   )),
-                              Text("Recipes",
+                              Text(recipedButtonText,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColor.primaryBlack,
@@ -108,7 +111,7 @@ class ListOption extends StatelessWidget {
                                           fontSize: 20,
                                           color: AppColor.primaryBlack,
                                         )),
-                                    Text("Saved",
+                                    Text(savedButtonText,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppColor.primaryBlack,
@@ -151,7 +154,7 @@ class ListOption extends StatelessWidget {
                                     fontSize: 20,
                                     color: AppColor.primaryBlack,
                                   )),
-                              Text("Following",
+                              Text(followingButtonText,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColor.primaryBlack,

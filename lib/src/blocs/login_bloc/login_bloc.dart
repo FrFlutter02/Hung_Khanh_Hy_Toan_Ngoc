@@ -30,6 +30,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           UserModel userModel = UserModel(
               email: event.userModel.email, password: event.userModel.password);
           await userServices?.logIn(userModel);
+          final currentUser = await userServices!.getUser();
           yield LoginSuccess();
         } catch (e) {
           yield LoginFailure(

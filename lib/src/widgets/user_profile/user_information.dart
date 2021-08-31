@@ -35,7 +35,7 @@ class UserInformation extends StatelessWidget {
       }
     } else {
       UserInformationWidth = (718.w);
-      UserInformationHeight = (120.h);
+      UserInformationHeight = (124.h);
     }
     return Container(
       width: UserInformationWidth,

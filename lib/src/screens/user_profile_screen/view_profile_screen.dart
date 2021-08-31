@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../widgets/user_profile/bottom_navigation.dart';
 
 import '../../repository/user_data.dart';
 import '../../widgets/custom_button.dart';
@@ -40,7 +41,7 @@ class ViewProfileScreen extends StatelessWidget {
         children: [
           isMobile
               ? SizedBox(
-                  height: 55.h,
+                  height: 18.h,
                 )
               : Column(
                   children: [
@@ -160,9 +161,10 @@ class ViewProfileScreen extends StatelessWidget {
               recipesNumber: userData[0].recipes,
               savedNumber: userData[0].saved,
               followingNumber: userData[0].following,
-              image: userData[0].recipeImages)
+              image: userData[0].recipeImages),
         ],
       ),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 }

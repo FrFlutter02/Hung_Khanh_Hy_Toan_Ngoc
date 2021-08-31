@@ -24,7 +24,7 @@ class MainCard extends StatelessWidget {
 
     if (Device.get().isPhone) {
       MainCardWidth = 325.w;
-      MainCardHeight = 460.h;
+      MainCardHeight = 459.h;
     } else {
       MainCardWidth = 718.w;
       MainCardHeight = 610.h;

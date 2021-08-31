@@ -23,9 +23,9 @@ class RecipeCard extends StatelessWidget {
       recipeCardWidth = (155.w);
       recipeCardHeight = 129.h;
       imageWidth = 155.w;
-      imageHeight = 90.h;
+      imageHeight = 85.h;
       foodTitleSize = 16;
-      verticalPaddingTitle = 7.5.h;
+      verticalPaddingTitle = 0;
     } else if (Device.get().isTablet) {
       recipeCardWidth = 382.w;
       recipeCardHeight = 183.h;
