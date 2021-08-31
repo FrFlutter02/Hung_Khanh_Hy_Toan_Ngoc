@@ -58,7 +58,7 @@ void main() {
           ));
 
   final tabletWidget = ScreenUtilInit(
-      designSize: Size(768, 1024),
+      designSize: Size(748, 1024),
       builder: () => MaterialApp(
               home: BlocProvider(
             create: (context) => postBloc,
@@ -67,7 +67,6 @@ void main() {
             ),
           )));
   group('mobile test', () {
-    PageController controller = PageController();
     testWidgets('Should render Recipe Feed Screen Mobile widgets',
         (WidgetTester tester) async {
       await tester.pumpWidget(mobileWidget);
@@ -136,37 +135,61 @@ void main() {
 
       expect(find.byType(PreferredSize), findsOneWidget);
     });
-    testWidgets('should tap CustomButton', (WidgetTester tester) async {
+    testWidgets('Should render CustomButton', (WidgetTester tester) async {
       await tester.pumpWidget(tabletWidget);
 
       await tester.tap(find.byType(CustomButton));
       expect(find.byType(CustomButton), findsOneWidget);
     });
-    testWidgets('should tap Topbartablet', (WidgetTester tester) async {
+    testWidgets('Should render PreferredSize', (WidgetTester tester) async {
       await tester.pumpWidget(tabletWidget);
-
-      expect(find.byType(TopBarTablet), findsOneWidget);
+      expect(find.byType(PreferredSize), findsOneWidget);
     });
-    testWidgets('renders RecipeCardTablet when state is PostLoadSuccess',
+    testWidgets(
+        'renders RecipeCardTablet, TopBarTablet when state is PostLoadSuccess',
         (WidgetTester tester) async {
       await tester.pumpWidget(tabletWidget);
-      postBloc.emit(PostLoadSuccess());
+      final StatefulElement _recipeFeedScreenElement =
+          tester.element(find.byType(RecipeFeedScreen));
+      final RecipeFeedScreenState _recipeFeedScreenState =
+          _recipeFeedScreenElement.state as RecipeFeedScreenState;
+      final listViewFinder = find.byType(ListView);
+      final mockPost = Post(
+          backgroundImage:
+              "https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg",
+          comments: 1,
+          likes: 1,
+          name: 'hy',
+          time: 111,
+          recipeId: 'ádasd',
+          userId: 'vip',
+          description: 'hgildasgi');
+      final mockUser = UserModel(
+          fullName: '',
+          avatar:
+              'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
+          email: '');
+      postBloc.emit(PostLoadSuccess(posts: [mockPost], users: [mockUser]));
       await tester.pump();
 
       expect(find.byType(ListView), findsOneWidget);
+      expect(
+          find.descendant(
+              of: find.byType(ListView),
+              matching: find.byType(RecipeCardTablet)),
+          findsOneWidget);
     });
     testWidgets('Should test the scroll', (WidgetTester tester) async {
       await tester.pumpWidget(tabletWidget);
-      final gesture = await tester
-          .startGesture(Offset(0, 300)); //Position of the scrollview
-      await gesture.moveBy(Offset(0, -300)); //How much to scroll by
+      final gesture = await tester.startGesture(Offset(0, 300));
+      await gesture.moveBy(Offset(0, -300));
       await tester.pump();
     });
     testWidgets('renders text fail', (WidgetTester tester) async {
       await tester.pumpWidget(tabletWidget);
       postBloc.emit(PostLoadFailure(errorMessage: RecipeFeedText.loadingFail));
       await tester.pump();
-      expect(find.text(RecipeFeedText.loadingFail), findsOneWidget);
+      expect(find.text(RecipeFeedText.loadingFail), findsWidgets);
     });
     testWidgets('renders loading when state is PostLoadLoading',
         (WidgetTester tester) async {

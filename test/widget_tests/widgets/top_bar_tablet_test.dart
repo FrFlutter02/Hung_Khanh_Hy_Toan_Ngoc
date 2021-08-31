@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,13 +21,16 @@ void main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
     Firebase.initializeApp();
+    HttpOverrides.global = null;
   });
 
   final widget = ScreenUtilInit(
       designSize: Size(768, 1024),
       builder: () => MaterialApp(
             home: Scaffold(
-              body: TopBarTablet(),
+              body: TopBarTablet(
+                avatar: 'https://crop=auto&scale=both',
+              ),
             ),
           ));
 

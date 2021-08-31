@@ -58,18 +58,22 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
       appBar: isTablet
           ? PreferredSize(
               preferredSize: Size.fromHeight(80.h),
-              child: Container(
-                margin: EdgeInsets.only(top: 24.h),
-                child: Wrap(
-                  children: [
-                    TopBarTablet(),
-                    Divider(
-                        height: 1.h,
-                        thickness: 2.h,
-                        color: RecipeFeedColor.dividerColor),
-                  ],
-                ),
-              ),
+              child:
+                  BlocBuilder<PostBloc, PostState>(builder: (context, state) {
+                if (state is PostLoadSuccess) {
+                  return TopBarTablet(
+                    avatar: state.users[0].avatar,
+                  );
+                } else {
+                  return Center(
+                    child: Text(
+                      RecipeFeedText.loadingFail,
+                      style:
+                          TextStyle(color: AppColor.primaryBlack, fontSize: 25),
+                    ),
+                  );
+                }
+              }),
             )
           : PreferredSize(
               preferredSize: Size.fromHeight(60.h),
@@ -81,6 +85,7 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     Logo(),
                     CustomNotification(
                       isTablet: false,
+                      avatar: '',
                     )
                   ],
                 ),
@@ -138,7 +143,8 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         return Center(
                           child: Text(
                             RecipeFeedText.loadingFail,
-                            style: TextStyle(color: Colors.black, fontSize: 50),
+                            style: TextStyle(
+                                color: AppColor.primaryBlack, fontSize: 25),
                           ),
                         );
                       }
@@ -188,7 +194,8 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   return Center(
                       child: Text(
                     RecipeFeedText.loadingFail,
-                    style: TextStyle(color: Colors.black, fontSize: 50),
+                    style:
+                        TextStyle(color: AppColor.primaryBlack, fontSize: 25),
                   ));
                 }
               },

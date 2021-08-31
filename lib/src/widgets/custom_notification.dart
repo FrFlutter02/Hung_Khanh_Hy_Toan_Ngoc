@@ -5,8 +5,10 @@ import '../widgets/icon_button_custom.dart';
 
 class CustomNotification extends StatelessWidget {
   final bool isTablet;
-
-  const CustomNotification({Key? key, this.isTablet = true}) : super(key: key);
+  final String avatar;
+  const CustomNotification(
+      {Key? key, this.isTablet = true, required this.avatar})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class CustomNotification extends StatelessWidget {
         isTablet
             ? CircleAvatar(
                 radius: 18.r,
-                backgroundImage: AssetImage('assets/users/user0.png'),
+                backgroundImage: NetworkImage(avatar),
               )
             : SizedBox.shrink(),
       ],
