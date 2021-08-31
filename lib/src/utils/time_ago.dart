@@ -7,7 +7,6 @@ class TimeAgo {
         dateNow.difference(DateTime.fromMillisecondsSinceEpoch(dateString));
 
     if (difference.inDays >= 365) {
-      print(difference.inDays);
       return '${(difference.inDays / 365).floor()} ${RecipeFeedText.yearAgo}';
     } else if (difference.inDays >= 30) {
       return '${(difference.inDays / 30).floor()} ${RecipeFeedText.monthAgo}';
