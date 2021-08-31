@@ -45,10 +45,8 @@ class UserServices {
     return userCredential;
   }
 
-  Future<User> getUser() async {
-    if (firebaseAuth.currentUser != null) {
-      return firebaseAuth.currentUser!;
-    }
+  Future<User?> getUser() async {
+    return firebaseAuth.currentUser!;
   }
 
   Future<void> signOut() {

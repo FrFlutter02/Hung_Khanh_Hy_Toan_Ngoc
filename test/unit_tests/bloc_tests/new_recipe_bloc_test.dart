@@ -152,7 +152,6 @@ void main() {
       },
       expect: () => [
             NewRecipeLoading(),
-            NewRecipeValidateSuccess(),
             NewRecipeSaveRecipeSuccess(),
           ]);
 }

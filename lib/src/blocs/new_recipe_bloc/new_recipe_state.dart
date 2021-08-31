@@ -81,8 +81,6 @@ class NewRecipeSaveRecipeSuccess extends NewRecipeState {}
 
 class NewRecipeSaveRecipeFailure extends NewRecipeState {}
 
-class NewRecipeValidateSuccess extends NewRecipeState {}
-
 class NewRecipeValidateFailure extends NewRecipeState {
   final String recipeNameErrorMessage;
   final String ingredientsErrorMessage;

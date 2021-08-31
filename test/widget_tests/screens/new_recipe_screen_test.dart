@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,7 +24,19 @@ import '../../cloud_firestore_mock.dart';
 
 class FakeRoute extends Fake implements Route {}
 
-class MockUserServices extends Mock implements UserServices {}
+class MockUser extends Mock implements User {
+  @override
+  String? get email {
+    return 'email';
+  }
+}
+
+class MockUserServices extends Mock implements UserServices {
+  @override
+  Future<User> getUser() async {
+    return MockUser();
+  }
+}
 
 class MockNavigationObserver extends Mock implements NavigatorObserver {}
 
@@ -38,7 +51,7 @@ void main() {
   final _widget = MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => LoginBloc(),
+          create: (context) => LoginBloc(userServices: MockUserServices()),
         ),
         BlocProvider(
           create: (context) => _newRecipeBloc,
@@ -134,17 +147,12 @@ void main() {
   testWidgets('Should render a CircularProgressIndicator',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-    // final outLineButtonFinder = find.byType(OutlinedButton);
-    // final textFinder = find.descendant(
-    //     of: outLineButtonFinder,
-    //     matching: find.text(NewRecipeText.saveRecipeText));
+
     _newRecipeBloc.emit(NewRecipeLoading());
     await tester.pump();
     final iii = find.descendant(
         of: find.byType(Center),
         matching: find.byType(CircularProgressIndicator));
     expect(iii, findsOneWidget);
-    // expect(outLineButtonFinder, findsWidgets);
-    // expect(textFinder, findsWidgets);
   });
 }

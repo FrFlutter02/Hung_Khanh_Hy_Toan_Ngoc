@@ -47,23 +47,23 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
 
   @override
   void initState() {
-    // context.read<LoginBloc>().add(LogInGetUserRequested());
-    // authenStreamSubscription =
-    //     context.read<LoginBloc>().stream.listen((loginState) {
-    //   if (loginState is LoginGetUserSuccess) {
-    //     user = loginState.user.email!;
-    //   }
-    // });
-    context
-        .read<NewRecipeBloc>()
-        .add(NewRecipeGetCategoriesRequested("toan@gmail.com"));
-    recipeStreamSubscriptionNew =
-        context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
-      if (newRecipeState is NewRecipeCategoriesLoadSuccess &&
-          newRecipeState.categories.isNotEmpty) {
-        categories = newRecipeState.categories;
-        dropdownValue = categories[0].categoryName;
-        categories.add(CategoryModel(categoryName: "", totalRecipes: 0));
+    context.read<LoginBloc>().add(LogInGetUserRequested());
+    authenStreamSubscription =
+        context.read<LoginBloc>().stream.listen((loginState) {
+      if (loginState is LoginGetUserSuccess) {
+        user = loginState.user.email!;
+        context
+            .read<NewRecipeBloc>()
+            .add(NewRecipeGetCategoriesRequested(user));
+        recipeStreamSubscriptionNew =
+            context.read<NewRecipeBloc>().stream.listen((newRecipeState) {
+          if (newRecipeState is NewRecipeCategoriesLoadSuccess &&
+              newRecipeState.categories.isNotEmpty) {
+            categories = newRecipeState.categories;
+            dropdownValue = categories[0].categoryName;
+            categories.add(CategoryModel(categoryName: "", totalRecipes: 0));
+          }
+        });
       }
     });
     super.initState();
@@ -139,7 +139,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.all(0),
-                                  primary: Colors.white,
+                                  primary: AppColor.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -393,6 +393,7 @@ class _NewRecipeScreenState extends State<NewRecipeScreen> {
           ]);
         },
         listener: (context, state) {
+          print(state);
           switch (state.runtimeType) {
             case NewRecipeAddImageMainSuccess:
               state as NewRecipeAddImageMainSuccess;

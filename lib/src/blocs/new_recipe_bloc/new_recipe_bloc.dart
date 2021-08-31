@@ -134,8 +134,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
             howToCookErrorMessage: errorList[2],
           );
           return;
-        } else
-          yield NewRecipeValidateSuccess();
+        }
 
         if (mainImage.path != "") {
           mainImageUrl = await NewRecipeServices.upLoadImage(mainImage);
