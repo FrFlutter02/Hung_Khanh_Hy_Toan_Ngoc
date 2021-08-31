@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:equatable/equatable.dart';
-import 'package:mobile_app/src/models/category.dart';
 
+import '../../models/category.dart';
 import '../../models/how_to_cook_model.dart';
 import '../../models/ingredients_model.dart';
 
@@ -95,4 +95,11 @@ class NewRecipeValidateFailure extends NewRecipeState {
   @override
   List<Object> get props =>
       [recipeNameErrorMessage, ingredientsErrorMessage, howToCookErrorMessage];
+}
+
+class NewRecipeAddCategorySuccess extends NewRecipeState {
+  final String newCategory;
+  const NewRecipeAddCategorySuccess(this.newCategory);
+  @override
+  List<Object> get props => [newCategory];
 }

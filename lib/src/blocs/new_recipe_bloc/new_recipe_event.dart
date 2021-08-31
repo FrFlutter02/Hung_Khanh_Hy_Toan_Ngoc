@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -74,9 +73,16 @@ class NewRecipeGetCategoriesRequested extends NewRecipeEvent {
 
 class NewRecipeSaved extends NewRecipeEvent {
   final String recipeName;
-  final String category;
   final String user;
-  NewRecipeSaved(this.recipeName, this.category,this.user);
+  NewRecipeSaved(this.recipeName, this.user);
   @override
-  List<Object> get props => [recipeName, category,user];
+  List<Object> get props => [recipeName, user];
+}
+
+class NewRecipeAddCategorySubmitted extends NewRecipeEvent {
+  final String category;
+
+  NewRecipeAddCategorySubmitted(this.category);
+  @override
+  List<Object> get props => [category];
 }

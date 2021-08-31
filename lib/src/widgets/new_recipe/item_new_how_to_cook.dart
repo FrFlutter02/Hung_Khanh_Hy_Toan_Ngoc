@@ -142,44 +142,42 @@ class ItemNewHowToCookState extends State<ItemNewHowToCook> {
                         ],
                       ),
                     ),
-                    Column(
-                      children: howToCookList
-                          .map((data) => Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 22.w,
-                                    width: 22.w,
-                                    margin: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border:
-                                            Border.all(color: AppColor.green)),
-                                    child: Center(
-                                        child: Text(
-                                      "${data.step}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(color: AppColor.green),
-                                    )),
+                    ...howToCookList
+                        .map((data) => Container(
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 22.w,
+                                  width: 22.w,
+                                  margin: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border:
+                                          Border.all(color: AppColor.green)),
+                                  child: Center(
+                                      child: Text(
+                                    "${data.step}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(color: AppColor.green),
+                                  )),
+                                ),
+                                Container(
+                                  width: isTablet ? 460.w : 260.w,
+                                  padding:
+                                      const EdgeInsets.only(left: 15, right: 5),
+                                  child: Text(
+                                    "${data.textHowToCook}",
+                                    softWrap: true,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
                                   ),
-                                  Container(
-                                    width: isTablet ? 460.w : 260.w,
-                                    padding: const EdgeInsets.only(
-                                        left: 15, right: 5),
-                                    child: Text(
-                                      "${data.textHowToCook}",
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
-                                    ),
-                                  ),
-                                ],
-                              )))
-                          .toList(),
-                    ),
+                                ),
+                              ],
+                            )))
+                        .toList(),
                     Container(
                       height: 50.h,
                       width: double.infinity,

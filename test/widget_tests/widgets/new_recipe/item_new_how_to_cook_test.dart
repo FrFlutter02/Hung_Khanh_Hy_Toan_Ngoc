@@ -55,7 +55,7 @@ void main() {
     expect(clock, findsOneWidget);
     expect(videoIcon, findsOneWidget);
   });
-  testWidgets("Should render from step title", (WidgetTester tester) async {
+  testWidgets("Should render from step text", (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
     final StatefulElement _itemHowToCook =
         tester.element(find.byType(ItemNewHowToCook));
@@ -70,6 +70,35 @@ void main() {
     final stepFinder = find.text("step 1");
     expect(linkFinder, findsOneWidget);
     expect(stepFinder, findsOneWidget);
+  });
+  testWidgets("Should render from step text and reset text field",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    final StatefulElement _itemHowToCook =
+        tester.element(find.byType(ItemNewHowToCook));
+    final ItemNewHowToCookState _itemHowToCookState =
+        _itemHowToCook.state as ItemNewHowToCookState;
+    _itemHowToCookState.addLinkController.text = "http";
+
+    _itemHowToCookState.step = 1;
+    await tester.tap(find.descendant(
+        of: find.byType(InkWell), matching: find.byIcon(Icons.add_outlined)));
+    await tester.pump();
+    _itemHowToCookState.addStepController.text = "step 1";
+    await tester.tap(find.descendant(
+        of: find.byType(InkWell), matching: find.byIcon(Icons.add_outlined)));
+    await tester.pump();
+    final rowFinder =
+        find.descendant(of: find.byType(Container), matching: find.byType(Row));
+    final containerFinder =
+        find.descendant(of: rowFinder, matching: find.byType(Container));
+    final centerFinder =
+        find.descendant(of: containerFinder, matching: find.byType(Center));
+
+    final stepTextFinder = find.text("");
+    expect(_itemHowToCookState.step, 2);
+    expect(stepTextFinder, findsOneWidget);
+    expect(centerFinder, findsOneWidget);
   });
   testWidgets(
       "Should add one how to cook into howToCookList when [NewRecipeAddIngredientSuccess] is called",
@@ -89,5 +118,27 @@ void main() {
     _newRecipeBloc.emit(NewRecipeAddStepHowToCookSuccess(fakeHowToCook));
     await tester.pump();
     expect(_itemHowToCookState.howToCookList, [fakeHowToCook]);
+  });
+  testWidgets(
+      "aaShould add one how to cook into howToCookList when [NewRecipeAddIngredientSuccess] is called",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    final StatefulElement _itemHowToCook =
+        tester.element(find.byType(ItemNewHowToCook));
+    final ItemNewHowToCookState _itemHowToCookState =
+        _itemHowToCook.state as ItemNewHowToCookState;
+    _itemHowToCookState.addLink = true;
+    await tester.tap(find.descendant(
+        of: find.byType(InkWell), matching: find.byIcon(Icons.add_outlined)));
+    await tester.pump();
+    final fakeHowToCook = HowToCookModel(
+        duration: '3 minute', id: '1', step: 7, textHowToCook: 'step 1');
+
+    _newRecipeBloc.emit(NewRecipeAddStepHowToCookSuccess(fakeHowToCook));
+    await tester.pumpAndSettle();
+    final textStepFinder = find.text("step 1");
+    final stepFinder = find.text("7");
+    expect(textStepFinder, findsOneWidget);
+    expect(stepFinder, findsOneWidget);
   });
 }

@@ -39,6 +39,7 @@ void main() {
 
   testWidgets("Should render correct title gallery",
       (WidgetTester tester) async {
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     await tester.pumpWidget(_widget);
     final textFinder = find.text("Gallery");
     expect(textFinder, findsOneWidget);
@@ -46,6 +47,7 @@ void main() {
 
   testWidgets("Should render upload image button ",
       (WidgetTester tester) async {
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     await tester.pumpWidget(_widget);
     final buttonFinder = find.descendant(
         of: find.byType(InkWell),
@@ -57,6 +59,7 @@ void main() {
   testWidgets(
       "Should add one image into imageGallery when [NewRecipeAddImageGallerySuccess] is called",
       (WidgetTester tester) async {
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     await tester.pumpWidget(_widget);
     final StatefulElement _itemNewGalleryElement =
         tester.element(find.byType(ItemNewGallery));
@@ -66,6 +69,16 @@ void main() {
     _newRecipeBloc.emit(NewRecipeAddImageGallerySuccess([fakeImageFile]));
     await tester.pump();
     expect(_itemNewGallery.imageGallerys[0], fakeImageFile);
+  });
+
+  testWidgets("Test second InkWell onTap()", (WidgetTester tester) async {
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    await tester.pumpWidget(_widget);
+    final secondInkWell = find.descendant(
+        of: find.byType(Padding), matching: find.byType(InkWell).last);
+    await tester.tap(secondInkWell);
+    await tester.pumpAndSettle();
+    expect(find.byType(BottomSheetPickImage), findsOneWidget);
   });
   testWidgets(
       "Add over 7 images into imageGallery when [NewRecipeAddImageGallerySuccess] is called",
@@ -93,13 +106,5 @@ void main() {
     final textFinder =
         find.descendant(of: find.byType(Opacity), matching: find.byType(Image));
     expect(textFinder, findsOneWidget);
-  });
-  testWidgets("Test second InkWell onTap()", (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    final secondInkWell = find.descendant(
-        of: find.byType(Padding), matching: find.byType(InkWell).last);
-    await tester.tap(secondInkWell);
-    await tester.pumpAndSettle();
-    expect(find.byType(BottomSheetPickImage), findsOneWidget);
   });
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../models/category.dart';
 import '../../utils/new_recipe_validator.dart';
 import '../../models/gallery_model.dart';
 import '../../services/new_recipe_services.dart';
@@ -21,6 +22,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
   String directions = '';
   String servingTime = "";
   String nutritionFact = "";
+  String category = "";
   List<String> tags = [];
   @override
   Stream<NewRecipeState> mapEventToState(NewRecipeEvent event) async* {
@@ -159,7 +161,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
               servingTime,
               nutritionFact,
               tags,
-              event.category);
+              category);
           yield NewRecipeSaveRecipeSuccess();
         } catch (e) {
           yield NewRecipeSaveRecipeFailure();
@@ -172,11 +174,19 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
           final categoriesAndTotalRecipes =
               await NewRecipeServices.countRecipesInACategory(
                   userId: event.user);
+          category = categoriesAndTotalRecipes[0].categoryName;
+          categoriesAndTotalRecipes
+              .add(CategoryModel(categoryName: "", totalRecipes: 0));
           yield NewRecipeCategoriesLoadSuccess(
               categories: categoriesAndTotalRecipes);
         } catch (e) {
           yield NewRecipeCategoriesLoadFailure();
         }
+        break;
+      case NewRecipeAddCategorySubmitted:
+        event as NewRecipeAddCategorySubmitted;
+        category = event.category;
+        yield NewRecipeAddCategorySuccess(category);
         break;
     }
   }

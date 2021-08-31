@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
@@ -148,7 +147,7 @@ void main() {
         newRecipeBloc.ingredientList = [
           IngredientModel(id: "123", ingredient: "ingredient", image: mockFile)
         ];
-        newRecipeBloc.add(NewRecipeSaved("name recipe", "catalog", "user"));
+        newRecipeBloc.add(NewRecipeSaved("name recipe", "user"));
       },
       expect: () => [
             NewRecipeLoading(),
