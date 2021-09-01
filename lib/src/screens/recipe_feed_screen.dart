@@ -65,12 +65,9 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     avatar: state.users[0].avatar,
                   );
                 } else {
-                  return Center(
-                    child: Text(
-                      RecipeFeedText.loadingFail,
-                      style:
-                          TextStyle(color: AppColor.primaryBlack, fontSize: 25),
-                    ),
+                  return TopBarTablet(
+                    avatar:
+                        'https://s3.amazonaws.com/hoorayapp/emp-user-profile/default.jpg',
                   );
                 }
               }),
