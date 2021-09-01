@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_app/src/constants/constant_colors.dart';
 
+import '../constants/constant_colors.dart';
 import '../screens/search_screen.dart';
 import '../widgets/icon_button_custom.dart';
 import '../widgets/logo.dart';
@@ -30,8 +30,10 @@ class TopBarTablet extends StatelessWidget {
                   children: [
                     IconButtonCustom(
                       icons: 'assets/images/icons/search.png',
-                      onTap: () =>
-                          Navigator.of(context).pushNamed('/searchScreen'),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchScreen()),
+                      ),
                     ),
                     CustomNotification(
                       avatar: avatar,
