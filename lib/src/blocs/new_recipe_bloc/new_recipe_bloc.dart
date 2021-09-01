@@ -174,9 +174,9 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
           final categoriesAndTotalRecipes =
               await NewRecipeServices.countRecipesInACategory(
                   userId: event.user);
-          category = categoriesAndTotalRecipes[0].categoryName;
           categoriesAndTotalRecipes
               .add(CategoryModel(categoryName: "", totalRecipes: 0));
+          category = categoriesAndTotalRecipes[0].categoryName;
           yield NewRecipeCategoriesLoadSuccess(
               categories: categoriesAndTotalRecipes);
         } catch (e) {

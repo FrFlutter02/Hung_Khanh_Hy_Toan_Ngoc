@@ -24,8 +24,6 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../cloud_firestore_mock.dart';
 
-class FakeRoute extends Fake implements Route {}
-
 class MockUser extends Mock implements User {
   @override
   String? get email {
@@ -44,16 +42,13 @@ class MockNavigationObserver extends Mock implements NavigatorObserver {}
 
 void main() {
   final fakeFile = File('fakeFilePath');
-  final _fakeCategories = [
-    CategoryModel(categoryName: 'categoryName 1', totalRecipes: 1),
-    CategoryModel(categoryName: 'categoryName 2', totalRecipes: 2),
-  ];
   final mockObserver = MockNavigationObserver();
-  final _newRecipeBloc = NewRecipeBloc();
+  late LoginBloc _logicBloc;
+  late NewRecipeBloc _newRecipeBloc;
   final _widget = MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => LoginBloc(userServices: MockUserServices()),
+          create: (context) => _logicBloc,
         ),
         BlocProvider(
           create: (context) => _newRecipeBloc,
@@ -72,7 +67,11 @@ void main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
     Firebase.initializeApp();
-    registerFallbackValue(FakeRoute());
+  });
+
+  setUp(() async {
+    _logicBloc = LoginBloc(userServices: MockUserServices());
+    _newRecipeBloc = NewRecipeBloc();
   });
 
   testWidgets(
@@ -163,68 +162,12 @@ void main() {
     expect(iii, findsOneWidget);
   });
 
-  // testWidgets(
-  //     'Should have categories when emitting [NewRecipeCategoriesLoadSuccess]',
-  //     (WidgetTester tester) async {
-  //   await tester.pumpWidget(_widget);
-  //   final NewRecipeScreenState _newRecipeScreenState =
-  //       tester.state(find.byType(NewRecipeScreen));
-  //   _newRecipeBloc
-  //       .emit(NewRecipeCategoriesLoadSuccess(categories: _fakeCategories));
-  //   await tester.pump();
-  //   expect(_newRecipeScreenState.categories, _fakeCategories);
-  //   expect(find.byKey(Key('categoryDropdown')), findsOneWidget);
-  // });
-
-  // testWidgets('Should change dropdownValue when DropdownButton changing values',
-  //     (WidgetTester tester) async {
-  //   await tester.pumpWidget(_widget);
-  //   final NewRecipeScreenState _newRecipeScreenState =
-  //       tester.state(find.byType(NewRecipeScreen));
-  //   _newRecipeBloc
-  //       .emit(NewRecipeCategoriesLoadSuccess(categories: _fakeCategories));
-  //   await tester.pump();
-  //   final _categoryDropdownFinder = find.byKey(Key('categoryDropdown'));
-  //   final _categoryDropdownItems =
-  //       tester.widget<DropdownButton>(_categoryDropdownFinder).items;
-  //   await tester.tap(_categoryDropdownFinder);
-  //   await tester.pump();
-  //   await tester.tap(find.text('categoryName 2'));
-  //   await tester.pump();
-  //   expect(_newRecipeScreenState.dropdownValue, 'categoryName 2');
-  // });
-
-  testWidgets(
-      'Should render BottomSheetPickImage when pressing on mainImage button',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    final _mainImageFinder = find.descendant(
-        of: find.byType(Row), matching: find.byType(ElevatedButton));
-    await tester.tap(_mainImageFinder);
-    await tester.pumpAndSettle();
-    expect(find.byType(BottomSheetPickImage), findsOneWidget);
-  });
-
   testWidgets('Should render ClipRRect when mainImage path is not empty',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
     _newRecipeBloc.emit(NewRecipeAddImageMainSuccess(fakeFile));
     await tester.pump();
     expect(find.byType(ClipRRect), findsOneWidget);
-  });
-
-  testWidgets(
-      'Should render add_outlined icon and text field when addCategory is true',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(_widget);
-    final NewRecipeScreenState _newRecipeScreenState =
-        tester.state(find.byType(NewRecipeScreen));
-    // _newRecipeScreenState.addCategory = true;
-    // final _addCategoryInkWellFinder = find.descendant(
-    //     of: find.byType(Column), matching: find.byType(InkWell));
-
-    await tester.pump();
-    expect(find.byKey(Key('addCategoryText')), findsOneWidget);
   });
 
   testWidgets(
@@ -259,5 +202,16 @@ void main() {
     expect(snackBarFinder, findsOneWidget);
     expect((tester.widget<SnackBar>(snackBarFinder).content as Text).data,
         'howToCook should not be empty');
+  });
+
+  testWidgets(
+      'Should render BottomSheetPickImage when pressing on mainImage button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    final _mainImageFinder = find.descendant(
+        of: find.byType(Row), matching: find.byType(ElevatedButton));
+    await tester.tap(_mainImageFinder);
+    await tester.pumpAndSettle();
+    expect(find.byType(BottomSheetPickImage), findsOneWidget);
   });
 }

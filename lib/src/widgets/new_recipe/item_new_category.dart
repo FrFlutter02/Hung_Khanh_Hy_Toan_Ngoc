@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,21 +13,17 @@ class ItemNewCategory extends StatefulWidget {
   ItemNewCategory({Key? key}) : super(key: key);
 
   @override
-  _ItemNewCategoryState createState() => _ItemNewCategoryState();
+  ItemNewCategoryState createState() => ItemNewCategoryState();
 }
 
-class _ItemNewCategoryState extends State<ItemNewCategory> {
+class ItemNewCategoryState extends State<ItemNewCategory> {
   final categoryController = TextEditingController();
-  final GlobalKey dropdownKey = GlobalKey();
   String dropdownValue = '';
   List<CategoryModel> categories = [];
-  bool isTablet = false;
   bool addCategory = false;
+
   @override
   Widget build(BuildContext context) {
-    if (Device.get().isTablet) {
-      isTablet = true;
-    }
     return BlocListener<NewRecipeBloc, NewRecipeState>(
       child: Container(
         width: 190.w,
@@ -51,6 +46,7 @@ class _ItemNewCategoryState extends State<ItemNewCategory> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
+                      key: Key('addCategoryIcon'),
                       onTap: () {
                         setState(() {
                           if (categoryController.text.isEmpty) return;
@@ -85,7 +81,7 @@ class _ItemNewCategoryState extends State<ItemNewCategory> {
                 ],
               )
             : DropdownButton<String>(
-                key: dropdownKey,
+                key: Key('categoryDropdown'),
                 value: dropdownValue,
                 icon: Icon(Icons.expand_more_outlined),
                 iconSize: 23,
@@ -106,6 +102,7 @@ class _ItemNewCategoryState extends State<ItemNewCategory> {
                       children: [
                         if (element.categoryName == '')
                           InkWell(
+                            key: Key('addCategoryText'),
                             onTap: () {
                               setState(() {
                                 addCategory = true;
@@ -139,8 +136,10 @@ class _ItemNewCategoryState extends State<ItemNewCategory> {
           default:
         }
         if (state is NewRecipeCategoriesLoadSuccess) {
-          categories = state.categories;
-          dropdownValue = categories[0].categoryName;
+          setState(() {
+            categories = state.categories;
+            dropdownValue = categories[0].categoryName;
+          });
         }
       },
     );
