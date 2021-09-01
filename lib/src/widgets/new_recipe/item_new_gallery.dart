@@ -23,7 +23,6 @@ class ItemNewGallery extends StatefulWidget {
 
 class ItemNewGalleryState extends State<ItemNewGallery> {
   List<File> imageGallerys = [];
-  int imageOverbalance = 0;
 
   @override
   Widget build(BuildContext context) {

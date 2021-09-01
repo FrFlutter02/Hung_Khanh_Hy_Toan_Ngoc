@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/models/how_to_cook_model.dart';
+import 'package:mobile_app/src/services/new_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_how_to_cook.dart';
 import 'package:mocktail/mocktail.dart';
@@ -16,6 +17,7 @@ class FakeRoute extends Fake implements Route {}
 
 class MockUserServices extends Mock implements UserServices {}
 
+NewRecipeServices newRecipeServices = NewRecipeServices();
 void main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
@@ -24,7 +26,7 @@ void main() {
 
   late NewRecipeBloc _newRecipeBloc;
   setUp(() {
-    _newRecipeBloc = NewRecipeBloc();
+    _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
   });
 
   final _widget = BlocProvider(

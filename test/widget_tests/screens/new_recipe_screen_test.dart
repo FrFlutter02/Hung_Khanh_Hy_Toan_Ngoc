@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +10,13 @@ import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/models/category.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
+import 'package:mobile_app/src/services/new_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/bottom_sheet_pick_image.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_additional_info.dart';
+import 'package:mobile_app/src/widgets/new_recipe/item_new_category.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_gallery.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_how_to_cook.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_ingredients.dart';
@@ -40,7 +40,10 @@ class MockUserServices extends Mock implements UserServices {
 
 class MockNavigationObserver extends Mock implements NavigatorObserver {}
 
+class MockNewRecipeServices extends Mock implements NewRecipeServices {}
+
 void main() {
+  late MockNewRecipeServices mockNewRecipeServices;
   final fakeFile = File('fakeFilePath');
   final mockObserver = MockNavigationObserver();
   late LoginBloc _logicBloc;
@@ -70,12 +73,13 @@ void main() {
   });
 
   setUp(() async {
+    mockNewRecipeServices = MockNewRecipeServices();
     _logicBloc = LoginBloc(userServices: MockUserServices());
-    _newRecipeBloc = NewRecipeBloc();
+    _newRecipeBloc = NewRecipeBloc(newRecipeServices: mockNewRecipeServices);
   });
 
   testWidgets(
-      'Should render itemNewGalleryFinder, itemNewIngredientFinder, itemHowToCookFinder, itemNewAdditionalFinder',
+      'Should render itemNewGalleryFinder, itemNewIngredientFinder, itemHowToCookFinder, itemNewAdditionalFinder, itemNewCategoryFinder',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
 
@@ -83,11 +87,13 @@ void main() {
     final itemNewIngredientFinder = find.byType(ItemNewIngredients);
     final itemHowToCookFinder = find.byType(ItemNewHowToCook);
     final itemNewAdditionalFinder = find.byType(ItemNewAdditionalInfo);
+    final itemNewCategoryFinder = find.byType(ItemNewCategory);
 
     expect(itemNewGalleryFinder, findsOneWidget);
     expect(itemNewIngredientFinder, findsOneWidget);
     expect(itemHowToCookFinder, findsOneWidget);
     expect(itemNewAdditionalFinder, findsOneWidget);
+    expect(itemNewCategoryFinder, findsOneWidget);
   });
   testWidgets('Should render correct leading text,icon Back to my recipes',
       (WidgetTester tester) async {
@@ -189,6 +195,15 @@ void main() {
     await tester.pump();
     expect(find.byType(SnackBar), findsOneWidget);
     expect(find.text(NewRecipeText.saveNewRecipeSuccessText), findsOneWidget);
+  });
+  testWidgets(
+      'Should render a snackbar with success message when [NewRecipeSaveRecipeFailure] is emitted',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    _newRecipeBloc.emit(NewRecipeSaveRecipeFailure());
+    await tester.pump();
+    expect(find.byType(SnackBar), findsOneWidget);
+    expect(find.text(NewRecipeText.saveNewRecipeFailureText), findsOneWidget);
   });
 
   testWidgets(

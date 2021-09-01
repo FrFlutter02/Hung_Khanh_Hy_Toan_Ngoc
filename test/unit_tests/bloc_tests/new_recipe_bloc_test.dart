@@ -7,9 +7,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_event.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
+import 'package:mobile_app/src/models/category.dart';
 import 'package:mobile_app/src/models/gallery_model.dart';
 import 'package:mobile_app/src/models/how_to_cook_model.dart';
 import 'package:mobile_app/src/models/ingredients_model.dart';
+import 'package:mobile_app/src/services/new_recipe_services.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../cloud_firestore_mock.dart';
 
@@ -17,57 +20,64 @@ String fakeLink = "http/:...";
 GalleryModel galleryModel = GalleryModel(id: "123", link: "linkGallery");
 IngredientUpLoadModel ingredientUpLoadModel =
     IngredientUpLoadModel(id: "123", ingredient: "ingredient", image: "image");
-@override
-Future<void> addNewRecipeFirebase(
-  String mainImage,
-  String user,
-  String nameRecipe,
-  List<GalleryModel> galleryList,
-  List<IngredientUpLoadModel> ingredientUpLoadList,
-  String directions,
-  List<HowToCookModel> stepList,
-  String servingTime,
-  String nutritionFact,
-  List<String> tags,
-  String category,
-) async {
-  NewRecipeSaveRecipeSuccess();
-}
 
-@override
-Future<String> upLoadImage(File file) async {
-  return fakeLink;
-}
+class MockNewRecipeServices extends Mock implements NewRecipeServices {
+  @override
+  Future<void> addNewRecipeFirebase(
+    String mainImage,
+    String user,
+    String nameRecipe,
+    List<GalleryModel> galleryList,
+    List<IngredientUpLoadModel> ingredientUpLoadList,
+    String directions,
+    List<HowToCookModel> stepList,
+    String servingTime,
+    String nutritionFact,
+    List<String> tags,
+    String category,
+  ) async {
+    NewRecipeSaveRecipeSuccess();
+  }
 
-@override
-Future<List<GalleryModel>> upLoadGallery(List<File> imageGallerys) async {
-  return [galleryModel];
-}
+  @override
+  Future<List<CategoryModel>> countRecipesInACategory(
+      {required String userId}) async {
+    return [CategoryModel(categoryName: "newCategory", totalRecipes: 1)];
+  }
 
-@override
-Future<List<IngredientUpLoadModel>> upLoadIngredient(
-    List<IngredientModel> imageIngredient) async {
-  return [ingredientUpLoadModel];
+  @override
+  Future<String> upLoadImage(File file) async {
+    return fakeLink;
+  }
+
+  @override
+  Future<List<GalleryModel>> upLoadGallery(List<File> imageGallerys) async {
+    return [galleryModel];
+  }
+
+  @override
+  Future<List<IngredientUpLoadModel>> upLoadIngredient(
+      List<IngredientModel> imageIngredient) async {
+    return [ingredientUpLoadModel];
+  }
 }
 
 void main() {
+  late MockNewRecipeServices mockNewRecipeServices;
   late NewRecipeBloc newRecipeBloc;
   File mockFile = File("/path");
   String nameRecipe = "abc";
-
   const MethodChannel channel =
       MethodChannel('plugins.flutter.io/image_picker');
-
   final List<MethodCall> log = <MethodCall>[];
 
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
-
-    final image = File(mockFile.path);
   });
   setUp(() {
-    newRecipeBloc = NewRecipeBloc();
+    mockNewRecipeServices = MockNewRecipeServices();
+    newRecipeBloc = NewRecipeBloc(newRecipeServices: mockNewRecipeServices);
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       log.add(methodCall);
       return '';
@@ -83,7 +93,7 @@ void main() {
   blocTest('emits [] when no event is called',
       build: () => newRecipeBloc, expect: () => []);
   blocTest(
-      'emits [NewRecipeAddImageMainSuccess] when [NewRecipeMainImagePicked] is called ',
+      'emits [NewRecipeAddImageMainSuccess] when [NewRecipeMainImagePicked] is called is called',
       build: () => newRecipeBloc,
       act: (NewRecipeBloc newRecipeBloc) async {
         newRecipeBloc.add(NewRecipeMainImagePicked(ImageSource.camera));
@@ -92,7 +102,7 @@ void main() {
             isA<NewRecipeAddImageMainSuccess>(),
           ]);
   blocTest(
-      'emits [NewRecipeAddImageIngredientSuccess] then [NewRecipeIngredientImagePicked] ',
+      'emits [NewRecipeAddImageIngredientSuccess] then [NewRecipeIngredientImagePicked] is called',
       build: () => newRecipeBloc,
       act: (NewRecipeBloc newRecipeBloc) async {
         newRecipeBloc.add(NewRecipeIngredientImagePicked(ImageSource.camera));
@@ -101,7 +111,7 @@ void main() {
             isA<NewRecipeAddImageIngredientSuccess>(),
           ]);
   blocTest(
-      'emits [NewRecipeAddIngredientSuccess] when [NewRecipeAddIngredientSubmitted] ',
+      'emits [NewRecipeAddIngredientSuccess] when [NewRecipeAddIngredientSubmitted] is called',
       build: () => newRecipeBloc,
       act: (NewRecipeBloc newRecipeBloc) => newRecipeBloc
           .add(NewRecipeAddIngredientSubmitted(nameRecipe, mockFile)),
@@ -133,14 +143,24 @@ void main() {
             isA<NewRecipeAddImageGallerySuccess>(),
           ]);
   blocTest(
-      'emits [NewRecipeSaveRecipeSuccess] when [NewRecipeSaved] is called ',
+      'emits [NewRecipeAddCategorySubmitted] when [NewRecipeAddCategorySubmitted] is called ',
       build: () => newRecipeBloc,
       act: (NewRecipeBloc newRecipeBloc) =>
-          newRecipeBloc.add(NewRecipeGalleryImagePicked(ImageSource.gallery)),
+          newRecipeBloc.add(NewRecipeAddCategorySubmitted("newCategory")),
       expect: () => [
-            isA<NewRecipeAddImageIngredientFailure>(),
+            NewRecipeAddCategorySuccess("newCategory"),
           ]);
-  blocTest('emits [NewRecipeSaveRecipeSuccess] when [NewRecipeSaved] ',
+  blocTest(
+      'emits [NewRecipeCategoriesLoadFailure] when [NewRecipeGetCategoriesRequested] is called ',
+      build: () => newRecipeBloc,
+      act: (NewRecipeBloc newRecipeBloc) =>
+          newRecipeBloc.add(NewRecipeGetCategoriesRequested("user")),
+      expect: () => [
+            NewRecipeCategoriesLoadSuccess(categories: [
+              CategoryModel(categoryName: "newCategory", totalRecipes: 1)
+            ])
+          ]);
+  blocTest('emits [NewRecipeSaveRecipeSuccess] when [NewRecipeSaved] is called',
       build: () => newRecipeBloc,
       act: (NewRecipeBloc newRecipeBloc) {
         newRecipeBloc.directions = "link";
@@ -152,5 +172,16 @@ void main() {
       expect: () => [
             NewRecipeLoading(),
             NewRecipeSaveRecipeSuccess(),
+          ]);
+  blocTest('emits [NewRecipeSaveRecipeSuccess] when [NewRecipeSaved] is called',
+      build: () => newRecipeBloc,
+      act: (NewRecipeBloc newRecipeBloc) {
+        newRecipeBloc.directions = "";
+        newRecipeBloc.ingredientList = [];
+        newRecipeBloc.add(NewRecipeSaved("", "user"));
+      },
+      expect: () => [
+            NewRecipeLoading(),
+            isA<NewRecipeValidateFailure>(),
           ]);
 }

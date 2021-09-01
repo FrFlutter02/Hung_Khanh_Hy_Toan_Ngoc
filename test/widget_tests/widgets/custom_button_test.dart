@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,14 +11,29 @@ import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
 import 'package:mobile_app/src/screens/signup_screen.dart';
+import 'package:mobile_app/src/services/new_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../cloud_firestore_mock.dart';
 
-class MockUserServices extends Mock implements UserServices {}
+class MockUser extends Mock implements User {
+  @override
+  String? get email {
+    return 'email';
+  }
+}
 
+class MockUserServices extends Mock implements UserServices {
+  @override
+  Future<User> getUser() async {
+    return MockUser();
+  }
+}
+
+NewRecipeServices newRecipeServices = NewRecipeServices();
 void main() {
+  MockUserServices mockUserServices;
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
@@ -59,11 +75,24 @@ void main() {
     });
   });
   group('new_recipe_screen', () {
-    final _newRecipeBloc = NewRecipeBloc();
-    final Widget _widget = BlocProvider(
-        create: (_) => _newRecipeBloc,
+    final _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
+    mockUserServices = MockUserServices();
+    final _widget = MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LoginBloc(userServices: mockUserServices),
+          ),
+          BlocProvider(
+            create: (context) => _newRecipeBloc,
+          )
+        ],
         child: ScreenUtilInit(
-          builder: () => MaterialApp(home: NewRecipeScreen()),
+          builder: () => MaterialApp(
+            routes: {
+              "/": (context) => NewRecipeScreen(),
+              "/loginScreen": (context) => LoginScreen(),
+            },
+          ),
         ));
 
     tearDown(() {

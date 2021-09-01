@@ -13,7 +13,8 @@ import 'new_recipe_event.dart';
 import 'new_recipe_state.dart';
 
 class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
-  NewRecipeBloc() : super(NewRecipeInitial());
+  final NewRecipeServices newRecipeServices;
+  NewRecipeBloc({required this.newRecipeServices}) : super(NewRecipeInitial());
   File mainImage = File('');
   File imageIngredient = File('');
   List<File> gallery = [];
@@ -139,18 +140,16 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         }
 
         if (mainImage.path != "") {
-          mainImageUrl = await NewRecipeServices.upLoadImage(mainImage);
-        }
-        if (gallery != []) {
-          galleryUploadList = await NewRecipeServices.upLoadGallery(gallery);
-        }
-        if (ingredientList.isNotEmpty) {
-          ingredientUpLoadList =
-              await NewRecipeServices.upLoadIngredient(ingredientList);
+          mainImageUrl = await newRecipeServices.upLoadImage(mainImage);
         }
 
+        galleryUploadList = await newRecipeServices.upLoadGallery(gallery);
+
+        ingredientUpLoadList =
+            await newRecipeServices.upLoadIngredient(ingredientList);
+
         try {
-          await NewRecipeServices.addNewRecipeFirebase(
+          await newRecipeServices.addNewRecipeFirebase(
               mainImageUrl,
               event.user,
               event.recipeName,
@@ -171,9 +170,8 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
       case NewRecipeGetCategoriesRequested:
         event as NewRecipeGetCategoriesRequested;
         try {
-          final categoriesAndTotalRecipes =
-              await NewRecipeServices.countRecipesInACategory(
-                  userId: event.user);
+          final categoriesAndTotalRecipes = await newRecipeServices
+              .countRecipesInACategory(userId: event.user);
           categoriesAndTotalRecipes
               .add(CategoryModel(categoryName: "", totalRecipes: 0));
           category = categoriesAndTotalRecipes[0].categoryName;

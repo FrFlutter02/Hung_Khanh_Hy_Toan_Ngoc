@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'services/new_recipe_services.dart';
 import 'blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'screens/new_recipe_screen.dart';
 import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
@@ -18,6 +19,7 @@ import 'screens/onboarding_screen.dart';
 
 class App extends StatelessWidget {
   final userServices = UserServices();
+  final newRecipeServices = NewRecipeServices();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,9 @@ class App extends StatelessWidget {
           BlocProvider(create: (context) => loginBloc),
           BlocProvider(
               create: (context) => SignupBloc(userServices: userServices)),
-          BlocProvider(create: (context) => NewRecipeBloc()),
+          BlocProvider(
+              create: (context) =>
+                  NewRecipeBloc(newRecipeServices: newRecipeServices)),
         ],
         child: MaterialApp(
           theme: ThemeData(fontFamily: "Nunito-Regular"),

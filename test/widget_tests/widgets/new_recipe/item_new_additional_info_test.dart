@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
+import 'package:mobile_app/src/services/new_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_additional_info.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,13 +16,15 @@ class FakeRoute extends Fake implements Route {}
 
 class MockUserServices extends Mock implements UserServices {}
 
+NewRecipeServices newRecipeServices = NewRecipeServices();
+
 void main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
 
-  final _newRecipeBloc = NewRecipeBloc();
+  final _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
       child: ScreenUtilInit(
@@ -89,7 +92,6 @@ void main() {
     await tester.pump();
     _itemNewAdditionalInfoState.addServingTimeController.text = "12mins";
     _itemNewAdditionalInfoState.addNutritionTimeController.text = "30 calo";
-    _itemNewAdditionalInfoState.addTagsController.text = "egg";
     final textButtonFinder = find.descendant(
         of: find.byType(SizedBox), matching: find.byType(TextButton));
     await tester.tap(textButtonFinder);
@@ -97,11 +99,9 @@ void main() {
 
     final textServingTimeFinder = find.text("12mins");
     final textNutritionFactFinder = find.text("30 calo");
-    final textTagsFinder = find.text("egg");
 
     expect(textServingTimeFinder, findsOneWidget);
     expect(textNutritionFactFinder, findsOneWidget);
-    expect(textTagsFinder, findsOneWidget);
   });
   testWidgets("Should close form additional info", (WidgetTester tester) async {
     await tester.pumpWidget(_widget);

@@ -88,4 +88,5 @@ class NewRecipeText {
   static const String recipeNameErrorText = 'Recipe name';
   static const String ingredientsMustNotBeEmptyErrorText = 'Ingredient';
   static const String howToCookMustNotBeEmptyErrorText = 'How to cook';
+  static const String shouldNotBeEmptyText = 'should not be empty';
 }

@@ -1,7 +1,5 @@
-import 'dart:io';
-
-import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/models/ingredients_model.dart';
+import '../constants/constant_text.dart';
+import '../models/ingredients_model.dart';
 
 class NewRecipeValidator {
   static String validateRecipeName(String recipeName) {

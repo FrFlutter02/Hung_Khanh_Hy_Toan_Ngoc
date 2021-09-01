@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_app/src/widgets/new_recipe/item_new_category.dart';
 
+import '../widgets/new_recipe/item_new_category.dart';
 import '../blocs/login_bloc/login_bloc.dart';
 import '../blocs/login_bloc/login_event.dart';
 import '../blocs/login_bloc/login_state.dart';
@@ -281,11 +281,16 @@ class NewRecipeScreenState extends State<NewRecipeScreen> {
                 content: Text(NewRecipeText.saveNewRecipeSuccessText),
               ));
               break;
+            case NewRecipeSaveRecipeFailure:
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(NewRecipeText.saveNewRecipeFailureText),
+              ));
+              break;
             case NewRecipeValidateFailure:
               state as NewRecipeValidateFailure;
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
-                    "${state.props.where((e) => e.toString().isNotEmpty).join(', ')} should not be empty"),
+                    "${state.props.where((e) => e.toString().isNotEmpty).join(', ')} ${NewRecipeText.shouldNotBeEmptyText}"),
               ));
               break;
           }

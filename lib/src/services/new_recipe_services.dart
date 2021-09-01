@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:mobile_app/src/models/category.dart';
 
+import '../models/category.dart';
 import '../models/how_to_cook_model.dart';
 import '../models/ingredients_model.dart';
 import '../models/gallery_model.dart';
 
 class NewRecipeServices {
-  static Future<String> upLoadImage(File file) async {
+  Future<String> upLoadImage(File file) async {
     try {
       String link = "";
       Reference ref = FirebaseStorage.instance
@@ -24,11 +24,10 @@ class NewRecipeServices {
     }
   }
 
-  static Future<List<GalleryModel>> upLoadGallery(
-      List<File> imageGallerys) async {
+  Future<List<GalleryModel>> upLoadGallery(List<File> imageGallerys) async {
     List<GalleryModel> galleryList = [];
     await Future.wait(imageGallerys.map((element) async {
-      String link = await NewRecipeServices.upLoadImage(element);
+      String link = await upLoadImage(element);
       var gallery = GalleryModel(
         id: DateTime.now().toString(),
         link: link,
@@ -38,7 +37,7 @@ class NewRecipeServices {
     return galleryList;
   }
 
-  static Future<List<IngredientUpLoadModel>> upLoadIngredient(
+  Future<List<IngredientUpLoadModel>> upLoadIngredient(
       List<IngredientModel> imageIngredient) async {
     List<IngredientUpLoadModel> ingredientList = [];
     await Future.wait(imageIngredient.map((element) async {
@@ -50,7 +49,7 @@ class NewRecipeServices {
         );
         ingredientList.add(ingredient);
       } else {
-        String link = await NewRecipeServices.upLoadImage(element.image);
+        String link = await upLoadImage(element.image);
         var ingredient = IngredientUpLoadModel(
           id: element.id,
           ingredient: element.ingredient,
@@ -62,7 +61,7 @@ class NewRecipeServices {
     return ingredientList;
   }
 
-  static Future<List<CategoryModel>> countRecipesInACategory(
+  Future<List<CategoryModel>> countRecipesInACategory(
       {required String userId}) async {
     List<CategoryModel> result = [];
     Map<String, dynamic> categoryAndTotalRecipesMap = {};
@@ -82,7 +81,7 @@ class NewRecipeServices {
     return result;
   }
 
-  static Future<void> addNewRecipeFirebase(
+  Future<void> addNewRecipeFirebase(
     String mainImage,
     String user,
     String nameRecipe,
@@ -95,10 +94,7 @@ class NewRecipeServices {
     List<String> tags,
     String category,
   ) async {
-    FirebaseFirestore.instance
-        .collection('recipe')
-        .doc("daovantoan10234@gmail.com")
-        .set({
+    FirebaseFirestore.instance.collection('recipe').doc().set({
       'id': DateTime.now().toString(),
       "mainImage": mainImage,
       "user_id": user,

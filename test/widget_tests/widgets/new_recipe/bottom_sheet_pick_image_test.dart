@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
+import 'package:mobile_app/src/services/new_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/bottom_sheet_pick_image.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,12 +16,15 @@ class FakeRoute extends Fake implements Route {}
 
 class MockUserServices extends Mock implements UserServices {}
 
+NewRecipeServices newRecipeServices = NewRecipeServices();
+
 void main() {
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
   });
-  final _newRecipeBloc = NewRecipeBloc();
+  setUp(() async {});
+  final _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
       child: ScreenUtilInit(
@@ -38,18 +42,14 @@ void main() {
     expect(find.text("Choose option"), findsOneWidget);
     expect(find.text("Gallery"), findsOneWidget);
   });
-  testWidgets('Should tap InkWell Camera', (tester) async {
+  testWidgets('Should render InkWell Camera', (tester) async {
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     await tester.pumpWidget(_widget);
-    await tester.tap(find.byType(InkWell).first);
-    await tester.pump();
     expect(find.byType(InkWell).first, findsOneWidget);
   });
-  testWidgets('Should tap InkWell Gallery', (tester) async {
+  testWidgets('Should render InkWell Gallery', (tester) async {
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     await tester.pumpWidget(_widget);
-    await tester.tap(find.byType(InkWell).last);
-    await tester.pump();
     expect(find.byType(InkWell).last, findsOneWidget);
   });
 }
