@@ -48,5 +48,6 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(widget);
     expect(find.byType(InkWell), findsOneWidget);
+    await tester.pump();
   });
 }

@@ -127,7 +127,7 @@ void main() {
   group('tablet test', () {
     testWidgets('Should render PreferredSize on tablet screen',
         (WidgetTester tester) async {
-      Device.width = 768;
+      Device.width = 748;
       Device.height = 1024;
       Device.devicePixelRatio = 1;
       addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
@@ -135,19 +135,13 @@ void main() {
 
       expect(find.byType(PreferredSize), findsOneWidget);
     });
-    testWidgets('Should render CustomButton', (WidgetTester tester) async {
-      await tester.pumpWidget(tabletWidget);
-
-      await tester.tap(find.byType(CustomButton));
-      expect(find.byType(CustomButton), findsOneWidget);
-    });
-    testWidgets('Should render PreferredSize', (WidgetTester tester) async {
-      await tester.pumpWidget(tabletWidget);
-      expect(find.byType(PreferredSize), findsOneWidget);
-    });
     testWidgets(
         'renders RecipeCardTablet, TopBarTablet when state is PostLoadSuccess',
         (WidgetTester tester) async {
+      Device.width = 700;
+      Device.height = 1000;
+      Device.devicePixelRatio = 1;
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
       await tester.pumpWidget(tabletWidget);
       final StatefulElement _recipeFeedScreenElement =
           tester.element(find.byType(RecipeFeedScreen));
@@ -172,13 +166,22 @@ void main() {
       postBloc.emit(PostLoadSuccess(posts: [mockPost], users: [mockUser]));
       await tester.pump();
 
-      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(TopBarTablet), findsOneWidget);
+
       expect(
           find.descendant(
               of: find.byType(ListView),
               matching: find.byType(RecipeCardTablet)),
           findsOneWidget);
     });
+
+    testWidgets('Should render CustomButton', (WidgetTester tester) async {
+      await tester.pumpWidget(tabletWidget);
+
+      await tester.tap(find.byType(CustomButton));
+      expect(find.byType(CustomButton), findsOneWidget);
+    });
+
     testWidgets('Should test the scroll', (WidgetTester tester) async {
       await tester.pumpWidget(tabletWidget);
       final gesture = await tester.startGesture(Offset(0, 300));

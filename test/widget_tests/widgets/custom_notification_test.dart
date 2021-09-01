@@ -35,10 +35,6 @@ void main() {
     expect(find.byType(CircleAvatar), findsOneWidget);
   });
   testWidgets('Should render text 2 Icon button', (WidgetTester tester) async {
-    Device.screenWidth = 900;
-    Device.screenHeight = 900;
-    Device.devicePixelRatio = 1;
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     await tester.pumpWidget(widget);
     expect(
         find.descendant(

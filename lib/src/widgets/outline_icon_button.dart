@@ -49,13 +49,15 @@ class OutlineIconButton extends StatelessWidget {
               padding: EdgeInsets.only(right: 6.w),
               child: Image.asset(icons),
             ),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                  color: color,
-                  height: (1.2).h,
-                  fontFamily: 'Nunito-Bold',
-                  letterSpacing: 0.4),
+            Expanded(
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    color: color,
+                    height: (1.2).h,
+                    fontFamily: 'Nunito-Bold',
+                    letterSpacing: 0.4),
+              ),
             )
           ],
         ),
