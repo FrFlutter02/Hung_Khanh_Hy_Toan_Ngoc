@@ -5,12 +5,13 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_state.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/forgot_password_screen.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
+import 'package:mobile_app/src/widgets/login_and_signup/email_text_field.dart';
 import 'package:mobile_app/src/widgets/logo.dart';
 import 'package:mocktail/mocktail.dart';
-
 import '../../cloud_firestore_mock.dart';
 
 class MockUserServices extends Mock implements UserServices {}
@@ -25,10 +26,11 @@ void main() {
     Firebase.initializeApp();
     registerFallbackValue(FakeRoute());
   });
-  final _forgotBloc = ForgotPasswordBloc();
+
+  final _forgotPasswordBloc = ForgotPasswordBloc();
   final mockObserver = MockNavigationObserver();
   final _widget = BlocProvider(
-    create: (_) => _forgotBloc,
+    create: (_) => _forgotPasswordBloc,
     child: MaterialApp(
       routes: {
         "/": (context) => ForgotPasswordScreen(),
@@ -37,6 +39,33 @@ void main() {
       navigatorObservers: [mockObserver],
     ),
   );
+  testWidgets(
+      'Should render correct errorText when state is [ForgotPasswordFailure]',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    _forgotPasswordBloc.emit(ForgotPasswordFailure(
+        emailErrorMessage: AppText.emailMustNotBeEmptyErrorText));
+    await tester.pump();
+    var emailTextField = find.byType(EmailTextField);
+    var emailMustNotEmptyErrorMust =
+        (tester.widget<EmailTextField>(emailTextField).errorText);
+    print(emailMustNotEmptyErrorMust);
+    expect(emailMustNotEmptyErrorMust, AppText.emailMustNotBeEmptyErrorText);
+    _forgotPasswordBloc.emit(ForgotPasswordFailure(
+        emailErrorMessage: AppText.emailInvalidErrorText));
+    await tester.pump();
+    var emaiInvalidlError =
+        (tester.widget<EmailTextField>(emailTextField).errorText);
+    print(emaiInvalidlError);
+    expect(emaiInvalidlError, AppText.emailInvalidErrorText);
+    _forgotPasswordBloc.emit(ForgotPasswordFailure(
+        emailErrorMessage: AppText.emailDoesNotExistErrorText));
+    await tester.pump();
+    var emailNotEmptyError =
+        (tester.widget<EmailTextField>(emailTextField).errorText);
+    print(emailNotEmptyError);
+    expect(emailNotEmptyError, AppText.emailDoesNotExistErrorText);
+  });
   group('Forgot password mobile', () {
     testWidgets('Should render Logo', (tester) async {
       await tester.pumpWidget(_widget);
@@ -61,7 +90,19 @@ void main() {
       final logoFinder = find.byType(Logo);
       expect(logoFinder, findsOneWidget);
     });
-
+    testWidgets('Should render background image', (tester) async {
+      Device.devicePixelRatio = 1;
+      Device.screenWidth = 900;
+      Device.screenHeight = 900;
+      await tester.pumpWidget(_widget);
+      final _boxDecoration = tester
+          .firstWidget<Container>(find.byType(Container))
+          .decoration as BoxDecoration;
+      final _background = _boxDecoration.image as DecorationImage;
+      print(_boxDecoration);
+      expect(_background.image,
+          AssetImage('assets/images/login-signup-background.jpeg'));
+    });
     testWidgets('Should render tabletLabel with correct label', (tester) async {
       Device.devicePixelRatio = 1;
       Device.screenWidth = 900;
@@ -91,13 +132,13 @@ void main() {
       final fromFinder = find.byType(Form);
       expect(fromFinder, findsOneWidget);
     });
-    testWidgets(
-        'Should navigate to login screen when state is [ForgotPasswordSuccess]',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(_widget);
-      _forgotBloc.emit(ForgotPasswordSuccess());
-      await tester.pump();
-      verify(() => mockObserver.didPush(any(), any()));
-    });
+  });
+  testWidgets(
+      'Should navigate to login screen when state is [ForgotPasswordSuccess]',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    _forgotPasswordBloc.emit(ForgotPasswordSuccess());
+    await tester.pump();
+    verify(() => mockObserver.didPush(any(), any()));
   });
 }
