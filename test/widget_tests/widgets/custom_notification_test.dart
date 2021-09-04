@@ -2,18 +2,11 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/services/post_service.dart';
 import 'package:mobile_app/src/widgets/custom_notification.dart';
 import 'package:mobile_app/src/widgets/icon_button_custom.dart';
-import 'package:mobile_app/src/widgets/recipe_feed/card_header.dart';
-import 'package:mockito/mockito.dart';
-
 import '../../cloud_firestore_mock.dart';
-
-class MockPostServices extends Mock implements PostServices {}
 
 void main() {
   setUpAll(() async {

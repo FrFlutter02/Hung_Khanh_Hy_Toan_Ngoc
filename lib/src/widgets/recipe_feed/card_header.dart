@@ -40,9 +40,9 @@ class CardHeader extends StatelessWidget {
             Text(
               TimeAgo.timeAgoSinceDate(time),
               style: Theme.of(context).textTheme.caption!.copyWith(
-                  color: RecipeFeedColor.subtitleCardHeader,
-                  fontSize: 12.sp,
-                  letterSpacing: 0.4),
+                    color: RecipeFeedColor.subtitleCardHeader,
+                    fontSize: 12.sp,
+                  ),
             ),
           ],
         ),

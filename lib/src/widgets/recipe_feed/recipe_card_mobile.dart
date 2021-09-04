@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../constants/constant_decoration.dart';
 import '../../constants/constant_colors.dart';
 import '../../models/post_model.dart';
 import '../../models/user_model.dart';

@@ -12,6 +12,7 @@ import '../widgets/recipe_feed/recipe_card_tablet.dart';
 import '../widgets/top_bar_tablet.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
+import '../constants/constant_decoration.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/logo.dart';
 
@@ -139,7 +140,7 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       } else {
                         return Center(
                           child: Text(
-                            RecipeFeedText.loadingFail,
+                            RecipeFeedText.loadingFailed,
                             style: TextStyle(
                                 color: AppColor.primaryBlack, fontSize: 25),
                           ),
@@ -190,7 +191,7 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                 } else {
                   return Center(
                       child: Text(
-                    RecipeFeedText.loadingFail,
+                    RecipeFeedText.loadingFailed,
                     style:
                         TextStyle(color: AppColor.primaryBlack, fontSize: 25),
                   ));

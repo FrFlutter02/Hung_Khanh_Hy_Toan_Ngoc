@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class AppColor {
   static const green = Color(0xff30BE76);
   static const iconText = Color(0xff363837);
@@ -67,16 +65,3 @@ class RecipeFeedColor {
   static const iconColor = Color(0xff363837);
   static const dividerColor = Color(0xffE6E6E6);
 }
-
-final boxDecorationStyle = BoxDecoration(
-  color: AppColor.white,
-  borderRadius: BorderRadius.circular(8.r),
-  boxShadow: [
-    BoxShadow(
-      color: AppColor.secondaryGrey.withOpacity(0.12),
-      blurRadius: 10,
-      spreadRadius: 10,
-      offset: Offset(0, 3),
-    ),
-  ],
-);

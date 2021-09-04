@@ -21,7 +21,7 @@ class TimeAgo {
     } else if (difference.inSeconds >= 3) {
       return '${difference.inSeconds} ${RecipeFeedText.secondAgo}';
     } else {
-      return 'Just now';
+      return '${RecipeFeedText.justNow}';
     }
   }
 }

@@ -16,38 +16,24 @@ import 'package:mobile_app/src/widgets/recipe_feed/recipe_card_mobile.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../cloud_firestore_mock.dart';
-
-class MockPostServices extends Mock implements PostServices {}
+import '../../../mock/mock_post_service.dart';
+import '../../../mock/mock_user_service.dart';
 
 void main() {
+  final postService = MockPostServices();
+  final userService = MockUserServices();
   setUpAll(() async {
     setupCloudFirestoreMocks();
     await Firebase.initializeApp();
     HttpOverrides.global = null;
   });
-  final mockPost = Post(
-      backgroundImage:
-          "https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg",
-      comments: 1,
-      likes: 1,
-      name: 'hy',
-      time: 111,
-      recipeId: 'ádasd',
-      userId: 'vip',
-      description: 'hgildasgi');
-
-  final mockUser = UserModel(
-      fullName: '',
-      avatar:
-          'https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg',
-      email: '');
   final widget = ScreenUtilInit(
     designSize: Size(375, 812),
     builder: () => MaterialApp(
       home: Scaffold(
         body: RecipeCardMobile(
-          post: mockPost,
-          user: mockUser,
+          post: postService.mockPost,
+          user: userService.mockUser,
         ),
       ),
     ),

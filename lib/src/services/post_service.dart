@@ -17,7 +17,7 @@ class PostServices {
       if (snapshot.docs.isNotEmpty) {
         return snapshot.docs.map((doc) => Post.fromSnapshot(doc)).toList();
       } else {
-        throw RecipeFeedText.loadingFail;
+        throw RecipeFeedText.loadingFailed;
       }
     });
   }

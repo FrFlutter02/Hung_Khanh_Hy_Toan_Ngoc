@@ -62,7 +62,7 @@ class RecipeFeedText {
   static const save = 'Save';
   static const textButton = 'Create Recipe';
   static const ofYourFollowersAreOnline = 'of your followers are online';
-  static const loadingFail = 'Loading Faild';
+  static const loadingFailed = 'Loading Failed';
   static const yearAgo = 'year ago';
   static const monthAgo = 'month ago';
   static const weekAgo = 'week ago';
@@ -70,4 +70,5 @@ class RecipeFeedText {
   static const hourAgo = 'hour ago';
   static const minuteAgo = 'minute ago';
   static const secondAgo = 'second ago';
+  static const justNow = 'Just now';
 }

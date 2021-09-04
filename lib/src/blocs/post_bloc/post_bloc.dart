@@ -27,7 +27,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         final users = await _userServices.getUserData('nntanhung@gmail.com');
         yield PostLoadSuccess(posts: posts, users: users);
       } catch (e) {
-        yield PostLoadFailure(errorMessage: RecipeFeedText.loadingFail);
+        yield PostLoadFailure(errorMessage: RecipeFeedText.loadingFailed);
       }
     }
   }

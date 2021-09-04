@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app/src/blocs/post_bloc/post_bloc.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/services/post_service.dart';

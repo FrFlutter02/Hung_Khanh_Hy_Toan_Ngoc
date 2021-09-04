@@ -26,7 +26,7 @@ main() {
     ),
   );
 
-  testWidgets("Should render erroText in emailtextformfield",
+  testWidgets("Should render errorText in emailTextFormField",
       (WidgetTester tester) async {
     await tester.pumpWidget(widget);
     var emailTextField = find.descendant(

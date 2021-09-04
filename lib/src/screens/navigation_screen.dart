@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:mobile_app/src/screens/login_screen.dart';
-import 'package:mobile_app/src/screens/signup_screen.dart';
-import '../screens/recipe_feed_screen.dart';
+import 'recipe_feed_screen.dart';
+import 'search_screen.dart';
+import 'user_profile_screen.dart';
 import '../../src/constants/constant_colors.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class NavigationScreen extends StatefulWidget {
+  const NavigationScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[
-    LoginScreen(),
+    SearchScreen(),
     RecipeFeedScreen(),
-    SignupScreen()
+    UserProfileScreen()
   ];
   void _onItemTapped(int index) {
     setState(() {

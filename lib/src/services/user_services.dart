@@ -54,7 +54,7 @@ class UserServices {
       if (snapshot.docs.isNotEmpty) {
         return snapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList();
       } else {
-        throw RecipeFeedText.loadingFail;
+        throw RecipeFeedText.loadingFailed;
       }
     });
   }
