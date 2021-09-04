@@ -109,7 +109,7 @@ class ItemNewCategoryState extends State<ItemNewCategory> {
                               });
                             },
                             child: ((Text(
-                              NewRecipeText.AddNewCategoryText,
+                              NewRecipeText.addNewCategoryText,
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1!

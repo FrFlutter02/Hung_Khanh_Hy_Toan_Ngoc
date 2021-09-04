@@ -84,7 +84,7 @@ class NewRecipeText {
   static const String saveNewRecipeSuccessText =
       'The recipe was saved successfully';
   static const String saveNewRecipeFailureText = 'Oops! Something wrong';
-  static const String AddNewCategoryText = '+ New category';
+  static const String addNewCategoryText = '+ New category';
   static const String recipeNameErrorText = 'Recipe name';
   static const String ingredientsMustNotBeEmptyErrorText = 'Ingredient';
   static const String howToCookMustNotBeEmptyErrorText = 'How to cook';

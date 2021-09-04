@@ -98,7 +98,7 @@ class ItemNewIngredientsState extends State<ItemNewIngredients> {
                                         Theme.of(context).textTheme.subtitle1,
                                   ),
                                 ),
-                                if (data.image.path != "")
+                                if (data.image.path.isNotEmpty)
                                   (Container(
                                     height: 39.h,
                                     width: 56.w,
