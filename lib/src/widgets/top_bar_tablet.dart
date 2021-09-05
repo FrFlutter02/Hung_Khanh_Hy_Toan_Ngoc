@@ -22,7 +22,7 @@ class TopBarTablet extends StatelessWidget {
             children: [
               Container(
                 height: 80.h,
-                color: Colors.white,
+                color: AppColor.white,
                 padding: EdgeInsets.symmetric(horizontal: 25.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

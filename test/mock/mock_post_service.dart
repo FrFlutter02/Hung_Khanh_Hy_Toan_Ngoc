@@ -8,7 +8,7 @@ class MockPostServices extends Mock implements PostServices {
           "https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg",
       comments: 1,
       likes: 1,
-      name: 'hy',
+      name: 'Tan Hung',
       time: 111,
       recipeId: 'ádasd',
       userId: 'vip',
@@ -16,9 +16,9 @@ class MockPostServices extends Mock implements PostServices {
   final mockPost2 = Post(
       backgroundImage:
           "https://img.hoidap247.com/picture/question/20200718/large_1595063159202.jpg",
-      comments: 1,
-      likes: 1,
-      name: 'hy',
+      comments: 858,
+      likes: 212,
+      name: 'Tan Hung',
       time: 111,
       recipeId: 'ádasd',
       userId: 'vip',
