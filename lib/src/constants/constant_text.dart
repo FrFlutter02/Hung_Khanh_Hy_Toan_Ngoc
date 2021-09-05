@@ -72,3 +72,44 @@ class RecipeFeedText {
   static const secondAgo = 'second ago';
   static const justNow = 'Just now';
 }
+
+class SearchScreenText {
+  static const String searchHintText = 'Search Recipe, Profile, or Ingredients';
+  static const String searchNoResultMessage = 'No result was found';
+  static const String searchErrorMessage = 'An error has occured';
+}
+
+class NewRecipeText {
+  static const String hintRecipeNameText = "Write Down Recipe Name";
+  static const String labelGalleryText = "Gallery";
+  static const String labelIngredientsText = "Ingredients";
+  static const String labelHowToCookText = "How to Cook";
+  static const String labelAdditionalInfoText = "Additional Info";
+  static const String hintGalleryText = "Upload Images or Open Camera";
+  static const String hintIngredientsText = "Add Ingredient";
+  static const String hintHowToCookText = "Add Directions";
+  static const String hintAdditionalInfoText = "Add Info";
+  static const String saveToText = "Save to";
+  static const String saveRecipeText = "Save Recipe";
+  static const String labelRecipeNameText = "Recipe Name";
+  static const String postToFeedText = "Post to Feed";
+  static const String leadingText = "Back to My Recipes";
+  static const String titleText = "New Recipe";
+  static const String titleTabletText = "Create New Recipe";
+  static const String camera = "Camera";
+  static const String gallery = "Gallery";
+  static const String chooseOption = "Choose option";
+  static const String stepHintText = "Add step";
+  static const String saveInfoText = "Save info";
+  static const String tagsText = "Tags";
+  static const String nutritionFactText = "Nutrition Fact";
+  static const String servingTimeText = "Serving Time (±)";
+  static const String saveNewRecipeSuccessText =
+      'The recipe was saved successfully';
+  static const String saveNewRecipeFailureText = 'Oops! Something wrong';
+  static const String addNewCategoryText = '+ New category';
+  static const String recipeNameErrorText = 'Recipe name';
+  static const String ingredientsMustNotBeEmptyErrorText = 'Ingredient';
+  static const String howToCookMustNotBeEmptyErrorText = 'How to cook';
+  static const String shouldNotBeEmptyText = 'should not be empty';
+}

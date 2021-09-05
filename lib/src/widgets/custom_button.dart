@@ -7,12 +7,16 @@ class CustomButton extends StatelessWidget {
   final double height;
   final String value;
   final void Function() buttonOnPress;
+  final Color backgroundColor;
+  final Color foregroundColor;
 
   const CustomButton(
       {required this.width,
       required this.height,
       required this.value,
       required this.buttonOnPress,
+      this.backgroundColor = AppColor.green,
+      this.foregroundColor = AppColor.white,
       Key? key})
       : super(key: key);
 
@@ -21,6 +25,7 @@ class CustomButton extends StatelessWidget {
     return Container(
       width: width,
       height: height,
+      padding: EdgeInsets.zero,
       child: ElevatedButton(
         onPressed: buttonOnPress,
         child: Text(
@@ -28,11 +33,10 @@ class CustomButton extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .subtitle1!
-              .copyWith(color: AppColor.white, fontFamily: 'Nunito-Bold'),
+              .copyWith(color: foregroundColor),
         ),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(AppColor.green),
-          foregroundColor: MaterialStateProperty.all(AppColor.white),
+          backgroundColor: MaterialStateProperty.all(backgroundColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),

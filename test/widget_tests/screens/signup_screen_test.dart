@@ -6,9 +6,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_bloc.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_event.dart';
 import 'package:mobile_app/src/blocs/signup_bloc/signup_state.dart';
+import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/navigation_screen.dart';
 import 'package:mobile_app/src/screens/signup_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
+import 'package:mobile_app/src/widgets/login_and_signup/email_text_field.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_body.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_header.dart';
 import 'package:mocktail/mocktail.dart';
@@ -44,7 +46,31 @@ void main() {
       navigatorObservers: [mockObserver],
     ),
   );
-
+  testWidgets(
+      'Should render EmailTextField correct errorText when state is [SignupFailure]',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_widget);
+    final emailTextField = find.byType(EmailTextField);
+    _signupBloc
+        .emit(SignupFailure(emailErrorMessage: AppText.emailInvalidErrorText));
+    await tester.pump();
+    var emailError = (tester.widget<EmailTextField>(emailTextField).errorText);
+    expect(emailError, AppText.emailInvalidErrorText);
+    _signupBloc.emit(
+        SignupFailure(emailErrorMessage: AppText.emailAlreadyExistsErrorText));
+    await tester.pump();
+    var emailError1 = (tester.widget<EmailTextField>(emailTextField).errorText);
+    expect(emailError1, AppText.emailAlreadyExistsErrorText);
+    _signupBloc.emit(
+        SignupFailure(emailErrorMessage: AppText.emailMustNotBeEmptyErrorText));
+    await tester.pump();
+    var emailError2 = (tester.widget<EmailTextField>(emailTextField).errorText);
+    expect(emailError2, AppText.emailMustNotBeEmptyErrorText);
+    _signupBloc.emit(SignupFailure(emailErrorMessage: ''));
+    await tester.pump();
+    var emailError3 = (tester.widget<EmailTextField>(emailTextField).errorText);
+    expect(emailError3, '');
+  });
   testWidgets('Should render LoginAndSignupHeader, LoginAndsignupBody',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);

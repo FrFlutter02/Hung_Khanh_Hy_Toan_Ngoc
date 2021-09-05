@@ -30,10 +30,8 @@ class TopBarTablet extends StatelessWidget {
                   children: [
                     IconButtonCustom(
                       icons: 'assets/images/icons/search.png',
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SearchScreen()),
-                      ),
+                      onTap: () =>
+                          Navigator.of(context).pushNamed('/searchScreen'),
                     ),
                     CustomNotification(
                       avatar: avatar,

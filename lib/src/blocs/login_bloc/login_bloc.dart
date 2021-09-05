@@ -1,7 +1,6 @@
-import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../services/post_service.dart';
 import '../../constants/constant_text.dart';
 import '../../models/user_model.dart';
 import '../../services/user_services.dart';
@@ -11,19 +10,20 @@ import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserServices? userServices;
-  final PostServices? postServices;
-  LoginBloc({this.userServices, this.postServices}) : super(LoginInitial());
+
+  LoginBloc({this.userServices}) : super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
-    event as LoginRequested;
     switch (event.runtimeType) {
       case LoginRequested:
+        event as LoginRequested;
         String emailErrorMessage = await Validator.validateLoginEmail(event);
         String passwordErrorMessage =
             await Validator.validateLoginPassword(event);
+
         try {
           yield LoginInProgress();
           UserModel userModel = UserModel(
@@ -38,6 +38,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                   : AppText.passwordIsIncorrect);
         }
         break;
+      case LogInGetUserRequested:
+        final User? firebaseUser = await userServices!.getUser();
+        if (firebaseUser != null) {
+          yield LoginGetUserSuccess(user: firebaseUser);
+        }
     }
   }
 }

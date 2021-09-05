@@ -65,3 +65,14 @@ class RecipeFeedColor {
   static const iconColor = Color(0xff363837);
   static const dividerColor = Color(0xffE6E6E6);
 }
+
+class SearchScreenColor {
+  static const primaryGrey = Color(0xffe6e6e6);
+}
+
+class NewRecipeScreenColor {
+  static const borderUnderlineTextFieldColor = Color(0xffCCCCCC);
+  static const borderButtonColor = Color(0xff979797);
+  static const leadingTextColor = Color(0xff767676);
+  static const buttonIngredientsColor = Color(0xffECF0EC);
+}

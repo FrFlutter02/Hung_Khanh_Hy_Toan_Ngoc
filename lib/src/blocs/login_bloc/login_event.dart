@@ -14,3 +14,8 @@ class LoginRequested extends LoginEvent {
   @override
   List<Object> get props => [userModel];
 }
+
+class LogInGetUserRequested extends LoginEvent {
+  @override
+  List<Object> get props => [];
+}

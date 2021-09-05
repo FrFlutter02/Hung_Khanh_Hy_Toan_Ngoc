@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../src/utils/validator.dart';
 import '../blocs/signup_bloc/signup_bloc.dart';
@@ -9,7 +10,6 @@ import '../blocs/signup_bloc/signup_state.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
 import '../models/user_model.dart';
-import '../utils/screen_util.dart';
 import '../widgets/login_and_signup/email_text_field.dart';
 import '../widgets/login_and_signup/login_and_signup_body.dart';
 import '../widgets/login_and_signup/login_and_signup_header.dart';
@@ -33,8 +33,6 @@ class _FullNameTextField extends StatefulWidget {
 }
 
 class _FullNameTextFieldState extends State<_FullNameTextField> {
-  final ScreenUtil _screenUtil = ScreenUtil();
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +47,7 @@ class _FullNameTextFieldState extends State<_FullNameTextField> {
                 .copyWith(color: AppColor.secondaryGrey),
           ),
         ),
-        SizedBox(height: _screenUtil.height(15)),
+        SizedBox(height: 15.h),
         TextField(
           controller: widget.fullNameController,
           cursorColor: AppColor.green,
@@ -80,7 +78,7 @@ class _FullNameTextFieldState extends State<_FullNameTextField> {
           ),
           style: TextStyle(color: AppColor.primaryBlack),
         ),
-        SizedBox(height: _screenUtil.height(30)),
+        SizedBox(height: 30.h),
       ],
     );
   }
