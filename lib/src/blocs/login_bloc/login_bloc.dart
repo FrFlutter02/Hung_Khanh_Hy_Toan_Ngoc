@@ -28,9 +28,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           yield LoginInProgress();
           UserModel userModel = UserModel(
               email: event.userModel.email, password: event.userModel.password);
-          final firebaseUser = await userServices?.logIn(userModel);
-
-          yield LoginSuccess(user: firebaseUser);
+          await userServices?.logIn(userModel);
+          yield LoginSuccess();
         } catch (e) {
           yield LoginFailure(
               emailErrorMessage: emailErrorMessage,

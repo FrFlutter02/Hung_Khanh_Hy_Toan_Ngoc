@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 
 import '../models/category.dart';
 import '../models/how_to_cook_model.dart';
 import '../models/ingredients_model.dart';
 import '../models/gallery_model.dart';
 
-class NewRecipeServices {
+class CreateRecipeServices {
   Future<String> upLoadImage(File file) async {
     try {
       String link = "";
@@ -29,7 +30,7 @@ class NewRecipeServices {
     await Future.wait(imageGallerys.map((element) async {
       String link = await upLoadImage(element);
       var gallery = GalleryModel(
-        id: DateTime.now().toString(),
+        id: Uuid().v1(),
         link: link,
       );
       galleryList.add(gallery);
@@ -67,7 +68,7 @@ class NewRecipeServices {
     Map<String, dynamic> categoryAndTotalRecipesMap = {};
     await FirebaseFirestore.instance
         .collection('recipe')
-        .where('user_id', isEqualTo: userId)
+        .where('userId', isEqualTo: userId)
         .get()
         .then((QuerySnapshot snapshot) {
       snapshot.docs.forEach((element) {
@@ -94,10 +95,13 @@ class NewRecipeServices {
     List<String> tags,
     String category,
   ) async {
-    FirebaseFirestore.instance.collection('recipe').doc().set({
-      'id': DateTime.now().toString(),
+    FirebaseFirestore.instance
+        .collection('recipe')
+        .doc("daovantoan10234@gmail.com")
+        .set({
+      'id': Uuid().v1(),
       "mainImage": mainImage,
-      "user_id": user,
+      "userId": user,
       "nameRecipe": nameRecipe,
       "galleryList": galleryList.map((e) => e.toJson()).toList(),
       "ingredientList": ingredientUpLoadList.map((e) => e.toJson()).toList(),

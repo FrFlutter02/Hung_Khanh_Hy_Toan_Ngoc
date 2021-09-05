@@ -12,7 +12,7 @@ import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
-import 'package:mobile_app/src/services/new_recipe_services.dart';
+import 'package:mobile_app/src/services/create_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/bottom_sheet_pick_image.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_additional_info.dart';
@@ -40,7 +40,7 @@ class MockUserServices extends Mock implements UserServices {
 
 class MockNavigationObserver extends Mock implements NavigatorObserver {}
 
-class MockNewRecipeServices extends Mock implements NewRecipeServices {}
+class MockNewRecipeServices extends Mock implements CreateRecipeServices {}
 
 void main() {
   late MockNewRecipeServices mockNewRecipeServices;

@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/models/ingredients_model.dart';
-import 'package:mobile_app/src/services/new_recipe_services.dart';
+import 'package:mobile_app/src/services/create_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/bottom_sheet_pick_image.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_ingredients.dart';
@@ -17,7 +17,7 @@ import '../../../cloud_firestore_mock.dart';
 
 class MockUserServices extends Mock implements UserServices {}
 
-NewRecipeServices newRecipeServices = NewRecipeServices();
+CreateRecipeServices createRecipeServices = CreateRecipeServices();
 void main() {
   late NewRecipeBloc _newRecipeBloc;
   final _widget = BlocProvider(
@@ -35,7 +35,7 @@ void main() {
   });
 
   setUp(() {
-    _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
+    _newRecipeBloc = NewRecipeBloc(newRecipeServices: createRecipeServices);
   });
 
   testWidgets(

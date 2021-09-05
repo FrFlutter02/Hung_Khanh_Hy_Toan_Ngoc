@@ -11,7 +11,7 @@ import 'package:mobile_app/src/models/category.dart';
 import 'package:mobile_app/src/models/gallery_model.dart';
 import 'package:mobile_app/src/models/how_to_cook_model.dart';
 import 'package:mobile_app/src/models/ingredients_model.dart';
-import 'package:mobile_app/src/services/new_recipe_services.dart';
+import 'package:mobile_app/src/services/create_recipe_services.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../cloud_firestore_mock.dart';
@@ -21,7 +21,7 @@ GalleryModel galleryModel = GalleryModel(id: "123", link: "linkGallery");
 IngredientUpLoadModel ingredientUpLoadModel =
     IngredientUpLoadModel(id: "123", ingredient: "ingredient", image: "image");
 
-class MockNewRecipeServices extends Mock implements NewRecipeServices {
+class MockNewRecipeServices extends Mock implements CreateRecipeServices {
   @override
   Future<void> addNewRecipeFirebase(
     String mainImage,

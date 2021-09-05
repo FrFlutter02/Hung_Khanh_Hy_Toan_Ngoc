@@ -63,7 +63,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
     MockUser user = MockUser();
-    _loginBloc.emit(LoginSuccess(user: user));
+    _loginBloc.emit(LoginSuccess());
     await tester.pump();
 
     verify(() => mockObserver.didPush(any(), any()));

@@ -2,18 +2,19 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../models/category.dart';
 import '../../utils/new_recipe_validator.dart';
 import '../../models/gallery_model.dart';
-import '../../services/new_recipe_services.dart';
+import '../../services/create_recipe_services.dart';
 import '../../models/how_to_cook_model.dart';
 import '../../models/ingredients_model.dart';
 import 'new_recipe_event.dart';
 import 'new_recipe_state.dart';
 
 class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
-  final NewRecipeServices newRecipeServices;
+  final CreateRecipeServices newRecipeServices;
   NewRecipeBloc({required this.newRecipeServices}) : super(NewRecipeInitial());
   File mainImage = File('');
   File imageIngredient = File('');
@@ -74,10 +75,9 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
 
       case NewRecipeAddIngredientSubmitted:
         event as NewRecipeAddIngredientSubmitted;
-        if (event.nameIngredient.isEmpty) return;
         try {
           final ingredient = IngredientModel(
-            id: DateTime.now().toString(),
+            id: Uuid().v4(),
             ingredient: event.nameIngredient,
             image: event.image,
           );
@@ -98,7 +98,7 @@ class NewRecipeBloc extends Bloc<NewRecipeEvent, NewRecipeState> {
         event as NewRecipeAddStepHowToCookSubmitted;
         try {
           final step = HowToCookModel(
-            id: DateTime.now().toString(),
+            id: Uuid().v4(),
             step: event.step,
             textHowToCook: event.stepText,
             duration: event.duration,

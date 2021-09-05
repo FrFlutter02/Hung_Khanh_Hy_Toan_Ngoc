@@ -70,7 +70,7 @@ main() {
     act: (LoginBloc bloc) => bloc.add(LoginRequested()),
     expect: () => [
       LoginInProgress(),
-      LoginSuccess(user: mockUser),
+      LoginSuccess(),
     ],
   );
 

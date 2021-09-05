@@ -11,7 +11,7 @@ import 'package:mobile_app/src/constants/constant_text.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
 import 'package:mobile_app/src/screens/new_recipe_screen.dart';
 import 'package:mobile_app/src/screens/signup_screen.dart';
-import 'package:mobile_app/src/services/new_recipe_services.dart';
+import 'package:mobile_app/src/services/create_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mockito/mockito.dart';
 
@@ -31,7 +31,7 @@ class MockUserServices extends Mock implements UserServices {
   }
 }
 
-NewRecipeServices newRecipeServices = NewRecipeServices();
+CreateRecipeServices createRecipeServices = CreateRecipeServices();
 void main() {
   MockUserServices mockUserServices;
   setUpAll(() async {
@@ -75,7 +75,8 @@ void main() {
     });
   });
   group('new_recipe_screen', () {
-    final _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
+    final _newRecipeBloc =
+        NewRecipeBloc(newRecipeServices: createRecipeServices);
     mockUserServices = MockUserServices();
     final _widget = MultiBlocProvider(
         providers: [

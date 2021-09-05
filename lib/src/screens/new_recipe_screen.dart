@@ -268,7 +268,6 @@ class NewRecipeScreenState extends State<NewRecipeScreen> {
           ]);
         },
         listener: (context, state) {
-          print(state);
           switch (state.runtimeType) {
             case NewRecipeAddImageMainSuccess:
               state as NewRecipeAddImageMainSuccess;

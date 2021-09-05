@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/constants/constant_text.dart';
-import 'package:mobile_app/src/services/new_recipe_services.dart';
+import 'package:mobile_app/src/services/create_recipe_services.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_additional_info.dart';
 import 'package:mocktail/mocktail.dart';
@@ -16,7 +16,7 @@ class FakeRoute extends Fake implements Route {}
 
 class MockUserServices extends Mock implements UserServices {}
 
-NewRecipeServices newRecipeServices = NewRecipeServices();
+CreateRecipeServices createRecipeServices = CreateRecipeServices();
 
 void main() {
   setUpAll(() async {
@@ -24,7 +24,7 @@ void main() {
     await Firebase.initializeApp();
   });
 
-  final _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
+  final _newRecipeBloc = NewRecipeBloc(newRecipeServices: createRecipeServices);
   final _widget = BlocProvider(
       create: (_) => _newRecipeBloc,
       child: ScreenUtilInit(

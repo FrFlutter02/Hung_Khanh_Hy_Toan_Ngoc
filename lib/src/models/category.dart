@@ -12,6 +12,12 @@ class CategoryModel extends Equatable {
     return CategoryModel(
         categoryName: json['categoryName'], totalRecipes: json['totalRecipes']);
   }
+
+  Map<String, dynamic> toJson() => {
+        'categoryName': categoryName,
+        'totalRecipes': "$totalRecipes",
+      };
+
   @override
   List<Object?> get props => [categoryName, totalRecipes];
 }

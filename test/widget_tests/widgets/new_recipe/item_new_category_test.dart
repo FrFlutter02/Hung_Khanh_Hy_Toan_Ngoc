@@ -6,12 +6,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'package:mobile_app/src/blocs/new_recipe_bloc/new_recipe_state.dart';
 import 'package:mobile_app/src/models/category.dart';
-import 'package:mobile_app/src/services/new_recipe_services.dart';
+import 'package:mobile_app/src/services/create_recipe_services.dart';
 import 'package:mobile_app/src/widgets/new_recipe/item_new_category.dart';
 
 import '../../../cloud_firestore_mock.dart';
 
-NewRecipeServices newRecipeServices = NewRecipeServices();
+CreateRecipeServices createRecipeServices = CreateRecipeServices();
 void main() {
   final _fakeCategories = [
     CategoryModel(categoryName: 'categoryName 1', totalRecipes: 1),
@@ -35,7 +35,7 @@ void main() {
   });
 
   setUp(() async {
-    _newRecipeBloc = NewRecipeBloc(newRecipeServices: newRecipeServices);
+    _newRecipeBloc = NewRecipeBloc(newRecipeServices: createRecipeServices);
   });
 
   testWidgets(

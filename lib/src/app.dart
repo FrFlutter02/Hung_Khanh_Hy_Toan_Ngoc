@@ -5,7 +5,7 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'screens/navigation_screen.dart';
-import 'services/new_recipe_services.dart';
+import 'services/create_recipe_services.dart';
 import 'blocs/new_recipe_bloc/new_recipe_bloc.dart';
 import 'screens/new_recipe_screen.dart';
 import '../src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
@@ -29,7 +29,7 @@ import 'services/user_services.dart';
 class App extends StatelessWidget {
   final userServices = UserServices();
   final searchServices = SearchServices();
-  final newRecipeServices = NewRecipeServices();
+  final createRecipeServices = CreateRecipeServices();
   @override
   Widget build(BuildContext context) {
     Size designSize = Size(375, 812);
@@ -58,7 +58,7 @@ class App extends StatelessWidget {
                 KeywordSearchBloc(searchServices: searchServices)),
         BlocProvider(
             create: (context) =>
-                NewRecipeBloc(newRecipeServices: newRecipeServices)),
+                NewRecipeBloc(newRecipeServices: createRecipeServices)),
       ],
       child: ScreenUtilInit(
         designSize: designSize,
