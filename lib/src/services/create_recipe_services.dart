@@ -95,10 +95,7 @@ class CreateRecipeServices {
     List<String> tags,
     String category,
   ) async {
-    FirebaseFirestore.instance
-        .collection('recipe')
-        .doc("daovantoan10234@gmail.com")
-        .set({
+    FirebaseFirestore.instance.collection('recipe').doc().set({
       'id': Uuid().v1(),
       "mainImage": mainImage,
       "userId": user,
