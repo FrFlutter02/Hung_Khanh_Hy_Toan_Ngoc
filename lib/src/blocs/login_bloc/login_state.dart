@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../models/user_model.dart';
 
@@ -31,4 +32,9 @@ class LoginFailure extends LoginState {
         emailErrorMessage,
         passwordErrorMessage,
       ];
+}
+
+class LoginGetUserSuccess extends LoginState {
+  final User user;
+  const LoginGetUserSuccess({required this.user});
 }

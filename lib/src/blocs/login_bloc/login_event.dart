@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../models/user_model.dart';
 
@@ -13,4 +14,9 @@ class LoginRequested extends LoginEvent {
 
   @override
   List<Object> get props => [userModel];
+}
+
+class LogInGetUserRequested extends LoginEvent {
+  @override
+  List<Object> get props => [];
 }
