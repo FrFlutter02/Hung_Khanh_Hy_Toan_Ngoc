@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:mobile_app/src/screens/user_profile_screen/my_profile_screen.dart';
+import 'package:mobile_app/src/screens/user_profile_screen/view_profile_screen.dart';
+
 import 'blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'blocs/keyword_search_bloc/keyword_search_bloc.dart';
 import 'blocs/login_bloc/login_bloc.dart';
@@ -75,6 +78,8 @@ class App extends StatelessWidget {
             "/recipeFeedScreen": (context) => RecipeFeedScreen(),
             "/searchScreen": (context) => SearchScreen(),
             "/newRecipeScreen": (context) => NewRecipeScreen(),
+            "/userProfile": (context) => MyProfileScreen(),
+            "/viewProfile": (context) => ViewProfileScreen(),
           },
         ),
       ),

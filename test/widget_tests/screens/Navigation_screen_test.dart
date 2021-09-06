@@ -8,7 +8,8 @@ import 'package:mobile_app/src/constants/constant_colors.dart';
 import 'package:mobile_app/src/screens/navigation_screen.dart';
 import 'package:mobile_app/src/screens/recipe_feed_screen.dart';
 import 'package:mobile_app/src/screens/search_screen.dart';
-import 'package:mobile_app/src/screens/user_profile_screen.dart';
+import 'package:mobile_app/src/screens/user_profile_screen/my_profile_screen.dart';
+
 import 'package:mocktail/mocktail.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
@@ -107,7 +108,7 @@ void main() {
     final List<Image> _listImage =
         tester.widgetList<Image>(_imageFinder).toList();
     final _screenFinder = find.descendant(
-        of: find.byType(Center), matching: find.byType(UserProfileScreen));
+        of: find.byType(Center), matching: find.byType(MyProfileScreen));
     expect(_screenFinder, findsOneWidget);
     expect(_listImage[0].color, AppColor.iconText);
     expect(_listImage[1].color, AppColor.iconText);

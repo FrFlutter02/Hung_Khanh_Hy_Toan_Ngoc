@@ -113,3 +113,21 @@ class SearchScreenText {
   static const String searchNoResultMessage = 'No result was found';
   static const String searchErrorMessage = 'An error has occured';
 }
+
+class UserProfileText {
+  static const String title = "My Kitchen";
+  static const String icon = "assets/images/user_profile_icon/Settings.png";
+  static const String dot = "assets/images/user_profile_icon/dot.png";
+  static const String edit = "assets/images/user_profile_icon/Edit.png";
+
+  static const String pagingIcon = "assets/images/user_profile_icon/nav2.png";
+  static const String cookIcon = "assets/images/user_profile_icon/nav3.png";
+  static const String backIcon = "assets/images/user_profile_icon/back.png";
+  static const String editIcon = "assets/images/user_profile_icon/Edit.png";
+  static const String searchIcon = "assets/images/icons/search.png";
+  static const String logo = "assets/images/logo.png";
+  static const String moreOption =
+      "assets/images/user_profile_icon/MoreOptions.png";
+  static const String iconText = "Settings";
+  static const String back = "Back";
+}

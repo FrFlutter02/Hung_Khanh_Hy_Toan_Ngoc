@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_app/src/screens/user_profile_screen/view_profile_screen.dart';
+import 'user_profile_screen/my_profile_screen.dart';
 
 import 'recipe_feed_screen.dart';
 import 'search_screen.dart';
-import 'user_profile_screen.dart';
+
 import '../../src/constants/constant_colors.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -18,7 +20,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     SearchScreen(),
     RecipeFeedScreen(),
-    UserProfileScreen()
+    MyProfileScreen(),
   ];
   void _onItemTapped(int index) {
     setState(() {
