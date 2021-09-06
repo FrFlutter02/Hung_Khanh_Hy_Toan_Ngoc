@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            Navigator.of(context).pushNamed('/homeScreen');
+            Navigator.of(context).pushNamed('/navigationScreen');
           }
         },
         builder: (context, state) {

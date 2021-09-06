@@ -1,45 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../src/widgets/logo.dart';
 import '../constants/constant_colors.dart';
 import '../constants/constant_text.dart';
-import '../utils/screen_util.dart';
 
 class OnboardingScreen extends StatelessWidget {
-  final ScreenUtil _screenUtil = ScreenUtil();
-  late bool displayOnTablet;
-  late bool isColorBackgroundTable;
-  late String fontFamilyFirstTitleTablet;
-  late double leterSpacingFirstTitle;
-  late double sizeBoxHeightTopBackgroundImage;
-  late double sizedBoxWidthBetweenTwoButton;
-  late double sizedBoxTopHeightFirstTitleTablet;
-  late double sizedBoxBotHeightFirstTitleTablet;
-  late double sizedBoxHeightBotSecondTitleTablet;
-  late double paddingHorizontalLogo;
-  late double paddingTopLogo;
-  late double paddingHorizontalFirstTitleTablet;
-  late double paddingHorizontalSecondTitleTablet;
-  late double heightSecondTitleTablet;
-  late double fontSizeFirstTitleTablet;
-  late double fontSizeSecondtTitleTablet;
-  late double fontSizeTextButton;
-  late double scaleBackground;
-  late double heightButton;
-  late double widthButton;
-  late double radiusButton;
-  late double paddingHorizontalButton;
   @override
   Widget build(BuildContext context) {
-    isDeviceTablet();
+    bool displayOnTablet;
+    bool isColorBackgroundTable = false;
+    String fontFamilyFirstTitleTablet = '';
+    double leterSpacingFirstTitle = 0;
+    double sizedBoxWidthBetweenTwoButton = 0;
+    double sizedBoxTopHeightFirstTitleTablet = 0;
+    double sizedBoxBotHeightFirstTitleTablet = 0;
+    double sizedBoxHeightBotSecondTitleTablet = 0;
+    double paddingTopLogo = 0;
+    double paddingHorizontalFirstTitleTablet = 0;
+    double paddingHorizontalSecondTitleTablet = 0;
+    double heightSecondTitleTablet = 0;
+    double fontSizeFirstTitleTablet = 0;
+    double fontSizeSecondtTitleTablet = 0;
+    double fontSizeTextButton = 0;
+    double scaleBackground = 0;
+    double heightButton = 0;
+    double widthButton = 0;
+    double radiusButton = 0;
+    double paddingHorizontalButton = 0;
+
+    if (Device.get().isTablet) {
+      isColorBackgroundTable = true;
+      displayOnTablet = true;
+      scaleBackground = 0.45;
+      radiusButton = 8;
+      fontSizeSecondtTitleTablet = 14;
+      fontSizeTextButton = 16;
+      leterSpacingFirstTitle = -0.5;
+      fontSizeFirstTitleTablet = 40;
+      widthButton = 300.w;
+      sizedBoxWidthBetweenTwoButton = 20.w;
+      paddingHorizontalButton = 135.w;
+      paddingHorizontalSecondTitleTablet = 227.w;
+      paddingHorizontalFirstTitleTablet = 134.w;
+      paddingTopLogo = 80.h;
+      sizedBoxTopHeightFirstTitleTablet = 131.h;
+      sizedBoxBotHeightFirstTitleTablet = 8.h;
+      heightSecondTitleTablet = 44.h;
+      sizedBoxHeightBotSecondTitleTablet = 34.h;
+      heightButton = 50.h;
+      fontFamilyFirstTitleTablet = 'Nunito-SemiBold';
+    } else {
+      scaleBackground = 1;
+      paddingTopLogo = 360.h;
+      displayOnTablet = false;
+      isColorBackgroundTable = false;
+      fontFamilyFirstTitleTablet = 'Nunito-Bold';
+    }
+
     return Scaffold(
       body: GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed('/loginScreen');
           },
           child: SizedBox(
-            height: _screenUtil.height(1024),
+            height: 1024.h,
             child: Stack(
               children: [
                 Container(
@@ -72,13 +98,11 @@ class OnboardingScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: _screenUtil.height(
-                                      sizedBoxTopHeightFirstTitleTablet),
-                                ),
+                                    height: sizedBoxTopHeightFirstTitleTablet),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: _screenUtil.width(
-                                          paddingHorizontalFirstTitleTablet)),
+                                      horizontal:
+                                          paddingHorizontalFirstTitleTablet),
                                   child: Text(
                                     OnboardingTabletText.firstTitle,
                                     textAlign: TextAlign.center,
@@ -90,15 +114,12 @@ class OnboardingScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: _screenUtil.height(
-                                      sizedBoxBotHeightFirstTitleTablet),
-                                ),
+                                    height: sizedBoxBotHeightFirstTitleTablet),
                                 Container(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: _screenUtil.width(
-                                          paddingHorizontalSecondTitleTablet)),
-                                  height: _screenUtil
-                                      .height(heightSecondTitleTablet),
+                                      horizontal:
+                                          paddingHorizontalSecondTitleTablet),
+                                  height: heightSecondTitleTablet,
                                   alignment: Alignment.center,
                                   child: Text(
                                     OnboardingTabletText.secondTitle
@@ -111,21 +132,18 @@ class OnboardingScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: _screenUtil.height(
-                                      sizedBoxHeightBotSecondTitleTablet),
-                                ),
+                                    height: sizedBoxHeightBotSecondTitleTablet),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: _screenUtil
-                                          .width(paddingHorizontalButton)),
+                                    horizontal: paddingHorizontalButton,
+                                  ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Expanded(
                                         child: Container(
-                                          width: _screenUtil.width(widthButton),
-                                          height:
-                                              _screenUtil.height(heightButton),
+                                          width: widthButton,
+                                          height: heightButton,
                                           child: ElevatedButton(
                                             onPressed: () {},
                                             child: Text(
@@ -146,14 +164,11 @@ class OnboardingScreen extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: _screenUtil.width(
-                                            sizedBoxWidthBetweenTwoButton),
-                                      ),
+                                          width: sizedBoxWidthBetweenTwoButton),
                                       Expanded(
                                         child: Container(
-                                          width: _screenUtil.width(widthButton),
-                                          height:
-                                              _screenUtil.height(heightButton),
+                                          width: widthButton,
+                                          height: heightButton,
                                           child: ElevatedButton(
                                             onPressed: () {},
                                             child: Text(
@@ -172,7 +187,7 @@ class OnboardingScreen extends StatelessWidget {
                                               ),
                                               elevation: 0,
                                               side: BorderSide(
-                                                  width: _screenUtil.width(2),
+                                                  width: 2.w,
                                                   color: (AppColor.green)),
                                               primary: AppColor.white,
                                             ),
@@ -192,39 +207,5 @@ class OnboardingScreen extends StatelessWidget {
             ),
           )),
     );
-  }
-
-  void isDeviceTablet() {
-    if (Device.get().isTablet) {
-      isColorBackgroundTable = true;
-      displayOnTablet = true;
-      scaleBackground = 0.45;
-      radiusButton = 8;
-      fontSizeSecondtTitleTablet = 14;
-      fontSizeTextButton = 16;
-      sizeBoxHeightTopBackgroundImage = 560;
-      leterSpacingFirstTitle = -0.5;
-      fontSizeFirstTitleTablet = 40;
-      paddingHorizontalLogo = _screenUtil.width(335);
-      widthButton = _screenUtil.width(300);
-      sizedBoxWidthBetweenTwoButton = _screenUtil.width(20);
-      paddingHorizontalButton = _screenUtil.width(135);
-      paddingHorizontalSecondTitleTablet = _screenUtil.width(227);
-      paddingHorizontalFirstTitleTablet = _screenUtil.width(134);
-      paddingTopLogo = _screenUtil.height(80);
-      sizedBoxTopHeightFirstTitleTablet = _screenUtil.height(131);
-      sizedBoxBotHeightFirstTitleTablet = _screenUtil.height(8);
-      heightSecondTitleTablet = _screenUtil.height(44);
-      sizedBoxHeightBotSecondTitleTablet = _screenUtil.height(34);
-      heightButton = _screenUtil.height(50);
-      fontFamilyFirstTitleTablet = 'Nunito-SemiBold';
-    } else {
-      scaleBackground = 1;
-      paddingHorizontalLogo = _screenUtil.width(116);
-      paddingTopLogo = _screenUtil.height(360);
-      sizeBoxHeightTopBackgroundImage = _screenUtil.height(300);
-      displayOnTablet = false;
-      isColorBackgroundTable = false;
-    }
   }
 }

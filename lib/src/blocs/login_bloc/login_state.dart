@@ -33,3 +33,8 @@ class LoginFailure extends LoginState {
         passwordErrorMessage,
       ];
 }
+
+class LoginGetUserSuccess extends LoginState {
+  final User user;
+  const LoginGetUserSuccess({required this.user});
+}

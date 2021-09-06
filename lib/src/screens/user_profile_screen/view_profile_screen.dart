@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../blocs/post_bloc/post_bloc.dart';
+import '../../blocs/post_bloc/post_state.dart';
+import '../../widgets/top_bar_tablet.dart';
 
 import '../../repository/user_data.dart';
 import '../../widgets/custom_button.dart';
-import '../../widgets/notification_user.dart';
+
 import '../../widgets/user_profile/user_information.dart';
 import '../../widgets/user_profile/main_card.dart';
 import '../../constants/constant_colors.dart';
@@ -35,6 +39,27 @@ class ViewProfileScreen extends StatelessWidget {
       userInformationWidth = 750.w;
     }
     return Scaffold(
+      appBar: isMobile
+          ? PreferredSize(
+              preferredSize: Size.fromHeight(0.h),
+              child: Container(),
+            )
+          : PreferredSize(
+              preferredSize: Size.fromHeight(90.h),
+              child:
+                  BlocBuilder<PostBloc, PostState>(builder: (context, state) {
+                if (state is PostLoadSuccess) {
+                  return TopBarTablet(
+                    avatar: state.users[0].avatar,
+                  );
+                } else {
+                  return TopBarTablet(
+                    avatar:
+                        'https://s3.amazonaws.com/hoorayapp/emp-user-profile/default.jpg',
+                  );
+                }
+              }),
+            ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -42,14 +67,8 @@ class ViewProfileScreen extends StatelessWidget {
               ? SizedBox(
                   height: 18.h,
                 )
-              : Column(
-                  children: [
-                    SizedBox(
-                      height: 24,
-                    ),
-                    NotificationUser(avatar: userData[0].avatar),
-                    SizedBox(height: 25)
-                  ],
+              : SizedBox(
+                  height: 25.h,
                 ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 25.w),
@@ -75,7 +94,7 @@ class ViewProfileScreen extends StatelessWidget {
                               Text(
                                 UserProfileText.back,
                                 style: TextStyle(
-                                    color: AppColor.grey, fontSize: 16),
+                                    color: AppColor.primaryGrey, fontSize: 16),
                               )
                             ],
                           ),
@@ -94,9 +113,13 @@ class ViewProfileScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: 25.h,
-          ),
+          isMobile
+              ? SizedBox(
+                  height: 25.h,
+                )
+              : SizedBox(
+                  height: 32.h,
+                ),
           Container(
               margin: EdgeInsets.symmetric(horizontal: 25.w),
               child: isMobile
@@ -153,8 +176,7 @@ class ViewProfileScreen extends StatelessWidget {
                       ],
                     ),
               decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: AppColor.primaryWhite)))),
+                  border: Border(bottom: BorderSide(color: AppColor.white)))),
           MainCard(
               isMyProfile: false,
               recipesNumber: userData[0].recipes,

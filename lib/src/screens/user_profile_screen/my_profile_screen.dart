@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/widgets/notification_user.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../blocs/post_bloc/post_bloc.dart';
+import '../../blocs/post_bloc/post_state.dart';
+import '../../widgets/top_bar_tablet.dart';
 
 import '../../repository/user_data.dart';
 
@@ -26,20 +31,39 @@ class MyProfileScreen extends StatelessWidget {
       userProfileWidth = 718.w;
     }
     return Scaffold(
+      backgroundColor: AppColor.white,
+      appBar: isMobile
+          ? PreferredSize(
+              preferredSize: Size.fromHeight(0.h),
+              child: Container(),
+            )
+          : PreferredSize(
+              preferredSize: Size.fromHeight(90.h),
+              child:
+                  BlocBuilder<PostBloc, PostState>(builder: (context, state) {
+                if (state is PostLoadSuccess) {
+                  return TopBarTablet(
+                    avatar: state.users[0].avatar,
+                  );
+                } else {
+                  return TopBarTablet(
+                    avatar:
+                        'https://s3.amazonaws.com/hoorayapp/emp-user-profile/default.jpg',
+                  );
+                }
+              }),
+            ),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             isMobile
                 ? SizedBox(
-                    height: 49.h,
+                    height: 24.h,
                   )
                 : SizedBox(
-                    height: 24.h,
+                    height: 0.h,
                   ),
-            isMobile
-                ? SizedBox.shrink()
-                : NotificationUser(avatar: userData[0].avatar),
             isMobile
                 ? SizedBox.shrink()
                 : SizedBox(

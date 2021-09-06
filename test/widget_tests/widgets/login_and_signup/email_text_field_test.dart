@@ -26,17 +26,25 @@ main() {
     ),
   );
 
-  testWidgets("Should render email textformfield Test",
+  testWidgets("Should render errorText in emailTextFormField",
       (WidgetTester tester) async {
     await tester.pumpWidget(widget);
     var emailTextField = find.descendant(
         of: find.byType(EmailTextField), matching: find.byType(TextField));
+
     loginBloc.emit(
         LoginFailure(emailErrorMessage: AppText.emailMustNotBeEmptyErrorText));
     await tester.pump();
     var emailError =
         (tester.widget<TextField>(emailTextField).decoration!.errorText);
+    await tester.pump();
+    loginBloc.emit(
+        LoginFailure(emailErrorMessage: AppText.emailDoesNotExistErrorText));
+    await tester.pump();
+    var emailInvalidError =
+        (tester.widget<TextField>(emailTextField).decoration!.errorText);
 
     expect(emailError, AppText.emailMustNotBeEmptyErrorText);
+    expect(emailInvalidError, AppText.emailDoesNotExistErrorText);
   });
 }

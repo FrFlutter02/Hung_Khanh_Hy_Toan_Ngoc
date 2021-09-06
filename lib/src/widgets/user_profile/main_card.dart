@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:mobile_app/src/widgets/user_profile/list_options.dart';
+import 'package:mobile_app/src/constants/constant_colors.dart';
+import 'list_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'recipe_card.dart';
 
@@ -25,6 +26,9 @@ class MainCard extends StatelessWidget {
     if (Device.get().isPhone) {
       MainCardWidth = 325.w;
       MainCardHeight = 459.h;
+      if (isMyProfile == false) {
+        MainCardHeight = 425.h;
+      }
     } else {
       MainCardWidth = 718.w;
       MainCardHeight = 610.h;
@@ -38,6 +42,9 @@ class MainCard extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
+            decoration: BoxDecoration(
+                border:
+                    Border(bottom: BorderSide(color: AppColor.primaryWhite))),
             child: ListOption(
               isMyProfile: isMyProfile,
               recipes: recipesNumber,

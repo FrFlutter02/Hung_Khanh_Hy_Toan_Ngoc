@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,8 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_bloc.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_event.dart';
 import 'package:mobile_app/src/blocs/login_bloc/login_state.dart';
-import 'package:mobile_app/src/screens/home_screen.dart';
 import 'package:mobile_app/src/screens/login_screen.dart';
+import 'package:mobile_app/src/screens/navigation_screen.dart';
 import 'package:mobile_app/src/services/user_services.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_body.dart';
 import 'package:mobile_app/src/widgets/login_and_signup/login_and_signup_header.dart';
@@ -19,6 +20,8 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
 
 class MockUserServices extends Mock implements UserServices {}
+
+class MockUser extends Mock implements User {}
 
 class MockNavigationObserver extends Mock implements NavigatorObserver {}
 
@@ -39,7 +42,7 @@ void main() {
     child: MaterialApp(
       routes: {
         "/": (context) => LoginScreen(),
-        "/homeScreen": (context) => HomeScreen(),
+        "/navigationScreen": (context) => NavigationScreen(),
       },
       navigatorObservers: [mockObserver],
     ),
@@ -59,7 +62,7 @@ void main() {
   testWidgets('Should navigate to home screen when state is [LoginSuccess]',
       (WidgetTester tester) async {
     await tester.pumpWidget(_widget);
-
+    MockUser user = MockUser();
     _loginBloc.emit(LoginSuccess());
     await tester.pump();
 
