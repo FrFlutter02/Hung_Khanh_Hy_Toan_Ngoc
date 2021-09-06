@@ -59,7 +59,7 @@ class UserServices {
     });
   }
 
-  Future<User?> getUser() async {
+  Future<User?> getCurrentUser() async {
     return firebaseAuth.currentUser!;
   }
 

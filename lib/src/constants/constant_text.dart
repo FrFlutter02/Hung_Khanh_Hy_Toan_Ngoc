@@ -73,12 +73,6 @@ class RecipeFeedText {
   static const justNow = 'Just now';
 }
 
-class SearchScreenText {
-  static const String searchHintText = 'Search Recipe, Profile, or Ingredients';
-  static const String searchNoResultMessage = 'No result was found';
-  static const String searchErrorMessage = 'An error has occured';
-}
-
 class NewRecipeText {
   static const String hintRecipeNameText = "Write Down Recipe Name";
   static const String labelGalleryText = "Gallery";
@@ -112,4 +106,10 @@ class NewRecipeText {
   static const String ingredientsMustNotBeEmptyErrorText = 'Ingredient';
   static const String howToCookMustNotBeEmptyErrorText = 'How to cook';
   static const String shouldNotBeEmptyText = 'should not be empty';
+}
+
+class SearchScreenText {
+  static const String searchHintText = 'Search Recipe, Profile, or Ingredients';
+  static const String searchNoResultMessage = 'No result was found';
+  static const String searchErrorMessage = 'An error has occured';
 }
