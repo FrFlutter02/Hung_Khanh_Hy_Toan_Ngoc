@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/custom_icon_button.dart';
+import '../widgets/icon_button_custom.dart';
 
 class CustomNotification extends StatelessWidget {
+  final bool isTablet;
+  final String avatar;
   const CustomNotification({
     Key? key,
+    this.isTablet = true,
+    this.avatar =
+        'https://s3.amazonaws.com/hoorayapp/emp-user-profile/default.jpg',
   }) : super(key: key);
 
   @override
@@ -13,21 +18,23 @@ class CustomNotification extends StatelessWidget {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        CustomIconButton(
+        IconButtonCustom(
           icons: 'assets/images/icons/notifications.png',
           onTap: () {},
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 25.h),
-          child: CustomIconButton(
+          child: IconButtonCustom(
             icons: 'assets/images/icons/messages.png',
             onTap: () {},
           ),
         ),
-        CircleAvatar(
-          radius: 18.r,
-          backgroundImage: AssetImage('assets/images/quack.jpg'),
-        ),
+        isTablet
+            ? CircleAvatar(
+                radius: 18.r,
+                backgroundImage: NetworkImage(avatar),
+              )
+            : SizedBox.shrink(),
       ],
     );
   }

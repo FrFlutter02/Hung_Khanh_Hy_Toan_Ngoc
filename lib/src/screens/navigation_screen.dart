@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'recipe_feed_screen.dart';
+import 'search_screen.dart';
+import 'user_profile_screen.dart';
 import '../../src/constants/constant_colors.dart';
-import '../../src/screens/recipe_screen.dart';
-import '../../src/screens/search_screen.dart';
-import '../../src/screens/user_profile_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[
     SearchScreen(),
-    RecipeScreen(),
+    RecipeFeedScreen(),
     UserProfileScreen()
   ];
   void _onItemTapped(int index) {
@@ -32,23 +32,23 @@ class _NavigationScreenState extends State<NavigationScreen> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: Container(
-        color: AppColor.white,
+      bottomNavigationBar: SizedBox(
         height: 90.h,
         child: BottomNavigationBar(
+          backgroundColor: AppColor.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Image(
-                  image: AssetImage('assets/images/icons/search_icon.jpg'),
+                  image: AssetImage('assets/images/icons/search_icon.png'),
                   color:
                       _selectedIndex == 0 ? AppColor.green : AppColor.iconText,
                 ),
                 label: 'Search'),
             BottomNavigationBarItem(
                 icon: Image(
-                  image: AssetImage('assets/images/icons/carosel_icon.jpg'),
+                  image: AssetImage('assets/images/icons/carosel_icon.png'),
                   color:
                       _selectedIndex == 1 ? AppColor.green : AppColor.iconText,
                 ),
@@ -56,7 +56,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             BottomNavigationBarItem(
                 icon: Image(
                   image:
-                      AssetImage('assets/images/icons/user_profile_icon.jpg'),
+                      AssetImage('assets/images/icons/user_profile_icon.png'),
                   color:
                       _selectedIndex == 2 ? AppColor.green : AppColor.iconText,
                 ),

@@ -26,7 +26,7 @@ class MockUser extends Mock implements User {
 
 class MockUserServices extends Mock implements UserServices {
   @override
-  Future<User> getUser() async {
+  Future<User> getCurrentUser() async {
     return MockUser();
   }
 }

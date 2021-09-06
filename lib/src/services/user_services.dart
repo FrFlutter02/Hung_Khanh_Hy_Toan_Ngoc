@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../constants/constant_text.dart';
 import '../../src/models/user_model.dart';
 
 class UserServices {
@@ -45,7 +46,20 @@ class UserServices {
     return userCredential;
   }
 
-  Future<User?> getUser() async {
+  Future<List<UserModel>> getUserData(String email) async {
+    return FirebaseFirestore.instance
+        .collection("user")
+        .get()
+        .then((QuerySnapshot snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList();
+      } else {
+        throw RecipeFeedText.loadingFailed;
+      }
+    });
+  }
+
+  Future<User?> getCurrentUser() async {
     return firebaseAuth.currentUser!;
   }
 

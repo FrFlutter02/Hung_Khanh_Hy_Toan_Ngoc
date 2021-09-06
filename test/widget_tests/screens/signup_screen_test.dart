@@ -41,7 +41,7 @@ void main() {
     child: MaterialApp(
       routes: {
         "/": (context) => SignupScreen(),
-        "/homeScreen": (context) => NavigationScreen(),
+        "/navigationScreen": (context) => NavigationScreen(),
       },
       navigatorObservers: [mockObserver],
     ),

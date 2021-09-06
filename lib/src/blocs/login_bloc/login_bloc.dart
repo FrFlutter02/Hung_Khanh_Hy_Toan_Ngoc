@@ -39,7 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
         break;
       case LogInGetUserRequested:
-        final User? firebaseUser = await userServices!.getUser();
+        final User? firebaseUser = await userServices!.getCurrentUser();
         if (firebaseUser != null) {
           yield LoginGetUserSuccess(user: firebaseUser);
         }

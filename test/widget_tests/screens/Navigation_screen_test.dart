@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app/src/blocs/forgot_password_bloc/forgot_password_bloc.dart';
 import 'package:mobile_app/src/constants/constant_colors.dart';
 import 'package:mobile_app/src/screens/navigation_screen.dart';
-import 'package:mobile_app/src/screens/recipe_screen.dart';
+import 'package:mobile_app/src/screens/recipe_feed_screen.dart';
 import 'package:mobile_app/src/screens/search_screen.dart';
 import 'package:mobile_app/src/screens/user_profile_screen.dart';
 import 'package:mocktail/mocktail.dart';
@@ -30,7 +30,7 @@ void main() {
   testWidgets('Should render Recipe screen first', (tester) async {
     await tester.pumpWidget(_widget);
     final _screenFinder = find.descendant(
-        of: find.byType(Center), matching: find.byType(RecipeScreen));
+        of: find.byType(Center), matching: find.byType(RecipeFeedScreen));
     print(_screenFinder);
     expect(_screenFinder, findsOneWidget);
   });
@@ -87,7 +87,7 @@ void main() {
     final List<Image> _listImage =
         tester.widgetList<Image>(_imageFinder).toList();
     final _screenFinder = find.descendant(
-        of: find.byType(Center), matching: find.byType(RecipeScreen));
+        of: find.byType(Center), matching: find.byType(RecipeFeedScreen));
     expect(_screenFinder, findsOneWidget);
     expect(_listImage[0].color, AppColor.iconText);
     expect(_listImage[1].color, AppColor.green);
