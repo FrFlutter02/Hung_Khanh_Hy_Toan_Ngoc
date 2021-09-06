@@ -83,7 +83,6 @@ class RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     Logo(),
                     CustomNotification(
                       isTablet: false,
-                      avatar: '',
                     )
                   ],
                 ),

@@ -6,9 +6,12 @@ import '../widgets/icon_button_custom.dart';
 class CustomNotification extends StatelessWidget {
   final bool isTablet;
   final String avatar;
-  const CustomNotification(
-      {Key? key, this.isTablet = true, required this.avatar})
-      : super(key: key);
+  const CustomNotification({
+    Key? key,
+    this.isTablet = true,
+    this.avatar =
+        'https://s3.amazonaws.com/hoorayapp/emp-user-profile/default.jpg',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

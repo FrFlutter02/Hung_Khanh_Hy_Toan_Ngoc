@@ -62,9 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
         height: 0.6.h,
         color: AppColor.secondaryGrey,
       );
-      _customNotificationWidget = CustomNotification(
-        avatar: '',
-      );
+      _customNotificationWidget = CustomNotification();
     }
     super.initState();
   }
