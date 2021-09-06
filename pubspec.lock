@@ -7,14 +7,22 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "23.0.0"
+=======
+    version: "25.0.0"
+>>>>>>> Stashed changes
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "2.0.0"
+=======
+    version: "2.2.0"
+>>>>>>> Stashed changes
   args:
     dependency: transitive
     description:
@@ -276,6 +284,16 @@ packages:
     source: sdk
     version: "0.0.0"
   frontend_server_client:
+<<<<<<< Updated upstream
+=======
+    dependency: transitive
+    description:
+      name: frontend_server_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.2"
+  glob:
+>>>>>>> Stashed changes
     dependency: transitive
     description:
       name: frontend_server_client
@@ -539,6 +557,16 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.0"
+<<<<<<< Updated upstream
+=======
+  textfield_tags:
+    dependency: "direct main"
+    description:
+      name: textfield_tags
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.2"
+>>>>>>> Stashed changes
   typed_data:
     dependency: transitive
     description:
