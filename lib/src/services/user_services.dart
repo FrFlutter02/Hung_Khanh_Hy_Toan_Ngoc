@@ -46,6 +46,10 @@ class UserServices {
     return userCredential;
   }
 
+  Future<User> getUser() async {
+    return firebaseAuth.currentUser!;
+  }
+
   Future<List<UserModel>> getUserData(String email) async {
     return FirebaseFirestore.instance
         .collection("user")
